@@ -8,8 +8,8 @@ sass:
 plugins:
   - jekyll-remote-theme
 
-theme: jekyll-theme-primer-spec
-# remote_theme: eecs485staff/primer-spec
+# theme: jekyll-theme-primer-spec
+remote_theme: eecs485staff/primer-spec
   
 title: Jekyll Theme Primer Spec
 description: Primer Spec is a Jekyll theme for GitHub Pages
