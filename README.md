@@ -1,6 +1,6 @@
 # The Primer Spec theme
 
-[![Build Status](https://travis-ci.com/eecs485staff/primer.svg?branch=master)](https://travis-ci.com/eecs485staff/primer)
+[![Build Status](https://travis-ci.com/eecs485staff/primer-spec.svg?branch=master)](https://travis-ci.com/eecs485staff/primer-spec)
 
 *Primer Spec is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
 
