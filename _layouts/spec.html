@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% seo %}
+        <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <!-- Custom sidebar with a table of content -->
+        <div class="primer-spec-sidebar no-print">
+            <h2 class="primer-spec-toc-ignore">Contents</h2>
+            <br>
+            <div id="primer-spec-toc"></div>
+        </div> <!-- .primer-spec-sidebar -->
+
+        <!-- Show/Hide Sidebar button -->
+        <a href="#primer-spec-top" class="primer-spec-sidebar-toggle no-print">
+            <i class="fas fa-caret-left"></i>
+        </a>
+        
+        <!-- Actual content -->
+        <div class="container-lg px-3 my-5 markdown-body primer-spec-content-with-sidebar">
+            {% if site.title and site.title != page.title %}
+            <h1 class="primer-spec-toc-ignore"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
+            {% endif %}
+
+            {{ content }}
+
+            {% if site.github.private != true and site.github.license %}
+            <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+                This site is open source. {% github_edit_link "Improve this page" %}.
+            </div>
+            {% endif %}
+        </div> <!-- .container-lg -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+        <script>anchors.add();</script>
+        {% if site.google_analytics %}
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', '{{ site.google_analytics }}', 'auto');
+            ga('send', 'pageview');
+        </script>
+        {% endif %}
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script src="assets/js/html-table-of-contents.js"></script>
+        <script>
+            function isSmallScreen() {
+                return screen.width < 900;
+            }
+
+
+            // Sidebar stuff
+            (function () {
+                // Trivia: This is an Immediately Invoked Function Expression.
+                // The code is lexically scoped, but also runs immediately.
+                // (https://developer.mozilla.org/en-US/docs/Glossary/IIFE)
+                
+                htmlTableOfContents();
+
+                // Show/hide the sidebar when appropriate buttons are clicked
+                var sidebar_is_shown = true;
+                function toggleSidebar() {
+                    if (sidebar_is_shown) {
+                        $('.primer-spec-sidebar').css('display', 'none');
+                        $('.markdown-body')
+                            .removeClass('primer-spec-content-with-sidebar')
+                            .addClass('primer-spec-content-without-sidebar');
+                        $('.primer-spec-sidebar-toggle > .fas')
+                            .removeClass('fa-caret-left')
+                            .addClass('fa-caret-right');
+                        $('.primer-spec-sidebar-toggle').css('left', '0.1em');
+                    }
+                    else {
+                        $('.primer-spec-sidebar').css('display', 'inherit');
+                        $('.markdown-body')
+                            .removeClass('primer-spec-content-without-sidebar')
+                            .addClass('primer-spec-content-with-sidebar');
+                        $('.primer-spec-sidebar-toggle > .fas')
+                            .removeClass('fa-caret-right')
+                            .addClass('fa-caret-left');
+                        $('.primer-spec-sidebar-toggle').css('left', '5em');
+                    }
+                    sidebar_is_shown = !sidebar_is_shown;
+                    return false;
+                }
+                $('.primer-spec-sidebar-toggle').on('click', toggleSidebar);
+
+
+                // If this is a mobile browser, don't display the TOC.
+                if (isSmallScreen()) {
+                    toggleSidebar();
+                }
+
+
+                // When students print the spec, the sidebar shouldn't show up.
+                // Despite trying to do this with CSS, the JS solution ends up
+                // printing with the proper margins.
+                var should_undo_toggle = false;
+                var beforePrint = function() {
+                    if (sidebar_is_shown){
+                        should_undo_toggle = true;
+                        toggleSidebar();
+                    }
+                };
+                var afterPrint = function() {
+                    if (should_undo_toggle) {
+                        should_undo_toggle = false;
+                        toggleSidebar();
+                    }
+                };
+                // Safari doesn't support onbeforeprint, etc.
+                // So this is the "official" work-around for webkit.
+                if (window.matchMedia) {
+                    var mediaQueryList = window.matchMedia('print');
+                    mediaQueryList.addListener(function(mql) {
+                        if (mql.matches) {
+                            beforePrint();
+                        } else {
+                            afterPrint();
+                        }
+                    });
+                }
+                // But most other browsers support this.
+                window.onbeforeprint = beforePrint;
+                window.onafterprint = afterPrint;
+
+
+                // Spy on where the user has scrolled and display that in the
+                // sidebar. Based on: https://codepen.io/eksch/pen/xwdOeK
+                $(window).scroll(function() {
+                    var scrollDistance = $(window).scrollTop();
+                    var threshold = $(window).height() / 2;
+                    $('h1, h2, h3, h4, h5, h6')
+                        .filter(function(i) {
+                            return !$(this).hasClass('primer-spec-toc-ignore');
+                        })
+                        .each(function(i) {
+                            // We "activate" sidebar items that are above the
+                            // upper half of the viewer's screen. Since we
+                            // activate section items from the top, the last
+                            // remaining "active" item is the lowest "active"
+                            // section.
+                            if ($(this).position().top - threshold <= scrollDistance) {
+                                $('.primer-spec-toc-item.primer-spec-toc-active').removeClass('primer-spec-toc-active');
+                                $('.primer-spec-toc-item').eq(i).addClass('primer-spec-toc-active');
+                            }
+                        });
+                }).scroll();
+            })();
+        </script>
+    </body>
+</html>

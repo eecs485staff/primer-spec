@@ -19,6 +19,7 @@ content='
 @import "primer-utilities/index.scss";
 @import "primer-layout/index.scss";
 @import "primer-markdown/index.scss";
+@import "spec/index.scss";
 @import "rouge";
 '
 echo "$content" >> _sass/jekyll-theme-primer.scss

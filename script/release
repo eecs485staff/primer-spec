@@ -14,7 +14,7 @@ bundle update
 # Build a new gem archive.
 
 rm -rf jekyll-theme-primer-*.gem
-gem build -q jekyll-theme-primer.gemspec
+gem build -q jekyll-theme-primer-spec.gemspec
 
 # Make sure we're on the master branch.
 

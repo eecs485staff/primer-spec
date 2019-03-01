@@ -1,5 +1,6 @@
 The MIT License (MIT)
 
+Copyright (c) 2018 EECS 485 Staff
 Copyright (c) 2016-2017 GitHub, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

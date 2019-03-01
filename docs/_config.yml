@@ -1,0 +1,15 @@
+exclude:
+  - node_modules
+  - script
+
+sass:
+  style: :compressed
+
+plugins:
+  - jekyll-remote-theme
+
+# theme: jekyll-theme-primer-spec
+remote_theme: seshrs/primer-spec
+  
+title: Jekyll Theme Primer Spec
+description: Primer Spec is a Jekyll theme for GitHub Pages

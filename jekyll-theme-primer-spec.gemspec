@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
-  s.name          = 'jekyll-theme-primer'
-  s.version       = '0.5.3'
-  s.authors       = ['GitHub, Inc.']
-  s.email         = ['open-source@github.com']
-  s.homepage      = 'https://github.com/pages-themes/jekyll-theme-primer'
-  s.summary       = "Primer is a Jekyll theme for GitHub Pages based on GitHub's Primer styles"
+  s.name          = 'jekyll-theme-primer-spec'
+  s.version       = '0.1.0'
+  s.authors       = ['EECS 485 Staff', 'GitHub, Inc.']
+  s.email         = ['eecs485staff@umich.edu', 'open-source@github.com']
+  s.homepage      = 'https://github.com/eecs485staff/primer-spec'
+  s.summary       = "Primer Spec is a Jekyll theme for GitHub Pages, designed for hosting project specs"
 
   s.files         = `git ls-files -z`.split("\x0").select do |f|
     f.match(%r{^(assets|_(includes|layouts|sass)/|(LICENSE|README)((\.(txt|md)|$)))}i)
