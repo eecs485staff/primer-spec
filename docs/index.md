@@ -92,11 +92,11 @@ end
   - level 2 item
 - level 1 item
 
-### An image
+### Large image
 
 ![Inflatocat](https://octodex.github.com/images/inflatocat.png)
 
-### Large image
+### Smaller image
 
 ![Branching](https://guides.github.com/activities/hello-world/branching.png)
 
