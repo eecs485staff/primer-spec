@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.authors       = ['EECS 485 Staff', 'GitHub, Inc.']
   s.email         = ['eecs485staff@umich.edu', 'open-source@github.com']
   s.homepage      = 'https://github.com/eecs485staff/primer-spec'
-  s.summary       = "Primer Spec is a Jekyll theme for GitHub Pages, designed for hosting project specs"
+  s.summary       = 'Primer Spec is a Jekyll theme for GitHub Pages, designed for hosting project specs'
 
   s.files         = `git ls-files -z`.split("\x0").select do |f|
     f.match(%r{^(assets|_(includes|layouts|sass)/|(LICENSE|README)((\.(txt|md)|$)))}i)
