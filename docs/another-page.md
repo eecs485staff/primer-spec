@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: spec
 ---
 
 ## Welcome to another page

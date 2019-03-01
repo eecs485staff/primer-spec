@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: spec
 ---
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
@@ -92,9 +92,9 @@ end
   - level 2 item
 - level 1 item
 
-### Small image
+### An image
 
-![Octocat](https://assets-cdn.github.com/images/icons/emoji/octocat.png)
+![Inflatocat](https://octodex.github.com/images/inflatocat.png)
 
 ### Large image
 
