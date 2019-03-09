@@ -67,7 +67,7 @@ If you'd like to preview your site on your computer do the following.
 
 ### Local Setup Part 2: Install the dependencies
 
-2. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first. You must also install bundler.
+1. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first. You must also install bundler.
 
     ```console
     $ ruby --version
@@ -75,7 +75,7 @@ If you'd like to preview your site on your computer do the following.
     $ gem install bundler
     ```
 
-3. Install the dependencies.
+2. Install the dependencies.
 
     ```console
     $ pwd
@@ -83,7 +83,7 @@ If you'd like to preview your site on your computer do the following.
     $ bundle install
     ```
 
-4. Run the Jekyll server to build the site and watch for changes. By default, the site is served at http://127.0.0.1:4000.
+3. Run the Jekyll server to build the site and watch for changes. By default, the site is served at http://127.0.0.1:4000.
 
     ```console
     $ pwd
@@ -134,11 +134,33 @@ If you'd like to change the theme's HTML layout:
 
 ## Contributing
 
-Interested in contributing to Primer? We'd love your help. Primer is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for instructions on how to contribute.
+Interested in contributing to Primer? We'd love your help. Primer is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for further instructions on how to contribute.
 
-### Bootstrapping your local development environment
+### Typical workflow
 
-Run `script/bootstrap`.
+1. [Fork the repository.](https://github.com/user_name_here/repo_name_here/fork)
+2. Clone your repository to a local directory.
+3. Create a new branch with an appropriate name. (`git checkout -b feature/my-feature`)
+4. [Bootstrap your local environment.](#bootstrap-your-local-environment)
+5. Make some changes and create commits.
+6. Push your branch to GitHub. (`git push -u origin feature/my-feature`)
+7. Open a pull request from your branch to the EECS 485 repository. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:master...pages-themes:master)
+
+### Bootstrap your local environment
+
+1. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first.
+
+2. Run `script/bootstrap`.
+
+    ```console
+    $ ruby --version
+    ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
+    $ pwd
+    /seshrs/primer-spec
+    $ ./script/bootstrap
+    ```
+
+3. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
 ### Running tests
 
