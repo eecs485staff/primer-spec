@@ -26,8 +26,21 @@ To use the Primer Spec theme:
 
     ```yml
     ---
-    layout: spec
+    layout: spec # Change to `default` if you prefer not to show the sidebar.
     ---
+    ```
+
+5. (Optional) To prevent a heading from appearing in the sidebar, add `{: .primer-spec-toc-ignore }` under the heading. For instance:
+
+    ```markdown
+    ### This heading appears in the sidebar
+    
+    Spam spam spam.
+
+    ### This heading does NOT appear in the sidebar.
+    {: .primer-spec-toc-ignore }
+
+    Spam spam spam.
     ```
 
 
@@ -138,7 +151,7 @@ Interested in contributing to Primer? We'd love your help. Primer is an open sou
 
 ### Typical workflow
 
-1. [Fork the repository.](https://github.com/user_name_here/repo_name_here/fork)
+1. [Fork the repository.](https://github.com/eecs485staff/primer-spec/fork)
 2. Clone your repository to a local directory.
 3. Create a new branch with an appropriate name. (`git checkout -b feature/my-feature`)
 4. [Bootstrap your local environment.](#bootstrap-your-local-environment)

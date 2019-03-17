@@ -58,6 +58,15 @@ end
 | ok           | good `oreos`      | hmm   |
 | ok           | good `zoute` drop | yumm  |
 
+### This heading appears in the sidebar
+
+Spam spam spam.
+
+### This heading does NOT appear in the sidebar.
+{: .primer-spec-toc-ignore }
+
+(Add `{: .primer-spec-toc-ignore }` underneath the heading to prevent it from appearing in the sidebar.) Spam spam spam.
+
 ### There's a horizontal rule below this.
 
 * * *
