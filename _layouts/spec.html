@@ -12,7 +12,7 @@
     <body>
         <div id="primer-spec-top"></div>
         <!-- Custom sidebar with a table of content -->
-        <div class="primer-spec-sidebar no-print">
+        <div class="primer-spec-sidebar position-fixed top-0 py-5 no-print">
             <h2 class="primer-spec-toc-ignore">Contents</h2>
             <br>
             <div id="primer-spec-toc"></div>
@@ -24,7 +24,7 @@
         </a>
         
         <!-- Actual content -->
-        <div class="container-lg px-3 my-5 markdown-body primer-spec-content-with-sidebar">
+        <div class="container-lg px-3 my-5 markdown-body primer-spec-content-margin-extra">
             {% if site.title and site.title != page.title %}
             <h1 class="primer-spec-toc-ignore"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
             {% endif %}
@@ -57,7 +57,11 @@
         <script src="assets/js/html-table-of-contents.js"></script>
         <script>
             function isSmallScreen() {
-                return screen.width < 900;
+                var _width = Math.max(
+                    document.documentElement.clientWidth,
+                    window.innerWidth || 0
+                );
+                return _width < 900;
             }
 
 
@@ -75,8 +79,8 @@
                     if (sidebar_is_shown) {
                         $('.primer-spec-sidebar').css('display', 'none');
                         $('.markdown-body')
-                            .removeClass('primer-spec-content-with-sidebar')
-                            .addClass('primer-spec-content-without-sidebar');
+                            .removeClass('primer-spec-content-margin-extra')
+                            .addClass('primer-spec-content-margin-auto');
                         $('.primer-spec-sidebar-toggle > .fas')
                             .removeClass('fa-caret-left')
                             .addClass('fa-caret-right');
@@ -84,9 +88,20 @@
                     }
                     else {
                         $('.primer-spec-sidebar').css('display', 'inherit');
-                        $('.markdown-body')
-                            .removeClass('primer-spec-content-without-sidebar')
-                            .addClass('primer-spec-content-with-sidebar');
+                        if (!isSmallScreen()) {
+                            // On small screens, changing the margin causes the
+                            // content wrapping to change. 
+                            // Fow example, when a user clicks a link to a
+                            // section in the sidebar on mobile and then
+                            // collapses the sidebar, the content would shift
+                            // and the user would not know where they are on the
+                            // page.
+                            // To avoid this, we do not change the margin of the
+                            // content on small screens.
+                            $('.markdown-body')
+                                .removeClass('primer-spec-content-margin-auto')
+                                .addClass('primer-spec-content-margin-extra');
+                        }
                         $('.primer-spec-sidebar-toggle > .fas')
                             .removeClass('fa-caret-right')
                             .addClass('fa-caret-left');
