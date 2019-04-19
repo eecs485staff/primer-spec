@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 {% seo %}
-        <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+        <link rel="stylesheet" href="{{ "/assets/css/theme_default.css?v=" | append: site.github.build_revision | relative_url }}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </head>
     <body>
@@ -19,8 +19,8 @@
         </div> <!-- .primer-spec-sidebar -->
 
         <!-- Show/Hide Sidebar button -->
-        <a href="#primer-spec-top" class="primer-spec-sidebar-toggle no-print">
-            <i class="fas fa-caret-left"></i>
+        <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-sidebar-toggle-fixed-to-page no-print">
+            <i class="fas fa-bars"></i>
         </a>
         
         <!-- Actual content -->
@@ -81,10 +81,6 @@
                         $('.markdown-body')
                             .removeClass('primer-spec-content-margin-extra')
                             .addClass('primer-spec-content-margin-auto');
-                        $('.primer-spec-sidebar-toggle > .fas')
-                            .removeClass('fa-caret-left')
-                            .addClass('fa-caret-right');
-                        $('.primer-spec-sidebar-toggle').css('left', '0.1em');
                     }
                     else {
                         $('.primer-spec-sidebar').css('display', 'inherit');
@@ -102,10 +98,6 @@
                                 .removeClass('primer-spec-content-margin-auto')
                                 .addClass('primer-spec-content-margin-extra');
                         }
-                        $('.primer-spec-sidebar-toggle > .fas')
-                            .removeClass('fa-caret-right')
-                            .addClass('fa-caret-left');
-                        $('.primer-spec-sidebar-toggle').css('left', '5em');
                     }
                     sidebar_is_shown = !sidebar_is_shown;
                     return false;

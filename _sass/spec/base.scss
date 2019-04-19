@@ -5,9 +5,12 @@
     }
 }
 
+$SIDEBAR_WIDTH: 18em;
+$SIDEBAR_CONTENT_MARGIN: 0.5em;
+
 .primer-spec-sidebar {
-    width: 15em;
-    margin-left: 1em;
+    width: $SIDEBAR_WIDTH;
+    padding-left: 1em;
     height: 100%;
     overflow: scroll;
     border-right: 1px solid lightgrey;
@@ -18,13 +21,16 @@
 }
 
 .primer-spec-sidebar-toggle {
-    font-size: 3em;
-    position: fixed;
-    left: 5em;
-    top: 0.5em;
+    &-fixed-to-page {
+        position: fixed;
+        top: 0.5em;
+        right: 1em;
+        font-size: 2em;
+    }
 
-    :hover {
+    &:hover {
         color: rgb(211, 85, 2);
+        text-decoration: none;
     }
 }
 
@@ -34,7 +40,7 @@
         // does not overlap with the sidebar.
         // This is not done on small screens, because the sidebar overlays
         // on top of the content.
-        margin-left: 15.5em;
+        margin-left: $SIDEBAR_WIDTH + $SIDEBAR_CONTENT_MARGIN;
     }
     &-auto {
         // When the sidebar is not shown, this ensures that the body of the
@@ -48,31 +54,31 @@
         margin-left: auto;
         margin-top: 0.7em;
         font-weight: bold;
-        font-size: 1em;
+        font-size: 1.2em;
     }
     &-h2 {
         margin-left: 12px;
         margin-top: 0.5em;
         font-weight: bold;
-        font-size: 1em;
+        font-size: 1.2em;
     }
     &-h3 {
         margin-left: 24px;
         margin-top: 0.3em;
-        font-size: 0.9em;
+        font-size: 1em;
     }
     &-h4 {
         margin-left: 36px;
         font-style: italic;
-        font-size: 0.8em;
+        font-size: 0.9em;
     }
     &-h5 {
         margin-left: 48px;
-        font-size: 0.7em;
+        font-size: 0.8em;
     }
     &-h6 {
         margin-left: 56px;
-        font-size: 0.6em;
+        font-size: 0.7em;
     }
     &-active {
         background-color: yellow;
