@@ -6,16 +6,15 @@
 }
 
 .primer-spec-sidebar {
-    position: fixed; 
-    top: 0px;
     width: 15em;
     margin-left: 1em;
     height: 100%;
-
-    padding-top: 2em;
-    padding-bottom: 2em;
     overflow: scroll;
     border-right: 1px solid lightgrey;
+
+    // Need to set a background color because the sidebar overlays on top of
+    // the content. (By default, the element has a transparent background.
+    background-color: white;
 }
 
 .primer-spec-sidebar-toggle {
@@ -29,15 +28,17 @@
     }
 }
 
-.primer-spec-content {
-    &-with-sidebar {
+.primer-spec-content-margin {
+    &-extra {
         // When the sidebar is shown, this ensures that the body of the page
         // does not overlap with the sidebar.
+        // This is not done on small screens, because the sidebar overlays
+        // on top of the content.
         margin-left: 15.5em;
     }
-    &-without-sidebar {
-        // When the sidebar is shown, this ensures that the body of the page
-        // stays centered like the default theme.
+    &-auto {
+        // When the sidebar is not shown, this ensures that the body of the
+        // page stays centered like the default theme.
         margin-left: auto;
     }
 }
