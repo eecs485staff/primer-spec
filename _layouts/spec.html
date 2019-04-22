@@ -236,7 +236,17 @@
                         'bella': "{{ "/assets/css/theme_bella.css?v=" | append: site.github.build_revision | relative_url }}"
                     };
                 }
+                var current_subtheme = 'default';
                 var subthemes = _available_subthemes()
+
+                function updateTheme(subtheme_name) {
+                    if (subtheme_name in subthemes) {
+                        current_subtheme = subtheme_name;
+                        $NODES.subtheme_selector_dropdown.val(subtheme_name);
+                        $NODES.subtheme_stylesheet.prop('href', subthemes[subtheme_name]);
+                        updateStorage(subtheme_name);
+                    }
+                }
 
                 Object.keys(subthemes).forEach(function (subtheme_name) {
                     $NODES.subtheme_selector_dropdown.append(
@@ -246,9 +256,13 @@
                     )
                 });
 
+                // The very first time, set the theme to default to ensure the
+                // settings option has the correct initial value.
+                updateTheme(current_subtheme);
+
                 $NODES.subtheme_selector_dropdown.on('change', function () {
                     var chosen_subtheme = $NODES.subtheme_selector_dropdown.val();
-                    $NODES.subtheme_stylesheet.prop('href', subthemes[chosen_subtheme]);
+                    updateTheme(chosen_subtheme);
                 });
 
 
@@ -264,6 +278,52 @@
                 }
                 $NODES.subtheme_settings_toggle_buttons
                   .on('click', toggleSettings);
+
+                
+
+                /**
+                 * SUBTHEME SETTINGS: Retrieve stored values if applicable
+                 */
+
+                function storageAvailable(type) {
+                    var storage;
+                    try {
+                        storage = window[type];
+                        var x = '__storage_test__';
+                        storage.setItem(x, x);
+                        storage.removeItem(x);
+                        return true;
+                    }
+                    catch(e) {
+                        return e instanceof DOMException && (
+                            // everything except Firefox
+                            e.code === 22 ||
+                            // Firefox
+                            e.code === 1014 ||
+                            // test name field too, because code might not be present
+                            // everything except Firefox
+                            e.name === 'QuotaExceededError' ||
+                            // Firefox
+                            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+                            // acknowledge QuotaExceededError only if there's something already stored
+                            (storage && storage.length !== 0);
+                    }
+                }
+
+                var storage_subtheme_key = 'PRIMER_SPEC_SUBTHEME';
+                if (storageAvailable('localStorage')) {
+                    // Retrieve the old value if applicable
+                    var stored_subtheme = window.localStorage.getItem(storage_subtheme_key);
+                    if (stored_subtheme) {
+                        updateTheme(stored_subtheme);
+                    }
+                }
+
+                function updateStorage(subtheme_name) {
+                    if (storageAvailable('localStorage')) {
+                        window.localStorage.setItem(storage_subtheme_key, subtheme_name);
+                    }
+                }
             })();
         </script>
         <!-- END CUSTOM SPEC CODE -->
