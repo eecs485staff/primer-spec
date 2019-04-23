@@ -13,7 +13,7 @@ $HEADING_COLOR: rgb(58, 58, 58);
 // Attribute selector for all primer-spec-toc-* classes
 div[class^="primer-spec-toc-"] {
     padding-left: 0.5em;
-    margin-left: auto;
+    margin-left: 0em;
     :link, :visited {
         color: $HEADING_COLOR;
     }
@@ -23,6 +23,12 @@ div[class^="primer-spec-toc-"] {
     &-h1 {
         :link, :visited {
             color: $PRIMARY_COLOR !important;
+        }
+
+        // Only show the section border for H1 sections
+        &+.primer-spec-toc-section {
+            margin-left: 1em;
+            border-left: 0.15em solid $PRIMARY_COLOR;
         }
     }
     &-h2 {
@@ -36,9 +42,6 @@ div[class^="primer-spec-toc-"] {
         :link, :visited {
             color: white !important;
         }
-    }
-    &-section {
-        border-left: 0.15em solid $PRIMARY_COLOR;
     }
 }
 

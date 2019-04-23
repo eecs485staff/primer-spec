@@ -19,18 +19,25 @@
         <div class="primer-spec-sidebar position-fixed top-0 py-5 no-print">
             <h2 class="primer-spec-toc-ignore">
                 Contents
-                <a href="#primer-spec-top" class="primer-spec-settings-toggle primer-spec-hoverable">
-                    <i class="fas fa-cog"></i>
+                <!-- Show/Hide Sidebar button -->
+                <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-hoverable sidebar-shown no-print">
+                    <i class="fas fa-bars"></i>
                 </a>
             </h2>
             <br>
             <div id="primer-spec-toc"></div>
         </div> <!-- .primer-spec-sidebar -->
 
-        <!-- Show/Hide Sidebar button -->
-        <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-hoverable primer-spec-hoverable-fixed-to-page no-print">
-            <i class="fas fa-bars"></i>
-        </a>
+        <div class="primer-spec-topbar position-fixed width-full top-0 left-0 py-2 no-print">
+            <!-- Show/Hide Sidebar button -->
+            <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-sidebar-toggle-fixed primer-spec-hoverable primer-spec-float-left sidebar-shown no-print">
+                <i class="fas fa-bars"></i>
+            </a>
+            <!-- Show Settings button -->
+            <a href="#primer-spec-top" class="primer-spec-settings-toggle primer-spec-hoverable primer-spec-float-right no-print">
+                <i class="fas fa-cog"></i>
+            </a>
+        </div>
 
         <!--
             Settings modal. Treat it exactly like the actual content, but its
@@ -38,13 +45,17 @@
             It should be displayed when the "settings" icon is clicked.
         -->
         <div class="primer-spec-settings container-lg markdown-body primer-spec-content-margin-extra px-3 py-5 position-fixed top-0 left-0" hidden>
+            <div class="primer-spec-topbar position-fixed width-full top-0 left-0 py-2 no-print">
+                <!-- Hide Settings buttong -->
+                <a href="#primer-spec-top" class="primer-spec-settings-toggle primer-spec-hoverable primer-spec-float-right no-print">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
             <h1 class="primer-spec-toc-ignore">Spec Theme Settings</h1>
             <p>Choose your theme!</p>
             <select class="primer-spec-subtheme-selector">
             </select>
-            <a href="#primer-spec-top" class="primer-spec-settings-toggle primer-spec-hoverable primer-spec-hoverable-fixed-to-page">
-                <i class="fas fa-times"></i>
-            </a>
+            
         </div>
 
         <!-- END CUSTOM SPEC CODE -->
@@ -105,6 +116,7 @@
                     sidebar: $('.primer-spec-sidebar'),
                     main_content: $('.markdown-body'),
                     sidebar_toggle_buttons: $('.primer-spec-sidebar-toggle'),
+                    topbar: $('.primer-spec-topbar'),
                     headings: $('h1, h2, h3, h4, h5, h6'),
 
                     subtheme_selector_dropdown: $('select.primer-spec-subtheme-selector'),
@@ -130,12 +142,14 @@
                 function toggleSidebar() {
                     if (sidebar_is_shown) {
                         $NODES.sidebar.css('display', 'none');
+                        $NODES.sidebar_toggle_buttons.removeClass('sidebar-shown');
                         $NODES.main_content
                             .removeClass('primer-spec-content-margin-extra')
                             .addClass('primer-spec-content-margin-auto');
                     }
                     else {
                         $NODES.sidebar.css('display', 'inherit');
+                        $NODES.sidebar_toggle_buttons.addClass('sidebar-shown');
                         if (!isSmallScreen()) {
                             // On small screens, changing the margin causes the
                             // content wrapping to change.
@@ -156,9 +170,14 @@
                 }
                 $NODES.sidebar_toggle_buttons.on('click', toggleSidebar);
 
-                // If this is a mobile browser, don't display the TOC.
                 if (isSmallScreen()) {
+                    // If this is a mobile browser, don't display the TOC.
                     toggleSidebar();
+                    // Also push the main content to make room for the topbar.
+                    $NODES.main_content.addClass('primer-spec-content-mobile');
+                    // Finally, add a background color to the topbar to make it
+                    // opaque.
+                    $NODES.topbar.addClass('primer-spec-topbar-mobile');
                 }
 
 

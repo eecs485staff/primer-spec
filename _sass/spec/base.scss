@@ -1,3 +1,13 @@
+$SIDEBAR_WIDTH: 18em;
+$SIDEBAR_CONTENT_MARGIN: 0.5em;
+$SIDEBAR_BG_COLOR: white;
+$SIDEBAR_RIGHT_BORDER_STYLE: 1px solid lightgrey;
+$SIDEBAR_ACTIVE_ITEM_COLOR: yellow;
+
+$ICON_FONT_SIZE: 2em;
+$ICON_HOVER_COLOR: rgb(211, 85, 2);
+$TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
+
 // For students printing out the spec, don't print the sidebar arrow.
 @media print {    
     .no-print, .no-print * {
@@ -5,47 +15,73 @@
     }
 }
 
-$SIDEBAR_WIDTH: 18em;
-$SIDEBAR_CONTENT_MARGIN: 0.5em;
-
 .primer-spec-sidebar {
     width: $SIDEBAR_WIDTH;
     padding-left: 1em;
     height: 100%;
     overflow: scroll;
-    border-right: 1px solid lightgrey;
+    border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
+
+    // To make the sidebar appear on top of the topbar on mobile:
+    z-index: 1;
 
     // Need to set a background color because the sidebar overlays on top of
     // the content. (By default, the element has a transparent background.
-    background-color: white;
+    background-color: $SIDEBAR_BG_COLOR;
+
+    &-toggle-fixed {
+        font-size: $ICON_FONT_SIZE;
+        &.sidebar-shown {
+            display: none;
+        }
+    }
+}
+
+.primer-spec-settings-toggle {
+    font-size: $ICON_FONT_SIZE;
+}
+
+.primer-spec-topbar {
+    height: $TOPBAR_HEIGHT;
+    &-mobile {
+        background-color: white;
+    }
+}
+
+.primer-spec-float {
+    &-left {
+        position: absolute;
+        left: 1em;
+    }
+    &-right {
+        position: absolute;
+        right: 1em;
+    }
 }
 
 .primer-spec-hoverable {
     &:hover {
-        color: rgb(211, 85, 2);
+        color: $ICON_HOVER_COLOR;
         text-decoration: none;
-    }
-
-    &-fixed-to-page {
-        position: fixed;
-        top: 0.5em;
-        right: 1em;
-        font-size: 2em;
     }
 }
 
-.primer-spec-content-margin {
-    &-extra {
+.primer-spec-content {
+    &-margin-extra {
         // When the sidebar is shown, this ensures that the body of the page
         // does not overlap with the sidebar.
         // This is not done on small screens, because the sidebar overlays
         // on top of the content.
         margin-left: $SIDEBAR_WIDTH + $SIDEBAR_CONTENT_MARGIN;
     }
-    &-auto {
+    &-margin-auto {
         // When the sidebar is not shown, this ensures that the body of the
         // page stays centered like the default theme.
         margin-left: auto;
+    }
+    &-mobile {
+        // On mobile, make space for the topbar.
+        padding-top: $ICON_FONT_SIZE;
     }
 }
 
@@ -81,7 +117,7 @@ $SIDEBAR_CONTENT_MARGIN: 0.5em;
         font-size: 0.7em;
     }
     &-active {
-        background-color: yellow;
+        background-color: $SIDEBAR_ACTIVE_ITEM_COLOR;
     }
 }
 
