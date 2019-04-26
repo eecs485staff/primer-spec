@@ -6,6 +6,20 @@
 
 Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting Project specifications for EECS courses at the University of Michigan.
 
+## Contents
+- [Integrating with GitHub Pages](#integrating-with-github-pages)
+- [Previewing locally](#previewing-locally)
+  - [Part 1: Create the dependency files](#local-setup-part-1-create-the-dependency-files)
+  - [Part 2: Install the dependencies](#local-setup-part-2-install-the-dependencies)
+- [Customization](#customization)
+- [Contributing](#contributing)
+  - [Typical workflow](#typical-workflow)
+  - [Bootstrap your local environment](#bootstrap-your-local-environment)
+  - [Run tests](#run-tests)
+  - [Modifications from Primer](#modifications-from-primer)
+  - [Adding new subthemes](#adding-new-subthemes)
+- [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+
 ## Integrating with GitHub Pages
 
 To use the Primer Spec theme:
@@ -175,7 +189,7 @@ Interested in contributing to Primer? We'd love your help. Primer is an open sou
 
 3. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
-### Running tests
+### Run tests
 
 The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` one before the test script will work.
 
@@ -183,13 +197,23 @@ The theme contains a minimal test suite, to ensure a site with the theme would b
 
 Here are key changes made to the original Primer theme to add a sidebar:
 
-- Created `_layouts/spec.html`. This file is used to render MarkDown files with `layout: spec` at the top. The file is similar to `_layouts/default.html`, but adds the sidebar and references the JavaScript needed to render the table of contents.
+- Created `_layouts/spec.html`. This file is used to render MarkDown files with `layout: spec` at the top. The file is similar to `_layouts/default.html`, but adds the sidebar and references the JavaScript needed to render the table of contents. HTML comments in `spec.html` indicate sections of the layout that have been modified from `default.html`.
 
-- Created `_sass/spec/` with the SCSS files needed to display the sidebar. Also modified `_sass/jekyll-theme-primer.scss` to include these files.
+- Created `_sass/spec/` with the SCSS files needed to display the sidebar. Also created stylesheets in `assets/css` to include these files.
 
-- Created `assets/js/` with the necessary files to generate a table of contents.
+- Created `assets/js/` with the necessary scripts to generate a table of contents.
 
-### Keeping this theme up-to-date with Primer
+### Adding new subthemes
+
+Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The stylesheets for these subthemes are defined in `_sass/spec`, and are typically named as `<name>.theme.scss`.
+
+To create a new subtheme:
+- Create the file `_sass/spec/<name>.theme.scss`. Take inspiration from the structure of other subtheme stylesheets.
+- Create the file `assets/css/theme_<name>.scss`. Follow the structure of other stylesheets in the same directory to import the theme stylesheet from the `_sass/spec` directory.
+- Modify the list of subthemes in `_layouts/spec.html`. The list is defined in the `_available_subthemes` function inside the custom scripts on the page.
+- Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
+
+## Keeping this theme up-to-date with Primer
 
 It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer).
 
