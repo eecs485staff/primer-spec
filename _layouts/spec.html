@@ -180,11 +180,6 @@
                 if (isSmallScreen()) {
                     // If this is a mobile browser, don't display the TOC.
                     toggleSidebar();
-                    // Also push the main content to make room for the topbar.
-                    $NODES.main_content.addClass('primer-spec-content-mobile');
-                    // Finally, add a background color to the topbar to make it
-                    // opaque.
-                    $NODES.topbar.addClass('primer-spec-topbar-mobile');
                 }
 
 
@@ -226,13 +221,45 @@
 
 
                 /**
+                 * TOPBAR & Internal Links: Display on mobile, change offset
+                 * when clicking sidebar links.
+                 */
+                
+                // This variable sets the extra offset needed when an internal
+                // link is clicked. (This is because on mobile, the topbar is
+                // opaque, so clicking a link has to make the section appear
+                // underneath the topbar.)
+                var internal_link_offset = 0;
+                if (isSmallScreen()) {
+                    // Push the main content to make room for the topbar.
+                    $NODES.main_content.addClass('primer-spec-content-mobile');
+                    // Add a background color to the topbar to make it
+                    // opaque.
+                    $NODES.topbar.addClass('primer-spec-topbar-mobile');
+                    // Get the topbar's height *including padding*.
+                    internal_link_offset = $NODES.topbar.outerHeight();
+                }
+
+                // When an internal link in the sidebar is clicked,
+                // execute custom code.
+                $('.primer-spec-toc-item > a').on('click', function() {
+                    var $scroll_target = $($(this).attr('href'));
+                    var scroll_position = $scroll_target.offset().top
+                                            - internal_link_offset;
+                    // Scroll to the scroll_position.
+                    $(window).scrollTop(scroll_position);
+                    return false;
+                });
+
+
+                /**
                  * SIDEBAR: Display section location
                  */
 
                 // Spy on where the user has scrolled and display that in the
                 // sidebar. Based on: https://codepen.io/eksch/pen/xwdOeK
                 $(window).scroll(function() {
-                    var scrollDistance = $(window).scrollTop();
+                    var scroll_distance = $(window).scrollTop();
                     var threshold = $(window).height() / 2;
                     $NODES.headings
                         .filter(function(i) {
@@ -244,7 +271,7 @@
                             // activate section items from the top, the last
                             // remaining "active" item is the lowest "active"
                             // section.
-                            if ($(this).position().top - threshold <= scrollDistance) {
+                            if ($(this).position().top - threshold <= scroll_distance) {
                                 $('.primer-spec-toc-item.primer-spec-toc-active').removeClass('primer-spec-toc-active');
                                 $('.primer-spec-toc-item').eq(i).addClass('primer-spec-toc-active');
                             }
@@ -296,10 +323,10 @@
                  * SUBTHEME SETTINGS
                  */
 
-                var settingsShown = false;
+                var settings_shown = false;
                 function toggleSettings() {
-                    $NODES.subtheme_settings_pane.attr('hidden', settingsShown);
-                    settingsShown = !settingsShown;
+                    $NODES.subtheme_settings_pane.attr('hidden', settings_shown);
+                    settings_shown = !settings_shown;
                     return false;
                 }
                 $NODES.subtheme_settings_toggle_buttons
