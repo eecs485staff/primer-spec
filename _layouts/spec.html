@@ -211,6 +211,15 @@
                                             - internal_link_offset;
                     // Scroll to the scroll_position.
                     $(window).scrollTop(scroll_position);
+                    
+                    // If the settings pane is open, close it.
+                    if (settings_is_shown) {
+                        toggleSettings();
+                    }
+                    // On mobile, close the sidebar and settings.
+                    if (isSmallScreen()) {
+                        toggleSidebar();
+                    }
                     return false;
                 });
 
@@ -223,7 +232,7 @@
                 // sidebar. Based on: https://codepen.io/eksch/pen/xwdOeK
                 $(window).scroll(function() {
                     var scroll_distance = $(window).scrollTop();
-                    var threshold = $(window).height() / 2;
+                    var threshold = internal_link_offset;
                     $NODES.headings
                         .filter(function(i) {
                             return !$(this).hasClass('primer-spec-toc-ignore');
