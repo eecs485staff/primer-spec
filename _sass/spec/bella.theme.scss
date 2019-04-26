@@ -3,11 +3,12 @@
 @import "base.scss";
 
 $PRIMARY_COLOR: rgb(69, 98, 115);
+$SECONDARY_COLOR: rgb(246, 246, 246);
 $LINK_COLOR: rgb(219, 71, 93);
 $HEADING_COLOR: rgb(58, 58, 58);
 
 .primer-spec-sidebar {
-    background-color: rgb(246, 246, 246);
+    background-color: $SECONDARY_COLOR;
 }
 
 // Attribute selector for all primer-spec-toc-* classes

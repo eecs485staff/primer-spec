@@ -8,7 +8,7 @@ $ICON_FONT_SIZE: 2em;
 $ICON_HOVER_COLOR: rgb(211, 85, 2);
 $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 
-// For students printing out the spec, don't print the sidebar arrow.
+// For students printing out the spec, don't print the sidebar and icons.
 @media print {    
     .no-print, .no-print * {
         display: none !important;
@@ -22,11 +22,11 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
     overflow: scroll;
     border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
 
-    // To make the sidebar appear on top of the topbar on mobile:
+    // To make the sidebar appear on top of the topbar on mobile
     z-index: 1;
 
     // Need to set a background color because the sidebar overlays on top of
-    // the content. (By default, the element has a transparent background.
+    // the content. (By default, the element has a transparent background.)
     background-color: $SIDEBAR_BG_COLOR;
 
     &-toggle-fixed {
@@ -44,6 +44,8 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 .primer-spec-topbar {
     height: $TOPBAR_HEIGHT;
     &-mobile {
+        // On mobile, the background prevents the icons from interfering
+        // with the text. Use with .primer-spec-content-mobile.
         background-color: white;
     }
 }
