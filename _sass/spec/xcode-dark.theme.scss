@@ -1,0 +1,77 @@
+// Experimental theme designed by Bella Kim (kiminsun@umich.edu).
+
+@import "base.scss";
+
+$PRIMARY_COLOR: rgb(137, 135, 205);
+$SECONDARY_COLOR: rgb(242, 243, 243);
+$LINK_COLOR: rgb(222, 81, 78);
+$HEADING_COLOR: rgb(58, 58, 58);
+$ACTIVE_COLOR: rgb(90, 151, 247);
+$ACTIVE_TEXT_COLOR: white;
+
+$BG_COLOR: rgb(40, 41, 35);
+$TOC_SIDE_BORDER_COLOR: rgb(125, 125, 125);
+
+.primer-spec-sidebar {
+    background-color: $SECONDARY_COLOR;
+}
+
+// Attribute selector for all primer-spec-toc-* classes
+div[class^="primer-spec-toc-"] {
+    padding-left: 0.5em;
+    margin-left: 0em;
+    :link, :visited {
+        color: $HEADING_COLOR;
+    }
+}
+
+.primer-spec-toc {
+    &-h1 {
+        // Only show the section border for H1 sections
+        &+.primer-spec-toc-section {
+            margin-left: 1em;
+            border-left: 0.15em solid $TOC_SIDE_BORDER_COLOR;
+        }
+    }
+    &-active {
+        background-color: $ACTIVE_COLOR !important;
+        border-radius: 5px 0px 0px 5px;
+        :link, :visited {
+            color: $ACTIVE_TEXT_COLOR !important;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $PRIMARY_COLOR;
+    :link, :visited {
+        color: $PRIMARY_COLOR;
+    }
+}
+
+:link, :visited {
+    color: $LINK_COLOR;
+}
+
+// Make the text of code-blocks default to black (since the background-color
+// is the default primer color).
+.markdown-body {
+    .highlight pre.highlight {
+        color: black;
+    }
+
+    table {
+        color: black;
+    }
+}
+
+// Add the fancy dark background for the entire page.
+body, .markdown-body, .primer-spec-topbar-mobile {
+    background-color: $BG_COLOR;
+    color: white;
+}
+
+// Blockquotes looked too dark, make them lighter.
+.markdown-body blockquote {
+    color: mix(black, $SECONDARY_COLOR, 20%);
+}

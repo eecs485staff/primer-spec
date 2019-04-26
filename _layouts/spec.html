@@ -259,7 +259,8 @@
                     return {
                         'default': "{{ "/assets/css/theme_default.css?v=" | append: site.github.build_revision | relative_url }}",
                         'bella': "{{ "/assets/css/theme_bella.css?v=" | append: site.github.build_revision | relative_url }}",
-                        'modern': "{{ "/assets/css/theme_metro.css?v=" | append: site.github.build_revision | relative_url }}"
+                        'modern': "{{ "/assets/css/theme_metro.css?v=" | append: site.github.build_revision | relative_url }}",
+                        'xcode-dark': "{{ "/assets/css/theme_xcode-dark.css?v=" | append: site.github.build_revision | relative_url }}"
                     };
                 }
                 var current_subtheme = 'default';
