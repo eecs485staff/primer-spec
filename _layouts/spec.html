@@ -184,43 +184,6 @@
 
 
                 /**
-                 * SIDEBAR: Hide in print preview
-                 */
-
-                // When students print the spec, the sidebar shouldn't show up.
-                // Despite trying to do this with CSS, the JS solution ends up
-                // printing with the proper margins.
-                var should_undo_toggle = false;
-                var beforePrint = function() {
-                    if (sidebar_is_shown){
-                        should_undo_toggle = true;
-                        toggleSidebar();
-                    }
-                };
-                var afterPrint = function() {
-                    if (should_undo_toggle) {
-                        should_undo_toggle = false;
-                        toggleSidebar();
-                    }
-                };
-                // Safari doesn't support onbeforeprint, etc.
-                // So this is the "official" work-around for webkit.
-                if (window.matchMedia) {
-                    var mediaQueryList = window.matchMedia('print');
-                    mediaQueryList.addListener(function(mql) {
-                        if (mql.matches) {
-                            beforePrint();
-                        } else {
-                            afterPrint();
-                        }
-                    });
-                }
-                // But most other browsers support this.
-                window.onbeforeprint = beforePrint;
-                window.onafterprint = afterPrint;
-
-
-                /**
                  * TOPBAR & Internal Links: Display on mobile, change offset
                  * when clicking sidebar links.
                  */
@@ -324,10 +287,10 @@
                  * SUBTHEME SETTINGS
                  */
 
-                var settings_shown = false;
+                var settings_is_shown = false;
                 function toggleSettings() {
-                    $NODES.subtheme_settings_pane.attr('hidden', settings_shown);
-                    settings_shown = !settings_shown;
+                    $NODES.subtheme_settings_pane.attr('hidden', settings_is_shown);
+                    settings_is_shown = !settings_is_shown;
                     return false;
                 }
                 $NODES.subtheme_settings_toggle_buttons
@@ -378,6 +341,52 @@
                         window.localStorage.setItem(storage_subtheme_key, subtheme_name);
                     }
                 }
+
+
+                /**
+                 * PRINT PREVIEW: Hide sidebar and settings in print preview.
+                 */
+
+                // When students print the spec, the sidebar shouldn't show up.
+                // Despite trying to do this with CSS, the JS solution ends up
+                // printing with the proper margins.
+                var should_undo_sidebar_toggle = false;
+                var should_undo_settings_toggle = false;
+                var beforePrint = function() {
+                    if (sidebar_is_shown){
+                        should_undo_sidebar_toggle = true;
+                        toggleSidebar();
+                    }
+                    if (settings_is_shown) {
+                        should_undo_settings_toggle = true;
+                        toggleSettings();
+                    }
+                };
+                var afterPrint = function() {
+                    if (should_undo_sidebar_toggle) {
+                        should_undo_sidebar_toggle = false;
+                        toggleSidebar();
+                    }
+                    if (should_undo_settings_toggle) {
+                        should_undo_settings_toggle = false;
+                        toggleSettings();
+                    }
+                };
+                // Safari doesn't support onbeforeprint, etc.
+                // So this is the "official" work-around for webkit.
+                if (window.matchMedia) {
+                    var mediaQueryList = window.matchMedia('print');
+                    mediaQueryList.addListener(function(mql) {
+                        if (mql.matches) {
+                            beforePrint();
+                        } else {
+                            afterPrint();
+                        }
+                    });
+                }
+                // But most other browsers support this.
+                window.onbeforeprint = beforePrint;
+                window.onafterprint = afterPrint;
             })();
         </script>
         <!-- END CUSTOM SPEC CODE -->
