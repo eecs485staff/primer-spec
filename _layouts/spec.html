@@ -99,7 +99,7 @@
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-        <script src="/assets/js/html-table-of-contents.js"></script>
+        <script src="{{ "/assets/js/html-table-of-contents.js?v=" | append: site.github.build_revision | relative_url }}"></script>
         <script>
             function isSmallScreen() {
                 var _width = Math.max(
