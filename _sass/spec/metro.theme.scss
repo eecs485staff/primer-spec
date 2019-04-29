@@ -1,0 +1,65 @@
+// Experimental theme designed by Bella Kim (kiminsun@umich.edu).
+
+@import "base.scss";
+
+$PRIMARY_COLOR: rgb(41, 82, 91);
+$SECONDARY_COLOR: rgb(41, 82, 91);
+$LINK_COLOR: rgb(233, 114, 110);
+$HEADING_COLOR: white;
+$ACTIVE_COLOR: rgb(248, 255, 248);
+$ACTIVE_TEXT_COLOR: $PRIMARY_COLOR;
+
+$ICON_COLOR: rgb(114, 202, 195);
+$TOC_H1_COLOR: rgb(229, 214, 204);
+
+.primer-spec-sidebar {
+    background-color: $SECONDARY_COLOR;
+}
+
+// Attribute selector for all primer-spec-toc-* classes
+div[class^="primer-spec-toc-"] {
+    padding-left: 0.5em;
+    margin-left: 0em;
+    :link, :visited {
+        color: $HEADING_COLOR;
+    }
+}
+
+.primer-spec-toc {
+    &-h1 {
+        :link, :visited {
+            color: $TOC_H1_COLOR !important;
+        }
+
+        // Only show the section border for H1 sections
+        &+.primer-spec-toc-section {
+            margin-left: 1em;
+            border-left: 0.15em solid $TOC_H1_COLOR;
+        }
+    }
+    &-active {
+        background-color: $ACTIVE_COLOR !important;
+        border-radius: 5px 0px 0px 5px;
+        :link, :visited {
+            color: $ACTIVE_TEXT_COLOR !important;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $PRIMARY_COLOR;
+    :link, :visited {
+        color: $PRIMARY_COLOR;
+    }
+}
+
+:link, :visited {
+    color: $LINK_COLOR;
+}
+
+h2#contents {
+    color: $ICON_COLOR;
+    :link, :visited {
+        color: $ICON_COLOR;
+    }
+}

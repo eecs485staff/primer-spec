@@ -6,23 +6,67 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 {% seo %}
-        <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+        <!-- BEGIN CUSTOM SPEC CODE -->
+        <link rel="stylesheet" id="primer-spec-subtheme-style" href="{{ "/assets/css/theme_default.css?v=" | append: site.github.build_revision | relative_url }}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <!-- END CUSTOM SPEC CODE -->
     </head>
     <body>
+        <!-- BEGIN CUSTOM SPEC CODE -->
+
         <div id="primer-spec-top"></div>
         <!-- Custom sidebar with a table of content -->
         <div class="primer-spec-sidebar position-fixed top-0 py-5 no-print">
-            <h2 class="primer-spec-toc-ignore">Contents</h2>
+            <h2 class="primer-spec-toc-ignore">
+                Contents
+                <!-- Show/Hide Sidebar button -->
+                <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-hoverable sidebar-shown no-print">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </h2>
             <br>
             <div id="primer-spec-toc"></div>
         </div> <!-- .primer-spec-sidebar -->
 
-        <!-- Show/Hide Sidebar button -->
-        <a href="#primer-spec-top" class="primer-spec-sidebar-toggle no-print">
-            <i class="fas fa-caret-left"></i>
-        </a>
-        
+        <div class="primer-spec-topbar position-fixed width-full top-0 left-0 py-2 no-print">
+            <!-- Show/Hide Sidebar button -->
+            <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-sidebar-toggle-fixed primer-spec-hoverable primer-spec-float-left sidebar-shown no-print">
+                <i class="fas fa-bars"></i>
+            </a>
+            <!-- Show Settings button -->
+            <a href="#primer-spec-top" class="primer-spec-settings-toggle primer-spec-hoverable primer-spec-float-right no-print">
+                <i class="fas fa-cog"></i>
+            </a>
+        </div>
+
+        <!--
+            Settings modal. Treat it exactly like the actual content, but its
+            position on the page is fixed.
+            It should be displayed when the "settings" icon is clicked.
+        -->
+        <div class="primer-spec-settings container-lg markdown-body primer-spec-content-margin-extra px-3 py-5 position-fixed top-0 left-0" hidden>
+            <div class="primer-spec-topbar position-fixed width-full top-0 left-0 py-2 no-print">
+                <!-- Hide Settings button -->
+                <a href="#primer-spec-top" class="primer-spec-settings-toggle primer-spec-hoverable primer-spec-float-right no-print">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+
+            <h1 class="primer-spec-toc-ignore">Spec Theme Settings</h1>
+            <p>Choose your theme!</p>
+            <select class="primer-spec-subtheme-selector">
+            </select>
+
+            <hr>
+
+            <p><small>
+                Does the spec display incorrectly? <a href="https://github.com/eecs485staff/primer-spec/issues">Let us know by adding a new "issue" here.</a>
+            </small></p>
+            
+        </div>
+
+        <!-- END CUSTOM SPEC CODE -->
+
         <!-- Actual content -->
         <div class="container-lg px-3 my-5 markdown-body primer-spec-content-margin-extra">
             {% if site.title and site.title != page.title %}
@@ -50,11 +94,12 @@
             ga('send', 'pageview');
         </script>
         {% endif %}
+        <!-- BEGIN CUSTOM SPEC CODE -->
         <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-        <script src="assets/js/html-table-of-contents.js"></script>
+        <script src="/assets/js/html-table-of-contents.js"></script>
         <script>
             function isSmallScreen() {
                 var _width = Math.max(
@@ -65,32 +110,56 @@
             }
 
 
-            // Sidebar stuff
             (function () {
                 // Trivia: This is an Immediately Invoked Function Expression.
                 // The code is lexically scoped, but also runs immediately.
                 // (https://developer.mozilla.org/en-US/docs/Glossary/IIFE)
-                
+
+                /**
+                 * SETUP
+                 */
+
+                var $NODES = {
+                    sidebar: $('.primer-spec-sidebar'),
+                    main_content: $('.markdown-body'),
+                    sidebar_toggle_buttons: $('.primer-spec-sidebar-toggle'),
+                    topbar: $('.primer-spec-topbar'),
+                    headings: $('h1, h2, h3, h4, h5, h6'),
+
+                    subtheme_selector_dropdown: $('select.primer-spec-subtheme-selector'),
+                    subtheme_stylesheet: $('#primer-spec-subtheme-style'),
+                    subtheme_settings_pane: $('.primer-spec-settings'),
+                    subtheme_settings_toggle_buttons: $('.primer-spec-settings-toggle'),
+                }
+
+
+                /**
+                 * SIDEBAR: Generate ToC
+                 */
+
+                // Generate the HTML table of contents in the sidebar.
                 htmlTableOfContents();
 
-                // Show/hide the sidebar when appropriate buttons are clicked
+
+                /**
+                 * SIDEBAR: Show/hide when buttons are clicked
+                 */
+
                 var sidebar_is_shown = true;
                 function toggleSidebar() {
                     if (sidebar_is_shown) {
-                        $('.primer-spec-sidebar').css('display', 'none');
-                        $('.markdown-body')
+                        $NODES.sidebar.css('display', 'none');
+                        $NODES.sidebar_toggle_buttons.removeClass('sidebar-shown');
+                        $NODES.main_content
                             .removeClass('primer-spec-content-margin-extra')
                             .addClass('primer-spec-content-margin-auto');
-                        $('.primer-spec-sidebar-toggle > .fas')
-                            .removeClass('fa-caret-left')
-                            .addClass('fa-caret-right');
-                        $('.primer-spec-sidebar-toggle').css('left', '0.1em');
                     }
                     else {
-                        $('.primer-spec-sidebar').css('display', 'inherit');
+                        $NODES.sidebar.css('display', 'inherit');
+                        $NODES.sidebar_toggle_buttons.addClass('sidebar-shown');
                         if (!isSmallScreen()) {
                             // On small screens, changing the margin causes the
-                            // content wrapping to change. 
+                            // content wrapping to change.
                             // Fow example, when a user clicks a link to a
                             // section in the sidebar on mobile and then
                             // collapses the sidebar, the content would shift
@@ -98,41 +167,219 @@
                             // page.
                             // To avoid this, we do not change the margin of the
                             // content on small screens.
-                            $('.markdown-body')
+                            $NODES.main_content
                                 .removeClass('primer-spec-content-margin-auto')
                                 .addClass('primer-spec-content-margin-extra');
                         }
-                        $('.primer-spec-sidebar-toggle > .fas')
-                            .removeClass('fa-caret-right')
-                            .addClass('fa-caret-left');
-                        $('.primer-spec-sidebar-toggle').css('left', '5em');
                     }
                     sidebar_is_shown = !sidebar_is_shown;
                     return false;
                 }
-                $('.primer-spec-sidebar-toggle').on('click', toggleSidebar);
+                $NODES.sidebar_toggle_buttons.on('click', toggleSidebar);
 
-
-                // If this is a mobile browser, don't display the TOC.
                 if (isSmallScreen()) {
+                    // If this is a mobile browser, don't display the TOC.
                     toggleSidebar();
                 }
 
 
+                /**
+                 * TOPBAR & Internal Links: Display on mobile, change offset
+                 * when clicking sidebar links.
+                 */
+                
+                // This variable sets the extra offset needed when an internal
+                // link is clicked. (This is because on mobile, the topbar is
+                // opaque, so clicking a link has to make the section appear
+                // underneath the topbar.)
+                var internal_link_offset = 0;
+                if (isSmallScreen()) {
+                    // Push the main content to make room for the topbar.
+                    $NODES.main_content.addClass('primer-spec-content-mobile');
+                    // Add a background color to the topbar to make it
+                    // opaque.
+                    $NODES.topbar.addClass('primer-spec-topbar-mobile');
+                    // Get the topbar's height *including padding*.
+                    internal_link_offset = $NODES.topbar.outerHeight();
+                }
+
+                // When an internal link in the sidebar is clicked,
+                // execute custom code.
+                $('.primer-spec-toc-item > a').on('click', function() {
+                    var $scroll_target = $($(this).attr('href'));
+                    var scroll_position = $scroll_target.offset().top
+                                            - internal_link_offset;
+                    // Scroll to the scroll_position.
+                    $(window).scrollTop(scroll_position);
+                    
+                    // If the settings pane is open, close it.
+                    if (settings_is_shown) {
+                        toggleSettings();
+                    }
+                    // On mobile, close the sidebar and settings.
+                    if (isSmallScreen()) {
+                        toggleSidebar();
+                    }
+                    return false;
+                });
+
+
+                /**
+                 * SIDEBAR: Display section location
+                 */
+
+                // Spy on where the user has scrolled and display that in the
+                // sidebar. Based on: https://codepen.io/eksch/pen/xwdOeK
+                $(window).scroll(function() {
+                    var scroll_distance = $(window).scrollTop();
+                    var threshold = internal_link_offset;
+                    $NODES.headings
+                        .filter(function(i) {
+                            return !$(this).hasClass('primer-spec-toc-ignore');
+                        })
+                        .each(function(i) {
+                            // We "activate" sidebar items that are above the
+                            // upper half of the viewer's screen. Since we
+                            // activate section items from the top, the last
+                            // remaining "active" item is the lowest "active"
+                            // section.
+                            if ($(this).position().top - threshold <= scroll_distance) {
+                                $('.primer-spec-toc-item.primer-spec-toc-active').removeClass('primer-spec-toc-active');
+                                $('.primer-spec-toc-item').eq(i).addClass('primer-spec-toc-active');
+                            }
+                        });
+                }).scroll();
+
+
+                /**
+                 * SUBTHEMES
+                 */
+
+                function _available_subthemes() {
+                    return {
+                        'default': "{{ "/assets/css/theme_default.css?v=" | append: site.github.build_revision | relative_url }}",
+                        'bella': "{{ "/assets/css/theme_bella.css?v=" | append: site.github.build_revision | relative_url }}",
+                        'modern': "{{ "/assets/css/theme_metro.css?v=" | append: site.github.build_revision | relative_url }}",
+                        'xcode-dark': "{{ "/assets/css/theme_xcode-dark.css?v=" | append: site.github.build_revision | relative_url }}"
+                    };
+                }
+                var current_subtheme = 'default';
+                var subthemes = _available_subthemes()
+
+                function updateTheme(subtheme_name) {
+                    if (subtheme_name in subthemes) {
+                        current_subtheme = subtheme_name;
+                        $NODES.subtheme_selector_dropdown.val(subtheme_name);
+                        $NODES.subtheme_stylesheet.prop('href', subthemes[subtheme_name]);
+                        updateStorage(subtheme_name);
+                    }
+                }
+
+                Object.keys(subthemes).forEach(function (subtheme_name) {
+                    $NODES.subtheme_selector_dropdown.append(
+                        $('<option/>')
+                          .prop('value', subtheme_name)
+                          .append(subtheme_name)
+                    )
+                });
+
+                // The very first time, set the theme to default to ensure the
+                // settings option has the correct initial value.
+                updateTheme(current_subtheme);
+
+                $NODES.subtheme_selector_dropdown.on('change', function () {
+                    var chosen_subtheme = $NODES.subtheme_selector_dropdown.val();
+                    updateTheme(chosen_subtheme);
+                });
+
+
+                /**
+                 * SUBTHEME SETTINGS
+                 */
+
+                var settings_is_shown = false;
+                function toggleSettings() {
+                    $NODES.subtheme_settings_pane.attr('hidden', settings_is_shown);
+                    settings_is_shown = !settings_is_shown;
+                    return false;
+                }
+                $NODES.subtheme_settings_toggle_buttons
+                  .on('click', toggleSettings);
+
+                
+
+                /**
+                 * SUBTHEME SETTINGS: Retrieve stored values if applicable
+                 */
+
+                function storageAvailable(type) {
+                    var storage;
+                    try {
+                        storage = window[type];
+                        var x = '__storage_test__';
+                        storage.setItem(x, x);
+                        storage.removeItem(x);
+                        return true;
+                    }
+                    catch(e) {
+                        return e instanceof DOMException && (
+                            // everything except Firefox
+                            e.code === 22 ||
+                            // Firefox
+                            e.code === 1014 ||
+                            // test name field too, because code might not be present
+                            // everything except Firefox
+                            e.name === 'QuotaExceededError' ||
+                            // Firefox
+                            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+                            // acknowledge QuotaExceededError only if there's something already stored
+                            (storage && storage.length !== 0);
+                    }
+                }
+
+                var storage_subtheme_key = 'PRIMER_SPEC_SUBTHEME';
+                if (storageAvailable('localStorage')) {
+                    // Retrieve the old value if applicable
+                    var stored_subtheme = window.localStorage.getItem(storage_subtheme_key);
+                    if (stored_subtheme) {
+                        updateTheme(stored_subtheme);
+                    }
+                }
+
+                function updateStorage(subtheme_name) {
+                    if (storageAvailable('localStorage')) {
+                        window.localStorage.setItem(storage_subtheme_key, subtheme_name);
+                    }
+                }
+
+
+                /**
+                 * PRINT PREVIEW: Hide sidebar and settings in print preview.
+                 */
+
                 // When students print the spec, the sidebar shouldn't show up.
                 // Despite trying to do this with CSS, the JS solution ends up
                 // printing with the proper margins.
-                var should_undo_toggle = false;
+                var should_undo_sidebar_toggle = false;
+                var should_undo_settings_toggle = false;
                 var beforePrint = function() {
                     if (sidebar_is_shown){
-                        should_undo_toggle = true;
+                        should_undo_sidebar_toggle = true;
                         toggleSidebar();
+                    }
+                    if (settings_is_shown) {
+                        should_undo_settings_toggle = true;
+                        toggleSettings();
                     }
                 };
                 var afterPrint = function() {
-                    if (should_undo_toggle) {
-                        should_undo_toggle = false;
+                    if (should_undo_sidebar_toggle) {
+                        should_undo_sidebar_toggle = false;
                         toggleSidebar();
+                    }
+                    if (should_undo_settings_toggle) {
+                        should_undo_settings_toggle = false;
+                        toggleSettings();
                     }
                 };
                 // Safari doesn't support onbeforeprint, etc.
@@ -150,30 +397,8 @@
                 // But most other browsers support this.
                 window.onbeforeprint = beforePrint;
                 window.onafterprint = afterPrint;
-
-
-                // Spy on where the user has scrolled and display that in the
-                // sidebar. Based on: https://codepen.io/eksch/pen/xwdOeK
-                $(window).scroll(function() {
-                    var scrollDistance = $(window).scrollTop();
-                    var threshold = $(window).height() / 2;
-                    $('h1, h2, h3, h4, h5, h6')
-                        .filter(function(i) {
-                            return !$(this).hasClass('primer-spec-toc-ignore');
-                        })
-                        .each(function(i) {
-                            // We "activate" sidebar items that are above the
-                            // upper half of the viewer's screen. Since we
-                            // activate section items from the top, the last
-                            // remaining "active" item is the lowest "active"
-                            // section.
-                            if ($(this).position().top - threshold <= scrollDistance) {
-                                $('.primer-spec-toc-item.primer-spec-toc-active').removeClass('primer-spec-toc-active');
-                                $('.primer-spec-toc-item').eq(i).addClass('primer-spec-toc-active');
-                            }
-                        });
-                }).scroll();
             })();
         </script>
+        <!-- END CUSTOM SPEC CODE -->
     </body>
 </html>
