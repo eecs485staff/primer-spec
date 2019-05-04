@@ -31,6 +31,10 @@ function _getAnchorLink(headingNode) {
 
 
 function _createHeadingToc(documentRef, heading, index, outputTocDiv) {
+    if (heading.classList.contains('primer-spec-toc-ignore')) {
+        return;
+    }
+
     // If a heading already has an anchor from AnchorJS, use that
     var href = '';
     if (_nodeContainsAnchorChild(heading)) {
@@ -83,10 +87,6 @@ function _generateToCSections(documentRef, headings, index, outputTocDiv) {
     }
 
     var heading = headings[index];
-    if (heading.classList.contains('primer-spec-toc-ignore')) {
-        return _generateToCSections(documentRef, headings, index + 1, outputTocDiv);
-    }
-
     _createHeadingToc(documentRef, heading, index, outputTocDiv);
     var sectionDiv = documentRef.createElement('div');
     sectionDiv.setAttribute('class', 'primer-spec-toc-section');
