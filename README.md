@@ -229,11 +229,11 @@ $ git remote add upstream https://github.com/pages-themes/primer.git
 
 3. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they will have to be reflected in `_layouts/spec.html` also.)
 
-4. Create a new branch and cherry-pick the upstream commits. You may have to resolve merge conflicts.
+4. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
 
 ```console
 $ git checkout -b maintenance/f19
-$ git cherry-pick 72b7930 119b6e3
+$ git merge upstream/master maintenance/f19
 ```
 
 5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/master...eecs485staff:master).
