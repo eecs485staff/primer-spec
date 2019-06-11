@@ -215,8 +215,25 @@ To create a new subtheme:
 
 ## Keeping this theme up-to-date with Primer
 
-It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer).
+It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer). Follow these steps:
 
-- Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/master...pages-themes:master).
+1. If you have not already done so, add the original upstream repo as a "remote" to your local Git setup. (This will allow you to cherry-pick commits.)
 
-- If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they will have to be reflected in `_layouts/spec.html` also.)
+```console
+$ pwd
+/users/seshrs/primer-spec
+$ git remote add upstream https://github.com/pages-themes/primer.git
+```
+
+2. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/master...pages-themes:master).
+
+3. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they will have to be reflected in `_layouts/spec.html` also.)
+
+4. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
+
+```console
+$ git checkout -b maintenance/f19
+$ git merge upstream/master maintenance/f19
+```
+
+5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/master...eecs485staff:master).
