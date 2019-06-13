@@ -206,20 +206,31 @@
                 // When an internal link in the sidebar is clicked,
                 // execute custom code.
                 $('.primer-spec-toc-item > a').on('click', function() {
+                    // If the settings pane is open, close it.
+                    if (settings_is_shown) {
+                        toggleSettings();
+                    }
+
+                    // On mobile, close the sidebar.
+                    if (isSmallScreen()) {
+                        toggleSidebar();
+                    }
+
+                    // If there is no link offset, then default browser
+                    // behavior can be used. This causes the URL to change
+                    // as expected on desktop.
+                    // If there is a link offset, then this is a small screen,
+                    // and we don't want to create new history items anyway.
+                    if (internal_link_offset === 0) {
+                        return true;
+                    }
+
                     var $scroll_target = $($(this).attr('href'));
                     var scroll_position = $scroll_target.offset().top
                                             - internal_link_offset;
                     // Scroll to the scroll_position.
                     $(window).scrollTop(scroll_position);
-                    
-                    // If the settings pane is open, close it.
-                    if (settings_is_shown) {
-                        toggleSettings();
-                    }
-                    // On mobile, close the sidebar and settings.
-                    if (isSmallScreen()) {
-                        toggleSidebar();
-                    }
+
                     return false;
                 });
 
