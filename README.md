@@ -4,7 +4,7 @@
 
 *Primer Spec is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
 
-Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting Project specifications for EECS courses at the University of Michigan.
+Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting Project specifications for EECS courses at the University of Michigan. (Here are [some](https://eecs485staff.github.io/p1-insta485-static/) [examples](https://eecs280staff.github.io/p1-stats/).)
 
 ## Contents
 - [Integrating with GitHub Pages](#integrating-with-github-pages)
