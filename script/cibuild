@@ -7,3 +7,19 @@ bundle exec htmlproofer ./_site --check-html --check-sri
 bundle exec rubocop -D
 bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
+
+# Sanity check that JavaScript was built properly and committed.
+rm -rf tmp/
+mkdir -p tmp/
+git clean -xdf src_js/ assets/
+git checkout -- assets/js/spec_main.js
+cp assets/js/spec_main.js tmp/spec_main_committed.js
+script/build
+if ! diff -q tmp/spec_main_committed.js assets/js/spec_main.js; then
+  echo "Error: assets/js/spec_main.js is out of sync with src_js/"
+  echo "Run 'script/build', and then commit the file."
+  rm -rf tmp/
+  exit 1
+fi
+rm -rf tmp/
+echo "Sanity-checked JavaScript is in sync."
