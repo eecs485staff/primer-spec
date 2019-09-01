@@ -1,9 +1,9 @@
-import Sidebar from "./Sidebar";
-import MainContent from "./MainContent";
-import Topbar from "./Topbar";
-import Utilities from "./Utilities";
-import SubthemeSettings from "./SubthemeSettings";
-import LocalStorage from "./LocalStorage";
+import Sidebar from './Sidebar';
+import MainContent from './MainContent';
+import Topbar from './Topbar';
+import Utilities from './Utilities';
+import SubthemeSettings from './SubthemeSettings';
+import LocalStorage from './LocalStorage';
 
 /**
  * Delegates component logic to various other modules, and serves as a bridge
@@ -28,7 +28,7 @@ export default class NodeManager {
       subtheme_stylesheet: $('#primer-spec-subtheme-style'),
       subtheme_settings_pane: $('.primer-spec-settings'),
       subtheme_settings_toggle_buttons: $('.primer-spec-settings-toggle'),
-    }
+    };
 
     // Instantiate the components and delegate nodes to them.
     this.sidebar = new Sidebar(this, $NODES['sidebar'],
@@ -38,10 +38,10 @@ export default class NodeManager {
     this.topbar = new Topbar(this, $NODES['topbar']);
     this.storage = new LocalStorage(this);
     this.settings = new SubthemeSettings(this,
-                                         $NODES['subtheme_settings_pane'],
-                                         $NODES['subtheme_settings_toggle_buttons'],
-                                         $NODES['subtheme_stylesheet'],
-                                         $NODES['subtheme_selector_dropdown']);
+      $NODES['subtheme_settings_pane'],
+      $NODES['subtheme_settings_toggle_buttons'],
+      $NODES['subtheme_stylesheet'],
+      $NODES['subtheme_selector_dropdown']);
   }
 
   init() {
@@ -80,14 +80,14 @@ export default class NodeManager {
     $('.primer-spec-toc-item > a').on('click', function() {
       // If the settings pane is open, close it.
       if (_this.settings.shown) {
-          _this.settings.hide();
+        _this.settings.hide();
       }
-  
+
       // On desktop, retain defaul internal link behavior.
       if (!Utilities.isSmallScreen()) {
         return true;
       }
-  
+
       // On mobile:
       // (1) Close the sidebar
       _this.sidebar.hide();
@@ -114,7 +114,7 @@ export default class NodeManager {
     let should_undo_sidebar_toggle = false;
     let should_undo_settings_toggle = false;
     const beforePrint = () => {
-      if (this.sidebar.shown){
+      if (this.sidebar.shown) {
         should_undo_sidebar_toggle = true;
         this.sidebar.toggle();
       }
@@ -123,7 +123,7 @@ export default class NodeManager {
         this.settings.toggle();
       }
     };
-    var afterPrint = () => {
+    const afterPrint = () => {
       if (should_undo_sidebar_toggle) {
         should_undo_sidebar_toggle = false;
         this.sidebar.toggle();
@@ -136,7 +136,7 @@ export default class NodeManager {
     // Safari doesn't support onbeforeprint, etc.
     // So this is the "official" work-around for webkit.
     if (window.matchMedia) {
-      var mediaQueryList = window.matchMedia('print');
+      const mediaQueryList = window.matchMedia('print');
       mediaQueryList.addListener(mql => {
         if (mql.matches) {
           beforePrint();

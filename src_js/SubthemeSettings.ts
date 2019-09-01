@@ -1,16 +1,16 @@
-import NodeManager from "./NodeManager";
+import NodeManager from './NodeManager';
 import NodeManagerComponent from './NodeManagerComponent.d';
 
 interface Subtheme {
   name: string;
   url: string;
-};
+}
 
 const SUBTHEME_STORAGE_KEY = 'spec_subtheme_name';
 
 /**
  * Returns a dictionary of currently available subthemes and their CSS URLs.
- * 
+ *
  * This function is implemented in a separate inline script in the template
  * HTML because Jekyll needs to correctly populate the URLs of the CSS files.
  */
@@ -31,9 +31,9 @@ export default class SubthemeSettings implements NodeManagerComponent {
   _settings_is_shown: boolean;
 
   constructor(node_manager: NodeManager, $settings_pane: JQuery,
-              $settings_toggle_buttons: JQuery,
-              $subtheme_stylesheet: JQuery,
-              $subtheme_selector_dropdown: JQuery) {
+    $settings_toggle_buttons: JQuery,
+    $subtheme_stylesheet: JQuery,
+    $subtheme_selector_dropdown: JQuery) {
     this._node_manager = node_manager;
     this.$_settings_pane = $settings_pane;
     this.$_settings_toggle_buttons = $settings_toggle_buttons;
@@ -72,7 +72,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
     if (this._settings_is_shown) {
       this.$_settings_pane.hide();
     }
-    else {
+ else {
       this.$_settings_pane.show();
     }
     this._settings_is_shown = !this._settings_is_shown;
@@ -104,7 +104,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
       this.$_subtheme_selector_dropdown.append(
         $('<option/>')
           .prop('value', subtheme.name)
-          .append(subtheme.name)
+          .append(subtheme.name),
       );
     });
 
@@ -129,7 +129,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
     this.$_subtheme_stylesheet.prop('href', current_subtheme.url);
     this._storeSubthemeName(subtheme_name);
   }
-  
+
   /**
    * Update persistent local storage with the given subtheme name for future
    * retrieval.

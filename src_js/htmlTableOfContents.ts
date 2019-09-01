@@ -1,9 +1,9 @@
 /**
  * htmlTableOfContents.js
- * 
+ *
  * Forked from htmlTableOfContents.js by Matthew Christopher Kastor-Inare III
  * (https://github.com/matthewkastor/html-table-of-contents)
- * 
+ *
  * Modifications:
  *   - Added compatibility with ES6-style imports.
  *   - AnchorJS links are used by default
@@ -12,59 +12,54 @@
  *     Jekyll theme.
  */
 
-
 function _nodeContainsAnchorChild(node) {
-    return $('a.anchorjs-link', $(node)).length > 0;
+  return $('a.anchorjs-link', $(node)).length > 0;
 }
-
 
 function _getAnchorLink(headingNode) {
-    if (!_nodeContainsAnchorChild(headingNode)) {
-        throw {
-            "error": "_getAnchorLink expected heading to contain anchor while populating table of contents."
-        };
-    }
-    return $('a.anchorjs-link', $(headingNode)).attr('href');
+  if (!_nodeContainsAnchorChild(headingNode)) {
+    throw {
+      error: '_getAnchorLink expected heading to contain anchor while populating table of contents.',
+    };
+  }
+  return $('a.anchorjs-link', $(headingNode)).attr('href');
 }
-
 
 function _createHeadingToc(documentRef, heading, index, outputTocDiv) {
-    if (heading.classList.contains('primer-spec-toc-ignore')) {
-        return;
-    }
+  if (heading.classList.contains('primer-spec-toc-ignore')) {
+    return;
+  }
 
-    // If a heading already has an anchor from AnchorJS, use that
-    var href = '';
-    if (_nodeContainsAnchorChild(heading)) {
-        href = _getAnchorLink(heading);
-    }
-    else {
-        // Otherwise, create an anchor
-        href = '#toc' + index;
-        var anchor = documentRef.createElement('a');
-        anchor.setAttribute('name', 'toc' + index);
-        anchor.setAttribute('id', 'toc' + index);
-        heading.parentNode.insertBefore(anchor, heading);
-    }
-    
-    
-    var link = documentRef.createElement('a');
-    link.setAttribute('href', href);
-    link.textContent = heading.textContent;
-    
-    var div = documentRef.createElement('div');
-    div.setAttribute('class', 'primer-spec-toc-item primer-spec-toc-' + heading.tagName.toLowerCase());
-    
-    div.appendChild(link);
-    outputTocDiv.appendChild(div);
+  // If a heading already has an anchor from AnchorJS, use that
+  let href = '';
+  if (_nodeContainsAnchorChild(heading)) {
+    href = _getAnchorLink(heading);
+  }
+ else {
+    // Otherwise, create an anchor
+    href = '#toc' + index;
+    const anchor = documentRef.createElement('a');
+    anchor.setAttribute('name', 'toc' + index);
+    anchor.setAttribute('id', 'toc' + index);
+    heading.parentNode.insertBefore(anchor, heading);
+  }
+
+  const link = documentRef.createElement('a');
+  link.setAttribute('href', href);
+  link.textContent = heading.textContent;
+
+  const div = documentRef.createElement('div');
+  div.setAttribute('class', 'primer-spec-toc-item primer-spec-toc-' + heading.tagName.toLowerCase());
+
+  div.appendChild(link);
+  outputTocDiv.appendChild(div);
 }
-
 
 /**
  * Generate a ToC heading and a single "section" given a list of `headings` DOM
  *   elements starting from index `index`. The new ToC elements are placed
  *   in `outputTocDiv`.
- * 
+ *
  * A "section" is defined to contain all subsequent headings with a tag-number
  * larger than that of `headings[index]`. For instance, if
  * `headings` contains a list of `[h1, h2, h2, h1, h3]`, the `h2` headings
@@ -76,30 +71,30 @@ function _createHeadingToc(documentRef, heading, index, outputTocDiv) {
  * @param {HTMLDOMDocument} documentRef - The `document` object.
  * @param {Array<HTMLElement>} headings - A flat-list of heading DOM nodes.
  * @param {number} index - The starting index into `headings`.
- * @param {HTMLElement} outputTocDiv - The element where the heading 
+ * @param {HTMLElement} outputTocDiv - The element where the heading
  *      and section indicated by `index` should be placed.
  */
 function _generateToCSections(documentRef, headings, index, outputTocDiv) {
-    if (index >= headings.length) {
-        return index;
-    }
+  if (index >= headings.length) {
+    return index;
+  }
 
-    var heading = headings[index];
-    _createHeadingToc(documentRef, heading, index, outputTocDiv);
-    var sectionDiv = documentRef.createElement('div');
-    sectionDiv.setAttribute('class', 'primer-spec-toc-section');
+  const heading = headings[index];
+  _createHeadingToc(documentRef, heading, index, outputTocDiv);
+  const sectionDiv = documentRef.createElement('div');
+  sectionDiv.setAttribute('class', 'primer-spec-toc-section');
 
-    var i = index + 1;
-    while (i < headings.length) {
-        if (headings[i].tagName[1] <= heading.tagName[1]) {
-            break;
-        }
-        else {
-            i = _generateToCSections(documentRef, headings, i, sectionDiv);
-        }
+  let i = index + 1;
+  while (i < headings.length) {
+    if (headings[i].tagName[1] <= heading.tagName[1]) {
+      break;
     }
-    outputTocDiv.appendChild(sectionDiv);
-    return i;
+ else {
+      i = _generateToCSections(documentRef, headings, i, sectionDiv);
+    }
+  }
+  outputTocDiv.appendChild(sectionDiv);
+  return i;
 }
 
 /**
@@ -117,12 +112,12 @@ function _generateToCSections(documentRef, headings, index, outputTocDiv) {
  * htmlTableOfContents();
  */
 export default function htmlTableOfContents(documentRef_in?: Document) {
-    const documentRef = documentRef_in || document;
-    const toc = documentRef.getElementById('primer-spec-toc');
-    const headings = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+  const documentRef = documentRef_in || document;
+  const toc = documentRef.getElementById('primer-spec-toc');
+  const headings = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
 
-    let index = 0;
-    while (index < headings.length) {
-        index = _generateToCSections(documentRef, headings, index, toc);
-    }
+  let index = 0;
+  while (index < headings.length) {
+    index = _generateToCSections(documentRef, headings, index, toc);
+  }
 }

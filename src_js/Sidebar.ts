@@ -14,7 +14,7 @@ export default class Sidebar implements NodeManagerComponent {
   _sidebar_is_shown: boolean;
 
   constructor(node_manager: NodeManager, $sidebar: JQuery,
-              $toggle_buttons: JQuery, $headings: JQuery) {
+    $toggle_buttons: JQuery, $headings: JQuery) {
     this._node_manager = node_manager;
     this.$_sidebar = $sidebar;
     this.$_toggle_buttons = $toggle_buttons;
@@ -44,7 +44,7 @@ export default class Sidebar implements NodeManagerComponent {
       this.$_toggle_buttons.removeClass('sidebar-shown');
       this._node_manager.main_content.resetMargin();
     }
-    else {
+ else {
       this.$_sidebar.css('display', 'inherit');
       this.$_toggle_buttons.addClass('sidebar-shown');
       if (!Utilities.isSmallScreen()) {
@@ -79,7 +79,7 @@ export default class Sidebar implements NodeManagerComponent {
 
   _addEventHandlers() {
     // Register clicks on the sidebar-toggle buttons.
-    this.$_toggle_buttons.on('click', (_e) => this.toggle());
+    this.$_toggle_buttons.on('click', _e => this.toggle());
 
     // Spy on the scroll position of the window.
     // Based on: https://codepen.io/eksch/pen/xwdOeK
@@ -100,10 +100,10 @@ export default class Sidebar implements NodeManagerComponent {
         // viewer's screen. Since we activate section items from the top, the
         // last remaining "active" item is the lowest "active" section.
         if ($(this).position().top - threshold <= scroll_distance) {
-            $('.primer-spec-toc-item.primer-spec-toc-active')
+          $('.primer-spec-toc-item.primer-spec-toc-active')
               .removeClass('primer-spec-toc-active');
-            $('.primer-spec-toc-item').eq(i)
-              .addClass('primer-spec-toc-active');
+          $('.primer-spec-toc-item').eq(i)
+            .addClass('primer-spec-toc-active');
         }
       });
   }

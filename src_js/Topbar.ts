@@ -1,9 +1,9 @@
-import NodeManager from "./NodeManager";
-import NodeManagerComponent from "./NodeManagerComponent.d";
+import NodeManager from './NodeManager';
+import NodeManagerComponent from './NodeManagerComponent.d';
 
 /**
  * Encapsulates the Topbar and its behaviors.
- * 
+ *
  * The Topbar is only displayed on mobile. Internal links also have to account
  * for the presence of the opaque Topbar, hence the link offset needs to be
  * changed.
