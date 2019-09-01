@@ -6,3 +6,5 @@ Gemfile.lock
 *.gem
 assets/**/*.html
 assets/**/*.md
+
+.DS_Store

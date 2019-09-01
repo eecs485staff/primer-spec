@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./src_js/"
+  },
+  "exclude": ["node_modules", "dist"]
+}
