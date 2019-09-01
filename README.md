@@ -191,7 +191,7 @@ Interested in contributing to Primer? We'd love your help. Primer is an open sou
 
 ### Run tests
 
-The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` one before the test script will work.
+The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
 
 ### Modifications from Primer
 
@@ -201,7 +201,7 @@ Here are key changes made to the original Primer theme to add a sidebar:
 
 - Created `_sass/spec/` with the SCSS files needed to display the sidebar. Also created stylesheets in `assets/css` to include these files.
 
-- Created `assets/js/` with the necessary scripts to generate a table of contents.
+- Created `src_js/` with the necessary scripts to generate a table of contents. The TypeScript code is bundled by webpack into `assets/js/spec_main.js`.
 
 ### Adding new subthemes
 
