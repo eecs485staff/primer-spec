@@ -9,6 +9,12 @@ bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
 
 # Sanity check that JavaScript was built properly and committed.
+# Run this only on Travis
+if [ ! "${TRAVIS-}" ]; then
+  echo "Skipping sanity check on JS bundle. This check only runs on Travis CI."
+  exit
+fi
+
 rm -rf tmp/
 mkdir -p tmp/
 git clean -xdf src_js/ assets/
