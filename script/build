@@ -3,4 +3,5 @@
 
 set -e
 
+npx webpack
 bundle exec jekyll build

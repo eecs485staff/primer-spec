@@ -9,6 +9,7 @@
   "author": "Ben Balter",
   "license": "MIT",
   "dependencies": {
+    "jquery": "^3.4.1",
     "primer-base": "^1.9.2",
     "primer-layout": "^1.6.2",
     "primer-markdown": "^3.7.13",
@@ -16,6 +17,17 @@
     "primer-utilities": "^4.14.4"
   },
   "devDependencies": {
-    "@primer/sync": "^0.1.0"
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@primer/sync": "^0.1.0",
+    "@types/jquery": "^3.3.31",
+    "babel-loader": "^8.0.6",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.6.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
   }
 }
