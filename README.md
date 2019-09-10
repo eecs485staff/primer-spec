@@ -18,7 +18,9 @@ Primer Spec is built on top of the wonderful [Primer theme](https://github.com/p
   - [Run tests](#run-tests)
   - [Modifications from Primer](#modifications-from-primer)
   - [Adding new subthemes](#adding-new-subthemes)
-- [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+- [Maintenance & Release](#maintenance--release)
+  - [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+  - [Semester Release Process](#releasing-for-the-next-semester)
 
 ## Integrating with GitHub Pages
 
@@ -171,7 +173,7 @@ Interested in contributing to Primer? We'd love your help. Primer is an open sou
 4. [Bootstrap your local environment.](#bootstrap-your-local-environment)
 5. Make some changes and create commits.
 6. Push your branch to GitHub. (`git push -u origin feature/my-feature`)
-7. Open a pull request from your branch to the EECS 485 repository. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:master...pages-themes:master)
+7. Open a pull request from your branch to the EECS 485 repository. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:develop...pages-themes:master)
 
 ### Bootstrap your local environment
 
@@ -213,7 +215,16 @@ To create a new subtheme:
 - Modify the list of subthemes in `_layouts/spec.html`. The list is defined in the `_available_subthemes` function inside the custom scripts on the page.
 - Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
 
-## Keeping this theme up-to-date with Primer
+## Maintenance & Release
+
+This theme is used by several courses at the University of Michigan, including EECS 280, EECS 285 and EECS 485. If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
+
+It's important to keep the theme up-to-date between semesters by:
+
+1. [Keeping the `develop` branch up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+2. [Creating a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
+
+### Keeping this theme up-to-date with Primer
 
 It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer). Follow these steps:
 
@@ -225,7 +236,7 @@ $ pwd
 $ git remote add upstream https://github.com/pages-themes/primer.git
 ```
 
-2. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/master...pages-themes:master).
+2. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...pages-themes:master).
 
 3. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they will have to be reflected in `_layouts/spec.html` also.)
 
@@ -236,4 +247,40 @@ $ git checkout -b maintenance/f19
 $ git merge upstream/master maintenance/f19
 ```
 
-5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/master...eecs485staff:master).
+5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...eecs485staff:develop).
+
+*Pro tip: Upload screenshots of the new subtheme to make it easier to review your PR.*
+
+### Releasing for the next semester
+
+The latest stable version of the theme is available on the `master` branch. (This is the default branch selected by the [Jekyll Remote Theme](https://github.com/benbalter/jekyll-remote-theme), the plugin that allows this theme to be used on course websites.) This branch is not changed during semesters at the University of Michigan while courses are in-session. This is to ensure that all project specs throughout the semester have a consistent appearance.
+
+The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `master`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `master` to keep them in sync.
+
+To publish a new release:
+
+1. Pull the latest versions of both branches.
+
+```console
+$ pwd
+/users/seshrs/primer-spec
+$ git checkout develop
+$ git pull
+$ git checkout master
+$ git pull
+```
+
+2. Merge `develop` into `master`. (If you like [signing your commits](https://help.github.com/en/articles/signing-commits), don't forget to add the `-S` flag.)
+
+```console
+$ git checkout master
+$ git merge -S develop
+```
+
+3. Push your changes to GitHub with `git push`.
+
+4. Draft a new "release". Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
+
+5. Decide what the next version number should be. If there are no major changes, simply bump the "minor version number" (for example, `1.4.0` would be followed by `1.5.0`). If there are major design changes, bump the "major version number" (for example, `1.4.0` would become `2.0.0`). Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
+
+6. Click the "Draft a new release" button. Specify the version number. Title and description are optional. *(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)*
