@@ -42,7 +42,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
     this.$_subtheme_selector_dropdown = $subtheme_selector_dropdown;
 
     this._subthemes = [];
-    this._current_subtheme_name = null;
+    this._current_subtheme_name = '';
     this._settings_is_shown = false;
   }
 

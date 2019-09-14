@@ -34,6 +34,6 @@ export default class Topbar implements NodeManagerComponent {
   enableMobileMode() {
     // Add a background color to the topbar to make it opaque.
     this.$_topbar.addClass('primer-spec-topbar-mobile');
-    this._height = this.$_topbar.outerHeight();
+    this._height = this.$_topbar.outerHeight() || 0;
   }
 }

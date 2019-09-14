@@ -89,7 +89,7 @@ export default class Sidebar implements NodeManagerComponent {
   }
 
   _highlightActiveSidebarItem() {
-    const scroll_distance = $(window).scrollTop();
+    const scroll_distance = $(window).scrollTop() || 0;
     const threshold = this._node_manager.topbar.height;
     this.$_headings
       .filter(function(_) {
