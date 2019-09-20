@@ -73,6 +73,24 @@ const jekyll_config = {
   },
 };
 
+const custom_plugin_config = {
+  ...common_config,
+  context: path.resolve(__dirname, 'src_js/custom_plugin'),
+  entry: './main.ts',
+  output: {
+    path: path.join(__dirname, '/assets/js/'),
+    filename: 'primer_spec_plugin.js',
+  },
+  module: {
+    rules: [
+      js_loader,
+      ts_loader,
+      liquid_html_loader,
+    ]
+  },
+};
+
 module.exports = [
   jekyll_config,
+  custom_plugin_config,
 ];

@@ -1,0 +1,8 @@
+<!-- These stylesheets should be included in the <head> tag. -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+{% if generating_plugin_script %}
+<link rel="stylesheet" id="primer-spec-subtheme-style" href="https://eecs485staff.github.io/primer-spec/assets/css/theme_default.css">
+{% else %}
+<link rel="stylesheet" id="primer-spec-subtheme-style" href="{{ "/assets/css/theme_default.css?v=" | append: site.github.build_revision | relative_url }}">
+{% endif %}

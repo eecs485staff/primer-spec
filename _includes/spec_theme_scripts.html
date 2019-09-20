@@ -1,0 +1,39 @@
+<!--
+    The content in this file should be included in the <body> tag, before the
+    main theme JavaScript code is included.
+-->
+
+<!-- Add new subtheme names to the list below. -->
+{% capture raw_theme_names %}
+    default,
+    bella,
+    modern,
+    xcode-dark,
+{% endcapture %}
+{% assign themes = raw_theme_names | strip_newlines | remove: ' ' | split: ',' %}
+
+<!-- This generates the list of available themes based on the list. -->
+<script>
+    function availableSubthemes() {
+        return [
+        {% for theme in themes %}
+            {% if theme %}
+            {
+                'name': '{{ theme }}',
+                {% if generating_plugin_script %}
+                'url': "https://eecs485staff.github.io/primer-spec/assets/css/theme_{{ theme }}.css",
+                {% else %}
+                'url': "{{ "/assets/css/theme_" | append: theme | append: ".css?v=" | append: site.github.build_revision | relative_url }}",
+                {% endif %}
+            },
+            {% endif %}
+        {% endfor %}
+        ];
+    }
+</script>
+
+{% if generating_plugin_script %}
+<script src="https://eecs485staff.github.io/primer-spec/assets/js/spec_main.js"></script>
+{% else %}
+<script src="{{ "/assets/js/spec_main.js" }}"></script>
+{% endif %}
