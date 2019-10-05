@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
 {% seo %}
-        <!-- BEGIN CUSTOM SPEC CODE -->
-        {% include spec_head_links.html %}
-        <!-- END CUSTOM SPEC CODE -->
     </head>
     <body>
-        <!-- BEGIN CUSTOM SPEC CODE -->
-        {% include spec_before_main_content.html %}
-        <!-- END CUSTOM SPEC CODE -->
-
         <!-- Actual content -->
-        <!-- NOTE: Keep this list of classes in sync with src_js/custom_plugin/main.ts  -->
-        <div class="container-lg px-3 my-5 markdown-body primer-spec-content-margin-extra">
+        <div id="primer-spec-plugin-main-content">
             {% if site.title and site.title != page.title %}
             <h1 class="primer-spec-toc-ignore"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
             {% endif %}
@@ -31,8 +19,6 @@
             {% endif %}
         </div> <!-- .container-lg -->
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
-        <script>anchors.add();</script>
         {% if site.google_analytics %}
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -43,8 +29,14 @@
             ga('send', 'pageview');
         </script>
         {% endif %}
+
         <!-- BEGIN CUSTOM SPEC CODE -->
-        {% include spec_theme_scripts.html %}
+        {% if jekyll.environment == "prod" %}
+            {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
+        {% else %}
+            {% assign base_url = "http://localhost:4000" %}
+        {% endif %}
+        <script src="{{ base_url }}/assets/js/primer_spec_plugin.js" crossorigin="anonymous"></script>
         <!-- END CUSTOM SPEC CODE -->
     </body>
 </html>

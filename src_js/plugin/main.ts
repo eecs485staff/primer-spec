@@ -1,6 +1,6 @@
 import * as AnchorJS from 'anchor-js';
 
-const rawHeadLinks = require('../../_includes/spec_head_links.html');
+const rawHeadTags = require('../../_includes/spec_head_tags.html');
 const rawBeforeMainContent = require('../../_includes/spec_before_main_content.html');
 const rawThemesScripts = require('../../_includes/spec_theme_scripts.html');
 
@@ -29,7 +29,7 @@ function format_main_content() {
 }
 
 function inject_theme_html() {
-  const $head_links = $(rawHeadLinks);
+  const $head_links = $(rawHeadTags);
   const $before_main_content = $(rawBeforeMainContent);
   const $themes_scripts = $(rawThemesScripts);
 

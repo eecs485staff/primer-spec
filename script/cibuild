@@ -2,8 +2,10 @@
 
 set -e
 
-bundle exec jekyll build
-bundle exec htmlproofer ./_site --check-html --check-sri
+npx webpack --env prod
+JEKYLL_ENV=prod bundle exec jekyll build
+# TODO: Remove the 404 ignore after merging this code with master
+bundle exec htmlproofer ./_site --check-html --http-status-ignore "404"
 bundle exec rubocop -D
 bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
@@ -20,10 +22,9 @@ mkdir -p tmp/
 git clean -xdf src_js/ assets/
 git checkout -- assets/js/spec_main.js
 cp assets/js/spec_main.js tmp/spec_main_committed.js
-script/build
 if ! diff -q tmp/spec_main_committed.js assets/js/spec_main.js; then
   echo "Error: assets/js/spec_main.js is out of sync with src_js/"
-  echo "Run 'script/build', and then commit the file."
+  echo "Run 'script/cibuild', and then commit the file."
   rm -rf tmp/
   exit 1
 fi

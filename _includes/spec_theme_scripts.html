@@ -20,11 +20,7 @@
             {% if theme %}
             {
                 'name': '{{ theme }}',
-                {% if generating_plugin_script %}
-                'url': "https://eecs485staff.github.io/primer-spec/assets/css/theme_{{ theme }}.css",
-                {% else %}
-                'url': "{{ "/assets/css/theme_" | append: theme | append: ".css?v=" | append: site.github.build_revision | relative_url }}",
-                {% endif %}
+                'url': "{{ base_url }}/assets/css/theme_{{ theme }}.css",
             },
             {% endif %}
         {% endfor %}
@@ -32,8 +28,4 @@
     }
 </script>
 
-{% if generating_plugin_script %}
-<script src="https://eecs485staff.github.io/primer-spec/assets/js/spec_main.js"></script>
-{% else %}
-<script src="{{ "/assets/js/spec_main.js" }}"></script>
-{% endif %}
+<script src="{{ base_url }}/assets/js/spec_main.js"></script>

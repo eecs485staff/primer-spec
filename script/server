@@ -7,7 +7,7 @@ set -e
 # command in the background is killed also.
 # Based on https://unix.stackexchange.com/a/204619
 trap 'kill %1' SIGINT
-npx webpack --watch &
-bundle exec jekyll serve
+npx webpack --env dev --watch &
+JEKYLL_ENV=dev bundle exec jekyll serve
 # Finally, undo the trap.
 trap - SIGINT

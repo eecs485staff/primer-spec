@@ -1,8 +1,23 @@
+/**
+ * webpack.config.js
+ * 
+ * This config accepts an 'env' parameter, which can take on values 'prod' or
+ * 'dev'. (Defaults to 'dev'.)
+ * Specify the one you want by running `npx webpack --env <prod|dev>`.
+ * Alternatively, use 'script/build` for development, and 'script/cibuild' for
+ * production.
+ * 
+ * The config has two output targets:
+ *   - theme: spec_main.js
+ *   - plugin: primer_spec_plugin.js
+ */
+
 const path = require('path');
 const webpack = require('webpack');
 
-// This webpack configuration has multiple output targets.
-// Based on https://stackoverflow.com/a/38132106/5868796
+const PROD_ENV = 'prod';
+const DEV_URL = 'http://localhost:4000';
+const PROD_URL = 'https://eecs485staff.github.io/primer-spec'
 
 const js_loader = {
   test: /\.js$/,
@@ -20,77 +35,81 @@ const ts_loader = {
   exclude: /node_modules/,
 };
 
-const liquid_html_loader = {
-  test: /\.html$/,
-  use: [
-    {
-      loader: "html-loader"
+function liquid_html_loader(env) {
+  return {
+    test: /\.html$/,
+    use: [
+      {
+        loader: "html-loader"
+      },
+      {
+        loader: "liquid-loader",
+        options: {
+            data: {
+                // These variables are passed to the liquid templates.
+                'base_url': env == PROD_ENV ? PROD_URL : DEV_URL,
+            }
+        }
+      },
+    ],
+  };
+}
+
+function common_config(env) {
+  return {
+    mode: env == PROD_ENV ? 'production' : 'development',
+    resolve: {
+      extensions: ['.js', '.ts'],
     },
-    {
-      loader: "liquid-loader",
-      options: {
-          data: {
-              // These variables are passed to the liquid templates.
-              'generating_plugin_script': true,
-          }
-      }
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      }),
+    ],
+  };
+}
+
+function theme_config(env) {
+  return {
+    ...common_config(env),
+    context: path.resolve(__dirname, 'src_js/theme'),
+    entry: './main.ts',
+    output: {
+      path: path.join(__dirname, '/assets/js/'),
+      filename: 'spec_main.js',
     },
-  ],
-};
+    module: {
+      rules: [
+        js_loader,
+        ts_loader,
+      ]
+    },
+  };
+}
 
-const jquery_plugin = new webpack.ProvidePlugin({
-  $: 'jquery',
-  jQuery: 'jquery'
-});
+function plugin_config(env) {
+  return {
+    ...common_config(env),
+    context: path.resolve(__dirname, 'src_js/plugin'),
+    entry: './main.ts',
+    output: {
+      path: path.join(__dirname, '/assets/js/'),
+      filename: 'primer_spec_plugin.js',
+    },
+    module: {
+      rules: [
+        js_loader,
+        ts_loader,
+        liquid_html_loader(env),
+      ]
+    },
+  };
+}
 
-const common_config = {
-  // NOTE: Change this to 'development' to prevent minification
-  mode: 'production',
-  resolve: {
-    extensions: ['.js', '.ts'],
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
-  ],
-};
-
-const jekyll_config = {
-  ...common_config,
-  context: path.resolve(__dirname, 'src_js/theme'),
-  entry: './main.ts',
-  output: {
-    path: path.join(__dirname, '/assets/js/'),
-    filename: 'spec_main.js',
-  },
-  module: {
-    rules: [
-      js_loader,
-      ts_loader,
-    ]
-  },
-};
-
-const custom_plugin_config = {
-  ...common_config,
-  context: path.resolve(__dirname, 'src_js/custom_plugin'),
-  entry: './main.ts',
-  output: {
-    path: path.join(__dirname, '/assets/js/'),
-    filename: 'primer_spec_plugin.js',
-  },
-  module: {
-    rules: [
-      js_loader,
-      ts_loader,
-      liquid_html_loader,
-    ]
-  },
-};
-
-module.exports = [
-  jekyll_config,
-  custom_plugin_config,
+// This webpack configuration has multiple output targets.
+// Based on https://stackoverflow.com/a/38132106/5868796
+module.exports = env => [
+  theme_config(env),
+  plugin_config(env),
 ];
