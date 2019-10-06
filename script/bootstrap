@@ -5,3 +5,7 @@ set -e
 gem install bundler
 bundle install
 npm install --no-save
+
+# Point to this repositories Git hooks
+# Requires Git version > 2.9.0
+git config core.hooksPath .githooks
