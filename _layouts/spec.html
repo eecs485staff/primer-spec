@@ -31,10 +31,10 @@
         {% endif %}
 
         <!-- BEGIN CUSTOM SPEC CODE -->
-        {% if jekyll.environment == "prod" %}
-            {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
-        {% else %}
+        {% if jekyll.environment == "dev" %}
             {% assign base_url = "http://localhost:4000" %}
+        {% else %}
+            {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
         {% endif %}
         <script src="{{ base_url }}/assets/js/primer_spec_plugin.js" crossorigin="anonymous"></script>
         <!-- END CUSTOM SPEC CODE -->
