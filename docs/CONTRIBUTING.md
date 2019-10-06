@@ -1,9 +1,22 @@
 # Contributing to The Primer Spec Theme
 
-*This document was adapted from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer).*
+*This document was adapted in part from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer).*
 
-Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
-
+## Contents
+- [Support](#looking-for-support)
+- [Reporting bugs](#how-to-report-a-bug)
+- [Suggesting features](#how-to-suggest-a-feature-or-enhancement)
+- [Proposing changes](#how-to-propose-changes)
+  - [Typical workflow](#typical-workflow)
+  - [Bootstrap your local environment](#bootstrap-your-local-environment)
+  - [Run tests](#run-tests)
+  - [Adding new subthemes](#adding-new-subthemes)
+- [Maintenance & Release](#maintenance--release)
+  - [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+  - [Semester Release Process](#releasing-for-the-next-semester)
+- [Modifications from Primer](#modifications-from-primer)
+- [Code of Conduct](#code-of-conduct)
+- [Additional Resources](#additional-resources)
 
 ## Looking for support?
 
@@ -22,48 +35,140 @@ Here are a few tips for writing *great* bug reports:
 * Only include one bug per issue. If you have discovered two bugs, please file two issues
 * Even if you don't know how to fix the bug, including a failing test may help others track it down
 
-**If you find a security vulnerability, do not open an issue. Please email security@github.com instead.**
-
 ## How to suggest a feature or enhancement
-
-If you find yourself wishing for a feature that doesn't exist in The Primer Theme, you are probably not alone. There are bound to be others out there with similar needs. Many of the features that The Primer Theme has today have been added because our users saw the need.
 
 Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and goals of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Please provide as much detail and context as possible, including describing the problem you're trying to solve.
 
 [Open an issue](https://github.com/eecs485staff/primer-spec/issues/new) which describes the feature you would like to see, why you want it, how it should work, etc.
 
-
 ## How to propose changes
 
 Here are a few general guidelines for proposing changes:
 
-* If you are making visual changes, include a screenshot of what the affected element looks like, both before and after.
-* Follow the [Jekyll style guide](https://ben.balter.com/jekyll-style-guide).
-* If you are changing any user-facing functionality, please be sure to update the documentation
-* Each pull request should implement **one** feature or bug fix. If you want to add or fix more than one thing, submit more than one pull request
-* Do not commit changes to files that are irrelevant to your feature or bug fix
-* Don't bump the version number in your pull request (it will be bumped prior to release)
-* Write [a good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+### Typical workflow
 
-At a high level, [the process for proposing changes](https://guides.github.com/introduction/flow/) is:
+1. [Fork the repository.](https://github.com/eecs485staff/primer-spec/fork)
+2. Clone your repository to a local directory.
+3. Create a new branch with an appropriate name. (`git checkout -b feature/my-feature`)
+4. [Bootstrap your local environment.](#bootstrap-your-local-environment)
+5. Make some changes and create commits.
+6. Push your branch to GitHub. (`git push -u origin feature/my-feature`)
+7. Open a pull request from your branch to the EECS 485 repository's `develop` branch. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:develop...pages-themes:master)
 
-1. [Fork](https://github.com/eecs485staff/primer-spec/fork) and clone the project
-2. Configure and install the dependencies: `script/bootstrap`
-3. Make sure the tests pass on your machine: `script/cibuild`
-4. Create a new branch: `git checkout -b my-branch-name`
-5. Make your change, add tests, and make sure the tests still pass
-6. Push to your fork and [submit a pull request](https://github.com/eecs485staff/primer-spec/compare)
-7. Pat your self on the back and wait for your pull request to be reviewed and merged
+### Bootstrap your local environment
 
-**Interesting in submitting your first Pull Request?** It's easy! You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+1. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first.
 
-## Bootstrapping your local development environment
+2. Run `script/bootstrap`.
 
-`script/bootstrap`
+    ```console
+    $ ruby --version
+    ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
+    $ pwd
+    /seshrs/primer-spec
+    $ ./script/bootstrap
+    ```
 
-## Running tests
+3. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
-`script/cibuild`
+### Run tests
+
+The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
+
+### Adding new subthemes
+
+Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The stylesheets for these subthemes are defined in `_sass/spec`, and are typically named as `<name>.theme.scss`.
+
+To create a new subtheme:
+- Create the file `_sass/spec/<name>.theme.scss`. Take inspiration from the structure of other subtheme stylesheets.
+- Create the file `assets/css/theme_<name>.scss`. Follow the structure of other stylesheets in the same directory to import the theme stylesheet from the `_sass/spec` directory.
+- Modify the list of subthemes in `_layouts/spec.html`. The list is defined in the `_available_subthemes` function inside the custom scripts on the page.
+- Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
+
+*Pro tip: Upload screenshots of the new subtheme to make it easier to review your Pull Request.*
+
+
+## Maintenance & Release
+
+This theme is used by several courses at the University of Michigan, including EECS 280, EECS 285, EECS 482 and EECS 485. If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
+
+Keep the theme up-to-date between semesters by:
+
+1. [Keeping the `develop` branch up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+2. [Creating a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
+
+### Keeping this theme up-to-date with Primer
+
+It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer). Follow these steps:
+
+1. If you have not already done so, add the original upstream repo as a "remote" to your local Git setup. (This will allow you to cherry-pick commits.)
+
+```console
+$ pwd
+/users/seshrs/primer-spec
+$ git remote add upstream https://github.com/pages-themes/primer.git
+```
+
+2. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...pages-themes:master).
+
+3. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they may have to be reflected in `_layouts/spec.html` also.)
+
+4. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
+
+```console
+$ git checkout -b maintenance/f19
+$ git merge upstream/master maintenance/f19
+```
+
+5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...eecs485staff:develop).
+
+### Releasing for the next semester
+
+The latest stable version of the theme is available on the `master` branch. (This is the default branch selected by the [Jekyll Remote Theme](https://github.com/benbalter/jekyll-remote-theme), the plugin that allows this theme to be used on course websites.) This branch is not changed during semesters at the University of Michigan while courses are in-session. This is to ensure that all project specs throughout the semester have a consistent appearance.
+
+The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `master`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `master` to keep them in sync.
+
+To publish a new release:
+
+1. Pull the latest versions of both branches.
+
+```console
+$ pwd
+/users/seshrs/primer-spec
+$ git checkout develop
+$ git pull
+$ git checkout master
+$ git pull
+```
+
+2. Merge `develop` into `master`. (If you like [signing your commits](https://help.github.com/en/articles/signing-commits), don't forget to add the `-S` flag.)
+
+```console
+$ git checkout master
+$ git merge -S develop
+```
+
+3. Push your changes to GitHub with `git push`.
+
+4. Draft a new "release". Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
+
+5. Decide what the next version number should be. If there are no major changes, simply bump the "patch version number" (for example, `1.4.1` would be followed by `1.4.2`). If there are design changes, bump the "minor version number" (for example, `1.4.1` would become `1.5.0`). Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
+
+6. Click the "Draft a new release" button. Specify the version number. Title and description are optional. *(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)*
+
+
+## Modifications from Primer
+
+Here are key changes made to the original Primer theme to add a sidebar:
+
+- `_layouts/spec.html`: Renders MarkDown files that have `layout: spec` iin their front-matter. The file is based on `_layouts/default.html`, but includes a reference to the Primer Spec Plugin script at the end. The script modifies the HTML on a user's browser, adding the sidebar and theme styling.
+
+- `_sass/spec/`: SCSS files needed to display the sidebar and subthemes. Stylesheets in `assets/css` include these files.
+
+- `src_js/theme`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The TypeScript code is bundled by webpack into `assets/js/spec_main.js`.
+
+- `src_js/plugin`: TypeScript code that adds the HTML, CSS and JavaScript scaffolding needed for the theme script to run. The script is designed to be distributed as a stand-alone script to add the Primer Spec theme to non-Jekyll sites. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.js`.
+
 
 ## Code of conduct
 
