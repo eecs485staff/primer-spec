@@ -67,6 +67,17 @@ function common_config(env) {
         jQuery: 'jquery'
       }),
     ],
+    // Minimize output
+    stats: 'minimal',
+    devServer: {
+      stats: {
+        hash: false,
+        version: false,
+        timings: false,
+        assets: false,
+        chunks: false,
+      },
+    },
   };
 }
 
