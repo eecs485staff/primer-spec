@@ -82,7 +82,7 @@ Primer spec allows website visitors to change the appearance of the website by s
 To create a new subtheme:
 - Create the file `_sass/spec/<name>.theme.scss`. Take inspiration from the structure of other subtheme stylesheets.
 - Create the file `assets/css/theme_<name>.scss`. Follow the structure of other stylesheets in the same directory to import the theme stylesheet from the `_sass/spec` directory.
-- Modify the list of subthemes in `_layouts/spec.html`. The list is defined in the `_available_subthemes` function inside the custom scripts on the page.
+- Add the new subtheme name to the list of subthemes in `_includes/spec_theme_scripts.html`.
 - Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
 
 *Pro tip: Upload screenshots of the new subtheme to make it easier to review your Pull Request.*
