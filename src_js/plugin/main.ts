@@ -47,6 +47,11 @@ function main() {
     format_main_content();
     inject_theme_html();
   }
+  else {
+    console.warn(
+      "This page included the Primer Spec plugin script, but was not compatible with the plugin!",
+    );
+  }
 }
 
 main();
