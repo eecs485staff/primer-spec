@@ -2,7 +2,7 @@
 
 PROJECT_ROOT=$(dirname `dirname $0`)
 
-set -x
+set -Euexo pipefail
 npx webpack --env prod
 
 git add $PROJECT_ROOT/assets/js/primer_spec_plugin.js
