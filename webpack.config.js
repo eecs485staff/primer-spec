@@ -88,7 +88,7 @@ function theme_config(env) {
     entry: './main.ts',
     output: {
       path: path.join(__dirname, '/assets/js/'),
-      filename: 'spec_main.js',
+      filename: 'spec_main.min.js',
     },
     module: {
       rules: [
@@ -106,7 +106,7 @@ function plugin_config(env) {
     entry: './main.ts',
     output: {
       path: path.join(__dirname, '/assets/js/'),
-      filename: 'primer_spec_plugin.js',
+      filename: 'primer_spec_plugin.min.js',
     },
     module: {
       rules: [

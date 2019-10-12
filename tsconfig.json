@@ -1,17 +1,17 @@
 {
-	"compilerOptions": {
+    "compilerOptions": {
         "target": "ES6",
-		// Search under node_modules for non-relative imports.
-		"moduleResolution": "node",
-		// Process & infer types from .js files.
-		"allowJs": true,
+        // Search under node_modules for non-relative imports.
+        "moduleResolution": "node",
+        // Process & infer types from .js files.
+        "allowJs": true
         // Enable strictest settings like strictNullChecks & noImplicitAny.
         // TODO: Need to fix some errors before this can be enabled.
-		// "strict": true,
-		// Disallow features that require cross-file information for emit.
-		// "isolatedModules": true
-	},
-	"include": [
-		"src_js"
+        // "strict": true,
+        // Disallow features that require cross-file information for emit.
+        // "isolatedModules": true
+    },
+    "include": [
+        "src_js"
     ]
 }
