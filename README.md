@@ -2,35 +2,36 @@
 
 [![Build Status](https://travis-ci.com/eecs485staff/primer-spec.svg?branch=master)](https://travis-ci.com/eecs485staff/primer-spec)
 
-*Primer Spec is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
+*Primer Spec is an HTML (and Jekyll) theme that makes long informative web pages easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
 
-Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting Project specifications for EECS courses at the University of Michigan. (Here are [some](https://eecs485staff.github.io/p1-insta485-static/) [examples](https://eecs280staff.github.io/p1-stats/).)
+Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting project specifications for EECS courses at the University of Michigan. (Here are [some](https://eecs485staff.github.io/p1-insta485-static/) [examples](https://eecs280staff.github.io/p1-stats/).)
 
 ## Contents
-- [Integrating with GitHub Pages](#integrating-with-github-pages)
-- [Previewing locally](#previewing-locally)
-  - [Part 1: Create the dependency files](#local-setup-part-1-create-the-dependency-files)
-  - [Part 2: Install the dependencies](#local-setup-part-2-install-the-dependencies)
-- [Customization](#customization)
+- [Usage](#usage)
+  - [Using with Jekyll](#using-with-jekyll)
+  - [Using the plugin](#using-the-plugin)
 - [Contributing](#contributing)
-  - [Typical workflow](#typical-workflow)
-  - [Bootstrap your local environment](#bootstrap-your-local-environment)
-  - [Run tests](#run-tests)
-  - [Modifications from Primer](#modifications-from-primer)
-  - [Adding new subthemes](#adding-new-subthemes)
-- [Maintenance & Release](#maintenance--release)
-  - [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
-  - [Semester Release Process](#releasing-for-the-next-semester)
 
-## Integrating with GitHub Pages
+## Usage
+There are two ways to quickly get started using this theme. First, answer this question:
 
-To use the Primer Spec theme:
+*Do you want to store your long webpage as MarkDown or as HTML?*
 
-1. Decide where to host your GitHub pages. See https://pages.github.com for guides.
+- *MarkDown*:
+  Use the Jekyll theme, probably coupled with GitHub/GitLab pages. Jekyll converts your MarkDown files into HTML, and has some other great features to host a website. See [Using with Jekyll](#using-with-jekyll).
 
-2. Add your Markdown files. Note that files named README.md will be ignored by Jekyll when using a custom theme.
+- *HTML*:
+  Use the plugin script. Simply add a couple of lines to your plain HTML webpage and watch it magically transform in your browser! See [Using the plugin](#using-the-plugin).
 
-3. In your GitHub Pages directory, create a file named `_config.yml`. Add this to the file:
+
+### Using with Jekyll
+*If you plan to use GitHub Pages, see https://pages.github.com for guides.*
+
+Follow these steps to add MarkDown files that use the Primer Spec theme.
+
+1. Add your Markdown files. Note that files named README.md will be ignored by Jekyll when using a custom theme.
+
+2. If it doesn't already exist, create a file `_config.yml` in your site's root directory. Add this content to the file:
 
     ```yml
     remote_theme: eecs485staff/primer-spec
@@ -38,12 +39,18 @@ To use the Primer Spec theme:
         - jekyll-remote-theme
     ```
 
-4. Finally, to display a table of contents in the sidebar, add the following at the top of your MarkDown files:
+3. To add the Primer Spec theme to a MarkDown file, add the following at the top of the file:
 
     ```yml
-    ---
-    layout: spec # Change to `default` if you prefer not to show the sidebar.
-    ---
+    remote_theme: eecs485staff/primer-spec
+    plugins:
+        - jekyll-remote-theme
+    ```
+
+4. (Skip this step if you are using GitHub Pages.) Add the following to your Gemfile:
+
+    ```ruby
+    gem "jekyll-remote-theme"
     ```
 
 5. (Optional) To prevent a heading from appearing in the sidebar, add `{: .primer-spec-toc-ignore }` under the heading. For instance:
@@ -59,228 +66,49 @@ To use the Primer Spec theme:
     Spam spam spam.
     ```
 
+6. If you're using GitHub pages, follow the steps in [the USAGE_JEKYLL file](docs/USAGE_JEKYLL.md#Previewing-GitHub-Pages-locally) to preview your website locally.
 
-## Previewing locally
 
-If you'd like to preview your site on your computer do the following.
+### Using the plugin
+Follow these steps to add the plugin to your plain HTML webpage.
 
-### Local Setup Part 1: Create the dependency files
+1. Make sure that all sections of your web page are marked by header tags (like `h1`, `h2`, etc.).
 
-1. Create a file named `Gemfile` in your project root directory. Add this to the file:
+2. Place all your main content within a `div` with ID `primer-spec-plugin-main-content`.
 
-    ```ruby
-    source 'https://rubygems.org'
+3. Add the following line at the bottom of the file, just before the closing `body` tag:
 
-    gem 'github-pages', group: :jekyll_plugins
-    gem 'jekyll-remote-theme'
-
-    # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-    gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-    # Performance-booster for watching directories on Windows
-    gem 'wdm', '~> 0.1.0' if Gem.win_platform?
+    ```html
+    <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
     ```
 
-2. Create a `.gitignore` file in your GitHub Pages directory with the following contents:
+Your final HTML file will probably look something like this:
 
-    ```gitignore
-    # This .gitignore file is for locally-rendered Jekyll sites.
-
-    # Locally rendered website
-    _site
-
-    # Other Jekyll files
-    .sass-cache
-    .jekyll-metadata
+    ```html
+    <html>
+        <head>
+            <title>My long project spec</title>
+        </head>
+        <body>
+            <div id="primer-spec-plugin-main-content">
+                <!-- Main content goes in here. For example: -->
+                <h1 class="primer-spec-toc-ignore">My long project spec</h1>
+                ...
+                <h2>Setup</h2>
+                <h3>Installing Python</h3>
+                ...
+                <h2>Grading</h2>
+                ...
+            </div>
+            <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
+        </body>
+    </html>
     ```
 
-### Local Setup Part 2: Install the dependencies
-
-1. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first. You must also install bundler.
-
-    ```console
-    $ ruby --version
-    ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
-    $ gem install bundler
-    ```
-
-2. Install the dependencies.
-
-    ```console
-    $ pwd
-    /seshrs/demo-project
-    $ bundle install
-    ```
-
-3. Run the Jekyll server to build the site and watch for changes. By default, the site is served at http://127.0.0.1:4000.
-
-    ```console
-    $ pwd
-    /seshrs/demo-project/docs
-    $ bundle exec jekyll serve
-    ```
-
-
-## Customizing
-
-### Configuration variables
-
-Primer Spec will respect the following variables, if set in your site's `_config.yml`:
-
-```yml
-title: [The title of your site]
-description: [A short description of your site's purpose]
-```
-
-Additionally, you may choose to set the following optional variables:
-
-```yml
-google_analytics: [Your Google Analytics tracking ID]
-```
-
-### Stylesheet
-
-If you'd like to add your own custom styles:
-
-1. Create a file called `/assets/css/style.scss` in your site
-2. Add the following content to the top of the file, exactly as shown:
-    ```scss
-    ---
-    ---
-
-    @import "{{ site.theme }}";
-    ```
-3. Add any custom CSS (or Sass, including imports) you'd like immediately after the `@import` line
-
-### Layouts
-
-If you'd like to change the theme's HTML layout:
-
-1. [Copy the original template](https://github.com/pages-themes/primer/blob/master/_layouts/default.html) from the theme's repository<br />(*Pro-tip: click "raw" to make copying easier*)
-2. Create a file called `/_layouts/default.html` in your site
-3. Paste the default layout content copied in the first step
-4. Customize the layout as you'd like
+That's it! The page should now display with Primer Spec styling.
 
 ## Contributing
 
-Interested in contributing to Primer? We'd love your help. Primer is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for further instructions on how to contribute.
+Interested in contributing to Primer Spec? We'd love your help. Primer Spec is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for further instructions on how to contribute.
 
-### Typical workflow
-
-1. [Fork the repository.](https://github.com/eecs485staff/primer-spec/fork)
-2. Clone your repository to a local directory.
-3. Create a new branch with an appropriate name. (`git checkout -b feature/my-feature`)
-4. [Bootstrap your local environment.](#bootstrap-your-local-environment)
-5. Make some changes and create commits.
-6. Push your branch to GitHub. (`git push -u origin feature/my-feature`)
-7. Open a pull request from your branch to the EECS 485 repository. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:develop...pages-themes:master)
-
-### Bootstrap your local environment
-
-1. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first.
-
-2. Run `script/bootstrap`.
-
-    ```console
-    $ ruby --version
-    ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
-    $ pwd
-    /seshrs/primer-spec
-    $ ./script/bootstrap
-    ```
-
-3. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
-
-### Run tests
-
-The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
-
-### Modifications from Primer
-
-Here are key changes made to the original Primer theme to add a sidebar:
-
-- Created `_layouts/spec.html`. This file is used to render MarkDown files with `layout: spec` at the top. The file is similar to `_layouts/default.html`, but adds the sidebar and references the JavaScript needed to render the table of contents. HTML comments in `spec.html` indicate sections of the layout that have been modified from `default.html`.
-
-- Created `_sass/spec/` with the SCSS files needed to display the sidebar. Also created stylesheets in `assets/css` to include these files.
-
-- Created `src_js/` with the necessary scripts to generate a table of contents. The TypeScript code is bundled by webpack into `assets/js/spec_main.js`.
-
-### Adding new subthemes
-
-Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The stylesheets for these subthemes are defined in `_sass/spec`, and are typically named as `<name>.theme.scss`.
-
-To create a new subtheme:
-- Create the file `_sass/spec/<name>.theme.scss`. Take inspiration from the structure of other subtheme stylesheets.
-- Create the file `assets/css/theme_<name>.scss`. Follow the structure of other stylesheets in the same directory to import the theme stylesheet from the `_sass/spec` directory.
-- Modify the list of subthemes in `_layouts/spec.html`. The list is defined in the `_available_subthemes` function inside the custom scripts on the page.
-- Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
-
-## Maintenance & Release
-
-This theme is used by several courses at the University of Michigan, including EECS 280, EECS 285 and EECS 485. If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
-
-It's important to keep the theme up-to-date between semesters by:
-
-1. [Keeping the `develop` branch up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
-2. [Creating a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
-
-### Keeping this theme up-to-date with Primer
-
-It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer). Follow these steps:
-
-1. If you have not already done so, add the original upstream repo as a "remote" to your local Git setup. (This will allow you to cherry-pick commits.)
-
-```console
-$ pwd
-/users/seshrs/primer-spec
-$ git remote add upstream https://github.com/pages-themes/primer.git
-```
-
-2. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...pages-themes:master).
-
-3. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they will have to be reflected in `_layouts/spec.html` also.)
-
-4. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
-
-```console
-$ git checkout -b maintenance/f19
-$ git merge upstream/master maintenance/f19
-```
-
-5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...eecs485staff:develop).
-
-*Pro tip: Upload screenshots of the new subtheme to make it easier to review your PR.*
-
-### Releasing for the next semester
-
-The latest stable version of the theme is available on the `master` branch. (This is the default branch selected by the [Jekyll Remote Theme](https://github.com/benbalter/jekyll-remote-theme), the plugin that allows this theme to be used on course websites.) This branch is not changed during semesters at the University of Michigan while courses are in-session. This is to ensure that all project specs throughout the semester have a consistent appearance.
-
-The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `master`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `master` to keep them in sync.
-
-To publish a new release:
-
-1. Pull the latest versions of both branches.
-
-```console
-$ pwd
-/users/seshrs/primer-spec
-$ git checkout develop
-$ git pull
-$ git checkout master
-$ git pull
-```
-
-2. Merge `develop` into `master`. (If you like [signing your commits](https://help.github.com/en/articles/signing-commits), don't forget to add the `-S` flag.)
-
-```console
-$ git checkout master
-$ git merge -S develop
-```
-
-3. Push your changes to GitHub with `git push`.
-
-4. Draft a new "release". Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
-
-5. Decide what the next version number should be. If there are no major changes, simply bump the "minor version number" (for example, `1.4.0` would be followed by `1.5.0`). If there are major design changes, bump the "major version number" (for example, `1.4.0` would become `2.0.0`). Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
-
-6. Click the "Draft a new release" button. Specify the version number. Title and description are optional. *(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)*
+For maintenance and release instructions, see [Maintenance & Release section](docs/CONTRIBUTING.md#Maintenance--Release) of the CONTRIBUTING file.

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -Eueo pipefail
+
+# The following is necessary to resolve symbolic links
+pushd $(dirname $0)
+GITHOOKS_DIR=`pwd -P`
+popd
+PROJECT_ROOT=`dirname $GITHOOKS_DIR`
+
+set -x
+
+npx webpack --env prod
+git add $PROJECT_ROOT/assets/js/primer_spec_plugin.min.js
+git add $PROJECT_ROOT/assets/js/spec_main.min.js
