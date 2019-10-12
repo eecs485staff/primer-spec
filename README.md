@@ -79,7 +79,7 @@ Follow these steps to add the plugin to your plain HTML webpage.
 3. Add the following line at the bottom of the file, just before the closing `body` tag:
 
     ```html
-    <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.js" crossorigin="anonymous"></script>
+    <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
     ```
 
 Your final HTML file will probably look something like this:
@@ -100,7 +100,7 @@ Your final HTML file will probably look something like this:
                 <h2>Grading</h2>
                 ...
             </div>
-            <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.js" crossorigin="anonymous"></script>
+            <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
         </body>
     </html>
     ```

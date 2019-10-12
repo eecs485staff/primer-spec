@@ -8,8 +8,8 @@
  * production.
  * 
  * The config has two output targets:
- *   - theme: spec_main.js
- *   - plugin: primer_spec_plugin.js
+ *   - theme: spec_main.min.js
+ *   - plugin: primer_spec_plugin.min.js
  */
 
 const path = require('path');

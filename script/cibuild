@@ -20,10 +20,10 @@ fi
 rm -rf tmp/
 mkdir -p tmp/
 git clean -xdf src_js/ assets/
-git checkout -- assets/js/spec_main.js
-cp assets/js/spec_main.js tmp/spec_main_committed.js
-if ! diff -q tmp/spec_main_committed.js assets/js/spec_main.js; then
-  echo "Error: assets/js/spec_main.js is out of sync with src_js/"
+git checkout -- assets/js/spec_main.min.js
+cp assets/js/spec_main.min.js tmp/spec_main_committed.js
+if ! diff -q tmp/spec_main_committed.js assets/js/spec_main.min.js; then
+  echo "Error: assets/js/spec_main.min.js is out of sync with src_js/"
   echo "Run 'script/cibuild', and then commit the file."
   rm -rf tmp/
   exit 1
