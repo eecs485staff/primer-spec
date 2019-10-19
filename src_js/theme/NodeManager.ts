@@ -83,23 +83,12 @@ export default class NodeManager {
         _this.settings.hide();
       }
 
-      // On desktop, retain defaul internal link behavior.
-      if (!Utilities.isSmallScreen()) {
-        return true;
+      // On mobile, close the sidebar
+      if (Utilities.isSmallScreen()) {
+        _this.sidebar.hide();
       }
-
-      // On mobile:
-      // (1) Close the sidebar
-      _this.sidebar.hide();
-      // (2) Determine the scroll position while accounting for the Topbar (so
-      // that the link target appears below it, not behind it)
-      const $scroll_target = $($(this).attr('href'));
-      const scroll_position = $scroll_target.offset().top
-                              - _this.topbar.height;
-      // (3) Scroll to that position
-      $(window).scrollTop(scroll_position);
-      // (4) Prevent the default internal link behavior.
-      return false;
+      
+      return true;
     });
   }
 

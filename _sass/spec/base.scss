@@ -50,6 +50,21 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
     }
 }
 
+/**
+ * On mobile (when the topbar is displayed), create an invisible pseudo-element
+ * and make it the height of the sticky navbar so the jump takes you to a
+ * location above the AnchorJS link.
+ */
+@media only screen and (max-width: 900px) {
+    :target:before {
+        content: "";
+        display: block;
+        margin-top: -$TOPBAR_HEIGHT;
+        height: $TOPBAR_HEIGHT;
+        width: 1px;
+    }
+}
+
 .primer-spec-float {
     &-left {
         position: absolute;
