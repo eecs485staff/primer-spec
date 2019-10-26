@@ -7,10 +7,6 @@ export default class Utilities {
    * smaller than 900px.
    */
   static isSmallScreen() {
-    const _width = Math.max(
-        document.documentElement.clientWidth,
-        window.innerWidth || 0
-    );
-    return _width < 900;
+    return document.documentElement.clientWidth < 900;
   }
 }
