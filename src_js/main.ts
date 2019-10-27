@@ -1,8 +1,9 @@
 import * as AnchorJS from 'anchor-js';
+import htmlTableOfContents from './htmlTableOfContents';
+import NodeManager from './NodeManager';
 
-const rawHeadTags = require('../../_includes/spec_head_tags.html');
-const rawBeforeMainContent = require('../../_includes/spec_before_main_content.html');
-const rawThemesScripts = require('../../_includes/spec_theme_scripts.html');
+const rawHeadTags = require('../_includes/spec_head_tags.html');
+const rawBeforeMainContent = require('../_includes/spec_before_main_content.html');
 
 const $main_content = $('#primer-spec-plugin-main-content');
 
@@ -31,11 +32,13 @@ function format_main_content() {
 function inject_theme_html() {
   const $head_links = $(rawHeadTags);
   const $before_main_content = $(rawBeforeMainContent);
-  const $themes_scripts = $(rawThemesScripts);
 
   $('head').append($head_links);
   $('body').prepend($before_main_content);
-  $('body').append($themes_scripts);
+
+  // Generate the HTML table of contents in the sidebar.
+  htmlTableOfContents();
+  new NodeManager().init();
 }
 
 function main() {
@@ -43,15 +46,14 @@ function main() {
   anchors.add('h1');
   anchors.add();
 
-  if (is_html_compatible_with_primer_spec()) {
-    format_main_content();
-    inject_theme_html();
-  }
-  else {
+  if (!is_html_compatible_with_primer_spec()) {
     console.warn(
       "This page included the Primer Spec plugin script, but was not compatible with the plugin!",
     );
   }
+
+  format_main_content();
+  inject_theme_html();
 }
 
 main();

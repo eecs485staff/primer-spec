@@ -7,120 +7,95 @@
  * Alternatively, use 'script/build` for development, and 'script/cibuild' for
  * production.
  * 
- * The config has two output targets:
- *   - theme: spec_main.min.js
- *   - plugin: primer_spec_plugin.min.js
+ * The config's output target is assets/js/primer_spec_plugin.min.js.
  */
 
 const path = require('path');
 const webpack = require('webpack');
 
+// Add new subtheme names to this list.
+const AVAILABLE_SUBTHEMES = [
+  'default',
+  'bella',
+  'modern',
+  'xcode-dark',
+].join(',');
+
 const PROD_ENV = 'prod';
 const DEV_URL = 'http://localhost:4000';
 const PROD_URL = 'https://eecs485staff.github.io/primer-spec'
 
-const js_loader = {
-  test: /\.js$/,
-  loader: "babel-loader",
-  exclude: /(node_modules|bower_components)/,
-  query: {
-    babelrc: false,
-    presets: [["@babel/preset-env", { modules: false }]],
+module.exports = env => ({
+  mode: env === PROD_ENV ? 'production' : 'development',
+  context: path.resolve(__dirname, 'src_js/'),
+  entry: './main.ts',
+  output: {
+    path: path.join(__dirname, '/assets/js/'),
+    filename: 'primer_spec_plugin.min.js',
   },
-};
-
-const ts_loader = {
-  test: /\.tsx?$/,
-  use: 'ts-loader',
-  exclude: /node_modules/,
-};
-
-function liquid_html_loader(env) {
-  return {
-    test: /\.html$/,
-    use: [
+  module: {
+    rules: [
+      // JavaScript loader
       {
-        loader: "html-loader"
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /(node_modules|bower_components)/,
+        query: {
+          babelrc: false,
+          presets: [["@babel/preset-env", { modules: false }]],
+        },
       },
+      // TypeScript loader
       {
-        loader: "liquid-loader",
-        options: {
-            data: {
-                // These variables are passed to the liquid templates.
-                'base_url': env == PROD_ENV ? PROD_URL : DEV_URL,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      // Liquid+HTML loader
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader"
+          },
+          {
+            loader: "liquid-loader",
+            options: {
+                data: {
+                    // These variables are passed to the liquid templates.
+                    'base_url': env === PROD_ENV ? PROD_URL : DEV_URL,
+                }
             }
-        }
+          },
+        ],
       },
-    ],
-  };
-}
-
-function common_config(env) {
-  return {
-    mode: env == PROD_ENV ? 'production' : 'development',
-    resolve: {
-      extensions: ['.js', '.ts'],
+    ]
+  },
+  // When importing files, no need to mention these file-extensions
+  resolve: {
+    extensions: ['.js', '.ts'],
+  },
+  plugins: [
+    // JQuery becomes available in every file
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
+    // These variables become available in any file
+    new webpack.DefinePlugin({
+      'process.env.AVAILABLE_SUBTHEMES': `'${AVAILABLE_SUBTHEMES}'`,
+      'process.env.BASE_URL': `'${env === PROD_ENV ? PROD_URL : DEV_URL}'`,
+    }),
+  ],
+  // Minimize output
+  stats: 'minimal',
+  devServer: {
+    stats: {
+      hash: false,
+      version: false,
+      timings: false,
+      assets: false,
+      chunks: false,
     },
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
-      }),
-    ],
-    // Minimize output
-    stats: 'minimal',
-    devServer: {
-      stats: {
-        hash: false,
-        version: false,
-        timings: false,
-        assets: false,
-        chunks: false,
-      },
-    },
-  };
-}
-
-function theme_config(env) {
-  return {
-    ...common_config(env),
-    context: path.resolve(__dirname, 'src_js/theme'),
-    entry: './main.ts',
-    output: {
-      path: path.join(__dirname, '/assets/js/'),
-      filename: 'spec_main.min.js',
-    },
-    module: {
-      rules: [
-        js_loader,
-        ts_loader,
-      ]
-    },
-  };
-}
-
-function plugin_config(env) {
-  return {
-    ...common_config(env),
-    context: path.resolve(__dirname, 'src_js/plugin'),
-    entry: './main.ts',
-    output: {
-      path: path.join(__dirname, '/assets/js/'),
-      filename: 'primer_spec_plugin.min.js',
-    },
-    module: {
-      rules: [
-        js_loader,
-        ts_loader,
-        liquid_html_loader(env),
-      ]
-    },
-  };
-}
-
-// This webpack configuration has multiple output targets.
-// Based on https://stackoverflow.com/a/38132106/5868796
-module.exports = env => [
-  theme_config(env),
-  plugin_config(env),
-];
+  },
+});
