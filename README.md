@@ -66,7 +66,7 @@ Follow these steps to add MarkDown files that use the Primer Spec theme.
     Spam spam spam.
     ```
 
-6. If you're using GitHub pages, follow the steps in [the USAGE_JEKYLL file](docs/USAGE_JEKYLL.md#Previewing-GitHub-Pages-locally) to preview your website locally.
+6. If you're using GitHub pages, follow the steps in the [USAGE_JEKYLL file](docs/USAGE_JEKYLL.md#Previewing-GitHub-Pages-locally) to preview your website locally.
 
 
 ### Using the plugin
@@ -84,26 +84,26 @@ Follow these steps to add the plugin to your plain HTML webpage.
 
 Your final HTML file will probably look something like this:
 
-    ```html
-    <html>
-        <head>
-            <title>My long project spec</title>
-        </head>
-        <body>
-            <div id="primer-spec-plugin-main-content">
-                <!-- Main content goes in here. For example: -->
-                <h1 class="primer-spec-toc-ignore">My long project spec</h1>
-                ...
-                <h2>Setup</h2>
-                <h3>Installing Python</h3>
-                ...
-                <h2>Grading</h2>
-                ...
-            </div>
-            <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
-        </body>
-    </html>
-    ```
+```html
+<html>
+  <head>
+      <title>My long project spec</title>
+  </head>
+  <body>
+      <div id="primer-spec-plugin-main-content">
+          <!-- Main content goes in here. For example: -->
+          <h1 class="primer-spec-toc-ignore">My long project spec</h1>
+          ...
+          <h2>Setup</h2>
+          <h3>Installing Python</h3>
+          ...
+          <h2>Grading</h2>
+          ...
+      </div>
+      <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>
+```
 
 That's it! The page should now display with Primer Spec styling.
 
