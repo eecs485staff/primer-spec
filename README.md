@@ -42,9 +42,9 @@ Follow these steps to add MarkDown files that use the Primer Spec theme.
 3. To add the Primer Spec theme to a MarkDown file, add the following at the top of the file:
 
     ```yml
-    remote_theme: eecs485staff/primer-spec
-    plugins:
-        - jekyll-remote-theme
+    ---
+    layout: spec
+    ---
     ```
 
 4. (Skip this step if you are using GitHub Pages.) Add the following to your Gemfile:
