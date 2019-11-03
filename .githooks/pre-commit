@@ -12,4 +12,3 @@ set -x
 
 npx webpack --env prod
 git add $PROJECT_ROOT/assets/js/primer_spec_plugin.min.js
-git add $PROJECT_ROOT/assets/js/spec_main.min.js

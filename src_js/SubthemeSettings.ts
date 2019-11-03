@@ -1,3 +1,4 @@
+import Config from './Config';
 import NodeManager from './NodeManager';
 import NodeManagerComponent from './NodeManagerComponent.d';
 
@@ -50,7 +51,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
   }
 
   init() {
-    this._subthemes = availableSubthemes();
+    this._initSubthemes();
     this._current_subtheme_name = this._getStoredSubthemeName();
 
     this._populateSubthemesInSelectorDropdown();
@@ -93,6 +94,18 @@ export default class SubthemeSettings implements NodeManagerComponent {
    */
   show() {
     return this.toggle(true);
+  }
+
+  /**
+   * Get the config subthemes and initialize the _subthemes property.
+   */
+  _initSubthemes() {
+    this._subthemes = Config.AVAILABLE_SUBTHEMES.map(
+      subtheme_name => ({
+        name: subtheme_name,
+        url: `${Config.BASE_URL}/assets/css/theme_${subtheme_name}.css`,
+      }),
+    );
   }
 
   /**
