@@ -165,7 +165,7 @@ Here are key changes made to the original Primer theme to add a sidebar:
 
 - `_sass/spec/`: SCSS files needed to display the sidebar and subthemes. Stylesheets in `assets/css` include these files.
 
-- `src_js/theme`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The code also adds HTML and CSS scaffolding needed for the theme. The script is designed to be distributed as a stand-alone script to add the Primer Spec theme to non-Jekyll sites. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.min.js`.
+- `src_js/theme`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The code also adds HTML and CSS scaffolding needed for the theme. The script can either be used on its own, or in conjunction with the Jekyll theme. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.min.js`.
 
 
 ## Code of conduct
