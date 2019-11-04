@@ -5,33 +5,38 @@
  * (https://github.com/matthewkastor/html-table-of-contents)
  *
  * Modifications:
- *   - Added compatibility with ES6-style imports.
+ *   - Added compatibility with ES6-style imports and TypeScript.
  *   - AnchorJS links are used by default
  *   - Ability to ignore certain headings by adding a class
  *   - Minor changes to class-name to indicate that it is separate from the
  *     Jekyll theme.
  */
 
-function _nodeContainsAnchorChild(node) {
+function _nodeContainsAnchorChild(node: HTMLElement) {
   return $('a.anchorjs-link', $(node)).length > 0;
 }
 
-function _getAnchorLink(headingNode) {
+function _getAnchorLink(headingNode: HTMLElement) {
   if (!_nodeContainsAnchorChild(headingNode)) {
     throw {
       error: '_getAnchorLink expected heading to contain anchor while populating table of contents.',
     };
   }
-  return $('a.anchorjs-link', $(headingNode)).attr('href');
+  return $('a.anchorjs-link', $(headingNode)).attr('href') || '';
 }
 
-function _createHeadingToc(documentRef, heading, index, outputTocDiv) {
+function _createHeadingToc(
+  documentRef: Document,
+  heading: HTMLElement,
+  index: number,
+  outputTocDiv: HTMLElement
+) {
   if (heading.classList.contains('primer-spec-toc-ignore')) {
     return;
   }
 
   // If a heading already has an anchor from AnchorJS, use that
-  let href = '';
+  let href: string;
   if (_nodeContainsAnchorChild(heading)) {
     href = _getAnchorLink(heading);
   }
@@ -41,7 +46,7 @@ function _createHeadingToc(documentRef, heading, index, outputTocDiv) {
     const anchor = documentRef.createElement('a');
     anchor.setAttribute('name', 'toc' + index);
     anchor.setAttribute('id', 'toc' + index);
-    heading.parentNode.insertBefore(anchor, heading);
+    heading.parentNode!.insertBefore(anchor, heading);
   }
 
   const link = documentRef.createElement('a');
@@ -68,13 +73,18 @@ function _createHeadingToc(documentRef, heading, index, outputTocDiv) {
  * however their sections may be empty. (In this example, the non-`h1` headings
  * all have empty sections.)
  * As a result, this function operates in a recursive manner.
- * @param {HTMLDOMDocument} documentRef - The `document` object.
- * @param {Array<HTMLElement>} headings - A flat-list of heading DOM nodes.
+ * @param {Document} documentRef - The `document` object.
+ * @param {HTMLElement[]} headings - A flat-list of heading DOM nodes.
  * @param {number} index - The starting index into `headings`.
  * @param {HTMLElement} outputTocDiv - The element where the heading
  *      and section indicated by `index` should be placed.
  */
-function _generateToCSections(documentRef, headings, index, outputTocDiv) {
+function _generateToCSections(
+  documentRef: Document,
+  headings: HTMLElement[],
+  index: number,
+  outputTocDiv: HTMLElement,
+) {
   if (index >= headings.length) {
     return index;
   }
@@ -102,7 +112,7 @@ function _generateToCSections(documentRef, headings, index, outputTocDiv) {
  *  present. Anchors are injected into the document and the
  *  entries in the table of contents are linked to them. The table of
  *  contents will be generated inside of the first element with the id `toc`.
- * @param {HTMLDOMDocument} documentRef Optional A reference to the document
+ * @param {Document} documentRef Optional A reference to the document
  *  object. Defaults to `document`.
  * @author Sesh Sadasivam
  * @author Matthew Christopher Kastor-Inare III
@@ -113,8 +123,8 @@ function _generateToCSections(documentRef, headings, index, outputTocDiv) {
  */
 export default function htmlTableOfContents(documentRef_in?: Document) {
   const documentRef = documentRef_in || document;
-  const toc = documentRef.getElementById('primer-spec-toc');
-  const headings = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+  const toc = documentRef.getElementById('primer-spec-toc')!;
+  const headings: HTMLElement[] = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
 
   let index = 0;
   while (index < headings.length) {
