@@ -72,7 +72,7 @@ $ pwd
 $ python3 -m http.server
 ```
 
-Visit http://localhost:8000 on your web browser. The page should look similar to this screenshot:
+Visit [http://localhost:8000](http://localhost:8000) on your web browser. The page should look similar to this screenshot:
 
 <img src="https://gdurl.com/1Kq10" height="250" alt="project page without sidebar" />
 
