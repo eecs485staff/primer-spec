@@ -10,6 +10,7 @@ Primer Spec is built on top of the wonderful [Primer theme](https://github.com/p
 - [Usage](#usage)
   - [Using with Jekyll](#using-with-jekyll)
   - [Using the plugin](#using-the-plugin)
+- [Users](#users)
 - [Contributing](#contributing)
 
 ## Usage
@@ -106,6 +107,17 @@ Your final HTML file will probably look something like this:
 ```
 
 That's it! The page should now display with Primer Spec styling.
+
+## Users
+
+The Primer Spec theme is currently used by the following courses at the University of Michigan:
+- [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures)
+- [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java)
+- [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems)
+
+Students: Would you like to see your course use this theme for their project specifications? Let your course staff know about this theme!
+
+Course staff: If you have questions about how to integrate this theme with your project release workflow, [create an issue](https://github.com/eecs485staff/primer-spec/issues/), or email [seshrs@umich.edu](mailto:seshrs@umich.edu).
 
 ## Contributing
 
