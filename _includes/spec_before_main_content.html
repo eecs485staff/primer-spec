@@ -1,6 +1,10 @@
 <div id="primer-spec-top"></div>
 <!-- Custom sidebar with a table of content -->
-<div class="primer-spec-sidebar position-fixed top-0 py-5 no-print">
+<!-- 
+    The explicit onClick handler is needed to force Safari (iOS) to propagate
+    click events for the sidebar.
+-->
+<div class="primer-spec-sidebar position-fixed top-0 py-5 no-print"  onClick="return true;">
     <h2 class="primer-spec-toc-ignore" id="contents">
         Contents
         <!-- Show/Hide Sidebar button -->
