@@ -20,6 +20,7 @@ const AVAILABLE_SUBTHEMES = [
   'modern',
   'xcode-dark',
   'slack-dark',
+  'slack-light',
 ].join(',');
 
 const PROD_ENV = 'prod';

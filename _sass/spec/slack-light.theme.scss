@@ -1,0 +1,48 @@
+// Experimental theme designed by Bella Kim (kiminsun@umich.edu).
+
+@import "base_vars.scss";
+
+$PRIMARY_COLOR: rgb(198, 183, 194);
+$SECONDARY_COLOR: rgb(63, 17, 63);
+$ACTIVE_COLOR: rgb(15, 100, 164);
+$ACTIVE_TEXT_COLOR: white;
+
+$SIDEBAR_TOC_CONTENTS_COLOR: lighten($PRIMARY_COLOR, 15%);
+
+.primer-spec-sidebar {
+    background-color: $SECONDARY_COLOR;
+}
+
+// Attribute selector for all primer-spec-toc-* classes
+div[class^="primer-spec-toc-"] {
+    padding-left: 0.5em;
+    margin-left: 0em;
+    :link, :visited {
+        color: $PRIMARY_COLOR;
+    }
+}
+
+.primer-spec-toc {
+    &-h1 {
+        // Only show the section border for H1 sections
+        &+.primer-spec-toc-section {
+            margin-left: 1em;
+            border-left: 0.15em solid $PRIMARY_COLOR;
+        }
+    }
+    &-active {
+        background-color: $ACTIVE_COLOR !important;
+        border-radius: 5px 0px 0px 5px;
+        :link, :visited {
+            color: $ACTIVE_TEXT_COLOR !important;
+        }
+    }
+}
+
+h2#contents {
+    color: $SIDEBAR_TOC_CONTENTS_COLOR !important;
+}
+
+.primer-spec-sidebar .primer-spec-sidebar-toggle {
+    color: $SIDEBAR_TOC_CONTENTS_COLOR;
+}
