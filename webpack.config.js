@@ -19,6 +19,7 @@ const AVAILABLE_SUBTHEMES = [
   'bella',
   'modern',
   'xcode-dark',
+  'slack-dark',
 ].join(',');
 
 const PROD_ENV = 'prod';

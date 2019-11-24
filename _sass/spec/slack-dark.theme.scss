@@ -1,0 +1,84 @@
+// Based on the Aubergine dark theme by Slack.
+
+@import "base_vars.scss";
+@import "monokai.sublime.scss";
+
+$HEADING_COLOR: rgb(209, 210, 211);
+$TEXT_COLOR: $HEADING_COLOR;
+$SIDEBAR_BG_COLOR: rgb(25, 23, 29);
+$LINK_COLOR: rgb(72, 154, 204);
+$SIDEBAR_HEADING_COLOR: darken($HEADING_COLOR, 15%);
+// $SIDEBAR_ACTIVE_COLOR: rgb(75, 148, 137); // This is Aubergine Classic
+$SIDEBAR_ACTIVE_COLOR: rgb(20, 100, 160);
+$ACTIVE_TEXT_COLOR: rgb(250, 250, 250);
+
+$BG_COLOR: rgb(27, 29, 33);
+$CODE_BG_COLOR: rgb(35, 37, 41);
+$CODE_BORDER_COLOR: rgb(60, 62, 66);
+$TOC_SIDE_BORDER_COLOR: $HEADING_COLOR;
+
+.primer-spec-sidebar {
+    background-color: $SIDEBAR_BG_COLOR;
+}
+
+// Attribute selector for all primer-spec-toc-* classes
+div[class^="primer-spec-toc-"] {
+    padding-left: 0.5em;
+    margin-left: 0em;
+    :link, :visited {
+        color: $SIDEBAR_HEADING_COLOR;
+    }
+}
+
+.primer-spec-toc {
+    &-h1 {
+        // Only show the section border for H1 sections
+        &+.primer-spec-toc-section {
+            margin-left: 1em;
+            border-left: 0.15em solid $TOC_SIDE_BORDER_COLOR;
+        }
+    }
+    &-active {
+        background-color: $SIDEBAR_ACTIVE_COLOR !important;
+        border-radius: 5px 0px 0px 5px;
+        :link, :visited {
+            color: $ACTIVE_TEXT_COLOR !important;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $HEADING_COLOR;
+    :link, :visited {
+        color: $HEADING_COLOR;
+    }
+}
+
+:link, :visited {
+    color: $LINK_COLOR;
+}
+
+// Make the text of code-blocks default to black (since the background-color
+// is the default primer color).
+.markdown-body {
+    div.highlight, .highlight pre.highlight {
+        background-color: $CODE_BG_COLOR;
+        border: 1px solid $CODE_BORDER_COLOR;
+    }
+
+    table tr {
+        background-color: $CODE_BG_COLOR;
+        border: 1px solid $CODE_BORDER_COLOR;
+    }
+}
+
+// Add the fancy dark background for the entire page.
+body, .markdown-body, .primer-spec-topbar-mobile {
+    background-color: $BG_COLOR;
+    color: $TEXT_COLOR;
+}
+
+// Blockquotes looked too dark, make them lighter.
+.markdown-body blockquote {
+    color: lighten(black, 60%);
+}
