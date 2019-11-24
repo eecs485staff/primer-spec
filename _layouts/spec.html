@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
     <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}
         <!-- BEGIN CUSTOM SPEC CODE -->
         {% if jekyll.environment == "dev" %}
@@ -14,7 +17,11 @@
     </head>
     <body>
         <!-- Actual content -->
-        <div id="primer-spec-plugin-main-content">
+        <!-- 
+            The explicit onClick handler is needed to force Safari (iOS) to propagate
+            click events for the sidebar.
+        -->
+        <div id="primer-spec-plugin-main-content" onClick="return true;">
             {% if site.title and site.title != page.title %}
             <h1 class="primer-spec-toc-ignore"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
             {% endif %}
