@@ -5,6 +5,7 @@
 $PRIMARY_COLOR: rgb(69, 98, 115);
 $SECONDARY_COLOR: rgb(246, 246, 246);
 $LINK_COLOR: rgb(219, 71, 93);
+$ICON_HOVER_COLOR: darken($LINK_COLOR, 30%);
 $HEADING_COLOR: rgb(58, 58, 58);
 $ACTIVE_COLOR: $PRIMARY_COLOR;
 $ACTIVE_TEXT_COLOR: white;
@@ -57,4 +58,11 @@ h1, h2, h3, h4, h5, h6 {
 
 :link, :visited {
     color: $LINK_COLOR;
+}
+
+.primer-spec-hoverable {
+    color: $LINK_COLOR !important;
+    :hover {
+        color: $ICON_HOVER_COLOR;
+    }
 }
