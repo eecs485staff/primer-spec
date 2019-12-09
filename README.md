@@ -2,14 +2,14 @@
 
 [![Build Status](https://travis-ci.com/eecs485staff/primer-spec.svg?branch=master)](https://travis-ci.com/eecs485staff/primer-spec)
 
-*Primer Spec is an HTML (and Jekyll) theme that makes long informative web pages easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
+*Primer Spec is a Jekyll (and HTML) theme that makes long informative web pages easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
 
 Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting project specifications for EECS courses at the University of Michigan. (Here are [some](https://eecs485staff.github.io/p1-insta485-static/) [examples](https://eecs280staff.github.io/p1-stats/).)
 
 ## Contents
 - [Usage](#usage)
-  - [Using with Jekyll](#using-with-jekyll)
-  - [Using the plugin](#using-the-plugin)
+  - [Using with Jekyll + MarkDown](#using-with-jekyll--markdown)
+  - [Using the HTML JavaScript plugin](#using-the-html-javascript-plugin)
 - [Users](#users)
 - [Contributing](#contributing)
 
@@ -19,18 +19,19 @@ There are two ways to quickly get started using this theme. First, answer this q
 *Do you want to store your long webpage as MarkDown or as HTML?*
 
 - *MarkDown*:
-  Use the Jekyll theme, probably coupled with GitHub/GitLab pages. Jekyll converts your MarkDown files into HTML, and has some other great features to host a website. See [Using with Jekyll](#using-with-jekyll).
+  Use the Jekyll theme, probably coupled with GitHub/GitLab pages. Jekyll converts your MarkDown files into HTML, and has some other great features to host a website. See [Using with Jekyll](#using-with-jekyll--markdown).
 
 - *HTML*:
-  Use the plugin script. Simply add a couple of lines to your plain HTML webpage and watch it magically transform in your browser! See [Using the plugin](#using-the-plugin).
+  Use the plugin script. Simply add a couple of lines to your plain HTML webpage and watch it magically transform in your browser! See [Using the plugin](#using-the-html-javascript-plugin).
 
 
-### Using with Jekyll
+### Using with Jekyll + MarkDown
 *If you plan to use GitHub Pages, see https://pages.github.com for guides.*
 
 Follow these steps to add MarkDown files that use the Primer Spec theme.
 
 1. Add your Markdown files. Note that files named README.md will be ignored by Jekyll when using a custom theme.
+_Pro tip: If you're trying to find inspiration for your project spec, check out our demo spec! Preview it at https://eecs485staff.github.io/primer-spec/ and see its source file [index.md](index.md)._
 
 2. If it doesn't already exist, create a file `_config.yml` in your site's root directory. Add this content to the file:
 
@@ -70,7 +71,7 @@ Follow these steps to add MarkDown files that use the Primer Spec theme.
 6. If you're using GitHub pages, follow the steps in the [USAGE_JEKYLL file](docs/USAGE_JEKYLL.md#Previewing-GitHub-Pages-locally) to preview your website locally.
 
 
-### Using the plugin
+### Using the HTML JavaScript plugin
 Follow these steps to add the plugin to your plain HTML webpage.
 
 1. Make sure that all sections of your web page are marked by header tags (like `h1`, `h2`, etc.).
@@ -111,9 +112,9 @@ That's it! The page should now display with Primer Spec styling.
 ## Users
 
 The Primer Spec theme is currently used by the following courses at the University of Michigan:
-- [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures)
-- [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java)
-- [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems)
+- [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 4: Web](https://eecs280staff.github.io/p4-web/).
+- [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java). Example [EECS 285 Project 3: Wheel of Fortune](https://eecs285.github.io/p3-wheel/).
+- [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
 
 Students: Would you like to see your course use this theme for their project specifications? Let your course staff know about this theme!
 
