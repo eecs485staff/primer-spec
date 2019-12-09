@@ -56,8 +56,15 @@ h1, h2, h3, h4, h5, h6 {
 // Make the text of code-blocks default to black (since the background-color
 // is the default primer color).
 .markdown-body {
+    // These are code blocks with syntax highlighting by Rogue
     .highlight pre.highlight {
         color: black;
+    }
+
+    // These are user-defined preformatted blocks.
+    pre:not(.highlight) {
+        color:black;
+        background-color:#f6f8fa;
     }
 
     table {
