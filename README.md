@@ -87,6 +87,8 @@ Follow these steps to add the plugin to your plain HTML webpage.
     ```html
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/css/primer-spec-base.css">
+    <link rel="preload" href="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" as="script" crossorigin>
     ```
 
 4. Add the following line at the bottom of the file, just before the closing `body` tag:
@@ -102,6 +104,9 @@ Your final HTML file will probably look something like this:
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/css/primer-spec-base.css">
+      <link rel="preload" href="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" as="script" crossorigin>
+      
       <title>My long project spec</title>
   </head>
   <body>
