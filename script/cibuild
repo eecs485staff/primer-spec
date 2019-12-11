@@ -4,8 +4,7 @@ set -e
 
 npx webpack --env prod
 JEKYLL_ENV=prod bundle exec jekyll build
-# TODO: Remove the 404 ignore after merging this code with master
-bundle exec htmlproofer ./_site --check-html --http-status-ignore "404"
+bundle exec htmlproofer ./_site --check-html
 bundle exec rubocop -D
 bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
