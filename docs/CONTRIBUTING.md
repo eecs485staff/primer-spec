@@ -109,11 +109,17 @@ $ pwd
 $ git remote add upstream https://github.com/pages-themes/primer.git
 ```
 
-2. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...pages-themes:master).
+2. Get the latest code from the `upstream` remote.
 
-3. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they may have to be reflected in `_layouts/spec.html` also.)
+```console
+$ git fetch upstream
+```
 
-4. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
+3. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...pages-themes:master).
+
+4. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they may have to be reflected in `_layouts/spec.html` also.)
+
+5. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
 
 ```console
 $ git checkout -b maintenance/f19
