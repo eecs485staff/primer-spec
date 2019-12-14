@@ -10,6 +10,7 @@
  * The config's output target is assets/js/primer_spec_plugin.min.js.
  */
 
+const fs = require("fs");
 const path = require('path');
 const webpack = require('webpack');
 
@@ -23,7 +24,8 @@ const AVAILABLE_SUBTHEMES = [
 
 const PROD_ENV = 'prod';
 const DEV_URL = 'http://localhost:4000';
-const PROD_URL = 'https://eecs485staff.github.io/primer-spec'
+const PROD_URL = 'https://eecs485staff.github.io/primer-spec';
+const VERSION = fs.readFileSync(path.resolve(__dirname, 'VERSION'), 'utf-8');
 
 module.exports = env => ({
   mode: env === PROD_ENV ? 'production' : 'development',
@@ -64,6 +66,7 @@ module.exports = env => ({
                 data: {
                     // These variables are passed to the liquid templates.
                     'base_url': env === PROD_ENV ? PROD_URL : DEV_URL,
+                    'primer_spec_version': VERSION,
                 }
             }
           },

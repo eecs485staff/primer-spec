@@ -86,6 +86,19 @@ export default class Sidebar implements NodeManagerComponent {
     $(window)
       .scroll(() => this._highlightActiveSidebarItem())
       .scroll();
+
+    // On mobile, when a user taps outside the sidebar when the sidebar is
+    // open, it should close.
+    if (Utilities.isSmallScreen()) {
+      $(window).on('click', () => {
+        if (this._sidebar_is_shown) {
+          this.toggle();
+        }
+      });
+      // If the click is inside the sidebar, don't let the sidebar get closed
+      // by the above handler.
+      this.$_sidebar.on('click', e => e.stopPropagation());
+    }
   }
 
   _highlightActiveSidebarItem() {

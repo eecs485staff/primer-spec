@@ -1,12 +1,18 @@
 <div id="primer-spec-top"></div>
 <!-- Custom sidebar with a table of content -->
-<div class="primer-spec-sidebar position-fixed top-0 py-5 no-print">
+<!-- 
+    The explicit onClick handler is needed to force Safari (iOS) to propagate
+    click events for the sidebar.
+-->
+<div class="primer-spec-sidebar position-fixed top-0 py-5 no-print"  onClick="return true;">
     <h2 class="primer-spec-toc-ignore" id="contents">
         Contents
         <!-- Show/Hide Sidebar button -->
-        <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-hoverable sidebar-shown no-print">
-            <i class="fas fa-bars"></i>
-        </a>
+        <span class="primer-spec-hoverable">
+            <a href="#primer-spec-top" class="primer-spec-sidebar-toggle primer-spec-hoverable sidebar-shown no-print">
+                <i class="fas fa-bars"></i>
+            </a>
+        </span>
     </h2>
     <br>
     <div id="primer-spec-toc"></div>
@@ -46,5 +52,11 @@
     <p><small>
         Does the spec display incorrectly? <a href="https://github.com/eecs485staff/primer-spec/issues">Let us know by adding a new "issue" here.</a>
     </small></p>
-    
+
+    <p class="primer-spec-brand">
+        <a href="https://github.com/eecs485staff/primer-spec/" target="_blank">
+            Primer Spec v{{ primer_spec_version }}
+        </a>
+    </p>
+
 </div>

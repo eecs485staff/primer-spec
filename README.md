@@ -76,9 +76,24 @@ Follow these steps to add the plugin to your plain HTML webpage.
 
 1. Make sure that all sections of your web page are marked by header tags (like `h1`, `h2`, etc.).
 
-2. Place all your main content within a `div` with ID `primer-spec-plugin-main-content`.
+2. Place all your main content within a `div` with ID `primer-spec-plugin-main-content` and a dummy `onClick` event handler:
 
-3. Add the following line at the bottom of the file, just before the closing `body` tag:
+    ```html
+    <div id="primer-spec-plugin-main-content" onClick="return true;">
+        <!-- Your main content goes here. -->
+    </div>
+    ```
+
+3. Add the following lines at the top of your file, just after the opening `head` tag:
+
+    ```html
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/css/primer-spec-base.css">
+    <link rel="preload" href="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" as="script" crossorigin>
+    ```
+
+4. Add the following line at the bottom of the file, just before the closing `body` tag:
 
     ```html
     <script src="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
@@ -89,10 +104,15 @@ Your final HTML file will probably look something like this:
 ```html
 <html>
   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/css/primer-spec-base.css">
+      <link rel="preload" href="https://eecs485staff.github.io/primer-spec/assets/js/primer_spec_plugin.min.js" as="script" crossorigin>
+      
       <title>My long project spec</title>
   </head>
   <body>
-      <div id="primer-spec-plugin-main-content">
+      <div id="primer-spec-plugin-main-content" onClick="return true;">
           <!-- Main content goes in here. For example: -->
           <h1 class="primer-spec-toc-ignore">My long project spec</h1>
           ...

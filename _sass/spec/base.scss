@@ -104,7 +104,8 @@
     &-h2 {
         margin-left: 12px;
         margin-top: 0.5em;
-        font-weight: bold;
+        // medium font-weight (normal is 400, bold is 700)
+        font-weight: 500;
         font-size: 1.2em;
     }
     &-h3 {
@@ -137,4 +138,9 @@
     min-height: 100%;
     height: 100%;
     display: none;
+
+    .primer-spec-brand a {
+        color: rgb(170, 167, 167);
+        font-size: small;
+    }
 }
