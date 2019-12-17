@@ -34,7 +34,7 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
 
 4. Deploy your site with GitHub pages!
 
-This repository hosts a Primer Spec site too! The original Markdown content is in [index.md](index.md), and the site is available at [https://eecs485staff.github.io/primer-spec/](https://eecs485staff.github.io/primer-spec/).
+This repository hosts a Primer Spec site too! The original Markdown content is in [index.md](index.md), and you can preview the page at [https://eecs485staff.github.io/primer-spec/index.html](https://eecs485staff.github.io/primer-spec/).
 
 If you aren't using GitHub Pages, or if you'd like to preview your webpages locally, refer to the [Advanced Usage](docs/USAGE_ADVANCED.md) docs.
 
