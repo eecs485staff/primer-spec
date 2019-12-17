@@ -4,7 +4,7 @@ set -e
 
 npx webpack --env prod
 JEKYLL_ENV=prod bundle exec jekyll build
-bundle exec htmlproofer ./_site --check-html
+bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/"
 bundle exec rubocop -D
 bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
