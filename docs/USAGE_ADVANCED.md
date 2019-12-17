@@ -90,30 +90,30 @@ To prevent a heading from appearing in the sidebar, add the class `primer-spec-t
 
 In Markdown files, this can be achieved by inserting `{: .primer-spec-toc-ignore }` under the heading. For instance:
 
-    ```markdown
-    ### This heading appears in the sidebar
-    
-    Spam spam spam.
+```markdown
+### This heading appears in the sidebar
 
-    ### This heading does NOT appear in the sidebar
-    {: .primer-spec-toc-ignore }
+Spam spam spam.
 
-    Spam spam spam.
-    ```
+### This heading does NOT appear in the sidebar
+{: .primer-spec-toc-ignore }
+
+Spam spam spam.
+```
 
 In HTML files, this can be achieved by adding a `class` attribute to the heading element. For instance:
 
-    ```html
-    <h3>This heading appears in the sidebar</h3>
+```html
+<h3>This heading appears in the sidebar</h3>
 
-    <p>Spam spam spam.</p>
+<p>Spam spam spam.</p>
 
-    <h3 class='primer-spec-toc-ignore'>
-        This heading does NOT appear in the sidebar
-    </h3>
-    
-    <p>Spam spam spam.</p>
-    ```
+<h3 class='primer-spec-toc-ignore'>
+    This heading does NOT appear in the sidebar
+</h3>
+
+<p>Spam spam spam.</p>
+```
 
 ### Using without Jekyll
 We recommend using Primer Spec with Jekyll because:
