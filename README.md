@@ -4,6 +4,11 @@
 
 *Primer Spec is a Jekyll theme that makes long informative web pages easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
 
+[![Primer Spec live preview][2]][1]
+
+[1]: https://eecs485staff.github.io/primer-spec/
+[2]: demo/screenshot.png "site preview"
+
 Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting project specifications for EECS courses at the University of Michigan. See the [User Showcase](#user-showcase) for inspiration.
 
 ## Contents
