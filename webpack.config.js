@@ -29,10 +29,10 @@ const VERSION = fs.readFileSync(path.resolve(__dirname, 'VERSION'), 'utf-8');
 
 function getBaseURL(env) {
   let base_url;
-  if (env.production) {
+  if (env && env.production) {
     base_url = PROD_URL;
   }
-  else if (env.base_url && typeof env.base_url === 'string') {
+  else if (env && env.base_url && typeof env.base_url === 'string') {
     base_url = env.base_url;
     if (base_url.endsWith('/')) {
       base_url = base_url.slice(0, -1);
@@ -46,7 +46,7 @@ function getBaseURL(env) {
 }
 
 module.exports = env => ({
-  mode: env.production ? 'production' : 'development',
+  mode: (env && env.production) ? 'production' : 'development',
   context: path.resolve(__dirname, 'src_js/'),
   entry: './main.ts',
   output: {
