@@ -8,6 +8,9 @@
         <!-- BEGIN CUSTOM SPEC CODE -->
         {% if jekyll.environment == "dev" %}
             {% assign base_url = "http://localhost:4000" %}
+        {% elsif jekyll.environment == "site-preview" %}
+            {% assign url_size = site.url | size | minus: 1 %}    
+            {% assign base_url = site.url | slice: 0, url_size %}
         {% else %}
             {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
         {% endif %}
