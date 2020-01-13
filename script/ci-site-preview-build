@@ -11,4 +11,4 @@ fi
 BASE_URL="$1"
 
 npx webpack --env.base_url="$BASE_URL"
-JEKYLL_ENV=dev bundle exec jekyll build
+JEKYLL_ENV=site-preview bundle exec jekyll build
