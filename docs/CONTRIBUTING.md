@@ -77,12 +77,11 @@ The theme contains a minimal test suite, to ensure a site with the theme would b
 
 ### Adding new subthemes
 
-Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The stylesheets for these subthemes are defined in `_sass/spec`, and are typically named as `<name>.theme.scss`.
+Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The themes are implemented by changing [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) used in the [base stylesheet](../_sass/spec/base.scss). The themes are declared in JavaScript (see [bella.theme.ts](../src_js/subthemes/definitions/bella.theme.ts), for example).
 
 To create a new subtheme:
-- Create the file `_sass/spec/<name>.theme.scss`. Take inspiration from the structure of other subtheme stylesheets.
-- Create the file `assets/css/theme_<name>.scss`. Follow the structure of other stylesheets in the same directory to import the theme stylesheet variables from the `_sass/spec` directory.
-- Add the new subtheme name to the list of subthemes in `webpack.config.js`.
+- Create the file `src_js/subthemes/definitions/<name>.theme.ts`. Take inspiration from the structure of other subthemes in that directory.
+- Import and add your subtheme to the default export of [`src_js/subthemes/index.ts`](../src_js/subthemes/index.ts). Follow the structure of other imports in the module.
 - Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
 
 *Pro tip: Upload screenshots of the new subtheme to make it easier to review your Pull Request.*
@@ -171,7 +170,7 @@ Here are key changes made to the original Primer theme to add a sidebar:
 
 - `_sass/spec/`: SCSS files needed to display the sidebar and subthemes. Stylesheets in `assets/css` include these files.
 
-- `src_js/theme`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The code also adds HTML and CSS scaffolding needed for the theme. The script can either be used on its own, or in conjunction with the Jekyll theme. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.min.js`.
+- `src_js`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The code also adds HTML and CSS scaffolding needed for the theme. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.min.js`.
 
 
 ## Code of conduct
