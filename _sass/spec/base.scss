@@ -1,4 +1,12 @@
-@import "base_vars.scss";
+@import "default_theme.scss";
+
+$SIDEBAR_WIDTH: 18em;
+$SIDEBAR_CONTENT_MARGIN: 0.5em;
+$SIDEBAR_RIGHT_BORDER_STYLE: 1px solid lightgrey;
+
+$ICON_FONT_SIZE: 2em;
+$ICON_HOVER_COLOR: rgb(211, 85, 2);
+$TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 
 // For students printing out the spec, don't print the sidebar and icons.
 @media print {    
@@ -6,6 +14,8 @@
         display: none !important;
     }
 }
+
+/* Sidebar */
 
 .primer-spec-sidebar {
     width: $SIDEBAR_WIDTH;
@@ -17,14 +27,22 @@
     // To make the sidebar appear on top of the topbar on mobile
     z-index: 1;
 
-    // Need to set a background color because the sidebar overlays on top of
-    // the content. (By default, the element has a transparent background.)
-    background-color: $SIDEBAR_BG_COLOR;
-
     &-toggle-fixed {
         font-size: $ICON_FONT_SIZE;
         &.sidebar-shown {
             display: none;
+        }
+    }
+
+    // Need to set a background color because the sidebar overlays on top of
+    // the content. (By default, the element has a transparent background.)
+    background-color: var(--sidebar-bg-color);
+
+    // These are headers within the sidebar
+    h1, h2, h3, h4, h5, h6 {
+    color: var(--sidebar-heading-text-color);
+        :link, :visited {
+            color: var(--sidebar-heading-link-color);
         }
     }
 }
@@ -35,11 +53,6 @@
 
 .primer-spec-topbar {
     height: $TOPBAR_HEIGHT;
-    &-mobile {
-        // On mobile, the background prevents the icons from interfering
-        // with the text. Use with .primer-spec-content-mobile.
-        background-color: white;
-    }
 }
 
 /**
@@ -68,13 +81,6 @@
     }
 }
 
-.primer-spec-hoverable {
-    &:hover {
-        color: $ICON_HOVER_COLOR;
-        text-decoration: none;
-    }
-}
-
 .primer-spec-content {
     &-margin-extra {
         // When the sidebar is shown, this ensures that the body of the page
@@ -94,40 +100,71 @@
     }
 }
 
+// These are section headers in the sidebar
 .primer-spec-toc {
     &-h1 {
         margin-left: auto;
         margin-top: 0.7em;
         font-weight: bold;
         font-size: 1.2em;
+
+        &:not(.primer-spec-toc-active) {
+            :link, &:visited, :link, :visited {
+                color: var(--sidebar-toc-h1-link-color) !important;
+            }
+        }
+      
+        // Only show the section border for H1 sections
+        &+.primer-spec-toc-section {
+            margin-left: 1em;
+            border-left: 0.15em solid var(--sidebar-toc-h1-border-color);
+        }
     }
     &-h2 {
         margin-left: 12px;
         margin-top: 0.5em;
-        font-weight: bold;
+        // medium font-weight (normal is 400, bold is 700)
+        font-weight: 500;
         font-size: 1.2em;
+
+        &:not(.primer-spec-toc-active) {
+            :link, &:visited, :link, :visited {
+                color: var(--sidebar-toc-h2-link-color) !important;
+            }
+        }
     }
     &-h3 {
-        margin-left: 24px;
         margin-top: 0.3em;
         font-size: 1em;
     }
     &-h4 {
-        margin-left: 36px;
         font-style: italic;
         font-size: 0.9em;
     }
     &-h5 {
-        margin-left: 48px;
         font-size: 0.8em;
     }
     &-h6 {
-        margin-left: 56px;
         font-size: 0.7em;
     }
     &-active {
-        background-color: $SIDEBAR_ACTIVE_ITEM_COLOR;
+        background-color: var(--sidebar-active-toc-section-bg-color);
+        border-radius: 5px 0px 0px 5px;
+        &:link, &:visited, :link, :visited {
+            color: var(--sidebar-active-toc-section-link-color);
+        }
     }
+    &-item:not(.primer-spec-toc-active) {
+        &:link, &:visited, :link, :visited {
+            color: var(--sidebar-toc-section-link-color);
+        }
+    }
+}
+
+// Attribute selector for all primer-spec-toc-* classes
+div[class^="primer-spec-toc-"] {
+    padding-left: 0.5em;
+    margin-left: 0em;
 }
 
 .primer-spec-settings {
@@ -137,4 +174,58 @@
     min-height: 100%;
     height: 100%;
     display: none;
+
+    .primer-spec-brand a {
+        color: rgb(170, 167, 167);
+        font-size: small;
+    }
+}
+
+
+/* Main Content */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--main-heading-text-color);
+    :link, :visited {
+      color: var(--main-heading-link-color);
+    }
+}
+
+:link, :visited {
+    color: var(--main-link-color);
+}
+
+.primer-spec-hoverable {
+    color: var(--main-link-color) !important;
+    :hover {
+        color: var(--hoverable-link-hover-color) !important;
+        text-decoration: none;
+    }
+}
+
+// Add fancy background colors for the entire page.
+body, .markdown-body, .primer-spec-topbar-mobile {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+}
+
+.markdown-body {
+    // These are code blocks with syntax highlighting by Rogue
+    .highlight pre.highlight {
+        color: var(--main-table-pre-text-color);
+    }
+  
+    // These are user-defined preformatted blocks.
+    pre:not(.highlight) {
+        color: var(--main-table-pre-text-color);
+        background-color: var(--main-pre-bg-color);
+    }
+  
+    table {
+        color: var(--main-table-pre-text-color);
+    }
+
+    blockquote {
+        color: var(--main-blockquote-text-color);
+    }
 }

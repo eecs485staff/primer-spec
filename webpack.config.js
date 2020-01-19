@@ -10,25 +10,35 @@
  * The config's output target is assets/js/primer_spec_plugin.min.js.
  */
 
+const fs = require("fs");
 const path = require('path');
 const webpack = require('webpack');
 
-// Add new subtheme names to this list.
-const AVAILABLE_SUBTHEMES = [
-  'default',
-  'bella',
-  'modern',
-  'xcode-dark',
-  'slack-dark',
-  'slack-light',
-].join(',');
-
 const PROD_ENV = 'prod';
 const DEV_URL = 'http://localhost:4000';
-const PROD_URL = 'https://eecs485staff.github.io/primer-spec'
+const PROD_URL = 'https://eecs485staff.github.io/primer-spec';
+const VERSION = fs.readFileSync(path.resolve(__dirname, 'VERSION'), 'utf-8');
+
+function getBaseURL(env) {
+  let base_url;
+  if (env && env.production) {
+    base_url = PROD_URL;
+  }
+  else if (env && env.base_url && typeof env.base_url === 'string') {
+    base_url = env.base_url;
+    if (base_url.endsWith('/')) {
+      base_url = base_url.slice(0, -1);
+    }
+  }
+  else {
+    base_url = DEV_URL;
+  }
+  console.log(`Using base URL: ${base_url}`);
+  return base_url;
+}
 
 module.exports = env => ({
-  mode: env === PROD_ENV ? 'production' : 'development',
+  mode: (env && env.production) ? 'production' : 'development',
   context: path.resolve(__dirname, 'src_js/'),
   entry: './main.ts',
   output: {
@@ -65,7 +75,8 @@ module.exports = env => ({
             options: {
                 data: {
                     // These variables are passed to the liquid templates.
-                    'base_url': env === PROD_ENV ? PROD_URL : DEV_URL,
+                    'base_url': getBaseURL(env),
+                    'primer_spec_version': VERSION,
                 }
             }
           },
@@ -85,8 +96,7 @@ module.exports = env => ({
     }),
     // These variables become available in any file
     new webpack.DefinePlugin({
-      'process.env.AVAILABLE_SUBTHEMES': `'${AVAILABLE_SUBTHEMES}'`,
-      'process.env.BASE_URL': `'${env === PROD_ENV ? PROD_URL : DEV_URL}'`,
+      'process.env.BASE_URL': `'${getBaseURL(env)}'`,
     }),
   ],
   // Minimize output

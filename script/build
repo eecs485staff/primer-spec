@@ -3,5 +3,5 @@
 
 set -e
 
-npx webpack --env dev
+npx webpack
 JEKYLL_ENV=dev bundle exec jekyll build
