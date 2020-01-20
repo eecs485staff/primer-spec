@@ -149,7 +149,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
     }
     &-active {
         background-color: var(--sidebar-active-toc-section-bg-color);
-        border-radius: 5px 0px 0px 5px;
+        border-radius: 5px 5px 5px 5px;
         &:link, &:visited, :link, :visited {
             color: var(--sidebar-active-toc-section-link-color);
         }
@@ -165,6 +165,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 div[class^="primer-spec-toc-"] {
     padding-left: 0.5em;
     margin-left: 0em;
+    margin-right: 0.5em;
 }
 
 .primer-spec-settings {
