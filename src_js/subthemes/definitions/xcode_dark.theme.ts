@@ -1,4 +1,4 @@
-import {SubthemeVarsType} from '../Subtheme.d';
+import {SubthemeVarsType} from '../Subtheme';
 
 const XCODE_DARK_BG_COLOR = 'rgb(40, 41, 35)';
 const XCODE_DARK_TEXT_COLOR = 'white';
@@ -26,7 +26,7 @@ const xcode_dark_theme_vars: SubthemeVarsType = {
 
   '--main-bg-color': XCODE_DARK_BG_COLOR,
   '--main-text-color': XCODE_DARK_TEXT_COLOR,
-  '--main-pre-bg-color': '#f6f8fa',
+  '--main-table-pre-bg-color': '#f6f8fa',
   '--main-table-pre-text-color': 'black',
   '--main-blockquote-text-color': '#ccc',
 };
