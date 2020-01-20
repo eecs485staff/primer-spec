@@ -1,6 +1,4 @@
-import {DEFAULT_BLOCKQUOTE_TEXT_COLOR} from './default.theme';
-
-import {SubthemeVarsType} from '../Subtheme.d';
+import {SubthemeVarsType} from '../Subtheme';
 
 const BELLA_PRIMARY_TEXT_COLOR = 'rgb(69, 98, 115)';
 const BELLA_MAIN_LINK_COLOR = 'rgb(219, 71, 93)';
@@ -22,12 +20,6 @@ const bella_theme_vars: SubthemeVarsType = {
   '--main-heading-link-color': BELLA_MAIN_LINK_COLOR,
   '--main-link-color': BELLA_MAIN_LINK_COLOR,
   '--hoverable-link-hover-color': '#731624', // darken($BELLA_MAIN_LINK_COLOR, 30%)
-
-  '--main-bg-color': 'white',
-  '--main-text-color': 'inherit',
-  '--main-pre-bg-color': 'inherit',
-  '--main-table-pre-text-color': 'inherit',
-  '--main-blockquote-text-color': DEFAULT_BLOCKQUOTE_TEXT_COLOR,
 };
 
 export default bella_theme_vars;

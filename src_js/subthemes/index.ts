@@ -1,5 +1,5 @@
 import createSubtheme from './createSubtheme';
-import Subtheme from './Subtheme.d';
+import Subtheme from './Subtheme';
 
 import default_theme from './definitions/default.theme';
 import bella_theme from './definitions/bella.theme';

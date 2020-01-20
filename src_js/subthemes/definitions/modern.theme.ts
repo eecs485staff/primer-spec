@@ -1,6 +1,4 @@
-import {DEFAULT_BLOCKQUOTE_TEXT_COLOR} from './default.theme';
-
-import {SubthemeVarsType} from '../Subtheme.d';
+import {SubthemeVarsType} from '../Subtheme';
 
 const MODERN_PRIMARY_COLOR = 'rgb(41, 82, 91)';
 const MODERN_SPECIAL_COLOR = 'rgb(229, 214, 204)';
@@ -24,12 +22,6 @@ const modern_theme_vars: SubthemeVarsType = {
   '--main-heading-link-color': MODERN_PRIMARY_COLOR,
   '--main-link-color': MODERN_MAIN_LINK_COLOR,
   '--hoverable-link-hover-color': '#a51e19', // darken($MODERN_MAIN_LINK_COLOR, 30%)
-
-  '--main-bg-color': 'white',
-  '--main-text-color': 'inherit',
-  '--main-pre-bg-color': 'inherit',
-  '--main-table-pre-text-color': 'inherit',
-  '--main-blockquote-text-color': DEFAULT_BLOCKQUOTE_TEXT_COLOR,
 };
 
 export default modern_theme_vars;

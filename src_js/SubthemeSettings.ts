@@ -101,6 +101,11 @@ export default class SubthemeSettings implements NodeManagerComponent {
    * @param subtheme_name the name of the newly selected subtheme
    */
   updateTheme(subtheme_name: string) {
+    const old_subtheme = Subthemes[this._current_subtheme_name];
+    if (old_subtheme) {
+      old_subtheme.reset();
+    }
+    
     const new_subtheme = Subthemes[subtheme_name];
     if (!new_subtheme) {
       return;

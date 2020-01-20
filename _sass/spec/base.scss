@@ -213,16 +213,18 @@ body, .markdown-body, .primer-spec-topbar-mobile {
     // These are code blocks with syntax highlighting by Rogue
     .highlight pre.highlight {
         color: var(--main-table-pre-text-color);
+        background-color: var(--main-table-pre-bg-color);
     }
   
     // These are user-defined preformatted blocks.
     pre:not(.highlight) {
         color: var(--main-table-pre-text-color);
-        background-color: var(--main-pre-bg-color);
+        background-color: var(--main-table-pre-bg-color);
     }
   
-    table {
+    table tr {
         color: var(--main-table-pre-text-color);
+        background-color: var(--main-table-pre-bg-color);
     }
 
     blockquote {

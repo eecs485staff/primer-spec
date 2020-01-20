@@ -1,10 +1,17 @@
-import Subtheme, {SubthemeVarsType} from './Subtheme';
+import Subtheme, {SubthemeVarsType, SUBTHEME_VARS} from './Subtheme';
 
 function apply(theme_vars: SubthemeVarsType) {
-  const documentEl = document.documentElement;
+  const bodyEl = document.body;
   for (let [theme_var, value] of Object.entries(theme_vars)) {
-    documentEl.style.setProperty(theme_var, value);
+    bodyEl.style.setProperty(theme_var, value);
   }
+}
+
+function reset() {
+  const bodyEl = document.body;
+  SUBTHEME_VARS.map(theme_var => {
+    bodyEl.style.removeProperty(theme_var);
+  });
 }
 
 /**
@@ -19,5 +26,6 @@ export default function createSubtheme(
   return {
     name: name,
     apply: () => apply(theme_vars),
+    reset: reset,
   };
 }
