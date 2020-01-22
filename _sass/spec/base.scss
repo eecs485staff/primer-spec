@@ -213,7 +213,7 @@ body, .markdown-body, .primer-spec-topbar-mobile {
 .markdown-body {
     // These are user-defined preformatted blocks.
     :not(.highlight) {
-        & > code, & > tt {
+        & > pre:not(.highlight), & > code, & > tt {
             color: var(--main-tt-text-color, inherit);
             background-color: var(--main-tt-bg-color, rgba(27,31,35,0.05));
             border: var(--main-tt-border, inherit);
