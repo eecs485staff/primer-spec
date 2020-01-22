@@ -27,6 +27,9 @@ export const SUBTHEME_VARS = [
   '--main-table-pre-bg-color',
   '--main-table-pre-text-color',
   '--main-table-pre-border',
+  '--main-tt-text-color',
+  '--main-tt-bg-color',
+  '--main-tt-border',
   '--main-blockquote-text-color',
 ];
 

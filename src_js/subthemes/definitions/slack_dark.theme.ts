@@ -3,6 +3,9 @@ import {SubthemeVarsType} from '../Subtheme';
 const SLACK_DARK_MAIN_HEADING_COLOR = '#f2f2f2';
 const SLACK_DARK_SIDEBAR_HEADING_COLOR = '#cccccc'; // darken(MAIN_HEADING_COLOR, 15%)
 const SLACK_DARK_TEXT_COLOR = 'rgb(209, 210, 211)';
+const SLACK_DARK_CODE_COLOR = 'white';
+const SLACK_DARK_CODE_BG_COLOR = 'rgb(35, 37, 41)';
+const SLACK_DARK_CODE_BORDER = '1px solid rgb(60, 62, 66)';
 
 const slack_dark_theme_vars: SubthemeVarsType = {
   '--sidebar-bg-color': 'rgb(25, 23, 29)',
@@ -24,9 +27,12 @@ const slack_dark_theme_vars: SubthemeVarsType = {
 
   '--main-bg-color': 'rgb(27, 29, 33)',
   '--main-text-color': SLACK_DARK_TEXT_COLOR,
-  '--main-table-pre-bg-color': 'rgb(35, 37, 41)',
-  '--main-table-pre-text-color': 'white',
-  '--main-table-pre-border': '1px solid rgb(60, 62, 66)',
+  '--main-table-pre-bg-color': SLACK_DARK_CODE_BG_COLOR,
+  '--main-table-pre-text-color': SLACK_DARK_CODE_COLOR,
+  '--main-table-pre-border': SLACK_DARK_CODE_BORDER,
+  '--main-tt-bg-color': SLACK_DARK_CODE_BG_COLOR,
+  '--main-tt-text-color': SLACK_DARK_CODE_COLOR,
+  '--main-tt-border': SLACK_DARK_CODE_BORDER,
   '--main-blockquote-text-color': '#999999',
 
   'rouge_theme': 'monokai',

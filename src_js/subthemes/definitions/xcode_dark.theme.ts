@@ -29,6 +29,8 @@ const xcode_dark_theme_vars: SubthemeVarsType = {
   '--main-table-pre-bg-color': '#f6f8fa',
   '--main-table-pre-text-color': 'black',
   '--main-blockquote-text-color': '#ccc',
+  '--main-tt-text-color': 'white',
+  '--main-tt-bg-color': '#696969',
 };
 
 export default xcode_dark_theme_vars;
