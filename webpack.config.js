@@ -14,14 +14,6 @@ const fs = require("fs");
 const path = require('path');
 const webpack = require('webpack');
 
-// Add new subtheme names to this list.
-const AVAILABLE_SUBTHEMES = [
-  'default',
-  'bella',
-  'modern',
-  'xcode-dark',
-].join(',');
-
 const PROD_ENV = 'prod';
 const DEV_URL = 'http://localhost:4000';
 const PROD_URL = 'https://eecs485staff.github.io/primer-spec';
@@ -104,7 +96,6 @@ module.exports = env => ({
     }),
     // These variables become available in any file
     new webpack.DefinePlugin({
-      'process.env.AVAILABLE_SUBTHEMES': `'${AVAILABLE_SUBTHEMES}'`,
       'process.env.BASE_URL': `'${getBaseURL(env)}'`,
     }),
   ],

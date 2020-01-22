@@ -1,0 +1,27 @@
+// default_theme.scss
+
+// These are initial default values for the CSS theming properties.
+:root {
+  --sidebar-bg-color: white;
+  --sidebar-heading-text-color: inherit;
+  --sidebar-heading-link-color: #0366d6;
+
+  --sidebar-toc-h1-link-color: #0366d6;
+  --sidebar-toc-h1-border-color: lightgrey;
+  --sidebar-toc-h2-link-color: #0366d6;
+
+  --sidebar-active-toc-section-bg-color: yellow;
+  --sidebar-active-toc-section-link-color: #0366d6;
+  --sidebar-toc-section-link-color: #0366d6;
+
+  --main-heading-text-color: inherit;
+  --main-heading-link-color: #0366d6;
+  --main-link-color: #0366d6;
+  --hoverable-link-hover-color: rgb(211, 85, 2);
+
+  --main-bg-color: white;
+  --main-text-color: inherit;
+  --main-table-pre-bg-color: inherit;
+  --main-table-pre-text-color: inherit;
+  --main-blockquote-text-color: #6a737d;
+}

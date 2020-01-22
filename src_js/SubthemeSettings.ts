@@ -1,21 +1,8 @@
-import Config from './Config';
 import NodeManager from './NodeManager';
 import NodeManagerComponent from './NodeManagerComponent.d';
-
-interface Subtheme {
-  name: string;
-  url: string;
-}
+import Subthemes from './subthemes';
 
 const SUBTHEME_STORAGE_KEY = 'spec_subtheme_name';
-
-/**
- * Returns a dictionary of currently available subthemes and their CSS URLs.
- *
- * This function is implemented in a separate inline script in the template
- * HTML because Jekyll needs to correctly populate the URLs of the CSS files.
- */
-declare function availableSubthemes(): Array<Subtheme>;
 
 /**
  * Encapsulates the Settings pane to select subthemes.
@@ -24,24 +11,19 @@ export default class SubthemeSettings implements NodeManagerComponent {
   _node_manager: NodeManager;
   $_settings_pane: JQuery;
   $_settings_toggle_buttons: JQuery;
-  $_subtheme_stylesheet: JQuery;
   $_subtheme_selector_dropdown: JQuery;
 
-  _subthemes: Array<Subtheme>;
   _current_subtheme_name: string;
   _settings_is_shown: boolean;
 
   constructor(node_manager: NodeManager, $settings_pane: JQuery,
     $settings_toggle_buttons: JQuery,
-    $subtheme_stylesheet: JQuery,
     $subtheme_selector_dropdown: JQuery) {
     this._node_manager = node_manager;
     this.$_settings_pane = $settings_pane;
     this.$_settings_toggle_buttons = $settings_toggle_buttons;
-    this.$_subtheme_stylesheet = $subtheme_stylesheet;
     this.$_subtheme_selector_dropdown = $subtheme_selector_dropdown;
 
-    this._subthemes = [];
     this._current_subtheme_name = '';
     this._settings_is_shown = false;
   }
@@ -51,7 +33,6 @@ export default class SubthemeSettings implements NodeManagerComponent {
   }
 
   init() {
-    this._initSubthemes();
     this._current_subtheme_name = this._getStoredSubthemeName();
 
     this._populateSubthemesInSelectorDropdown();
@@ -73,7 +54,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
     if (this._settings_is_shown) {
       this.$_settings_pane.hide();
     }
- else {
+    else {
       this.$_settings_pane.show();
     }
     this._settings_is_shown = !this._settings_is_shown;
@@ -97,27 +78,15 @@ export default class SubthemeSettings implements NodeManagerComponent {
   }
 
   /**
-   * Get the config subthemes and initialize the _subthemes property.
-   */
-  _initSubthemes() {
-    this._subthemes = Config.AVAILABLE_SUBTHEMES.map(
-      subtheme_name => ({
-        name: subtheme_name,
-        url: `${Config.BASE_URL}/assets/css/theme_${subtheme_name}.css`,
-      }),
-    );
-  }
-
-  /**
    * Populate the available subthemes in the subtheme selector dropdown in the
    * settings pane.
    */
   _populateSubthemesInSelectorDropdown() {
-    this._subthemes.map((subtheme, idx) => {
+    Object.entries(Subthemes).map(([name, _]) => {
       this.$_subtheme_selector_dropdown.append(
         $('<option/>')
-          .prop('value', subtheme.name)
-          .append(subtheme.name),
+          .prop('value', name)
+          .append(name),
       );
     });
 
@@ -132,14 +101,19 @@ export default class SubthemeSettings implements NodeManagerComponent {
    * @param subtheme_name the name of the newly selected subtheme
    */
   updateTheme(subtheme_name: string) {
-    const current_subtheme = this._subthemes.find(subtheme => subtheme.name === subtheme_name);
-    if (!current_subtheme) {
+    const old_subtheme = Subthemes[this._current_subtheme_name];
+    if (old_subtheme) {
+      old_subtheme.reset();
+    }
+    
+    const new_subtheme = Subthemes[subtheme_name];
+    if (!new_subtheme) {
       return;
     }
 
     this._current_subtheme_name = subtheme_name;
     this.$_subtheme_selector_dropdown.val(subtheme_name);
-    this.$_subtheme_stylesheet.prop('href', current_subtheme.url);
+    new_subtheme.apply();
     this._storeSubthemeName(subtheme_name);
   }
 
@@ -162,6 +136,6 @@ export default class SubthemeSettings implements NodeManagerComponent {
       this._node_manager.storage.get(SUBTHEME_STORAGE_KEY);
     return stored_subtheme_name
       ? stored_subtheme_name
-      : this._subthemes[0].name;
+      : Subthemes.default.name;
   }
 }
