@@ -12,12 +12,19 @@ export interface RegisteredSubthemes {
   [name: string]: Subtheme,
 }
 
-const registered_subthemes: RegisteredSubthemes = {
+export const LIGHT_SUBTHEMES: RegisteredSubthemes = {
   'default': createSubtheme('default', default_theme),
   'bella': createSubtheme('bella', bella_theme),
   'modern': createSubtheme('modern', modern_theme),
-  'xcode-dark': createSubtheme('xcode-dark', xcode_dark_theme),
   'slack-light': createSubtheme('slack-light', slack_light_theme),
+};
+
+export const DARK_SUBTHEMES: RegisteredSubthemes = {
+  'xcode-dark': createSubtheme('xcode-dark', xcode_dark_theme),
   'slack-dark': createSubtheme('slack-dark', slack_dark_theme),
 };
-export default registered_subthemes;
+
+export default {
+  ...LIGHT_SUBTHEMES,
+  ...DARK_SUBTHEMES,
+};
