@@ -15,6 +15,7 @@ Primer Spec is built on top of the wonderful [Primer theme](https://github.com/p
 - [Usage](#usage)
 - [User Showcase](#user-showcase)
 - [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
 
 ## Usage
 Primer Spec is a Jekyll theme, which means you can start using this theme with [GitHub Pages](https://pages.github.com) right away!
@@ -59,3 +60,7 @@ Course staff: If you have questions about how to integrate this theme with your 
 Interested in contributing to Primer Spec? We'd love your help. Primer Spec is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for further instructions on how to contribute.
 
 For maintenance and release instructions, see [Maintenance & Release section](docs/CONTRIBUTING.md#Maintenance--Release) of the CONTRIBUTING file.
+
+## Acknowledgements
+
+Primer Spec is maintained by Sesh Sadasivam (@seshrs) along with the EECS 485 Staff (@eecs485staff). Bella Kim (@bellakiminsun) contributed to the design, and designed the subthemes.
