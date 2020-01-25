@@ -63,4 +63,4 @@ For maintenance and release instructions, see [Maintenance & Release section](do
 
 ## Acknowledgements
 
-Primer Spec is maintained by Sesh Sadasivam (@seshrs) along with the EECS 485 Staff (@eecs485staff). Bella Kim (@bellakiminsun) contributed to the design, and designed the subthemes.
+Primer Spec is maintained by Sesh Sadasivam ([@seshrs](https://github.com/seshrs)) along with the EECS 485 Staff ([@eecs485staff](https://github.com/eecs485staff)). Bella Kim ([@bellakiminsun](https://github.com/bellakiminsun)) contributed to the design, and designed the subthemes.
