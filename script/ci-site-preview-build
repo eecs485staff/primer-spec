@@ -1,0 +1,14 @@
+#!/bin/sh
+# Build a preview of the theme, only to be used in conjunction with
+# Primer Spec Preview.
+
+set -e
+
+if [ "$#" != 1 ]; then
+  echo "Usage: $0 BASE_URL"
+  exit 1
+fi
+BASE_URL="$1"
+
+npx webpack --env.base_url="$BASE_URL"
+JEKYLL_ENV=site-preview bundle exec jekyll build
