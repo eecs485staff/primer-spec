@@ -91,6 +91,29 @@ export default class NodeManager {
   }
 
   /**
+   * HACK: Toggles italics in Chrome before printing.
+   * (See issue eecs485staff/primer-spec#38)
+   * @param isItalicsEnabled boolean indicating whether italics should be enabled
+   */
+  _toggleItalicsInChrome(isItalicsEnabled: boolean) {
+    const chromeVersion = Utilities.getChromeVersion();
+    if (chromeVersion === false || chromeVersion >= 82) {
+      return;
+    }
+
+    const all_italic_els =
+      'em, dfn, .text-italic, dt, .highlight .cm, .highlight .c1, ' +
+      '.highlight .cs, .highlight .cd, .highlight .ge, .primer-spec-toc-h4';
+    const font_style = isItalicsEnabled ? 'italic' : 'inherit';
+
+    const nodes: NodeListOf<HTMLElement> =
+      document.querySelectorAll(all_italic_els);
+    Array.from(nodes).map(el => {
+      el.style.fontStyle = font_style;
+    });
+  }
+
+  /**
    * Register handler when page is previewed for printing. The handler hides
    * the sidebar and settings panes and restores them after the print preview
    * has been generated.
@@ -109,6 +132,7 @@ export default class NodeManager {
         should_undo_settings_toggle = true;
         this.settings.toggle();
       }
+      this._toggleItalicsInChrome(false);
     };
     const afterPrint = () => {
       if (should_undo_sidebar_toggle) {
@@ -119,6 +143,7 @@ export default class NodeManager {
         should_undo_settings_toggle = false;
         this.settings.toggle();
       }
+      this._toggleItalicsInChrome(true);
     };
     // Safari doesn't support onbeforeprint, etc.
     // So this is the "official" work-around for webkit.
