@@ -11,8 +11,6 @@ Due: ~~8pm, Apr 1, 2019~~ **Anytime!**  _This is an individual project._
 # Introduction
 In Computer Science courses, project specifications tend to get [really](https://web.archive.org/web/20180425010014/https://eecs485staff.github.io/p3-insta485-clientside/) [long](https://web.archive.org/web/20190424183409/https://eecs280staff.github.io/p3-euchre/). The intention for such a long document is good — they usually provide all the information that a student would need to successfully complete the project. However, this can also make it difficult for students to find information quickly — they often get lost in the document, and cannot easily find the information they need on the fly.
 
-<!-- <img src="https://gdurl.com/npWU" alt="Infinite scroll..." height="250"/> -->
-
 | <img src="https://media.giphy.com/media/vvWhQsVAFkyisScAsM/200w_d.gif" alt="Infinite scroll..." height="150"/> |
 |:--:| 
 | _Infinite scroll..._ |
@@ -74,7 +72,7 @@ $ python3 -m http.server
 
 Visit [http://localhost:8000](http://localhost:8000) on your web browser. The page should look similar to this screenshot:
 
-<img src="https://gdurl.com/1Kq10" height="250" alt="project page without sidebar" />
+<img src="https://drive.google.com/uc?export=view&id=1Kplxw_Eb7343xLFGXTcpjNpsay9GraMe" height="250" alt="project page without sidebar" />
 
 The spec already looks pretty good, but it could certainly be improved with a sidebar.
 
@@ -83,7 +81,7 @@ In this section, you will add a sidebar to the HTML page and hard-code its conte
 
 When you're done with this section, your webpage will have a sidebar on the left, something like this screenshot:
 
-<img src="https://gdurl.com/zJi1" height="250" alt="project page with sidebar" />
+<img src="https://drive.google.com/uc?export=view&id=1_QPsSGlXKjfqY-3TUbsXej5isOZypK7U" height="250" alt="project page with sidebar" />
 
 Of course, _your_ finished webpage doesn't have to look like this. After all, this project isn't autograded! (In fact, feel free to showcase your project spec design with us! Create an issue on [our GitHub repository](https://github.com/eecs485staff/primer-spec/issues) with a screenshot of your design.)
 
