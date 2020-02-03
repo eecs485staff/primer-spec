@@ -124,7 +124,14 @@ export default class NodeManager {
     let should_undo_sidebar_toggle = false;
     let should_undo_settings_toggle = false;
     let current_subtheme = '';
+    // To prevent the print handlers from being registered twice, and to
+    // work around Firefox not printing correctly with window.matchMedia,
+    // we need this flag to prevent duplicate toggling.
+    let has_before_print_run = false;
     const beforePrint = () => {
+      if (has_before_print_run) {
+        return;
+      }
       if (this.sidebar.shown) {
         should_undo_sidebar_toggle = true;
         this.sidebar.toggle();
@@ -136,8 +143,12 @@ export default class NodeManager {
       this._toggleItalicsInChrome(false);
       current_subtheme = this.settings.current_subtheme_name;
       this.settings.updateTheme('default');
+      has_before_print_run = true;
     };
     const afterPrint = () => {
+      if (!has_before_print_run) {
+        return;
+      }
       if (should_undo_sidebar_toggle) {
         should_undo_sidebar_toggle = false;
         this.sidebar.toggle();
@@ -148,6 +159,7 @@ export default class NodeManager {
       }
       this._toggleItalicsInChrome(true);
       this.settings.updateTheme(current_subtheme);
+      has_before_print_run = false;
     };
     // Safari doesn't support onbeforeprint, etc.
     // So this is the "official" work-around for webkit.
@@ -161,12 +173,8 @@ export default class NodeManager {
         }
       });
     }
-    else {
-      // But most other browsers support this.
-      // Also, this should be an else-block because otherwise, Chrome fires the
-      // print handler twice.
-      window.onbeforeprint = beforePrint;
-      window.onafterprint = afterPrint;
-    }
+    // But most other browsers support this.
+    window.onbeforeprint = beforePrint;
+    window.onafterprint = afterPrint;
   }
 }
