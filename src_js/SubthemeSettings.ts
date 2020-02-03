@@ -32,6 +32,10 @@ export default class SubthemeSettings implements NodeManagerComponent {
     return this._settings_is_shown;
   }
 
+  get current_subtheme_name() {
+    return this._current_subtheme_name;
+  }
+
   init() {
     this._current_subtheme_name = this._getStoredSubthemeName();
 

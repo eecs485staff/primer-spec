@@ -123,6 +123,7 @@ export default class NodeManager {
     // with the proper margins.
     let should_undo_sidebar_toggle = false;
     let should_undo_settings_toggle = false;
+    let current_subtheme = '';
     const beforePrint = () => {
       if (this.sidebar.shown) {
         should_undo_sidebar_toggle = true;
@@ -133,6 +134,8 @@ export default class NodeManager {
         this.settings.toggle();
       }
       this._toggleItalicsInChrome(false);
+      current_subtheme = this.settings.current_subtheme_name;
+      this.settings.updateTheme('default');
     };
     const afterPrint = () => {
       if (should_undo_sidebar_toggle) {
@@ -144,6 +147,7 @@ export default class NodeManager {
         this.settings.toggle();
       }
       this._toggleItalicsInChrome(true);
+      this.settings.updateTheme(current_subtheme);
     };
     // Safari doesn't support onbeforeprint, etc.
     // So this is the "official" work-around for webkit.
@@ -157,8 +161,12 @@ export default class NodeManager {
         }
       });
     }
-    // But most other browsers support this.
-    window.onbeforeprint = beforePrint;
-    window.onafterprint = afterPrint;
+    else {
+      // But most other browsers support this.
+      // Also, this should be an else-block because otherwise, Chrome fires the
+      // print handler twice.
+      window.onbeforeprint = beforePrint;
+      window.onafterprint = afterPrint;
+    }
   }
 }
