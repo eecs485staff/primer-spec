@@ -10,6 +10,7 @@ const SUBTHEME_STORAGE_KEY = 'spec_subtheme_name';
 export default class SubthemeSettings implements NodeManagerComponent {
   _node_manager: NodeManager;
   $_settings_pane: JQuery;
+  $_settings_container: JQuery;
   $_settings_toggle_buttons: JQuery;
   $_subtheme_selector_dropdown: JQuery;
 
@@ -17,10 +18,12 @@ export default class SubthemeSettings implements NodeManagerComponent {
   _settings_is_shown: boolean;
 
   constructor(node_manager: NodeManager, $settings_pane: JQuery,
+    $settings_container: JQuery,
     $settings_toggle_buttons: JQuery,
     $subtheme_selector_dropdown: JQuery) {
     this._node_manager = node_manager;
     this.$_settings_pane = $settings_pane;
+    this.$_settings_container = $settings_container;
     this.$_settings_toggle_buttons = $settings_toggle_buttons;
     this.$_subtheme_selector_dropdown = $subtheme_selector_dropdown;
 
@@ -56,12 +59,17 @@ export default class SubthemeSettings implements NodeManagerComponent {
       return false;
     }
     if (this._settings_is_shown) {
-      this.$_settings_pane.hide();
+      this.$_settings_container.hide();
     }
     else {
-      this.$_settings_pane.show();
+      this.$_settings_container.show();
     }
+    this.$_settings_toggle_buttons.toggleClass('primer-spec-settings-toggle-hidden')
     this._settings_is_shown = !this._settings_is_shown;
+
+    // Notify the Topbar
+    // TODO: This should be refactored to be an event listener
+    this._node_manager.topbar.onToggleSettings();
 
     // Return false to prevent default link-click behavior.
     return false;

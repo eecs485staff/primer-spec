@@ -36,4 +36,14 @@ export default class Topbar implements NodeManagerComponent {
     this.$_topbar.addClass('primer-spec-topbar-mobile');
     this._height = this.$_topbar.outerHeight() || 0;
   }
+
+  /**
+   * When the settings pane is toggled, this method changes the z-index of the
+   * Topbar (to make the Topbar appear on top of the Settings pane).
+   */
+  onToggleSettings() {
+    // TODO: This should probably be modeled as listening to the event of a
+    // settings toggle.
+    this.$_topbar.toggleClass('primer-spec-topbar-settings-shown');
+  }
 }

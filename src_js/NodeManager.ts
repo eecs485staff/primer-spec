@@ -25,6 +25,7 @@ export default class NodeManager {
       headings: $('h1, h2, h3, h4, h5, h6'),
 
       subtheme_selector_dropdown: $('select.primer-spec-subtheme-selector'),
+      subtheme_settings_container: $('.primer-spec-settings-container'),
       subtheme_settings_pane: $('.primer-spec-settings'),
       subtheme_settings_toggle_buttons: $('.primer-spec-settings-toggle'),
     };
@@ -38,6 +39,7 @@ export default class NodeManager {
     this.storage = new LocalStorage(this);
     this.settings = new SubthemeSettings(this,
       $NODES['subtheme_settings_pane'],
+      $NODES['subtheme_settings_container'],
       $NODES['subtheme_settings_toggle_buttons'],
       $NODES['subtheme_selector_dropdown']);
   }

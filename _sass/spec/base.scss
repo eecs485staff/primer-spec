@@ -47,12 +47,15 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
     }
 }
 
-.primer-spec-settings-toggle {
-    font-size: $ICON_FONT_SIZE;
-}
-
 .primer-spec-topbar {
     height: $TOPBAR_HEIGHT;
+    // We don't want the Topbar to register click events. This allows clicks to
+    // pass-through to underlying main-content.
+    pointer-events: none;
+    
+    &-settings-shown {
+        z-index: 1;
+    }
 }
 
 /**
@@ -169,16 +172,24 @@ div[class^="primer-spec-toc-"] {
 }
 
 .primer-spec-settings {
-    background-color: white;
-    min-width: 100%;
     width: 100%;
-    min-height: 100%;
     height: 100%;
-    display: none;
 
     .primer-spec-brand a {
         color: rgb(170, 167, 167);
         font-size: small;
+    }
+
+    &-container {
+        display: none;
+        background-color: var(--main-bg-color);
+    }
+
+    &-toggle {
+        font-size: $ICON_FONT_SIZE;
+        &-hidden {
+            display: none;
+        }
     }
 }
 
@@ -198,6 +209,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .primer-spec-hoverable {
     color: var(--main-link-color) !important;
+    // Reset pointer events because the Topbar disables this.
+    pointer-events: auto;
     :hover {
         color: var(--hoverable-link-hover-color) !important;
         text-decoration: none;
