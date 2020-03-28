@@ -29,6 +29,7 @@
     "@types/node": "^12.7.5",
     "babel-loader": "^8.0.6",
     "liquid-loader": "^0.1.4",
+    "prettier": "2.0.2",
     "ts-loader": "^6.0.4",
     "typescript": "^3.6.2",
     "webpack": "^4.39.3",

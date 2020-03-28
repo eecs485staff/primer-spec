@@ -1,0 +1,5 @@
+#!/bin/sh
+# Run Prettier on the source JavaScript and SCSS files
+
+npx -q prettier@2.0.2 "src_js/**/*.ts" --write
+npx -q prettier@2.0.2 "_sass/spec/**/*.scss" --write
