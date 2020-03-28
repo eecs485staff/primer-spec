@@ -1,4 +1,4 @@
-import {SubthemeVarsType} from '../Subtheme';
+import { SubthemeVarsType } from '../Subtheme';
 
 const BELLA_PRIMARY_TEXT_COLOR = 'rgb(69, 98, 115)';
 const BELLA_MAIN_LINK_COLOR = 'rgb(219, 71, 93)';

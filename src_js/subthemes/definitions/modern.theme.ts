@@ -1,4 +1,4 @@
-import {SubthemeVarsType} from '../Subtheme';
+import { SubthemeVarsType } from '../Subtheme';
 
 const MODERN_PRIMARY_COLOR = 'rgb(41, 82, 91)';
 const MODERN_SPECIAL_COLOR = 'rgb(229, 214, 204)';

@@ -1,6 +1,6 @@
 import NodeManager from './NodeManager';
 import NodeManagerComponent from './NodeManagerComponent.d';
-import Subthemes, {LIGHT_SUBTHEMES, DARK_SUBTHEMES} from './subthemes';
+import Subthemes, { LIGHT_SUBTHEMES, DARK_SUBTHEMES } from './subthemes';
 
 const SUBTHEME_STORAGE_KEY = 'spec_subtheme_name';
 
@@ -17,10 +17,13 @@ export default class SubthemeSettings implements NodeManagerComponent {
   _current_subtheme_name: string;
   _settings_is_shown: boolean;
 
-  constructor(node_manager: NodeManager, $settings_pane: JQuery,
+  constructor(
+    node_manager: NodeManager,
+    $settings_pane: JQuery,
     $settings_container: JQuery,
     $settings_toggle_buttons: JQuery,
-    $subtheme_selector_dropdown: JQuery) {
+    $subtheme_selector_dropdown: JQuery,
+  ) {
     this._node_manager = node_manager;
     this.$_settings_pane = $settings_pane;
     this.$_settings_container = $settings_container;
@@ -60,11 +63,12 @@ export default class SubthemeSettings implements NodeManagerComponent {
     }
     if (this._settings_is_shown) {
       this.$_settings_container.hide();
-    }
-    else {
+    } else {
       this.$_settings_container.show();
     }
-    this.$_settings_toggle_buttons.toggleClass('primer-spec-settings-toggle-hidden')
+    this.$_settings_toggle_buttons.toggleClass(
+      'primer-spec-settings-toggle-hidden',
+    );
     this._settings_is_shown = !this._settings_is_shown;
 
     // Notify the Topbar
@@ -96,20 +100,12 @@ export default class SubthemeSettings implements NodeManagerComponent {
   _populateSubthemesInSelectorDropdown() {
     const $light_themes = $('<optgroup/>').prop('label', 'Light themes');
     Object.entries(LIGHT_SUBTHEMES).map(([name, _]) => {
-      $light_themes.append(
-        $('<option/>')
-          .prop('value', name)
-          .append(name),
-      );
+      $light_themes.append($('<option/>').prop('value', name).append(name));
     });
 
     const $dark_themes = $('<optgroup/>').prop('label', 'Dark themes');
     Object.entries(DARK_SUBTHEMES).map(([name, _]) => {
-      $dark_themes.append(
-        $('<option/>')
-          .prop('value', name)
-          .append(name),
-      );
+      $dark_themes.append($('<option/>').prop('value', name).append(name));
     });
 
     this.$_subtheme_selector_dropdown.append($light_themes);
@@ -130,7 +126,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
     if (old_subtheme) {
       old_subtheme.reset();
     }
-    
+
     const new_subtheme = Subthemes[subtheme_name];
     if (!new_subtheme) {
       return;
@@ -157,10 +153,9 @@ export default class SubthemeSettings implements NodeManagerComponent {
    * available subtheme.
    */
   _getStoredSubthemeName() {
-    const stored_subtheme_name =
-      this._node_manager.storage.get(SUBTHEME_STORAGE_KEY);
-    return stored_subtheme_name
-      ? stored_subtheme_name
-      : Subthemes.default.name;
+    const stored_subtheme_name = this._node_manager.storage.get(
+      SUBTHEME_STORAGE_KEY,
+    );
+    return stored_subtheme_name ? stored_subtheme_name : Subthemes.default.name;
   }
 }

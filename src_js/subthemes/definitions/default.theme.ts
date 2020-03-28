@@ -1,4 +1,4 @@
-import {SubthemeVarsType} from '../Subtheme';
+import { SubthemeVarsType } from '../Subtheme';
 
 const default_theme_vars: SubthemeVarsType = {};
 

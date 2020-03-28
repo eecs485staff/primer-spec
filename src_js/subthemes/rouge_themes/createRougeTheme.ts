@@ -1,15 +1,15 @@
-import {RougeTheme, RougeVarsType, RougeStyle} from '../Subtheme';
-import {ROUGE_CLASS_NAMES, ROUGE_STYLE_PROPS} from '../Subtheme';
+import { RougeTheme, RougeVarsType, RougeStyle } from '../Subtheme';
+import { ROUGE_CLASS_NAMES, ROUGE_STYLE_PROPS } from '../Subtheme';
 
 interface RougeVarsTypeInternal {
   [class_name: string]: {
-    [style_prop: string]: string,
-  }
+    [style_prop: string]: string;
+  };
 }
 
 function apply(theme_vars: RougeVarsTypeInternal) {
   const documentEl = document.documentElement;
-  ROUGE_CLASS_NAMES.map(class_name => {
+  ROUGE_CLASS_NAMES.map((class_name) => {
     if (theme_vars[class_name]) {
       for (let [style_prop, value] of Object.entries(theme_vars[class_name])) {
         const var_name = `--primer-spec-rouge-${class_name}-${style_prop}`;
@@ -21,8 +21,8 @@ function apply(theme_vars: RougeVarsTypeInternal) {
 
 function reset() {
   const documentEl = document.documentElement;
-  ROUGE_CLASS_NAMES.map(class_name => {
-    ROUGE_STYLE_PROPS.map(style_prop => {
+  ROUGE_CLASS_NAMES.map((class_name) => {
+    ROUGE_STYLE_PROPS.map((style_prop) => {
       const var_name = `--primer-spec-rouge-${class_name}-${style_prop}`;
       documentEl.style.removeProperty(var_name);
     });

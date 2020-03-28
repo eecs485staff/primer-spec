@@ -1,4 +1,4 @@
-@import "default_theme.scss";
+@import 'default_theme.scss';
 
 $SIDEBAR_WIDTH: 18em;
 $SIDEBAR_CONTENT_MARGIN: 0.5em;
@@ -9,53 +9,60 @@ $ICON_HOVER_COLOR: rgb(211, 85, 2);
 $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 
 // For students printing out the spec, don't print the sidebar and icons.
-@media print {    
-    .no-print, .no-print * {
-        display: none !important;
-    }
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
 }
 
 /* Sidebar */
 
 .primer-spec-sidebar {
-    width: $SIDEBAR_WIDTH;
-    padding-left: 1em;
-    height: 100%;
-    overflow: scroll;
-    border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
+  width: $SIDEBAR_WIDTH;
+  padding-left: 1em;
+  height: 100%;
+  overflow: scroll;
+  border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
 
-    // To make the sidebar appear on top of the topbar on mobile
-    z-index: 1;
+  // To make the sidebar appear on top of the topbar on mobile
+  z-index: 1;
 
-    &-toggle-fixed {
-        font-size: $ICON_FONT_SIZE;
-        &.sidebar-shown {
-            display: none;
-        }
+  &-toggle-fixed {
+    font-size: $ICON_FONT_SIZE;
+    &.sidebar-shown {
+      display: none;
     }
+  }
 
-    // Need to set a background color because the sidebar overlays on top of
-    // the content. (By default, the element has a transparent background.)
-    background-color: var(--sidebar-bg-color);
+  // Need to set a background color because the sidebar overlays on top of
+  // the content. (By default, the element has a transparent background.)
+  background-color: var(--sidebar-bg-color);
 
-    // These are headers within the sidebar
-    h1, h2, h3, h4, h5, h6 {
+  // These are headers within the sidebar
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--sidebar-heading-text-color);
-        :link, :visited {
-            color: var(--sidebar-heading-link-color);
-        }
+    :link,
+    :visited {
+      color: var(--sidebar-heading-link-color);
     }
+  }
 }
 
 .primer-spec-topbar {
-    height: $TOPBAR_HEIGHT;
-    // We don't want the Topbar to register click events. This allows clicks to
-    // pass-through to underlying main-content.
-    pointer-events: none;
-    
-    &-settings-shown {
-        z-index: 1;
-    }
+  height: $TOPBAR_HEIGHT;
+  // We don't want the Topbar to register click events. This allows clicks to
+  // pass-through to underlying main-content.
+  pointer-events: none;
+
+  &-settings-shown {
+    z-index: 1;
+  }
 }
 
 /**
@@ -64,189 +71,211 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
  * location above the AnchorJS link.
  */
 @media only screen and (max-width: 900px) {
-    :target:before {
-        content: "";
-        display: block;
-        margin-top: -$TOPBAR_HEIGHT;
-        height: $TOPBAR_HEIGHT;
-        width: 1px;
-    }
+  :target:before {
+    content: '';
+    display: block;
+    margin-top: -$TOPBAR_HEIGHT;
+    height: $TOPBAR_HEIGHT;
+    width: 1px;
+  }
 }
 
 .primer-spec-float {
-    &-left {
-        position: absolute;
-        left: 1em;
-    }
-    &-right {
-        position: absolute;
-        right: 1em;
-    }
+  &-left {
+    position: absolute;
+    left: 1em;
+  }
+  &-right {
+    position: absolute;
+    right: 1em;
+  }
 }
 
 .primer-spec-content {
-    &-margin-extra {
-        // When the sidebar is shown, this ensures that the body of the page
-        // does not overlap with the sidebar.
-        // This is not done on small screens, because the sidebar overlays
-        // on top of the content.
-        margin-left: $SIDEBAR_WIDTH + $SIDEBAR_CONTENT_MARGIN;
-    }
-    &-margin-auto {
-        // When the sidebar is not shown, this ensures that the body of the
-        // page stays centered like the default theme.
-        margin-left: auto;
-    }
-    &-mobile {
-        // On mobile, make space for the topbar.
-        padding-top: $ICON_FONT_SIZE;
-    }
+  &-margin-extra {
+    // When the sidebar is shown, this ensures that the body of the page
+    // does not overlap with the sidebar.
+    // This is not done on small screens, because the sidebar overlays
+    // on top of the content.
+    margin-left: $SIDEBAR_WIDTH + $SIDEBAR_CONTENT_MARGIN;
+  }
+  &-margin-auto {
+    // When the sidebar is not shown, this ensures that the body of the
+    // page stays centered like the default theme.
+    margin-left: auto;
+  }
+  &-mobile {
+    // On mobile, make space for the topbar.
+    padding-top: $ICON_FONT_SIZE;
+  }
 }
 
 // These are section headers in the sidebar
 .primer-spec-toc {
-    &-h1 {
-        margin-left: auto;
-        margin-top: 0.7em;
-        font-weight: bold;
-        font-size: 1.2em;
+  &-h1 {
+    margin-left: auto;
+    margin-top: 0.7em;
+    font-weight: bold;
+    font-size: 1.2em;
 
-        &:not(.primer-spec-toc-active) {
-            :link, &:visited, :link, :visited {
-                color: var(--sidebar-toc-h1-link-color) !important;
-            }
-        }
-      
-        // Only show the section border for H1 sections
-        &+.primer-spec-toc-section {
-            margin-left: 1em;
-            border-left: 0.15em solid var(--sidebar-toc-h1-border-color);
-        }
+    &:not(.primer-spec-toc-active) {
+      :link,
+      &:visited,
+      :link,
+      :visited {
+        color: var(--sidebar-toc-h1-link-color) !important;
+      }
     }
-    &-h2 {
-        margin-left: 12px;
-        margin-top: 0.5em;
-        // medium font-weight (normal is 400, bold is 700)
-        font-weight: 500;
-        font-size: 1.2em;
 
-        &:not(.primer-spec-toc-active) {
-            :link, &:visited, :link, :visited {
-                color: var(--sidebar-toc-h2-link-color) !important;
-            }
-        }
+    // Only show the section border for H1 sections
+    & + .primer-spec-toc-section {
+      margin-left: 1em;
+      border-left: 0.15em solid var(--sidebar-toc-h1-border-color);
     }
-    &-h3 {
-        margin-top: 0.3em;
-        font-size: 1em;
+  }
+  &-h2 {
+    margin-left: 12px;
+    margin-top: 0.5em;
+    // medium font-weight (normal is 400, bold is 700)
+    font-weight: 500;
+    font-size: 1.2em;
+
+    &:not(.primer-spec-toc-active) {
+      :link,
+      &:visited,
+      :link,
+      :visited {
+        color: var(--sidebar-toc-h2-link-color) !important;
+      }
     }
-    &-h4 {
-        font-style: italic;
-        font-size: 0.9em;
+  }
+  &-h3 {
+    margin-top: 0.3em;
+    font-size: 1em;
+  }
+  &-h4 {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+  &-h5 {
+    font-size: 0.8em;
+  }
+  &-h6 {
+    font-size: 0.7em;
+  }
+  &-active {
+    background-color: var(--sidebar-active-toc-section-bg-color);
+    border-radius: 5px 5px 5px 5px;
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(--sidebar-active-toc-section-link-color);
     }
-    &-h5 {
-        font-size: 0.8em;
+  }
+  &-item:not(.primer-spec-toc-active) {
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(--sidebar-toc-section-link-color);
     }
-    &-h6 {
-        font-size: 0.7em;
-    }
-    &-active {
-        background-color: var(--sidebar-active-toc-section-bg-color);
-        border-radius: 5px 5px 5px 5px;
-        &:link, &:visited, :link, :visited {
-            color: var(--sidebar-active-toc-section-link-color);
-        }
-    }
-    &-item:not(.primer-spec-toc-active) {
-        &:link, &:visited, :link, :visited {
-            color: var(--sidebar-toc-section-link-color);
-        }
-    }
+  }
 }
 
 // Attribute selector for all primer-spec-toc-* classes
-div[class^="primer-spec-toc-"] {
-    padding-left: 0.5em;
-    margin-left: 0em;
-    margin-right: 0.5em;
+div[class^='primer-spec-toc-'] {
+  padding-left: 0.5em;
+  margin-left: 0em;
+  margin-right: 0.5em;
 }
 
 .primer-spec-settings {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    .primer-spec-brand a {
-        color: rgb(170, 167, 167);
-        font-size: small;
-    }
+  .primer-spec-brand a {
+    color: rgb(170, 167, 167);
+    font-size: small;
+  }
 
-    &-container {
-        display: none;
-        background-color: var(--main-bg-color);
-    }
+  &-container {
+    display: none;
+    background-color: var(--main-bg-color);
+  }
 
-    &-toggle {
-        font-size: $ICON_FONT_SIZE;
-        &-hidden {
-            display: none;
-        }
+  &-toggle {
+    font-size: $ICON_FONT_SIZE;
+    &-hidden {
+      display: none;
     }
+  }
 }
-
 
 /* Main Content */
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--main-heading-text-color);
-    :link, :visited {
-      color: var(--main-heading-link-color);
-    }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--main-heading-text-color);
+  :link,
+  :visited {
+    color: var(--main-heading-link-color);
+  }
 }
 
-:link, :visited {
-    color: var(--main-link-color);
+:link,
+:visited {
+  color: var(--main-link-color);
 }
 
 .primer-spec-hoverable {
-    color: var(--main-link-color) !important;
-    // Reset pointer events because the Topbar disables this.
-    pointer-events: auto;
-    :hover {
-        color: var(--hoverable-link-hover-color) !important;
-        text-decoration: none;
-    }
+  color: var(--main-link-color) !important;
+  // Reset pointer events because the Topbar disables this.
+  pointer-events: auto;
+  :hover {
+    color: var(--hoverable-link-hover-color) !important;
+    text-decoration: none;
+  }
 }
 
 // Add fancy background colors for the entire page.
-body, .markdown-body, .primer-spec-topbar-mobile {
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
+body,
+.markdown-body,
+.primer-spec-topbar-mobile {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
 }
 
 .markdown-body {
-    // These are user-defined preformatted blocks.
-    :not(.highlight) {
-        & > pre:not(.highlight), & > code, & > tt {
-            color: var(--main-tt-text-color, inherit);
-            background-color: var(--main-tt-bg-color, rgba(27,31,35,0.05));
-            border: var(--main-tt-border, inherit);
-        }
+  // These are user-defined preformatted blocks.
+  :not(.highlight) {
+    & > pre:not(.highlight),
+    & > code,
+    & > tt {
+      color: var(--main-tt-text-color, inherit);
+      background-color: var(--main-tt-bg-color, rgba(27, 31, 35, 0.05));
+      border: var(--main-tt-border, inherit);
     }
+  }
 
-    // These are code blocks with syntax highlighting by Rogue
-    .highlight pre.highlight {
-        color: var(--main-table-pre-text-color);
-        background-color: var(--main-table-pre-bg-color);
-        border: var(--main-table-pre-border);
-    }
-  
-    table tr {
-        color: var(--main-table-pre-text-color);
-        background-color: var(--main-table-pre-bg-color);
-        border: var(--main-table-pre-border);
-    }
+  // These are code blocks with syntax highlighting by Rogue
+  .highlight pre.highlight {
+    color: var(--main-table-pre-text-color);
+    background-color: var(--main-table-pre-bg-color);
+    border: var(--main-table-pre-border);
+  }
 
-    blockquote {
-        color: var(--main-blockquote-text-color);
-    }
+  table tr {
+    color: var(--main-table-pre-text-color);
+    background-color: var(--main-table-pre-bg-color);
+    border: var(--main-table-pre-border);
+  }
+
+  blockquote {
+    color: var(--main-blockquote-text-color);
+  }
 }

@@ -27,11 +27,10 @@ export default class MainContent implements NodeManagerComponent {
       this.$main_content
         .removeClass('primer-spec-content-margin-extra')
         .addClass('primer-spec-content-margin-auto');
-    }
- else {
-  this.$main_content
-  .removeClass('primer-spec-content-margin-auto')
-  .addClass('primer-spec-content-margin-extra');
+    } else {
+      this.$main_content
+        .removeClass('primer-spec-content-margin-auto')
+        .addClass('primer-spec-content-margin-extra');
     }
     this._extra_margin = !this._extra_margin;
   }
