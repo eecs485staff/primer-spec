@@ -19,7 +19,8 @@ function _nodeContainsAnchorChild(node: HTMLElement) {
 function _getAnchorLink(headingNode: HTMLElement) {
   if (!_nodeContainsAnchorChild(headingNode)) {
     throw {
-      error: '_getAnchorLink expected heading to contain anchor while populating table of contents.',
+      error:
+        '_getAnchorLink expected heading to contain anchor while populating table of contents.',
     };
   }
   return $('a.anchorjs-link', $(headingNode)).attr('href') || '';
@@ -29,7 +30,7 @@ function _createHeadingToc(
   documentRef: Document,
   heading: HTMLElement,
   index: number,
-  outputTocDiv: HTMLElement
+  outputTocDiv: HTMLElement,
 ) {
   if (heading.classList.contains('primer-spec-toc-ignore')) {
     return;
@@ -39,8 +40,7 @@ function _createHeadingToc(
   let href: string;
   if (_nodeContainsAnchorChild(heading)) {
     href = _getAnchorLink(heading);
-  }
- else {
+  } else {
     // Otherwise, create an anchor
     href = '#toc' + index;
     const anchor = documentRef.createElement('a');
@@ -54,7 +54,10 @@ function _createHeadingToc(
   link.textContent = heading.textContent;
 
   const div = documentRef.createElement('div');
-  div.setAttribute('class', 'primer-spec-toc-item primer-spec-toc-' + heading.tagName.toLowerCase());
+  div.setAttribute(
+    'class',
+    'primer-spec-toc-item primer-spec-toc-' + heading.tagName.toLowerCase(),
+  );
 
   div.appendChild(link);
   outputTocDiv.appendChild(div);
@@ -98,8 +101,7 @@ function _generateToCSections(
   while (i < headings.length) {
     if (headings[i].tagName[1] <= heading.tagName[1]) {
       break;
-    }
- else {
+    } else {
       i = _generateToCSections(documentRef, headings, i, sectionDiv);
     }
   }
@@ -124,7 +126,9 @@ function _generateToCSections(
 export default function htmlTableOfContents(documentRef_in?: Document) {
   const documentRef = documentRef_in || document;
   const toc = documentRef.getElementById('primer-spec-toc')!;
-  const headings: HTMLElement[] = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+  const headings: HTMLElement[] = [].slice.call(
+    documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+  );
 
   let index = 0;
   while (index < headings.length) {

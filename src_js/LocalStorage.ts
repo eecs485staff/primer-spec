@@ -35,8 +35,7 @@ export default class LocalStorage implements NodeManagerComponent {
       storage.setItem(x, x);
       storage.removeItem(x);
       return true;
-    }
- catch (e) {
+    } catch (e) {
       return (
         e instanceof DOMException &&
         // everything except Firefox
@@ -49,7 +48,8 @@ export default class LocalStorage implements NodeManagerComponent {
           // Firefox
           e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
         // acknowledge QuotaExceededError only if there's something already stored
-        (storage && storage.length !== 0)
+        storage &&
+        storage.length !== 0
       );
     }
   }

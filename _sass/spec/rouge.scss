@@ -1,4 +1,6 @@
 $CSS_PROPS: (color, background-color, font-style, font-weight);
+
+/* prettier-ignore */
 $ROUGE_CLASSES: (
   cm, // Comment::Multiline
   cp, // Comment::Preproc
@@ -73,8 +75,12 @@ $ROUGE_CLASSES: (
   // txt, // Text
 );
 
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
+.highlight table td {
+  padding: 5px;
+}
+.highlight table pre {
+  margin: 0;
+}
 
 @mixin css_props($class_name) {
   @each $prop in $CSS_PROPS {

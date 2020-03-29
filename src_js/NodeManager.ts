@@ -31,17 +31,22 @@ export default class NodeManager {
     };
 
     // Instantiate the components and delegate nodes to them.
-    this.sidebar = new Sidebar(this, $NODES['sidebar'],
-                               $NODES['sidebar_toggle_buttons'],
-                               $NODES['headings']);
+    this.sidebar = new Sidebar(
+      this,
+      $NODES['sidebar'],
+      $NODES['sidebar_toggle_buttons'],
+      $NODES['headings'],
+    );
     this.main_content = new MainContent(this, $NODES['main_content']);
     this.topbar = new Topbar(this, $NODES['topbar']);
     this.storage = new LocalStorage(this);
-    this.settings = new SubthemeSettings(this,
+    this.settings = new SubthemeSettings(
+      this,
       $NODES['subtheme_settings_pane'],
       $NODES['subtheme_settings_container'],
       $NODES['subtheme_settings_toggle_buttons'],
-      $NODES['subtheme_selector_dropdown']);
+      $NODES['subtheme_selector_dropdown'],
+    );
   }
 
   init() {
@@ -77,7 +82,7 @@ export default class NodeManager {
    */
   _registerSidebarInternalLinkHandler() {
     const _this = this;
-    $('.primer-spec-toc-item > a').on('click', function() {
+    $('.primer-spec-toc-item > a').on('click', function () {
       // If the settings pane is open, close it.
       if (_this.settings.shown) {
         _this.settings.hide();
@@ -87,7 +92,7 @@ export default class NodeManager {
       if (Utilities.isSmallScreen()) {
         _this.sidebar.hide();
       }
-      
+
       return true;
     });
   }
@@ -108,9 +113,10 @@ export default class NodeManager {
       '.highlight .cs, .highlight .cd, .highlight .ge, .primer-spec-toc-h4';
     const font_style = isItalicsEnabled ? 'italic' : 'inherit';
 
-    const nodes: NodeListOf<HTMLElement> =
-      document.querySelectorAll(all_italic_els);
-    Array.from(nodes).map(el => {
+    const nodes: NodeListOf<HTMLElement> = document.querySelectorAll(
+      all_italic_els,
+    );
+    Array.from(nodes).map((el) => {
       el.style.fontStyle = font_style;
     });
   }
@@ -167,7 +173,7 @@ export default class NodeManager {
     // So this is the "official" work-around for webkit.
     if (window.matchMedia) {
       const mediaQueryList = window.matchMedia('print');
-      mediaQueryList.addListener(mql => {
+      mediaQueryList.addListener((mql) => {
         if (mql.matches) {
           beforePrint();
         } else {

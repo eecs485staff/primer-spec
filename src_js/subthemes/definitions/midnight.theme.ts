@@ -1,4 +1,4 @@
-import {SubthemeVarsType} from '../Subtheme';
+import { SubthemeVarsType } from '../Subtheme';
 
 const MIDNIGHT_MAIN_HEADING_COLOR = '#f2f2f2';
 const MIDNIGHT_SIDEBAR_HEADING_COLOR = '#cccccc'; // darken(MAIN_HEADING_COLOR, 15%)
@@ -35,7 +35,7 @@ const midnight_theme_vars: SubthemeVarsType = {
   '--main-tt-border': MIDNIGHT_CODE_BORDER,
   '--main-blockquote-text-color': '#999999',
 
-  'rouge_theme': 'monokai',
+  rouge_theme: 'monokai',
 };
 
 export default midnight_theme_vars;

@@ -12,9 +12,11 @@ const $main_content = $('#primer-spec-plugin-main-content');
  */
 function is_html_compatible_with_primer_spec() {
   // NOTE: This function can make more sophisticated checks in the future.
-  return $main_content
-    && $main_content.length === 1
-    && $main_content.prop('tagName') === 'DIV';
+  return (
+    $main_content &&
+    $main_content.length === 1 &&
+    $main_content.prop('tagName') === 'DIV'
+  );
 }
 
 function format_main_content() {
@@ -48,7 +50,7 @@ function main() {
 
   if (!is_html_compatible_with_primer_spec()) {
     console.warn(
-      "This page included the Primer Spec plugin script, but was not compatible with the plugin!",
+      'This page included the Primer Spec plugin script, but was not compatible with the plugin!',
     );
   }
 

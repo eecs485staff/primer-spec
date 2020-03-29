@@ -8,18 +8,18 @@ import xcode_dark_theme from './definitions/xcode_dark.theme';
 import midnight_theme from './definitions/midnight.theme';
 
 export interface RegisteredSubthemes {
-  [name: string]: Subtheme,
+  [name: string]: Subtheme;
 }
 
 export const LIGHT_SUBTHEMES: RegisteredSubthemes = {
-  'default': createSubtheme('default', default_theme),
-  'bella': createSubtheme('bella', bella_theme),
-  'modern': createSubtheme('modern', modern_theme),
+  default: createSubtheme('default', default_theme),
+  bella: createSubtheme('bella', bella_theme),
+  modern: createSubtheme('modern', modern_theme),
 };
 
 export const DARK_SUBTHEMES: RegisteredSubthemes = {
   'xcode-dark': createSubtheme('xcode-dark', xcode_dark_theme),
-  'midnight': createSubtheme('midnight', midnight_theme),
+  midnight: createSubtheme('midnight', midnight_theme),
 };
 
 export default {

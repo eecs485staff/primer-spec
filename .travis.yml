@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
 rvm: 2.6
+node_js: 10
 
-install: script/bootstrap
+install: nvm use node && script/bootstrap
 script: script/cibuild
