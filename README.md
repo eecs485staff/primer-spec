@@ -1,6 +1,7 @@
 # The Primer Spec theme
 
 [![Build Status](https://travis-ci.com/eecs485staff/primer-spec.svg?branch=master)](https://travis-ci.com/eecs485staff/primer-spec)
+[![Nightly Preview](https://img.shields.io/badge/nightly-preview-blue.svg)](https://preview.seshrs.ml/previews/eecs485staff/primer-spec-nightly)
 
 *Primer Spec is a Jekyll theme that makes long informative web pages easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage).*
 
