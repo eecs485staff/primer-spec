@@ -119,7 +119,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
     font-size: 1.2em;
 
     &:not(.primer-spec-toc-active) {
-      :link,
+      &:link,
       &:visited,
       :link,
       :visited {
@@ -141,7 +141,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
     font-size: 1.2em;
 
     &:not(.primer-spec-toc-active) {
-      :link,
+      &:link,
       &:visited,
       :link,
       :visited {
@@ -163,6 +163,30 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
   &-h6 {
     font-size: 0.7em;
   }
+  // H1 and H2 may need different active styles than the rest. SO:
+  &-active.primer-spec-toc-h1 {
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(
+        --sidebar-active-toc-h1-section-link-color,
+        var(--sidebar-active-toc-section-link-color)
+      );
+    }
+  }
+  &-active.primer-spec-toc-h2 {
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(
+        --sidebar-active-toc-h2-section-link-color,
+        var(--sidebar-active-toc-section-link-color)
+      );
+    }
+  }
+  // H3+ can use the default values
   &-active {
     background-color: var(--sidebar-active-toc-section-bg-color);
     border-radius: 5px 5px 5px 5px;
