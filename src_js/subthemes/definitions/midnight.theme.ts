@@ -18,6 +18,8 @@ const midnight_theme_vars: SubthemeVarsType = {
 
   '--sidebar-active-toc-section-bg-color': 'rgb(20, 100, 160)',
   '--sidebar-active-toc-section-link-color': 'rgb(250, 250, 250)',
+  '--sidebar-active-toc-h1-section-link-color': 'rgb(250, 250, 250)',
+  '--sidebar-active-toc-h2-section-link-color': 'rgb(250, 250, 250)',
   '--sidebar-toc-section-link-color': MIDNIGHT_SIDEBAR_HEADING_COLOR,
 
   '--main-heading-text-color': MIDNIGHT_MAIN_HEADING_COLOR,

@@ -17,6 +17,8 @@ const xcode_dark_theme_vars: SubthemeVarsType = {
 
   '--sidebar-active-toc-section-bg-color': 'rgb(90, 151, 247)',
   '--sidebar-active-toc-section-link-color': 'white',
+  '--sidebar-active-toc-h1-section-link-color': 'white',
+  '--sidebar-active-toc-h2-section-link-color': 'white',
   '--sidebar-toc-section-link-color': XCODE_DARK_SIDEBAR_HEADING_COLOR,
 
   '--main-heading-text-color': XCODE_DARK_MAIN_HEADING_COLOR,

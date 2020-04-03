@@ -16,6 +16,8 @@ const modern_theme_vars: SubthemeVarsType = {
 
   '--sidebar-active-toc-section-bg-color': 'rgb(248, 255, 248)',
   '--sidebar-active-toc-section-link-color': MODERN_PRIMARY_COLOR,
+  '--sidebar-active-toc-h1-section-link-color': MODERN_PRIMARY_COLOR,
+  '--sidebar-active-toc-h2-section-link-color': MODERN_PRIMARY_COLOR,
   '--sidebar-toc-section-link-color': 'white',
 
   '--main-heading-text-color': MODERN_PRIMARY_COLOR,
