@@ -15,6 +15,8 @@ export const SUBTHEME_VARS = [
 
   '--sidebar-active-toc-section-bg-color',
   '--sidebar-active-toc-section-link-color',
+  '--sidebar-active-toc-h1-section-link-color',
+  '--sidebar-active-toc-h2-section-link-color',
   '--sidebar-toc-section-link-color',
 
   '--main-heading-text-color',

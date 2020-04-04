@@ -14,6 +14,8 @@ const bella_theme_vars: SubthemeVarsType = {
 
   '--sidebar-active-toc-section-bg-color': BELLA_PRIMARY_TEXT_COLOR,
   '--sidebar-active-toc-section-link-color': 'white',
+  '--sidebar-active-toc-h1-section-link-color': 'white',
+  '--sidebar-active-toc-h2-section-link-color': 'white',
   '--sidebar-toc-section-link-color': 'rgb(58, 58, 58)',
 
   '--main-heading-text-color': BELLA_PRIMARY_TEXT_COLOR,
