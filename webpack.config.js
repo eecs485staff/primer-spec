@@ -1,16 +1,16 @@
 /**
  * webpack.config.js
- * 
+ *
  * This config accepts an 'env' parameter, which can take on values 'prod' or
  * 'dev'. (Defaults to 'dev'.)
  * Specify the one you want by running `npx webpack --env <prod|dev>`.
  * Alternatively, use 'script/build` for development, and 'script/cibuild' for
  * production.
- * 
+ *
  * The config's output target is assets/js/primer_spec_plugin.min.js.
  */
 
-const fs = require("fs");
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -23,22 +23,20 @@ function getBaseURL(env) {
   let base_url;
   if (env && env.production) {
     base_url = PROD_URL;
-  }
-  else if (env && env.base_url && typeof env.base_url === 'string') {
+  } else if (env && env.base_url && typeof env.base_url === 'string') {
     base_url = env.base_url;
     if (base_url.endsWith('/')) {
       base_url = base_url.slice(0, -1);
     }
-  }
-  else {
+  } else {
     base_url = DEV_URL;
   }
   console.log(`Using base URL: ${base_url}`);
   return base_url;
 }
 
-module.exports = env => ({
-  mode: (env && env.production) ? 'production' : 'development',
+module.exports = (env) => ({
+  mode: env && env.production ? 'production' : 'development',
   context: path.resolve(__dirname, 'src_js/'),
   entry: './main.ts',
   output: {
@@ -50,11 +48,11 @@ module.exports = env => ({
       // JavaScript loader
       {
         test: /\.js$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
         query: {
           babelrc: false,
-          presets: [["@babel/preset-env", { modules: false }]],
+          presets: [['@babel/preset-env', { modules: false }]],
         },
       },
       // TypeScript loader
@@ -68,21 +66,21 @@ module.exports = env => ({
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
+            loader: 'html-loader',
           },
           {
-            loader: "liquid-loader",
+            loader: 'liquid-loader',
             options: {
-                data: {
-                    // These variables are passed to the liquid templates.
-                    'base_url': getBaseURL(env),
-                    'primer_spec_version': VERSION,
-                }
-            }
+              data: {
+                // These variables are passed to the liquid templates.
+                base_url: getBaseURL(env),
+                primer_spec_version: VERSION,
+              },
+            },
           },
         ],
       },
-    ]
+    ],
   },
   // When importing files, no need to mention these file-extensions
   resolve: {
@@ -92,7 +90,7 @@ module.exports = env => ({
     // JQuery becomes available in every file
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
     }),
     // These variables become available in any file
     new webpack.DefinePlugin({
