@@ -1,0 +1,88 @@
+#!/usr/bin/env node
+const fs = require('fs-extra');
+const path = require('path');
+const semver = require('semver');
+
+const ROOT_PATH = path.resolve(__dirname, '../');
+const VERSION_FILEPATH = path.resolve(ROOT_PATH, 'VERSION');
+const VERSION_RAW = fs.readFileSync(VERSION_FILEPATH, 'utf-8');
+const CURRENT_VERSION = semver.coerce(VERSION_RAW);
+
+require('yargs')
+  .command(
+    'bump <release_type>',
+    'bump the minor/major version of the develop branch by creating the appropriate asset files',
+    (yargs) => {
+      yargs.positional('release_type', {
+        describe: 'the type of semver version bump',
+        choices: ['major', 'minor', 'patch'],
+      });
+    },
+    (argv) => {
+      const release_type = argv.release_type;
+      switch (release_type) {
+        case 'major':
+        case 'minor':
+        case 'patch':
+          break;
+        default:
+          console.log(
+            '❌ Invalid release_type supplied. Expected "major" or "minor".',
+          );
+          console.log(
+            'Please see the usage instructions with the --help option.',
+          );
+          return;
+      }
+
+      // Need to "coerce" to clone the semver object
+      const next_version = semver
+        .coerce(`${CURRENT_VERSION}`)
+        .inc(release_type);
+      console.log(`Bumping v${CURRENT_VERSION} --> v${next_version}.d`);
+
+      // Write to the VERSION file
+      fs.writeFileSync(VERSION_FILEPATH, `${next_version}.d`);
+      console.log(`✅ Updated VERSION file`);
+
+      if (release_type === 'patch') {
+        return;
+      }
+
+      // Create the new assets directory
+      const old_version_str = `v${CURRENT_VERSION.major}.${CURRENT_VERSION.minor}`;
+      const new_version_str = `v${next_version.major}.${next_version.minor}`;
+      fs.copySync(
+        path.resolve(ROOT_PATH, `assets/${old_version_str}`),
+        path.resolve(ROOT_PATH, `assets/${new_version_str}`),
+      );
+      console.log(`✅ Created new assets directory: assets/${new_version_str}`);
+
+      // Update the version in _layouts/spec.html
+      const spec_layout = fs.readFileSync(
+        path.resolve(ROOT_PATH, '_layouts/spec.html'),
+        'utf-8',
+      );
+      fs.writeFileSync(
+        path.resolve(ROOT_PATH, '_layouts/spec.html'),
+        spec_layout.replace(
+          /version_string: v\d+\.\d+/g,
+          `version_string: ${new_version_str}`,
+        ),
+      );
+      console.log(`✅ Updated _layouts/spec.html`);
+    },
+  )
+  .command(
+    'freeze',
+    'freeze the current develop version',
+    () => {},
+    (argv) => {
+      // Write to the VERSION file
+      fs.writeFileSync(VERSION_FILEPATH, `${CURRENT_VERSION}`);
+      console.log(`Version frozen to v${CURRENT_VERSION}`);
+    },
+  )
+  .help()
+  .version(false)
+  .demandCommand().argv;
