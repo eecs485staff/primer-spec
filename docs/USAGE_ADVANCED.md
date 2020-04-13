@@ -153,7 +153,7 @@ However, with some work, it is _possible_ to add Primer Spec styling to a plain 
    />
    ```
 
-4. Add the following line at the bottom of the file, just before the closing `body` tag. Again, replace `<version>` with the appropriate version in the [`assets/`](../assets/) directory.
+4. Add the following lines at the bottom of the file, just before the closing `body` tag. Again, replace `<version>` with the appropriate version in the [`assets/`](../assets/) directory.
 
    ```html
    <script

@@ -190,7 +190,7 @@ Except `noop` changes, all changes require the version to be bumped from the cur
 
 This means that:
 
-- If a Pull Request proposes a `patch` change, and there have been no other `patch` changes since the last "freeze", then the Pull Request must also propose a "patch" version bump.
+- If a Pull Request proposes a `patch` change, and there have been no other `patch`, `minor` or `major` changes since the last "freeze", then the Pull Request must also propose a "patch" version bump.
 - If a Pull Request proposes a `minor` change, and there have been no other `minor` or `major` changes since the last "freeze", then the Pull Request must also propose a "minor" version bump.
 - If a Pull Request proposes a `major` change, and there have been no other `major` changes since the last "freeze", the the Pull Request must also propose a "major" version bump.
 
