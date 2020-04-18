@@ -1,8 +1,9 @@
 # Contributing to The Primer Spec Theme
 
-*This document was adapted in part from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer).*
+_This document was adapted in part from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer)._
 
 ## Contents
+
 - [Support](#looking-for-support)
 - [Reporting bugs](#how-to-report-a-bug)
 - [Suggesting features](#how-to-suggest-a-feature-or-enhancement)
@@ -14,6 +15,7 @@
 - [Maintenance & Release](#maintenance--release)
   - [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
   - [Semester Release Process](#releasing-for-the-next-semester)
+  - [Bumping the version in Pull Requests](#bumping-the-version-in-pull-requests)
 - [Modifications from Primer](#modifications-from-primer)
 - [Code of Conduct](#code-of-conduct)
 - [Additional Resources](#additional-resources)
@@ -26,14 +28,14 @@ We'd love to help. Check out [the support guidelines](SUPPORT.md).
 
 Think you found a bug? Please check [the list of open issues](https://github.com/eecs485staff/primer-spec/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/eecs485staff/primer-spec/issues/new).
 
-Here are a few tips for writing *great* bug reports:
+Here are a few tips for writing _great_ bug reports:
 
-* Describe the specific problem (e.g., "widget doesn't turn clockwise" versus "getting an error")
-* Include the steps to reproduce the bug, what you expected to happen, and what happened instead
-* Check that you are using the latest version of the project and its dependencies
-* Include what version of the project your using, as well as any relevant dependencies
-* Only include one bug per issue. If you have discovered two bugs, please file two issues
-* Even if you don't know how to fix the bug, including a failing test may help others track it down
+- Describe the specific problem (e.g., "widget doesn't turn clockwise" versus "getting an error")
+- Include the steps to reproduce the bug, what you expected to happen, and what happened instead
+- Check that you are using the latest version of the project and its dependencies
+- Include what version of the project your using, as well as any relevant dependencies
+- Only include one bug per issue. If you have discovered two bugs, please file two issues
+- Even if you don't know how to fix the bug, including a failing test may help others track it down
 
 ## How to suggest a feature or enhancement
 
@@ -54,6 +56,7 @@ Here are a few general guidelines for proposing changes:
 5. Make some changes and create commits.
 6. Push your branch to GitHub. (`git push -u origin feature/my-feature`)
 7. Open a pull request from your branch to the EECS 485 repository's `develop` branch. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:develop...pages-themes:master)
+8. Wait for a project member to review your changes and determine its [semver label](#bumping-the-version-in-pull-requests).
 
 ### Bootstrap your local environment
 
@@ -61,13 +64,13 @@ Here are a few general guidelines for proposing changes:
 
 2. Run `script/bootstrap`.
 
-    ```console
-    $ ruby --version
-    ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
-    $ pwd
-    /seshrs/primer-spec
-    $ ./script/bootstrap
-    ```
+   ```console
+   $ ruby --version
+   ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
+   $ pwd
+   /seshrs/primer-spec
+   $ ./script/bootstrap
+   ```
 
 3. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
@@ -80,21 +83,22 @@ The theme contains a minimal test suite, to ensure a site with the theme would b
 Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The themes are implemented by changing [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) used in the [base stylesheet](../_sass/spec/base.scss). The themes are declared in JavaScript (see [bella.theme.ts](../src_js/subthemes/definitions/bella.theme.ts), for example).
 
 To create a new subtheme:
+
 - Create the file `src_js/subthemes/definitions/<name>.theme.ts`. Take inspiration from the structure of other subthemes in that directory.
 - Import and add your subtheme to the default export of [`src_js/subthemes/index.ts`](../src_js/subthemes/index.ts). Follow the structure of other imports in the module.
 - Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
 
-*Pro tip: Upload screenshots of the new subtheme to make it easier to review your Pull Request.*
-
+_Pro tip: Upload screenshots of the new subtheme to make it easier to review your Pull Request._
 
 ## Maintenance & Release
 
 This theme is used by several courses at the University of Michigan, including EECS 280, EECS 285, EECS 482 and EECS 485. If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
 
-Keep the theme up-to-date between semesters by:
+Some notes about maintaining this project:
 
-1. [Keeping the `develop` branch up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
-2. [Creating a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
+1. [Keep the `develop` branch up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
+2. [Create a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
+3. [Bump the version if required in Pull Requests](#bumping-the-version-in-pull-requests)
 
 ### Keeping this theme up-to-date with Primer
 
@@ -129,6 +133,8 @@ $ git merge upstream/master maintenance/f19
 
 ### Releasing for the next semester
 
+_Also known as a "release freeze"._
+
 The latest stable version of the theme is available on the `master` branch. (This is the default branch selected by the [Jekyll Remote Theme](https://github.com/benbalter/jekyll-remote-theme), the plugin that allows this theme to be used on course websites.) This branch is not changed during semesters at the University of Michigan while courses are in-session. This is to ensure that all project specs throughout the semester have a consistent appearance.
 
 The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `master`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `master` to keep them in sync.
@@ -153,14 +159,48 @@ $ git checkout master
 $ git merge -S develop
 ```
 
-3. Push your changes to GitHub with `git push`.
+3. Freeze the version (remove the `.d` at the end of the version string) by running:
 
-4. Draft a new "release". Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
+```console
+$ script/version freeze
+$ git add VERSION
+$ git commit -S -m "Freeze version v1.2"
+```
 
-5. Decide what the next version number should be. If there are no major changes, simply bump the "patch version number" (for example, `1.4.1` would be followed by `1.4.2`). If there are design changes, bump the "minor version number" (for example, `1.4.1` would become `1.5.0`). Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
+4. Push your changes to GitHub with `git push`.
 
-6. Click the "Draft a new release" button. Specify the version number. Title and description are optional. *(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)*
+5. Draft a new "release". Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
 
+6. Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
+
+7. Click the "Draft a new release" button. Specify the version number. Title and description are optional. _(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)_
+
+### Bumping the version in Pull Requests
+
+Primer Spec uses [semantic versioning](https://semver.org/) to communicate the scope of changes between releases. Correct versioning provides for backwards compatibility, so that documents generated with older versions of Primer Spec still work.
+
+Imagine labeling every change to this project with the following labels (listed _in increasing order of precedence_):
+
+- `noop`: No updates to client-facing code; documentation updates. Does not require a version bump.
+- `patch`: Bugfixes that do not affect any CSS or HTML files; bugfixes that do not change the appearance of a site.
+- `minor`: Changes to CSS or HTML files that do not require users to update their config files; minor changes to the appearance of a site.
+- `major`: Changes that require users to update their configs or deployment systems.
+
+Except `noop` changes, all changes require the version to be bumped from the current release freeze. A version bump IS REQUIRED if a code change is not preceded by another code change of similar or higher precedence.
+
+This means that:
+
+- If a Pull Request proposes a `patch` change, and there have been no other `patch`, `minor` or `major` changes since the last "freeze", then the Pull Request must also propose a "patch" version bump.
+- If a Pull Request proposes a `minor` change, and there have been no other `minor` or `major` changes since the last "freeze", then the Pull Request must also propose a "minor" version bump.
+- If a Pull Request proposes a `major` change, and there have been no other `major` changes since the last "freeze", the the Pull Request must also propose a "major" version bump.
+
+To propose a version bump, use the `version` script. For example:
+
+```console
+$ script/version bump minor
+```
+
+It is acceptable for the version bump to be done in a separate Pull Request by project members after a change has been merged to the `develop` branch. However, the version bump must be completed before [freezing the next release](#releasing-for-the-next-semester) and merging to `master`.
 
 ## Modifications from Primer
 
@@ -172,13 +212,12 @@ Here are key changes made to the original Primer theme to add a sidebar:
 
 - `src_js`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The code also adds HTML and CSS scaffolding needed for the theme. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.min.js`.
 
-
 ## Code of conduct
 
 This project is governed by [the Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## Additional Resources
 
-* [Contributing to Open Source on GitHub](https://guides.github.com/activities/contributing-to-open-source/)
-* [Using Pull Requests](https://help.github.com/articles/using-pull-requests/)
-* [GitHub Help](https://help.github.com)
+- [Contributing to Open Source on GitHub](https://guides.github.com/activities/contributing-to-open-source/)
+- [Using Pull Requests](https://help.github.com/articles/using-pull-requests/)
+- [GitHub Help](https://help.github.com)

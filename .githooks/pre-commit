@@ -11,4 +11,4 @@ PROJECT_ROOT=`dirname $GITHOOKS_DIR`
 set -x
 
 npx webpack --env.production
-git add $PROJECT_ROOT/assets/js/primer_spec_plugin.min.js
+git add $PROJECT_ROOT/assets/**/js/primer_spec_plugin.min.js
