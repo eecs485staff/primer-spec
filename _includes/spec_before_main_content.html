@@ -63,8 +63,26 @@
     class="primer-spec-settings container-lg markdown-body primer-spec-content-margin-extra px-3 my-5"
   >
     <h1 class="primer-spec-toc-ignore">Spec Theme Settings</h1>
-    <p>Choose your theme!</p>
-    <select class="primer-spec-subtheme-selector"> </select>
+    <label for="primer-spec-subtheme-selector"
+      >Choose your theme:
+      <select
+        name="primer-spec-subtheme-selector"
+        class="primer-spec-subtheme-selector"
+      ></select>
+    </label>
+    <br /><br />
+
+    <label for="primer-spec-subtheme-mode-selector"
+      >Choose your theme mode:
+      <select
+        name="primer-spec-subtheme-mode-selector"
+        class="primer-spec-subtheme-mode-selector"
+      >
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+        <option value="system">use system settings</option>
+      </select>
+    </label>
 
     <hr />
 

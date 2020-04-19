@@ -1,8 +1,12 @@
 import NodeManager from './NodeManager';
 import NodeManagerComponent from './NodeManagerComponent.d';
 import Subthemes, { LIGHT_SUBTHEMES, DARK_SUBTHEMES } from './subthemes';
+import { SubthemeModeType } from './subthemes/Subtheme';
+
+export type SubthemeModeSelectorType = 'light' | 'dark' | 'system';
 
 const SUBTHEME_STORAGE_KEY = 'spec_subtheme_name';
+const SUBTHEME_MODE_STORAGE_KEY = 'spec_subtheme_mode';
 
 /**
  * Encapsulates the Settings pane to select subthemes.
@@ -13,8 +17,10 @@ export default class SubthemeSettings implements NodeManagerComponent {
   $_settings_container: JQuery;
   $_settings_toggle_buttons: JQuery;
   $_subtheme_selector_dropdown: JQuery;
+  $_subtheme_mode_selector_dropdown: JQuery;
 
   _current_subtheme_name: string;
+  _current_subtheme_mode: SubthemeModeSelectorType = 'system';
   _settings_is_shown: boolean;
 
   constructor(
@@ -23,12 +29,14 @@ export default class SubthemeSettings implements NodeManagerComponent {
     $settings_container: JQuery,
     $settings_toggle_buttons: JQuery,
     $subtheme_selector_dropdown: JQuery,
+    $subtheme_mode_selector_dropdown: JQuery,
   ) {
     this._node_manager = node_manager;
     this.$_settings_pane = $settings_pane;
     this.$_settings_container = $settings_container;
     this.$_settings_toggle_buttons = $settings_toggle_buttons;
     this.$_subtheme_selector_dropdown = $subtheme_selector_dropdown;
+    this.$_subtheme_mode_selector_dropdown = $subtheme_mode_selector_dropdown;
 
     this._current_subtheme_name = '';
     this._settings_is_shown = false;
@@ -42,15 +50,40 @@ export default class SubthemeSettings implements NodeManagerComponent {
     return this._current_subtheme_name;
   }
 
+  get current_subtheme_mode() {
+    return this._current_subtheme_mode;
+  }
+
   init() {
     this._current_subtheme_name = this._getStoredSubthemeName();
+    this._current_subtheme_mode = this._getStoredSubthemeMode();
 
+    this.$_subtheme_mode_selector_dropdown.val(this._current_subtheme_mode);
     this._populateSubthemesInSelectorDropdown();
+
     this.$_subtheme_selector_dropdown.on('change', () => {
       const chosen_subtheme_name = this.$_subtheme_selector_dropdown.val();
-      this.updateTheme(chosen_subtheme_name as string);
+      this.updateTheme(
+        chosen_subtheme_name as string,
+        this._current_subtheme_mode,
+      );
+    });
+    this.$_subtheme_mode_selector_dropdown.on('change', () => {
+      const chosen_subtheme_mode = this.$_subtheme_mode_selector_dropdown.val() as SubthemeModeSelectorType;
+      this._storeSubthemeMode(chosen_subtheme_mode);
+      this.updateTheme(this._current_subtheme_name, chosen_subtheme_mode);
     });
     this.$_settings_toggle_buttons.on('click', () => this.toggle());
+
+    // Listen for changes to system theme (light/dark mode)
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addListener(() =>
+        this.updateTheme(
+          this._current_subtheme_name,
+          this._current_subtheme_mode,
+        ),
+      );
   }
 
   /**
@@ -95,7 +128,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
 
   /**
    * Populate the available subthemes in the subtheme selector dropdown in the
-   * settings pane.
+   * settings pane. Also update the subtheme mode.
    */
   _populateSubthemesInSelectorDropdown() {
     const $light_themes = $('<optgroup/>').prop('label', 'Light themes');
@@ -113,7 +146,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
 
     // The very first time, set the theme to default to ensure the
     // settings option has the correct initial value.
-    this.updateTheme(this._current_subtheme_name);
+    this.updateTheme(this._current_subtheme_name, this._current_subtheme_mode);
   }
 
   /**
@@ -121,10 +154,12 @@ export default class SubthemeSettings implements NodeManagerComponent {
    * local storage.
    * @param subtheme_name the name of the newly selected subtheme
    */
-  updateTheme(subtheme_name: string) {
+  updateTheme(subtheme_name: string, mode: SubthemeModeSelectorType) {
+    const normalizedMode = this._normalizeSubthemeMode(mode);
+
     const old_subtheme = Subthemes[this._current_subtheme_name];
     if (old_subtheme) {
-      old_subtheme.reset('light');
+      old_subtheme.reset(normalizedMode);
     }
 
     const new_subtheme = Subthemes[subtheme_name];
@@ -134,7 +169,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
 
     this._current_subtheme_name = subtheme_name;
     this.$_subtheme_selector_dropdown.val(subtheme_name);
-    new_subtheme.apply('light');
+    new_subtheme.apply(normalizedMode);
     this._storeSubthemeName(subtheme_name);
   }
 
@@ -148,6 +183,15 @@ export default class SubthemeSettings implements NodeManagerComponent {
   }
 
   /**
+   * Update persistent local storage with the given subtheme mode for future
+   * retrieval.
+   * @param subtheme_mode the subtheme mode to be stored in local storage
+   */
+  _storeSubthemeMode(subtheme_mode: SubthemeModeSelectorType) {
+    this._node_manager.storage.set(SUBTHEME_MODE_STORAGE_KEY, subtheme_mode);
+  }
+
+  /**
    * Retrieve the previously stored subtheme name from persistent local
    * storage. If this cannot be retrieved, returns the name of the first
    * available subtheme.
@@ -157,5 +201,34 @@ export default class SubthemeSettings implements NodeManagerComponent {
       SUBTHEME_STORAGE_KEY,
     );
     return stored_subtheme_name ? stored_subtheme_name : Subthemes.default.name;
+  }
+
+  /**
+   * Retrieve the previously stored subtheme mode from persistent local
+   * storage. If this cannot be retrieved, returns the default mode.
+   */
+  _getStoredSubthemeMode(): SubthemeModeSelectorType {
+    const stored_subtheme_mode = this._node_manager.storage.get(
+      SUBTHEME_MODE_STORAGE_KEY,
+    ) as SubthemeModeSelectorType | null;
+    return stored_subtheme_mode ? stored_subtheme_mode : 'system';
+  }
+
+  _normalizeSubthemeMode(mode: SubthemeModeSelectorType): SubthemeModeType {
+    if (mode !== 'system') {
+      return mode;
+    }
+    if (!window.matchMedia) {
+      return 'light';
+    }
+    // The following is based on:
+    // https://gosink.in/javascript-css-toggle-dark-light-theme-based-on-your-users-preferred-scheme/
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // It's a dark theme
+      return 'dark';
+    } else {
+      // It's not a dark theme
+      return 'light';
+    }
   }
 }

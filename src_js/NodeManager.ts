@@ -2,7 +2,7 @@ import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 import Topbar from './Topbar';
 import Utilities from './Utilities';
-import SubthemeSettings from './SubthemeSettings';
+import SubthemeSettings, { SubthemeModeSelectorType } from './SubthemeSettings';
 import LocalStorage from './LocalStorage';
 
 /**
@@ -25,6 +25,9 @@ export default class NodeManager {
       headings: $('h1, h2, h3, h4, h5, h6'),
 
       subtheme_selector_dropdown: $('select.primer-spec-subtheme-selector'),
+      subtheme_mode_selector_dropdown: $(
+        'select.primer-spec-subtheme-mode-selector',
+      ),
       subtheme_settings_container: $('.primer-spec-settings-container'),
       subtheme_settings_pane: $('.primer-spec-settings'),
       subtheme_settings_toggle_buttons: $('.primer-spec-settings-toggle'),
@@ -46,6 +49,7 @@ export default class NodeManager {
       $NODES['subtheme_settings_container'],
       $NODES['subtheme_settings_toggle_buttons'],
       $NODES['subtheme_selector_dropdown'],
+      $NODES['subtheme_mode_selector_dropdown'],
     );
   }
 
@@ -132,6 +136,7 @@ export default class NodeManager {
     let should_undo_sidebar_toggle = false;
     let should_undo_settings_toggle = false;
     let current_subtheme = '';
+    let current_subtheme_mode = '';
     // To prevent the print handlers from being registered twice, and to
     // work around Firefox not printing correctly with window.matchMedia,
     // we need this flag to prevent duplicate toggling.
@@ -150,7 +155,8 @@ export default class NodeManager {
       }
       this._toggleItalicsInChrome(false);
       current_subtheme = this.settings.current_subtheme_name;
-      this.settings.updateTheme('default');
+      current_subtheme_mode = this.settings.current_subtheme_mode;
+      this.settings.updateTheme('default', 'light');
       has_before_print_run = true;
     };
     const afterPrint = () => {
@@ -166,7 +172,10 @@ export default class NodeManager {
         this.settings.toggle();
       }
       this._toggleItalicsInChrome(true);
-      this.settings.updateTheme(current_subtheme);
+      this.settings.updateTheme(
+        current_subtheme,
+        current_subtheme_mode as SubthemeModeSelectorType,
+      );
       has_before_print_run = false;
     };
     // Safari doesn't support onbeforeprint, etc.
