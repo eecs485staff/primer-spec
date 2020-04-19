@@ -124,7 +124,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
   updateTheme(subtheme_name: string) {
     const old_subtheme = Subthemes[this._current_subtheme_name];
     if (old_subtheme) {
-      old_subtheme.reset();
+      old_subtheme.reset('light');
     }
 
     const new_subtheme = Subthemes[subtheme_name];
@@ -134,7 +134,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
 
     this._current_subtheme_name = subtheme_name;
     this.$_subtheme_selector_dropdown.val(subtheme_name);
-    new_subtheme.apply();
+    new_subtheme.apply('light');
     this._storeSubthemeName(subtheme_name);
   }
 

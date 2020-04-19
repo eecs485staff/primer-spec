@@ -1,7 +1,7 @@
 export default interface Subtheme {
   readonly name: string;
-  apply(): void;
-  reset(): void;
+  apply(mode: SubthemeModeType): void;
+  reset(mode: SubthemeModeType): void;
 }
 
 export const SUBTHEME_VARS = [
@@ -37,7 +37,15 @@ export const SUBTHEME_VARS = [
 
 export interface SubthemeVarsType {
   [css_var: string]: string;
+  rouge_theme: string;
 }
+
+export interface SubthemeDefinitionType {
+  light: SubthemeVarsType;
+  dark: SubthemeVarsType;
+}
+
+export type SubthemeModeType = 'light' | 'dark';
 
 export interface RougeTheme {
   readonly name: string;
