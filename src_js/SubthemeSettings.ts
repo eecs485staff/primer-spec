@@ -1,6 +1,6 @@
 import NodeManager from './NodeManager';
 import NodeManagerComponent from './NodeManagerComponent.d';
-import Subthemes, { LIGHT_SUBTHEMES, DARK_SUBTHEMES } from './subthemes';
+import Subthemes from './subthemes';
 import { SubthemeModeType } from './subthemes/Subtheme';
 
 export type SubthemeModeSelectorType = 'light' | 'dark' | 'system';
@@ -131,18 +131,11 @@ export default class SubthemeSettings implements NodeManagerComponent {
    * settings pane. Also update the subtheme mode.
    */
   _populateSubthemesInSelectorDropdown() {
-    const $light_themes = $('<optgroup/>').prop('label', 'Light themes');
-    Object.entries(LIGHT_SUBTHEMES).map(([name, _]) => {
-      $light_themes.append($('<option/>').prop('value', name).append(name));
+    Object.entries(Subthemes).map(([name, _]) => {
+      this.$_subtheme_selector_dropdown.append(
+        $('<option/>').prop('value', name).append(name),
+      );
     });
-
-    const $dark_themes = $('<optgroup/>').prop('label', 'Dark themes');
-    Object.entries(DARK_SUBTHEMES).map(([name, _]) => {
-      $dark_themes.append($('<option/>').prop('value', name).append(name));
-    });
-
-    this.$_subtheme_selector_dropdown.append($light_themes);
-    this.$_subtheme_selector_dropdown.append($dark_themes);
 
     // The very first time, set the theme to default to ensure the
     // settings option has the correct initial value.
