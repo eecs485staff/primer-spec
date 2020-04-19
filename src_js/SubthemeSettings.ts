@@ -69,9 +69,11 @@ export default class SubthemeSettings implements NodeManagerComponent {
       );
     });
     this.$_subtheme_mode_selector_dropdown.on('change', () => {
-      const chosen_subtheme_mode = this.$_subtheme_mode_selector_dropdown.val() as SubthemeModeSelectorType;
-      this._storeSubthemeMode(chosen_subtheme_mode);
-      this.updateTheme(this._current_subtheme_name, chosen_subtheme_mode);
+      this._current_subtheme_mode = this.$_subtheme_mode_selector_dropdown.val() as SubthemeModeSelectorType;
+      this.updateTheme(
+        this._current_subtheme_name,
+        this._current_subtheme_mode,
+      );
     });
     this.$_settings_toggle_buttons.on('click', () => this.toggle());
 
@@ -164,6 +166,7 @@ export default class SubthemeSettings implements NodeManagerComponent {
     this.$_subtheme_selector_dropdown.val(subtheme_name);
     new_subtheme.apply(normalizedMode);
     this._storeSubthemeName(subtheme_name);
+    this._storeSubthemeMode(mode);
   }
 
   /**
