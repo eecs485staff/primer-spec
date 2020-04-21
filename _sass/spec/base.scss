@@ -272,6 +272,11 @@ h6 {
     color: var(--hoverable-link-hover-color) !important;
     text-decoration: none;
   }
+
+  #contents > & {
+    float: right;
+    margin-right: 0.5em;
+  }
 }
 
 // Add fancy background colors for the entire page.
