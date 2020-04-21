@@ -6,6 +6,7 @@ export default interface Subtheme {
 
 export const SUBTHEME_VARS = [
   '--sidebar-bg-color',
+  '--sidebar-border-color',
   '--sidebar-heading-text-color',
   '--sidebar-heading-link-color',
 
@@ -33,6 +34,7 @@ export const SUBTHEME_VARS = [
   '--main-tt-bg-color',
   '--main-tt-border',
   '--main-blockquote-text-color',
+  '--main-header-border-bottom-color',
 ];
 
 export interface SubthemeVarsType {

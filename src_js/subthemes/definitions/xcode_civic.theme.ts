@@ -4,13 +4,16 @@ const XCODE_DARK_BG_COLOR = 'rgb(40, 41, 35)';
 const XCODE_DARK_TEXT_COLOR = 'white';
 const XCODE_DARK_SIDEBAR_HEADING_COLOR = 'rgb(58, 58, 58)';
 const XCODE_DARK_MAIN_HEADING_COLOR = 'rgb(137, 135, 205)';
-const XCODE_DARK_MAIN_LINK_COLOR = 'rgb(222, 81, 78)';
+const XCODE_DARK_MAIN_LINK_COLOR = '#ffae66';
+
+const BORDER_LINE_COLOR = '#555';
 
 const xcode_dark_theme_vars: SubthemeDefinitionType = {
   light: {
     '--sidebar-bg-color': 'rgb(242, 243, 243)',
     '--sidebar-heading-text-color': XCODE_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-heading-link-color': XCODE_DARK_SIDEBAR_HEADING_COLOR,
+    '--sidebar-border-color': BORDER_LINE_COLOR,
 
     '--sidebar-toc-h1-link-color': XCODE_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-toc-h1-border-color': 'rgb(125, 125, 125)',
@@ -25,7 +28,7 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-heading-text-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-heading-link-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-link-color': XCODE_DARK_MAIN_LINK_COLOR,
-    '--hoverable-link-hover-color': '#7c1917', // darken($XCODE_DARK_MAIN_LINK_COLOR, 30%)
+    '--hoverable-link-hover-color': '#cc6000',
 
     '--main-bg-color': XCODE_DARK_BG_COLOR,
     '--main-text-color': XCODE_DARK_TEXT_COLOR,
@@ -34,6 +37,7 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-blockquote-text-color': '#ccc',
     '--main-tt-text-color': 'white',
     '--main-tt-bg-color': '#696969',
+    '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
     rouge_theme: 'default',
   },
@@ -41,6 +45,7 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--sidebar-bg-color': 'rgb(75, 77, 85)',
     '--sidebar-heading-text-color': 'white',
     '--sidebar-heading-link-color': 'white',
+    '--sidebar-border-color': BORDER_LINE_COLOR,
 
     '--sidebar-toc-h1-link-color': 'white',
     '--sidebar-toc-h1-border-color': 'rgb(125, 125, 125)',
@@ -55,7 +60,7 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-heading-text-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-heading-link-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-link-color': XCODE_DARK_MAIN_LINK_COLOR,
-    '--hoverable-link-hover-color': '#f6d0cf', // lighten($XCODE_DARK_MAIN_LINK_COLOR, 30%)
+    '--hoverable-link-hover-color': 'white', // lighten($XCODE_DARK_MAIN_LINK_COLOR, 30%)
 
     '--main-bg-color': XCODE_DARK_BG_COLOR,
     '--main-text-color': XCODE_DARK_TEXT_COLOR,
@@ -66,6 +71,7 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-tt-text-color': XCODE_DARK_TEXT_COLOR,
     '--main-tt-border': '1px solid rgb(60, 62, 66)',
     '--main-blockquote-text-color': '#999999',
+    '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
     rouge_theme: 'monokai',
   },
