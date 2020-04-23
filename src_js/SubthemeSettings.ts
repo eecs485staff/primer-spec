@@ -196,7 +196,9 @@ export default class SubthemeSettings implements NodeManagerComponent {
     const stored_subtheme_name = this._node_manager.storage.get(
       SUBTHEME_STORAGE_KEY,
     );
-    return stored_subtheme_name ? stored_subtheme_name : Subthemes.default.name;
+    return stored_subtheme_name && Subthemes[stored_subtheme_name]
+      ? stored_subtheme_name
+      : Subthemes.default.name;
   }
 
   /**
