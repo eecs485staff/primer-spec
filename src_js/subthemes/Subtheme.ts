@@ -1,11 +1,12 @@
 export default interface Subtheme {
   readonly name: string;
-  apply(): void;
-  reset(): void;
+  apply(mode: SubthemeModeType): void;
+  reset(mode: SubthemeModeType): void;
 }
 
 export const SUBTHEME_VARS = [
   '--sidebar-bg-color',
+  '--sidebar-border-color',
   '--sidebar-heading-text-color',
   '--sidebar-heading-link-color',
 
@@ -33,11 +34,20 @@ export const SUBTHEME_VARS = [
   '--main-tt-bg-color',
   '--main-tt-border',
   '--main-blockquote-text-color',
+  '--main-header-border-bottom-color',
 ];
 
 export interface SubthemeVarsType {
   [css_var: string]: string;
+  rouge_theme: string;
 }
+
+export interface SubthemeDefinitionType {
+  light: SubthemeVarsType;
+  dark: SubthemeVarsType;
+}
+
+export type SubthemeModeType = 'light' | 'dark';
 
 export interface RougeTheme {
   readonly name: string;
