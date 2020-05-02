@@ -313,6 +313,12 @@ body,
     border: var(--main-table-pre-border);
   }
 
+  // In the original Primer theme, every other row is colored contrastively.
+  // In dark themes, it doesn't look great.
+  table tr:nth-child(2n) {
+    background-color: var(--main-table-pre-bg-color, #f6f8fa);
+  }
+
   blockquote {
     color: var(--main-blockquote-text-color);
   }
