@@ -42,7 +42,7 @@ This spec will walk you through these parts:
 Follow these steps to get your development environment set up.
 
 ### Install the dependencies
-First make sure that you have Python 3 installed. If you're on MacOS, you may have to <tt>brew install python3</tt> first.
+First make sure that you have Python 3 installed. If you're on MacOS, you may have to `brew install python3` first.
 
 ```console
 $ python3 --version  # NOTE: Your Python version may be different.
