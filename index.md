@@ -42,7 +42,7 @@ This spec will walk you through these parts:
 Follow these steps to get your development environment set up.
 
 ### Install the dependencies
-First make sure that you have Python 3 installed. If you're on MacOS, you may have to `brew install python3` first.
+First make sure that you have Python 3 installed. If you're on MacOS, you may have to <tt>brew install python3</tt> first.
 
 ```console
 $ python3 --version  # NOTE: Your Python version may be different.
@@ -117,6 +117,12 @@ Here are some suggestions for getting started.
 
 #### Where should I write the JavaScript code?
 Write your code in `spec.js`. This code is loaded and executed at the very end, after all other content and scripts are loaded and executed. As a result, your code in `spec.js` will have access to [JQuery APIs](https://api.jquery.com/).
+
+JQuery APIs let you find HTML elements using CSS selectors and easily manipulate them. For example:
+<pre>
+$('primer-spec-sidebar').append('&lt;h2&gt;Contents&lt;/h2&gt;');
+$('primer-spec-topbar').toggleClass('primer-spec-sidebar-shown');
+</pre>
 
 #### What should my code be doing?
 The end goal is to generate a list of headings on the page, and place that in the sidebar. At its simplest:
