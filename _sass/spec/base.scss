@@ -300,9 +300,10 @@ body,
   }
 
   // These are code blocks with syntax highlighting by Rogue
-  .highlight pre.highlight {
+  .highlight pre.highlight,
+  pre {
     color: var(--main-table-pre-text-color);
-    background-color: var(--main-table-pre-bg-color);
+    background-color: var(--main-table-pre-bg-color, #f6f8fa);
     border: var(--main-table-pre-border);
   }
 
