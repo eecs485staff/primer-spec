@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+const execa = require('execa');
 const fs = require('fs-extra');
+const Listr = require('listr');
 const path = require('path');
 const semver = require('semver');
 
@@ -7,6 +9,40 @@ const ROOT_PATH = path.resolve(__dirname, '../');
 const VERSION_FILEPATH = path.resolve(ROOT_PATH, 'VERSION');
 const VERSION_RAW = fs.readFileSync(VERSION_FILEPATH, 'utf-8');
 const CURRENT_VERSION = semver.coerce(VERSION_RAW);
+
+function freezeAssetsForVersion(version_str) {
+  const assets_path = path.resolve(ROOT_PATH, 'assets', version_str);
+  return new Listr([
+    {
+      // (1) Run a CI Build to generate the right CSS/JS assets
+      title: 'script/cibuild',
+      task: async () => {
+        const cibuild_script_path = path.join(ROOT_PATH, 'script/cibuild');
+        await execa(cibuild_script_path);
+      },
+    },
+    {
+      // (2) Delete original SCSS/JS assets from the assets directory
+      title: `Delete assets/${version_str}`,
+      task: async () => {
+        await fs.remove(assets_path);
+      },
+    },
+    {
+      // (3) Copy over the generated CSS/JS assets
+      title: `Copy _site/${version_str} --> assets/${version_str}`,
+      task: async () => {
+        const generated_assets_path = path.resolve(
+          ROOT_PATH,
+          '_site/assets',
+          version_str,
+        );
+        await fs.mkdir(assets_path);
+        await fs.copy(generated_assets_path, assets_path);
+      },
+    },
+  ]);
+}
 
 require('yargs')
   .command(
@@ -18,7 +54,7 @@ require('yargs')
         choices: ['major', 'minor', 'patch'],
       });
     },
-    (argv) => {
+    async (argv) => {
       const release_type = argv.release_type;
       switch (release_type) {
         case 'major':
@@ -39,38 +75,70 @@ require('yargs')
       const next_version = semver
         .coerce(`${CURRENT_VERSION}`)
         .inc(release_type);
+
       console.log(`Bumping v${CURRENT_VERSION} --> v${next_version}.d`);
 
-      // Write to the VERSION file
-      fs.writeFileSync(VERSION_FILEPATH, `${next_version}.d`);
-      console.log(`✅ Updated VERSION file`);
+      let tasks;
 
       if (release_type === 'patch') {
-        return;
+        // ONLY update the VERSION file
+        tasks = new Listr([
+          {
+            // Write to the VERSION file
+            title: 'Update VERSION file',
+            task: async () => {
+              await fs.writeFile(VERSION_FILEPATH, `${next_version}.d`);
+            },
+          },
+        ]);
+      } else {
+        const old_version_str = `v${CURRENT_VERSION.major}.${CURRENT_VERSION.minor}`;
+        const new_version_str = `v${next_version.major}.${next_version.minor}`;
+        tasks = new Listr([
+          {
+            // (1) Create the new assets directory
+            title: `Create new assets directory: assets/${new_version_str}`,
+            task: async () => {
+              await fs.copy(
+                path.resolve(ROOT_PATH, `assets/${old_version_str}`),
+                path.resolve(ROOT_PATH, `assets/${new_version_str}`),
+              );
+            },
+          },
+          {
+            // (2) Freeze the CSS/JS assets
+            title: `Freeze generated CSS/JS assets for ${old_version_str}`,
+            task: () => freezeAssetsForVersion(old_version_str),
+          },
+          {
+            // (3) Write to the VERSION file
+            title: 'Update VERSION file',
+            task: async () => {
+              await fs.writeFile(VERSION_FILEPATH, `${next_version}.d`);
+            },
+          },
+          {
+            // (4) Update the version in _layouts/spec.html
+            title: 'Update _layouts/spec.html',
+            task: async () => {
+              const spec_layout = await fs.readFile(
+                path.resolve(ROOT_PATH, '_layouts/spec.html'),
+                'utf-8',
+              );
+              await fs.writeFile(
+                path.resolve(ROOT_PATH, '_layouts/spec.html'),
+                spec_layout.replace(
+                  /version_string: v\d+\.\d+/g,
+                  `version_string: ${new_version_str}`,
+                ),
+              );
+            },
+          },
+        ]);
       }
-
-      // Create the new assets directory
-      const old_version_str = `v${CURRENT_VERSION.major}.${CURRENT_VERSION.minor}`;
-      const new_version_str = `v${next_version.major}.${next_version.minor}`;
-      fs.copySync(
-        path.resolve(ROOT_PATH, `assets/${old_version_str}`),
-        path.resolve(ROOT_PATH, `assets/${new_version_str}`),
-      );
-      console.log(`✅ Created new assets directory: assets/${new_version_str}`);
-
-      // Update the version in _layouts/spec.html
-      const spec_layout = fs.readFileSync(
-        path.resolve(ROOT_PATH, '_layouts/spec.html'),
-        'utf-8',
-      );
-      fs.writeFileSync(
-        path.resolve(ROOT_PATH, '_layouts/spec.html'),
-        spec_layout.replace(
-          /version_string: v\d+\.\d+/g,
-          `version_string: ${new_version_str}`,
-        ),
-      );
-      console.log(`✅ Updated _layouts/spec.html`);
+      tasks.run().catch((err) => {
+        console.error(err);
+      });
     },
   )
   .command(
@@ -79,8 +147,9 @@ require('yargs')
     () => {},
     (argv) => {
       // Write to the VERSION file
-      fs.writeFileSync(VERSION_FILEPATH, `${CURRENT_VERSION}`);
-      console.log(`Version frozen to v${CURRENT_VERSION}`);
+      indicateProgress(`Freeze version to v${CURRENT_VERSION}`, 0, async () => {
+        await fs.writeFile(VERSION_FILEPATH, `${CURRENT_VERSION}`);
+      });
     },
   )
   .help()
