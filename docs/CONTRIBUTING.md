@@ -200,7 +200,7 @@ To propose a version bump, use the `version` script. For example:
 $ script/version bump minor
 ```
 
-It is acceptable for the version bump to be done in a separate Pull Request by project members after a change has been merged to the `develop` branch. However, the version bump must be completed before [freezing the next release](#releasing-for-the-next-semester) and merging to `master`.
+The version bump _must_ be done in the same Pull Request that proposes such a change. (If the Pull Request is merged without bumping the version, the previous older version of Primer Spec will lose its backwards-compatibility guarantee!)
 
 ## Modifications from Primer
 

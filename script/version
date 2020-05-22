@@ -147,9 +147,8 @@ require('yargs')
     () => {},
     (argv) => {
       // Write to the VERSION file
-      indicateProgress(`Freeze version to v${CURRENT_VERSION}`, 0, async () => {
-        await fs.writeFile(VERSION_FILEPATH, `${CURRENT_VERSION}`);
-      });
+      fs.writeFileSync(VERSION_FILEPATH, `${CURRENT_VERSION}`);
+      console.log(`Version frozen to v${CURRENT_VERSION}`);
     },
   )
   .help()
