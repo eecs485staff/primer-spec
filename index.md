@@ -1,5 +1,6 @@
 ---
 layout: spec
+latex: true
 ---
 
 Project 0: Primer Spec
@@ -146,6 +147,7 @@ Here are some of the optional features you could implement, in somewhat increasi
 - [Excludable Headers](#excludable-headers)
 - [Currently-Viewing Section](#currently-viewing-section)
 - [Mobile-Friendliness](#mobile-friendliness)
+- [LaTeX Support](#latex-support)
 
 ## Collapsible Sidebar
 For some viewers, the sidebar can be visually distracting. It would be nice to allow viewers to hide the sidebar. This can be achieved using something as simple as a toggle button. However, consider emulating a better user experience similar to that of the [official Primer Spec theme](https://eecs485staff.github.io/primer-spec) — using a hamburger icon on the top-left corner.
@@ -196,6 +198,28 @@ There are multiple ways to solve these problems. The official Primer Spec theme 
 2. The sidebar is collapsed by default. A toggle button is always shown on top. Clicking a sidebar link, or clicking outside the sidebar, collapses the sidebar immediately.
 
 As you go along, you may find that other changes are needed to improve the mobile experience. For instance, since the sidebar collapses whenever a link is clicked, users no longer expect these internal links to accumulate browser history. (Clicking the "back button" should not just take them to a different section.) Continue exploring your project page from a mobile device to discover other user experience issues.
+
+## LaTeX Support
+Some project specs need to show Math formulae and equations. It's possible to include these as inline images, but it's hard to maintain. Consider adding support for LaTeX in specs using [MathJax](https://www.mathjax.org/).
+
+LaTeX can be inserted in the middle of paragraphs ($$ \forall x \in R $$), or as separate Math blocks:
+
+$$
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
 
 # Feedback
 If you have suggestions for improving this spec/demo, please create an issue on the [Primer Spec GitHub repository](https://github.com/eecs485staff/primer-spec/issues/). Alternatively, if you know exactly what you'd like to change, [fork the repository and create a Pull Request](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md)!
