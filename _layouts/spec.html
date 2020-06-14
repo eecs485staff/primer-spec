@@ -54,6 +54,23 @@ version_string: v1.2
 
         <!-- BEGIN CUSTOM SPEC CODE -->
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous"></script>
+        {%- if page.latex %}
+        <script type="text/x-mathjax-config">
+            // This is derived from the config TeX-MML-AM_CHTML, but disables
+            // the context-menu (which appears on right-click). It also removes
+            // unnecessary input formats MML and AM.
+            // Source: https://docs.mathjax.org/en/v2.7-latest/config-files.html#the-tex-mml-am-chtml-configuration-file
+            MathJax.Hub.Config({
+                jax: ["input/TeX","output/CommonHTML"],
+                extensions: ["tex2jax.js"],
+                TeX: {
+                  extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+                },
+                showMathMenu: false,
+              });
+          </script>
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+        {%- endif %}
         <!-- END CUSTOM SPEC CODE -->
     </body>
 </html>
