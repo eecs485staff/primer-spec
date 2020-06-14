@@ -7,6 +7,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
+- [LaTeX](#latex)
 - [Using without Jekyll](#using-without-jekyll)
 
 ## Previewing locally
@@ -116,6 +117,32 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 
 <p>Spam spam spam.</p>
 ```
+
+## LaTeX
+Primer Spec supports displaying Mathematical expressions using [LaTeX syntax and rendering](https://en.wikibooks.org/wiki/LaTeX/Mathematics). To enable LaTeX typesetting features, update the top of each MarkDown file with the `latex` option:
+
+  ```yml
+  ---
+  layout: spec
+  latex: true
+  ---
+  ```
+
+LaTeX can be rendered inline or as separate blocks. Here is an example of a MarkDown file with LaTeX typesetting:
+
+  ```markdown
+  ---
+  layout: spec
+  latex: true
+  ---
+
+  LaTeX can be inlined ($$ \forall x \in R $$) or as a separate math block.
+
+  $$
+  -b \pm \sqrt{b^2 - 4ac} \over 2a
+  $$
+  ```
+
 
 ### Using without Jekyll
 
