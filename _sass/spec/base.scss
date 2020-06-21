@@ -8,6 +8,16 @@ $ICON_FONT_SIZE: 2em;
 $ICON_HOVER_COLOR: rgb(211, 85, 2);
 $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 
+// To ensure correct visual layering of the components on the page, we need
+// to specify these z-indices.
+// The sidebar is *always* on top of the topbar, which is always on top of
+// the settings modal.
+// When the settings modal is shown, it should always on top of any main
+// content (including MathJax content, which has z-index 0).
+$Z_INDEX_SETTINGS: 1;
+$Z_INDEX_TOPBAR: 2;
+$Z_INDEX_SIDEBAR: 3;
+
 // For students printing out the spec, don't print the sidebar and icons.
 @media print {
   .no-print,
@@ -26,7 +36,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
   border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
 
   // To make the sidebar appear on top of the topbar on mobile
-  z-index: 1;
+  z-index: $Z_INDEX_SIDEBAR;
 
   &-toggle-fixed {
     font-size: $ICON_FONT_SIZE;
@@ -61,7 +71,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
   pointer-events: none;
 
   &-settings-shown {
-    z-index: 1;
+    z-index: $Z_INDEX_TOPBAR;
   }
 }
 
@@ -230,6 +240,7 @@ div[class^='primer-spec-toc-'] {
   &-container {
     display: none;
     background-color: var(--main-bg-color);
+    z-index: $Z_INDEX_SETTINGS;
   }
 
   &-toggle {
