@@ -69,10 +69,7 @@ $Z_INDEX_SIDEBAR: 3;
   // We don't want the Topbar to register click events. This allows clicks to
   // pass-through to underlying main-content.
   pointer-events: none;
-
-  &-settings-shown {
-    z-index: $Z_INDEX_TOPBAR;
-  }
+  z-index: $Z_INDEX_TOPBAR;
 }
 
 /**
