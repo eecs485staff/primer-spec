@@ -13,10 +13,10 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 // The sidebar is *always* on top of the topbar, which is always on top of
 // the settings modal.
 // When the settings modal is shown, it should always on top of any main
-// content (including MathJax content, which has z-index 0).
-$Z_INDEX_SETTINGS: 1;
-$Z_INDEX_TOPBAR: 2;
-$Z_INDEX_SIDEBAR: 3;
+// content (including MathJax content, which has z-index 1).
+$Z_INDEX_SETTINGS: 2;
+$Z_INDEX_TOPBAR: 3;
+$Z_INDEX_SIDEBAR: 4;
 
 // For students printing out the spec, don't print the sidebar and icons.
 @media print {
