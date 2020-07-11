@@ -31,6 +31,15 @@ version_string: v1.3
                 overflow: auto;
                 overflow-y: hidden;
             }
+
+            /**
+             * On mobile (at least on iOS), the 0-line-height style from
+             * MathJax causes rendering issues with inline math. This style
+             * overrides the property. (Needed to add specificity to override.)
+             */
+             mjx-container[jax="CHTML"].MathJax {
+              line-height: inherit;
+            }
         </style>
         {%- endif %}
         <!-- END CUSTOM SPEC CODE -->
