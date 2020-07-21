@@ -18,6 +18,12 @@ version_string: v1.3
             {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
         {% endif %}
         <link rel="stylesheet" href="{{ base_url }}/assets/{{ layout.version_string }}/css/primer-spec-base.css">
+
+        <script>
+            window.PrimerSpecConfig = {
+                hideSidebarOnLoad: {{ page.hideSidebarOnLoad | default: false }},
+            };
+        </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
 
         {%- if page.latex %}
