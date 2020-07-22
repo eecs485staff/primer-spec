@@ -172,21 +172,11 @@ However, with some work, it is _possible_ to add Primer Spec styling to a plain 
      rel="stylesheet"
      href="https://eecs485staff.github.io/primer-spec/assets/<version>/css/primer-spec-base.css"
    />
-   <link
-     rel="preload"
-     href="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
-     as="script"
-     crossorigin
-   />
-   ```
-
-4. Add the following lines at the bottom of the file, just before the closing `body` tag. Again, replace `<version>` with the appropriate version in the [`assets/`](../assets/) directory.
-
-   ```html
    <script
-     src="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
-     crossorigin="anonymous"
-   ></script>
+      src="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
    ```
 
 Your final HTML file will probably look something like this:
@@ -200,12 +190,11 @@ Your final HTML file will probably look something like this:
       rel="stylesheet"
       href="https://eecs485staff.github.io/primer-spec/assets/<version>/css/primer-spec-base.css"
     />
-    <link
-      rel="preload"
-      href="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
-      as="script"
-      crossorigin
-    />
+    <script
+      src="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
 
     <title>My long project spec</title>
   </head>
@@ -220,10 +209,6 @@ Your final HTML file will probably look something like this:
       <h2>Grading</h2>
       ...
     </div>
-    <script
-      src="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
 ```
