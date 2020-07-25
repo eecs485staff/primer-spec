@@ -61,8 +61,6 @@ export default class NodeManager {
     this.settings.init();
 
     if (Utilities.isSmallScreen()) {
-      // Hide the sidebar by default on mobile.
-      this.sidebar.hide();
       // Push the main content to make room for the topbar.
       this.main_content.enableMobileMode();
       // Show the topbar and change the link offset.

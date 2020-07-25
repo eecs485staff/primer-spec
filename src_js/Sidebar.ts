@@ -1,6 +1,7 @@
 import NodeManager from './NodeManager';
 import Utilities from './Utilities';
 import NodeManagerComponent from './NodeManagerComponent.d';
+import Config from './Config';
 
 /**
  * Encapsulates the Sidebar and its behaviors.
@@ -33,6 +34,11 @@ export default class Sidebar implements NodeManagerComponent {
 
   init() {
     this._addEventHandlers();
+
+    if (Utilities.isSmallScreen() || Config.HIDE_SIDEBAR_ON_LOAD) {
+      // Hide the sidebar by default on mobile (or if specified as an option).
+      this.hide();
+    }
   }
 
   /**
