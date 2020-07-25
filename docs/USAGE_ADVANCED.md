@@ -9,6 +9,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [LaTeX](#latex)
 - [Using without Jekyll](#using-without-jekyll)
+- [Using GitHub Flavored Markdown](#using-github-flavored-markdown)
 
 ## Previewing locally
 
@@ -144,7 +145,7 @@ LaTeX can be rendered inline or as separate blocks. Here is an example of a Mark
   ```
 
 
-### Using without Jekyll
+## Using without Jekyll
 
 We recommend using Primer Spec with Jekyll because:
 
@@ -214,3 +215,18 @@ Your final HTML file will probably look something like this:
 ```
 
 That's it! The page should now display with Primer Spec styling.
+
+## Using GitHub Flavored Markdown
+GitHub Flavored MarkDown (GFM) is an enhanced variant of MarkDown used by GitHub. There are some differences between GFM and "regular" MarkDown (as documented in [CommonMark'GitHub site](https://github.com/commonmark/commonmark-spec#differences-from-original-markdown)), but the differences are not significant for most users.
+
+If you prefer to express your GitHub Pages site's MarkDown files using GFM instead of "regular" MarkDown, you'll need to change your site's `_config.yml` by adding the line `markdwon: GFM`. Your final `_config.yml` may look like this:
+```yml
+remote_theme: eecs485staff/primer-spec
+plugins:
+    - jekyll-remote-theme
+
+# The default MarkDown processor for Jekyll is actually 'kramdown'. Change to GFM if you prefer.
+markdown: GFM
+```
+
+**WARNING:** The above config *only* works with GitHub Pages, and *does not* support [previewing Primer Spec locally](#previewing-locally).
