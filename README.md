@@ -43,7 +43,12 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
 
 This repository hosts a Primer Spec site too! The original Markdown content is in [index.md](index.md), and you can preview the page at [https://eecs485staff.github.io/primer-spec/index.html](https://eecs485staff.github.io/primer-spec/).
 
-If you aren't using GitHub Pages, or if you'd like to preview your webpages locally, refer to the [Advanced Usage](docs/USAGE_ADVANCED.md) docs.
+Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite a few tricks including how to:
+- [Preview locally](docs/USAGE_ADVANCED.md#previewing-locally) (especially if you aren't using GitHub Pages)
+- [Hide sections from the sidebar](docs/USAGE_ADVANCED.md#hiding-sections-from-the-sidebar)
+- [Render math expressions with LaTeX](docs/USAGE_ADVANCED.md#latex)
+- [Configure other Primer Spec options for each page](docs/USAGE_ADVANCED.md#other-page-configuration-options)
+- (And more!)
 
 ## User Showcase
 

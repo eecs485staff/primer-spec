@@ -7,6 +7,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
+- [Other page configuration options](#other-page-configuration-options)
 - [LaTeX](#latex)
 - [Using without Jekyll](#using-without-jekyll)
 - [Using GitHub Flavored Markdown](#using-github-flavored-markdown)
@@ -118,6 +119,24 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 
 <p>Spam spam spam.</p>
 ```
+
+## Other page configuration options
+The following configuration options can be specified in the ["front-matter"](https://jekyllrb.com/docs/front-matter/) of your page, in the same place that you specify the page's layout. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
+
+```yml
+---
+layout: spec
+# Prevent the sidebar from expanding by default.
+hideSidebarOnLoad: true
+---
+
+...your webpage's MarkDown/HTML content...
+```
+
+Primer Spec supports the following page configuration options:
+
+#### `hideSidebarOnLoad`: Boolean
+Prevent the sidebar (with table of contents) from appearing when a user loads the page. Defaults to `false`.
 
 ## LaTeX
 Primer Spec supports displaying Mathematical expressions using [LaTeX syntax and rendering](https://en.wikibooks.org/wiki/LaTeX/Mathematics). To enable LaTeX typesetting features, update the top of each MarkDown file with the `latex` option:
