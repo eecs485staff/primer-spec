@@ -4,6 +4,7 @@ import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 
 export type SidebarProps = {
+  contentNode: HTMLElement;
   shown: boolean;
 };
 
@@ -18,7 +19,7 @@ export default function Sidebar(props: SidebarProps) {
         <InlineButton icon={IconType.SIDEBAR} />
       </h2>
       <br />
-      <TableOfContents />
+      <TableOfContents contentNode={props.contentNode} />
     </div>
   );
 }
