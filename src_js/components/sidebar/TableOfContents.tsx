@@ -2,15 +2,33 @@ import { h, Fragment } from 'preact';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {
-  contentNode: HTMLElement;
+  contentNodeSelector: string;
 };
 
-export default function TableOfContents(props: PropsType) {
-  const headings = [
-    ...props.contentNode.querySelectorAll('h1, h2, h3, h4, h5, h6'),
-  ];
-  const tocNodes = generateTocNodes(headings);
-  return <div id="primer-spec-toc">{tocNodes}</div>;
+// To prevent regenerating the TOC nodes every time <TableOfContents /> is
+// rendered, we use a memo to cache the results. Note that in general, we
+// expect to only ever receive one value of contentNodeSelector.
+// The same behavior could have been achieved with React.memo, but Preact does
+// not implement something similar out of the box.
+const memo: { [contentNodeSelector: string]: h.JSX.Element } = {};
+
+export default function TableOfContents({ contentNodeSelector }: PropsType) {
+  const contentNode = document.body.querySelector(contentNodeSelector);
+  if (!contentNode) {
+    throw new Error(
+      `Primer Spec: TableOfContents: Main content node could not be found with selector: ${contentNodeSelector}`,
+    );
+  }
+
+  if (!memo[contentNodeSelector]) {
+    const headings = [
+      ...contentNode.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+    ];
+    const tocNodes = generateTocNodes(headings);
+    memo[contentNodeSelector] = <div id="primer-spec-toc">{tocNodes}</div>;
+  }
+
+  return memo[contentNodeSelector];
 }
 
 /**
