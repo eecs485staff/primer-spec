@@ -48,7 +48,7 @@ function getBaseURL(env) {
 module.exports = (env) => ({
   mode: env && env.production ? 'production' : 'development',
   context: path.resolve(__dirname, 'src_js/'),
-  entry: './main.ts',
+  entry: './main.tsx',
   output: {
     path: path.join(__dirname, `/assets/${VERSION_STR}/js/`),
     filename: 'primer_spec_plugin.min.js',
@@ -95,7 +95,7 @@ module.exports = (env) => ({
   },
   // When importing files, no need to mention these file-extensions
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
     // JQuery becomes available in every file

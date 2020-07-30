@@ -1,6 +1,9 @@
 import * as AnchorJS from 'anchor-js';
-import htmlTableOfContents from './htmlTableOfContents';
-import NodeManager from './NodeManager';
+import { h, render, Fragment } from 'preact';
+import { Provider } from 'redux-zero/preact';
+import store from './store';
+import Sidebar from './components/sidebar/Sidebar';
+import Topbar from './components/Topbar';
 
 const rawHeadTags = require('../_includes/spec_head_tags.html');
 const rawBeforeMainContent = require('../_includes/spec_before_main_content.html');
@@ -33,14 +36,19 @@ function format_main_content() {
 
 function inject_theme_html() {
   const $head_links = $(rawHeadTags);
-  const $before_main_content = $(rawBeforeMainContent);
-
   $('head').append($head_links);
-  $('body').prepend($before_main_content);
 
-  // Generate the HTML table of contents in the sidebar.
-  htmlTableOfContents();
-  new NodeManager().init();
+  render(
+    <Fragment>
+      <Provider store={store}>
+        <Sidebar contentNodeSelector="#primer-spec-plugin-main-content" />
+      </Provider>
+      <Provider store={store}>
+        <Topbar />
+      </Provider>
+    </Fragment>,
+    document.getElementById('primer-spec-app-container')!, // TODO: Remove null cast
+  );
 }
 
 function main() {
