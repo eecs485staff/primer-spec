@@ -37,7 +37,10 @@ function Sidebar(
         />
       </h2>
       <br />
-      <TableOfContents contentNodeSelector={props.contentNodeSelector} />
+      <TableOfContents
+        contentNodeSelector={props.contentNodeSelector}
+        topbarHeight={props.topbarHeight}
+      />
     </div>
   );
 }

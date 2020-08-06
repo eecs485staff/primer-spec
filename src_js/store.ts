@@ -6,4 +6,7 @@ export type StoreStateType = {
   topbarHeight: number;
 };
 
-export default createStore({ sidebarShown: !Config.HIDE_SIDEBAR_ON_LOAD });
+export default createStore({
+  sidebarShown: !Config.HIDE_SIDEBAR_ON_LOAD,
+  topbarHeight: 10,
+});

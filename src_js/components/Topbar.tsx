@@ -8,6 +8,7 @@ import InlineButton from './common/InlineButton';
 import { BoundActions } from 'redux-zero/types/Actions';
 import actions from '../actions';
 import { StoreStateType } from '../store';
+import Utilities from '../Utilities';
 
 type PropsType = {};
 
@@ -17,8 +18,9 @@ function Topbar(
     BoundActions<StoreStateType, typeof actions>,
 ) {
   const topbarRef = useRef<HTMLDivElement>(null);
+  // TODO: Refresh the topbar height if the viewport width changes
   useEffect(() => {
-    if (topbarRef.current) {
+    if (topbarRef.current && Utilities.isSmallScreen()) {
       props.setTopbarHeight(topbarRef.current.getBoundingClientRect().height);
     }
   });

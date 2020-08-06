@@ -2,6 +2,7 @@ type HTMLElementLikeType = { tagName: string };
 
 export type HeadingsSectionType = {
   heading: HTMLElementLikeType;
+  active: boolean;
   section: HeadingsSectionType[];
 };
 
@@ -12,6 +13,7 @@ export type HeadingsSectionType = {
  * A particular heading's "section" consists of all subsequent headings with
  * lower precedence. For instance:
  *   Flat list of headings: [h2, h1, h3, h4, h3]
+ *   Active heading index: 3
  *   Resulting unflattened structure:
  *     [
  *       { heading: h2, section: [] },
@@ -20,6 +22,7 @@ export type HeadingsSectionType = {
  *         section: [
  *           {
  *             heading: h3,
+ *             active: true,
  *             section: [
  *               { heading: h4, section: [] },
  *             ],
@@ -30,9 +33,11 @@ export type HeadingsSectionType = {
  *     ]
  *
  * @param headings List of HTML elements representing heading nodes in the DOM
+ * @param activeHeadingIndex (optional) Index of the active heading item.
  */
 export default function unflattenHeadings(
   headings: HTMLElementLikeType[],
+  activeHeadingIndex: number = -1,
 ): HeadingsSectionType[] {
   if (!headings.length) {
     return [];
@@ -48,6 +53,7 @@ export default function unflattenHeadings(
   // This is the section of the previous heading (headings[headingsIndex - 1]).
   let previousHeadingSection: HeadingsSectionType = {
     heading: headings[0],
+    active: activeHeadingIndex === 0,
     section: [],
   };
 
@@ -60,7 +66,11 @@ export default function unflattenHeadings(
 
   while (headingsIndex < headings.length) {
     const currentHeading = headings[headingsIndex];
-    const currentHeadingSection = { heading: currentHeading, section: [] };
+    const currentHeadingSection = {
+      heading: currentHeading,
+      active: activeHeadingIndex === headingsIndex,
+      section: [],
+    };
 
     if (currentHeading.tagName > previousHeadingSection.heading.tagName) {
       // The current heading should be included in the previous heading's

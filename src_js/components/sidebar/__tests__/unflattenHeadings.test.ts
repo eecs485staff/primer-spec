@@ -14,7 +14,7 @@ describe('unflattenHeadings', () => {
     const headings = [createElement('H1')];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H1'), section: [] },
+      { heading: createElement('H1'), active: false, section: [] },
     ]);
   });
 
@@ -22,8 +22,8 @@ describe('unflattenHeadings', () => {
     const headings = [createElement('H1'), createElement('H1')];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H1'), section: [] },
-      { heading: createElement('H1'), section: [] },
+      { heading: createElement('H1'), active: false, section: [] },
+      { heading: createElement('H1'), active: false, section: [] },
     ]);
   });
 
@@ -33,7 +33,8 @@ describe('unflattenHeadings', () => {
     expect(unflattened).toStrictEqual([
       {
         heading: createElement('H1'),
-        section: [{ heading: createElement('H2'), section: [] }],
+        active: false,
+        section: [{ heading: createElement('H2'), active: false, section: [] }],
       },
     ]);
   });
@@ -42,8 +43,8 @@ describe('unflattenHeadings', () => {
     const headings = [createElement('H2'), createElement('H1')];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H2'), section: [] },
-      { heading: createElement('H1'), section: [] },
+      { heading: createElement('H2'), active: false, section: [] },
+      { heading: createElement('H1'), active: false, section: [] },
     ]);
   });
 
@@ -55,10 +56,11 @@ describe('unflattenHeadings', () => {
     ];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H2'), section: [] },
+      { heading: createElement('H2'), active: false, section: [] },
       {
         heading: createElement('H1'),
-        section: [{ heading: createElement('H3'), section: [] }],
+        active: false,
+        section: [{ heading: createElement('H3'), active: false, section: [] }],
       },
     ]);
   });
@@ -80,28 +82,70 @@ describe('unflattenHeadings', () => {
     expect(unflattened).toStrictEqual([
       {
         heading: createElement('H1'),
+        active: false,
         section: [
-          { heading: createElement('H2'), section: [] },
+          { heading: createElement('H2'), active: false, section: [] },
           {
             heading: createElement('H2'),
+            active: false,
             section: [
               {
                 heading: createElement('H3'),
-                section: [{ heading: createElement('H5'), section: [] }],
+                active: false,
+                section: [
+                  { heading: createElement('H5'), active: false, section: [] },
+                ],
               },
-              { heading: createElement('H3'), section: [] },
+              { heading: createElement('H3'), active: false, section: [] },
             ],
           },
           {
             heading: createElement('H2'),
-            section: [{ heading: createElement('H6'), section: [] }],
+            active: false,
+            section: [
+              { heading: createElement('H6'), active: false, section: [] },
+            ],
           },
         ],
       },
       {
         heading: createElement('H1'),
-        section: [{ heading: createElement('H4'), section: [] }],
+        active: false,
+        section: [{ heading: createElement('H4'), active: false, section: [] }],
       },
     ]);
+  });
+
+  describe('activeHeadingIndex', () => {
+    test('index out of bounds', () => {
+      const headings = [createElement('H1')];
+      const unflattened = unflattenHeadings(headings, 4);
+      expect(unflattened).toStrictEqual([
+        {
+          heading: createElement('H1'),
+          active: false,
+          section: [],
+        },
+      ]);
+    });
+
+    test('valid index', () => {
+      const headings = [
+        createElement('H1'),
+        createElement('H2'),
+        createElement('H1'),
+      ];
+      const unflattened = unflattenHeadings(headings, 1);
+      expect(unflattened).toStrictEqual([
+        {
+          heading: createElement('H1'),
+          active: false,
+          section: [
+            { heading: createElement('H2'), active: true, section: [] },
+          ],
+        },
+        { heading: createElement('H1'), active: false, section: [] },
+      ]);
+    });
   });
 });

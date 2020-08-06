@@ -1,18 +1,43 @@
 import { h, Fragment } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
+import { debounce } from 'debounce';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {
   contentNodeSelector: string;
+  topbarHeight: number;
 };
 
-// To prevent regenerating the TOC nodes every time <TableOfContents /> is
-// rendered, we use a memo to cache the results. Note that in general, we
-// expect to only ever receive one value of contentNodeSelector.
-// The same behavior could have been achieved with React.memo, but Preact does
-// not implement something similar out of the box.
-const memo: { [contentNodeSelector: string]: h.JSX.Element } = {};
+export default function TableOfContents(props: PropsType) {
+  const [_, setWindowScrollDistance] = useState(window.scrollY || 0);
 
-export default function TableOfContents({ contentNodeSelector }: PropsType) {
+  useEffect(() => {
+    // To prevent the scroll event from firing too rapidly, we use debounce to
+    // group up to 10ms of events.
+    // TODO: Do I really need to debounce when the interval is so short?
+    const scrollHandler = debounce(
+      () => setWindowScrollDistance(window.scrollY),
+      10,
+      true,
+    );
+    window.addEventListener('scroll', scrollHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  const tocNodes = generateTocNodesForContentNode(
+    props.contentNodeSelector,
+    props.topbarHeight,
+  );
+
+  return <div id="primer-spec-toc">{tocNodes}</div>;
+}
+
+function generateTocNodesForContentNode(
+  contentNodeSelector: string,
+  threshold: number,
+) {
   const contentNode = document.body.querySelector(contentNodeSelector);
   if (!contentNode) {
     throw new Error(
@@ -20,15 +45,19 @@ export default function TableOfContents({ contentNodeSelector }: PropsType) {
     );
   }
 
-  if (!memo[contentNodeSelector]) {
-    const headings = [
-      ...contentNode.querySelectorAll('h1, h2, h3, h4, h5, h6'),
-    ];
-    const tocNodes = generateTocNodes(headings);
-    memo[contentNodeSelector] = <div id="primer-spec-toc">{tocNodes}</div>;
+  const headings = [
+    ...contentNode.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+  ].filter((heading) => !heading.classList.contains('primer-spec-toc-ignore'));
+  let activeHeadingIndex = -1;
+  for (let i = 0; i < headings.length; ++i) {
+    const heading = headings[i];
+    if (heading.getBoundingClientRect().top - threshold > 0) {
+      activeHeadingIndex = i - 1;
+      break;
+    }
   }
 
-  return memo[contentNodeSelector];
+  return generateTocNodes(headings, activeHeadingIndex);
 }
 
 /**
@@ -42,8 +71,8 @@ export default function TableOfContents({ contentNodeSelector }: PropsType) {
  *
  * @param headings List of HTML nodes representing header elements in the page
  */
-function generateTocNodes(headings: Element[]) {
-  const unflattened = unflattenHeadings(headings);
+function generateTocNodes(headings: Element[], activeHeadingIndex: number) {
+  const unflattened = unflattenHeadings(headings, activeHeadingIndex);
   return unflattened.map((section) => generateTocNodesHelper(section));
 }
 
@@ -52,7 +81,9 @@ function generateTocNodesHelper(section: HeadingsSectionType) {
   return (
     <Fragment>
       <div
-        class={`primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()}`}
+        class={`primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()} ${
+          section.active ? 'primer-spec-toc-active' : ''
+        }`}
       >
         <a href={getAnchorLink(heading)}>{heading.textContent}</a>
       </div>
@@ -71,6 +102,5 @@ function getAnchorLink(headingNode: HTMLElement) {
     );
     return '#';
   }
-
   return anchorNode.getAttribute('href') || '#';
 }
