@@ -4,9 +4,9 @@ import { Provider } from 'redux-zero/preact';
 import store from './store';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/Topbar';
+import Settings from './components/Settings';
 
 const rawHeadTags = require('../_includes/spec_head_tags.html');
-const rawBeforeMainContent = require('../_includes/spec_before_main_content.html');
 
 const $main_content = $('#primer-spec-plugin-main-content');
 
@@ -45,6 +45,9 @@ function inject_theme_html() {
       </Provider>
       <Provider store={store}>
         <Topbar />
+      </Provider>
+      <Provider store={store}>
+        <Settings />
       </Provider>
     </Fragment>,
     document.getElementById('primer-spec-app-container')!, // TODO: Remove null cast

@@ -42,17 +42,12 @@ function Topbar(
       </div>
       <div class="primer-spec-settings-toggle primer-spec-float-right">
         <InlineButton
-          icon={IconType.SETTINGS}
-          onClick={props.toggleSidebarShown}
+          icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
+          onClick={props.toggleSettingsShown}
         />
-      </div>
-      <div class="primer-spec-settings-toggle primer-spec-settings-toggle-hidden primer-spec-float-right">
-        <InlineButton icon={IconType.CLOSE} onClick={toggleSettings} />
       </div>
     </div>
   );
 }
-
-function toggleSettings() {}
 
 export default connect(null, actions)(Topbar);

@@ -4,6 +4,7 @@
  */
 export default {
   BASE_URL: process.env.BASE_URL,
+  VERSION_RAW: process.env.VERSION_RAW,
 
   HIDE_SIDEBAR_ON_LOAD: window.PrimerSpecConfig.hideSidebarOnLoad || false,
 };
