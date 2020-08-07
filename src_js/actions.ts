@@ -1,4 +1,5 @@
-import { StoreStateType } from './store';
+import { StoreStateType, SubthemeModeSelectorType } from './store';
+import { updateTheme } from './SubthemeSettings';
 
 export default () => ({
   toggleSettingsShown: ({ settingsShown }: StoreStateType) => ({
@@ -10,4 +11,18 @@ export default () => ({
   setTopbarHeight: (_: StoreStateType, topbarHeight: number) => ({
     topbarHeight,
   }),
+
+  // Do not directly update the subtheme, they need to go through updateTheme
+  // first.
+  setSubthemeName: (_: StoreStateType, subthemeName: string) => {
+    updateTheme({ name: subthemeName });
+    return {};
+  },
+  setSubthemeMode: (
+    _: StoreStateType,
+    subthemeMode: SubthemeModeSelectorType,
+  ) => {
+    updateTheme({ mode: subthemeMode });
+    return {};
+  },
 });

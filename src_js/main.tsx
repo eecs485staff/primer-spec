@@ -2,6 +2,7 @@ import * as AnchorJS from 'anchor-js';
 import { h, render, Fragment } from 'preact';
 import { Provider } from 'redux-zero/preact';
 import store from './store';
+import { updateTheme } from './SubthemeSettings';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/Topbar';
 import Settings from './components/Settings';
@@ -37,6 +38,11 @@ function format_main_content() {
 function inject_theme_html() {
   const $head_links = $(rawHeadTags);
   $('head').append($head_links);
+
+  // Listen for changes to system theme (light/dark mode)
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addListener(() => updateTheme({}));
 
   render(
     <Fragment>
