@@ -1,4 +1,4 @@
-import { StoreStateType, SubthemeModeSelectorType } from './store';
+import { StoreStateType } from './store';
 import { updateTheme } from './SubthemeSettings';
 
 export default () => ({

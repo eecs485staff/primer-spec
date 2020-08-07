@@ -7,6 +7,8 @@ export default {
   VERSION_RAW: process.env.VERSION_RAW,
 
   HIDE_SIDEBAR_ON_LOAD: window.PrimerSpecConfig.hideSidebarOnLoad || false,
+  DEFAULT_SUBTHEME_NAME: 'default',
+  DEFAULT_SUBTHEME_MODE: 'system' as SubthemeModeSelectorType,
 };
 
 // Need to declare that the window object may have a PrimerSpecConfig.
@@ -16,4 +18,6 @@ declare global {
       hideSidebarOnLoad?: boolean;
     };
   }
+
+  type SubthemeModeSelectorType = 'light' | 'dark' | 'system';
 }

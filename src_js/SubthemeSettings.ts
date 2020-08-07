@@ -2,8 +2,7 @@ import Subthemes from './subthemes';
 import { SubthemeModeType } from './subthemes/Subtheme';
 import store from './store';
 import Storage from './Storage';
-
-import { SubthemeModeSelectorType } from './store';
+import Config from './Config';
 
 export type SubthemeType = {
   name: string;
@@ -104,7 +103,7 @@ function getStoredSubthemeName() {
   const stored_subtheme_name = Storage.get(SUBTHEME_STORAGE_KEY);
   return stored_subtheme_name && Subthemes[stored_subtheme_name]
     ? stored_subtheme_name
-    : Subthemes.default.name;
+    : Config.DEFAULT_SUBTHEME_NAME;
 }
 
 /**
@@ -115,5 +114,7 @@ function getStoredSubthemeMode(): SubthemeModeSelectorType {
   const stored_subtheme_mode = Storage.get(
     SUBTHEME_MODE_STORAGE_KEY,
   ) as SubthemeModeSelectorType | null;
-  return stored_subtheme_mode ? stored_subtheme_mode : 'system';
+  return stored_subtheme_mode
+    ? stored_subtheme_mode
+    : Config.DEFAULT_SUBTHEME_MODE;
 }

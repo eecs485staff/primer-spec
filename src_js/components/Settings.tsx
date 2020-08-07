@@ -6,7 +6,7 @@ import { Subthemes } from '../SubthemeSettings';
 // Importing only for types
 import { BoundActions } from 'redux-zero/types/Actions';
 import actions from '../actions';
-import { StoreStateType, SubthemeModeSelectorType } from '../store';
+import { StoreStateType } from '../store';
 
 type PropsType = {};
 

@@ -3,12 +3,12 @@ import { useRef, useEffect } from 'preact/hooks';
 import { connect } from 'redux-zero/preact';
 import IconType from './common/IconType';
 import InlineButton from './common/InlineButton';
+import Utilities from '../Utilities';
 
 // Importing only for types
 import { BoundActions } from 'redux-zero/types/Actions';
 import actions from '../actions';
 import { StoreStateType } from '../store';
-import Utilities from '../Utilities';
 
 type PropsType = {};
 
