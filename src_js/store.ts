@@ -8,6 +8,7 @@ export type StoreStateType = {
   topbarHeight: number;
   currentSubthemeName: string;
   currentSubthemeMode: SubthemeModeSelectorType;
+  isSmallScreen: boolean;
 };
 
 export default createStore<StoreStateType>({
@@ -16,4 +17,5 @@ export default createStore<StoreStateType>({
   topbarHeight: 10,
   currentSubthemeName: Config.DEFAULT_SUBTHEME_NAME,
   currentSubthemeMode: Config.DEFAULT_SUBTHEME_MODE,
+  isSmallScreen: Utilities.isSmallScreen(),
 });

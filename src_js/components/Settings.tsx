@@ -5,7 +5,9 @@ import { Subthemes } from '../SubthemeSettings';
 type PropsType = {
   currentSubthemeName: string;
   currentSubthemeMode: SubthemeModeSelectorType;
+  sidebarShown: boolean;
   settingsShown: boolean;
+  isSmallScreen: boolean;
   onSubthemeNameChange: (newSubthemeName: string) => void;
   onSubthemeModeChange: (newSubthemeMode: SubthemeModeSelectorType) => void;
 };
@@ -21,7 +23,13 @@ export default function Settings(props: PropsType) {
 
   return (
     <div class="primer-spec-settings-container position-fixed top-0 left-0 width-full height-full">
-      <div class="primer-spec-settings container-lg markdown-body primer-spec-content-margin-extra px-3 my-5">
+      <div
+        class={`primer-spec-settings container-lg markdown-body px-3 my-5 ${
+          props.sidebarShown && !props.isSmallScreen
+            ? 'primer-spec-content-margin-extra'
+            : ''
+        } ${props.isSmallScreen ? 'primer-spec-content-mobile' : ''}`}
+      >
         <h1 class="primer-spec-toc-ignore">{'Spec Theme Settings'}</h1>
         <label for="primer-spec-subtheme-selector">
           {'Choose your theme: '}

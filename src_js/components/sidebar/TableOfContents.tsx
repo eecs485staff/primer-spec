@@ -5,12 +5,18 @@ import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {
   contentNodeSelector: string;
+  sidebarShown: boolean;
+  settingsShown: boolean;
   topbarHeight: number;
+  isSmallScreen: boolean;
+  onToggleSidebar: () => void;
+  onToggleSettings: () => void;
 };
 
 export default function TableOfContents(props: PropsType) {
   const [_, setWindowScrollDistance] = useState(window.scrollY || 0);
 
+  // When the user scrolls, rerender the component.
   useEffect(() => {
     // To prevent the scroll event from firing too rapidly, we use debounce to
     // group up to 10ms of events.
@@ -25,6 +31,24 @@ export default function TableOfContents(props: PropsType) {
       window.removeEventListener('scroll', scrollHandler);
     };
   }, []);
+
+  // When a TOC item is clicked, close the Settings. Also close the Sidebar on
+  // small screens.
+  useEffect(() => {
+    const hash_listener = () => {
+      if (props.isSmallScreen && props.sidebarShown) {
+        props.onToggleSidebar();
+      }
+      if (props.settingsShown) {
+        props.onToggleSettings();
+      }
+    };
+
+    window.addEventListener('hashchange', hash_listener, false);
+    return () => {
+      window.removeEventListener('hashchange', hash_listener);
+    };
+  }, [props.isSmallScreen, props.sidebarShown, props.settingsShown]);
 
   const tocNodes = generateTocNodesForContentNode(
     props.contentNodeSelector,
@@ -70,6 +94,7 @@ function generateTocNodesForContentNode(
  * algorithm besides the structure of the final HTML output.
  *
  * @param headings List of HTML nodes representing header elements in the page
+ * @param activeHeadingIndex The index of the active heading item. Use -1 to deactivate.
  */
 function generateTocNodes(headings: Element[], activeHeadingIndex: number) {
   const unflattened = unflattenHeadings(headings, activeHeadingIndex);

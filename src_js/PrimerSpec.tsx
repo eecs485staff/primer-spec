@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useLayoutEffect } from 'preact/hooks';
 import { connect } from 'redux-zero/preact';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/Topbar';
@@ -15,8 +15,8 @@ import { StoreStateType } from './store';
 function PrimerSpec(
   props: StoreStateType & BoundActions<StoreStateType, typeof actions>,
 ) {
+  // Listen for changes to system theme (light/dark mode)
   useEffect(() => {
-    // Listen for changes to system theme (light/dark mode)
     const system_theme_change_listener = () => updateTheme({});
     window
       .matchMedia('(prefers-color-scheme: dark)')
@@ -28,17 +28,36 @@ function PrimerSpec(
     };
   }, []);
 
+  // Listen for changes to the window size.
+  useLayoutEffect(() => {
+    const window_resize_listener = () => {
+      const isSmallScreen = Utilities.isSmallScreen();
+      if (isSmallScreen !== props.isSmallScreen) {
+        props.setIsSmallScreen(isSmallScreen);
+      }
+    };
+
+    window.addEventListener('resize', window_resize_listener);
+    return () => {
+      window.removeEventListener('resize', window_resize_listener);
+    };
+  }, [props.isSmallScreen]);
+
   return (
     <Fragment>
       <Sidebar
         contentNodeSelector="#primer-spec-plugin-main-content"
         sidebarShown={props.sidebarShown}
+        settingsShown={props.settingsShown}
         topbarHeight={props.topbarHeight}
-        onClickToggleSidebar={props.toggleSidebarShown}
+        isSmallScreen={props.isSmallScreen}
+        onToggleSidebar={props.toggleSidebarShown}
+        onToggleSettings={props.toggleSettingsShown}
       />
       <Topbar
         sidebarShown={props.sidebarShown}
         settingsShown={props.settingsShown}
+        isSmallScreen={props.isSmallScreen}
         onTopbarHeightChange={props.setTopbarHeight}
         onClickToggleSidebar={props.toggleSidebarShown}
         onClickToggleSettings={props.toggleSettingsShown}
@@ -46,7 +65,9 @@ function PrimerSpec(
       <Settings
         currentSubthemeName={props.currentSubthemeName}
         currentSubthemeMode={props.currentSubthemeMode}
+        sidebarShown={props.sidebarShown}
         settingsShown={props.settingsShown}
+        isSmallScreen={props.isSmallScreen}
         onSubthemeNameChange={props.setSubthemeName}
         onSubthemeModeChange={props.setSubthemeMode}
       />

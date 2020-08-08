@@ -25,4 +25,8 @@ export default () => ({
     updateTheme({ mode: subthemeMode });
     return {};
   },
+
+  setIsSmallScreen: (_: StoreStateType, isSmallScreen: boolean) => ({
+    isSmallScreen,
+  }),
 });
