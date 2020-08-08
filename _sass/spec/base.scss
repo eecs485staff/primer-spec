@@ -40,9 +40,6 @@ $Z_INDEX_SIDEBAR: 4;
 
   &-toggle-fixed {
     font-size: $ICON_FONT_SIZE;
-    &.sidebar-shown {
-      display: none;
-    }
   }
 
   // Need to set a background color because the sidebar overlays on top of
@@ -329,4 +326,10 @@ body,
   blockquote {
     color: var(--main-blockquote-text-color);
   }
+}
+
+// Hide the main content, we'll use it to hydrate the PrimerSpecContent
+// component.
+#primer-spec-plugin-main-content {
+  display: none;
 }
