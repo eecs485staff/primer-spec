@@ -1,6 +1,11 @@
 import { h } from 'preact';
 import Config from '../Config';
-import { Subthemes } from '../SubthemeSettings';
+import { Subthemes, updateTheme } from '../SubthemeSettings';
+import {
+  usePrintInProgress,
+  useBeforePrint,
+  useAfterPrint,
+} from '../utils/printHandlerHooks';
 
 type PropsType = {
   currentSubthemeName: string;
@@ -13,7 +18,23 @@ type PropsType = {
 };
 
 export default function Settings(props: PropsType) {
-  if (!props.settingsShown) {
+  const isPrintInProgress = usePrintInProgress();
+
+  // If a print is in progress, temporarily reset the theme to default light.
+  useBeforePrint(
+    () => updateTheme({ name: 'default', mode: 'light' }, false),
+    [],
+  );
+  useAfterPrint(
+    () =>
+      updateTheme(
+        { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
+        false,
+      ),
+    [props.currentSubthemeName, props.currentSubthemeMode],
+  );
+
+  if (!props.settingsShown || isPrintInProgress) {
     return null;
   }
 

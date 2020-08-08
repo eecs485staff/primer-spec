@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { connect } from 'redux-zero/preact';
+import { usePrintInProgress } from './utils/printHandlerHooks';
 
 // Importing only for types
 import { BoundActions } from 'redux-zero/types/Actions';
@@ -16,11 +17,13 @@ function PrimerSpecContent(
     StoreStateType &
     BoundActions<StoreStateType, typeof actions>,
 ) {
+  const isPrintInProgress = usePrintInProgress();
+
   return (
     <div
       id={Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}
       class={`container-lg px-3 my-5 markdown-body ${
-        props.sidebarShown && !props.isSmallScreen
+        props.sidebarShown && !props.isSmallScreen && !isPrintInProgress
           ? 'primer-spec-content-margin-extra'
           : ''
       } ${props.isSmallScreen ? 'primer-spec-content-mobile' : ''}`}

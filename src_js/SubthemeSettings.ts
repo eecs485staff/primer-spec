@@ -18,7 +18,10 @@ export { Subthemes };
 /**
  * Encapsulates the Settings pane to select subthemes.
  */
-export function updateTheme({ name, mode }: Partial<SubthemeType>) {
+export function updateTheme(
+  { name, mode }: Partial<SubthemeType>,
+  updateStores: boolean = true,
+) {
   const { currentSubthemeName, currentSubthemeMode } = getCurrentSubtheme();
 
   let normalized_name = name ?? currentSubthemeName;
@@ -30,13 +33,18 @@ export function updateTheme({ name, mode }: Partial<SubthemeType>) {
   let normalized_mode = normalizeSubthemeMode(currently_selected_mode);
 
   // First store changes. Then decide if we need to take any action on the DOM.
-  store.setState({
-    currentSubthemeName: normalized_name,
-    currentSubthemeMode: currently_selected_mode,
-  });
-  storeSubtheme({ name: normalized_name, mode: currently_selected_mode });
+  if (updateStores) {
+    store.setState({
+      currentSubthemeName: normalized_name,
+      currentSubthemeMode: currently_selected_mode,
+    });
+    storeSubtheme({ name: normalized_name, mode: currently_selected_mode });
+  }
 
+  // If stores are not updated, the "current" subthemes from the store may be
+  // stale. Hence, skip this optimization.
   if (
+    updateStores &&
     normalized_name === currentSubthemeName &&
     normalized_mode === currentSubthemeMode
   ) {

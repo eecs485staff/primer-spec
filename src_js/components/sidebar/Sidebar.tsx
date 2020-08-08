@@ -3,6 +3,7 @@ import { useEffect } from 'preact/hooks';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
+import { usePrintInProgress } from '../../utils/printHandlerHooks';
 
 type SidebarProps = {
   contentNodeSelector: string;
@@ -45,7 +46,9 @@ export default function Sidebar(props: SidebarProps) {
     };
   });
 
-  if (!props.sidebarShown) {
+  const isPrintInProgress = usePrintInProgress();
+
+  if (!props.sidebarShown || isPrintInProgress) {
     return <div />;
   }
 

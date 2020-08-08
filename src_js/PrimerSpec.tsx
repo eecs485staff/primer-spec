@@ -7,6 +7,7 @@ import Topbar from './components/Topbar';
 import Settings from './components/Settings';
 import Utilities from './Utilities';
 import { updateTheme } from './SubthemeSettings';
+import { useBeforePrint, useAfterPrint } from './utils/printHandlerHooks';
 
 // Importing only for types
 import { BoundActions } from 'redux-zero/types/Actions';
@@ -44,6 +45,14 @@ function PrimerSpec(
     };
   }, [props.isSmallScreen]);
 
+  // Listen for print events
+  useBeforePrint(() => {
+    toggleItalicsInChrome(false);
+  }, []);
+  useAfterPrint(() => {
+    toggleItalicsInChrome(true);
+  }, []);
+
   return (
     <Fragment>
       <Sidebar
@@ -74,6 +83,30 @@ function PrimerSpec(
       />
     </Fragment>
   );
+}
+
+/**
+ * HACK: Toggles italics in Chrome before printing.
+ * (See issue eecs485staff/primer-spec#38)
+ * @param isItalicsEnabled boolean indicating whether italics should be enabled
+ */
+function toggleItalicsInChrome(enableItalics: boolean) {
+  const chromeVersion = Utilities.getChromeVersion();
+  if (chromeVersion === false || chromeVersion >= 82) {
+    return;
+  }
+
+  const all_italic_els =
+    'em, dfn, .text-italic, dt, .highlight .cm, .highlight .c1, ' +
+    '.highlight .cs, .highlight .cd, .highlight .ge, .primer-spec-toc-h4';
+  const font_style = enableItalics ? 'italic' : 'inherit';
+
+  const nodes: NodeListOf<HTMLElement> = document.querySelectorAll(
+    all_italic_els,
+  );
+  Array.from(nodes).map((el) => {
+    el.style.fontStyle = font_style;
+  });
 }
 
 export default connect(null, actions)(PrimerSpec);
