@@ -1,27 +1,25 @@
 import { h } from 'preact';
 import { useRef, useEffect } from 'preact/hooks';
-import { connect } from 'redux-zero/preact';
 import IconType from './common/IconType';
 import InlineButton from './common/InlineButton';
 import Utilities from '../Utilities';
 
-// Importing only for types
-import { BoundActions } from 'redux-zero/types/Actions';
-import actions from '../actions';
-import { StoreStateType } from '../store';
+type PropsType = {
+  sidebarShown: boolean;
+  settingsShown: boolean;
+  onTopbarHeightChange: (height: number) => void;
+  onClickToggleSidebar: () => void;
+  onClickToggleSettings: () => void;
+};
 
-type PropsType = {};
-
-function Topbar(
-  props: PropsType &
-    StoreStateType &
-    BoundActions<StoreStateType, typeof actions>,
-) {
+export default function Topbar(props: PropsType) {
   const topbarRef = useRef<HTMLDivElement>(null);
   // TODO: Refresh the topbar height if the viewport width changes
   useEffect(() => {
     if (topbarRef.current && Utilities.isSmallScreen()) {
-      props.setTopbarHeight(topbarRef.current.getBoundingClientRect().height);
+      props.onTopbarHeightChange(
+        topbarRef.current.getBoundingClientRect().height,
+      );
     }
   });
 
@@ -37,17 +35,15 @@ function Topbar(
       >
         <InlineButton
           icon={IconType.SIDEBAR}
-          onClick={props.toggleSidebarShown}
+          onClick={props.onClickToggleSidebar}
         />
       </div>
       <div class="primer-spec-settings-toggle primer-spec-float-right">
         <InlineButton
           icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
-          onClick={props.toggleSettingsShown}
+          onClick={props.onClickToggleSettings}
         />
       </div>
     </div>
   );
 }
-
-export default connect(null, actions)(Topbar);

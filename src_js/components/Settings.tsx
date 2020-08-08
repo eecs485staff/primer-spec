@@ -1,20 +1,16 @@
 import { h } from 'preact';
-import { connect } from 'redux-zero/preact';
 import Config from '../Config';
 import { Subthemes } from '../SubthemeSettings';
 
-// Importing only for types
-import { BoundActions } from 'redux-zero/types/Actions';
-import actions from '../actions';
-import { StoreStateType } from '../store';
+type PropsType = {
+  currentSubthemeName: string;
+  currentSubthemeMode: SubthemeModeSelectorType;
+  settingsShown: boolean;
+  onSubthemeNameChange: (newSubthemeName: string) => void;
+  onSubthemeModeChange: (newSubthemeMode: SubthemeModeSelectorType) => void;
+};
 
-type PropsType = {};
-
-function Settings(
-  props: PropsType &
-    StoreStateType &
-    BoundActions<StoreStateType, typeof actions>,
-) {
+export default function Settings(props: PropsType) {
   if (!props.settingsShown) {
     return null;
   }
@@ -33,7 +29,7 @@ function Settings(
             name="primer-spec-subtheme-selector"
             class="primer-spec-subtheme-selector"
             onChange={(e) =>
-              props.setSubthemeName((e.target as HTMLSelectElement)?.value)
+              props.onSubthemeNameChange((e.target as HTMLSelectElement)?.value)
             }
             value={props.currentSubthemeName ?? ''}
           >
@@ -49,7 +45,7 @@ function Settings(
             name="primer-spec-subtheme-mode-selector"
             class="primer-spec-subtheme-mode-selector"
             onChange={(e) =>
-              props.setSubthemeMode(
+              props.onSubthemeModeChange(
                 (e.target as HTMLSelectElement)
                   ?.value as SubthemeModeSelectorType,
               )
@@ -85,5 +81,3 @@ function Settings(
     </div>
   );
 }
-
-export default connect(null, actions)(Settings);

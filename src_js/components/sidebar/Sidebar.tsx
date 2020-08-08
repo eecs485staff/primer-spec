@@ -1,23 +1,19 @@
 import { h } from 'preact';
-import { connect } from 'redux-zero/preact';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 
-// Importing only for types
-import { BoundActions } from 'redux-zero/types/Actions';
-import actions from '../../actions';
-import { StoreStateType } from '../../store';
-
 type SidebarProps = {
   contentNodeSelector: string;
+
+  sidebarShown: boolean;
+  topbarHeight: number;
+  onClickToggleSidebar: () => void;
 };
 
-function Sidebar(
-  props: SidebarProps &
-    StoreStateType &
-    BoundActions<StoreStateType, typeof actions>,
-) {
+// TODO: Subscribe to viewport changes
+// TODO: Implement small screen handling
+export default function Sidebar(props: SidebarProps) {
   if (!props.sidebarShown) {
     return <div />;
   }
@@ -33,7 +29,7 @@ function Sidebar(
         Contents
         <InlineButton
           icon={IconType.SIDEBAR}
-          onClick={props.toggleSidebarShown}
+          onClick={props.onClickToggleSidebar}
         />
       </h2>
       <br />
@@ -44,5 +40,3 @@ function Sidebar(
     </div>
   );
 }
-
-export default connect(null, actions)(Sidebar);

@@ -6,8 +6,8 @@ export type StoreStateType = {
   settingsShown: boolean;
   sidebarShown: boolean;
   topbarHeight: number;
-  currentSubthemeName: string | null;
-  currentSubthemeMode: SubthemeModeSelectorType | null;
+  currentSubthemeName: string;
+  currentSubthemeMode: SubthemeModeSelectorType;
 };
 
 export default createStore<StoreStateType>({

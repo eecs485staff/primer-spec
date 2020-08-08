@@ -1,11 +1,8 @@
 import * as AnchorJS from 'anchor-js';
-import { h, render, Fragment } from 'preact';
+import { h, render } from 'preact';
 import { Provider } from 'redux-zero/preact';
 import store from './store';
-import { updateTheme } from './SubthemeSettings';
-import Sidebar from './components/sidebar/Sidebar';
-import Topbar from './components/Topbar';
-import Settings from './components/Settings';
+import PrimerSpec from './PrimerSpec';
 
 const rawHeadTags = require('../_includes/spec_head_tags.html');
 
@@ -39,23 +36,10 @@ function inject_theme_html() {
   const $head_links = $(rawHeadTags);
   $('head').append($head_links);
 
-  // Listen for changes to system theme (light/dark mode)
-  window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addListener(() => updateTheme({}));
-
   render(
-    <Fragment>
-      <Provider store={store}>
-        <Sidebar contentNodeSelector="#primer-spec-plugin-main-content" />
-      </Provider>
-      <Provider store={store}>
-        <Topbar />
-      </Provider>
-      <Provider store={store}>
-        <Settings />
-      </Provider>
-    </Fragment>,
+    <Provider store={store}>
+      <PrimerSpec />
+    </Provider>,
     document.getElementById('primer-spec-app-container')!, // TODO: Remove null cast
   );
 }
