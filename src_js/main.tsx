@@ -3,7 +3,6 @@ import { h, render } from 'preact';
 import { Provider } from 'redux-zero/preact';
 import store from './store';
 import PrimerSpec from './components/PrimerSpec';
-import PrimerSpecContent from './components/PrimerSpecContent';
 import Config from './Config';
 
 function main() {
@@ -14,9 +13,6 @@ function main() {
   const main_content_node = document.getElementById(
     'primer-spec-plugin-main-content',
   );
-  const content_container_node = document.getElementById(
-    'primer-spec-app-content-container',
-  );
   const app_container_node = document.getElementById(
     'primer-spec-app-container',
   );
@@ -24,8 +20,6 @@ function main() {
   if (
     !main_content_node ||
     main_content_node.tagName !== 'DIV' ||
-    !content_container_node ||
-    content_container_node.tagName !== 'DIV' ||
     !app_container_node ||
     app_container_node.tagName !== 'DIV'
   ) {
@@ -38,18 +32,9 @@ function main() {
 
   injectPrimerSpecStyleSheets();
 
-  // Need to render main content before Sidebar (so that the headings are
-  // found).
   render(
     <Provider store={store}>
-      <PrimerSpecContent innerHTML={main_content_html} />
-    </Provider>,
-    content_container_node,
-  );
-
-  render(
-    <Provider store={store}>
-      <PrimerSpec />
+      <PrimerSpec contentHTML={main_content_html} />
     </Provider>,
     app_container_node,
   );

@@ -5,6 +5,7 @@ import Config from '../Config';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
 import Settings from './Settings';
+import MainContent from './MainContent';
 import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
@@ -15,8 +16,12 @@ import { BoundActions } from 'redux-zero/types/Actions';
 import actions from '../actions';
 import { StoreStateType } from '../store';
 
+type PropsType = { contentHTML: string };
+
 function PrimerSpec(
-  props: StoreStateType & BoundActions<StoreStateType, typeof actions>,
+  props: PropsType &
+    StoreStateType &
+    BoundActions<StoreStateType, typeof actions>,
 ) {
   // Listen for changes to system theme (light/dark mode)
   useEffect(() => {
@@ -56,6 +61,11 @@ function PrimerSpec(
 
   return (
     <Fragment>
+      <MainContent
+        innerHTML={props.contentHTML}
+        sidebarShown={props.sidebarShown}
+        isSmallScreen={props.isSmallScreen}
+      />
       <Sidebar
         contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
         sidebarShown={props.sidebarShown}

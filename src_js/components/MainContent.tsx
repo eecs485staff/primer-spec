@@ -1,22 +1,14 @@
 import { h } from 'preact';
-import { connect } from 'redux-zero/preact';
 import { usePrintInProgress } from '../utils/printHandlerHooks';
-
-// Importing only for types
-import { BoundActions } from 'redux-zero/types/Actions';
-import actions from '../actions';
-import { StoreStateType } from '../store';
 import Config from '../Config';
 
 type PropsType = {
   innerHTML: string;
+  sidebarShown: boolean;
+  isSmallScreen: boolean;
 };
 
-function PrimerSpecContent(
-  props: PropsType &
-    StoreStateType &
-    BoundActions<StoreStateType, typeof actions>,
-) {
+export default function MainContent(props: PropsType) {
   const isPrintInProgress = usePrintInProgress();
 
   return (
@@ -31,5 +23,3 @@ function PrimerSpecContent(
     ></div>
   );
 }
-
-export default connect(null, actions)(PrimerSpecContent);
