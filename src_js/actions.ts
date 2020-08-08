@@ -1,5 +1,5 @@
 import { StoreStateType } from './store';
-import { updateTheme } from './SubthemeSettings';
+import { updateTheme } from './subthemes';
 
 export default () => ({
   toggleSettingsShown: ({ settingsShown }: StoreStateType) => ({

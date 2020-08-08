@@ -1,6 +1,6 @@
 import createStore from 'redux-zero';
 import Config from './Config';
-import Utilities from './Utilities';
+import isSmallScreen from './utils/isSmallScreen';
 
 export type StoreStateType = {
   settingsShown: boolean;
@@ -13,9 +13,9 @@ export type StoreStateType = {
 
 export default createStore<StoreStateType>({
   settingsShown: false,
-  sidebarShown: !Config.HIDE_SIDEBAR_ON_LOAD && !Utilities.isSmallScreen(),
+  sidebarShown: !Config.HIDE_SIDEBAR_ON_LOAD && !isSmallScreen(),
   topbarHeight: 10,
   currentSubthemeName: Config.DEFAULT_SUBTHEME_NAME,
   currentSubthemeMode: Config.DEFAULT_SUBTHEME_MODE,
-  isSmallScreen: Utilities.isSmallScreen(),
+  isSmallScreen: isSmallScreen(),
 });

@@ -2,8 +2,8 @@ import * as AnchorJS from 'anchor-js';
 import { h, render } from 'preact';
 import { Provider } from 'redux-zero/preact';
 import store from './store';
-import PrimerSpec from './PrimerSpec';
-import PrimerSpecContent from './PrimerSpecContent';
+import PrimerSpec from './components/PrimerSpec';
+import PrimerSpecContent from './components/PrimerSpecContent';
 import Config from './Config';
 
 function main() {

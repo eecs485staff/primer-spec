@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import Config from '../Config';
-import { Subthemes, updateTheme } from '../SubthemeSettings';
+import { Subthemes, updateTheme } from '../subthemes';
 import {
   usePrintInProgress,
   useBeforePrint,

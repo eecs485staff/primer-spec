@@ -1,12 +1,12 @@
 import { h } from 'preact';
 import { connect } from 'redux-zero/preact';
-import { usePrintInProgress } from './utils/printHandlerHooks';
+import { usePrintInProgress } from '../utils/printHandlerHooks';
 
 // Importing only for types
 import { BoundActions } from 'redux-zero/types/Actions';
-import actions from './actions';
-import { StoreStateType } from './store';
-import Config from './Config';
+import actions from '../actions';
+import { StoreStateType } from '../store';
+import Config from '../Config';
 
 type PropsType = {
   innerHTML: string;

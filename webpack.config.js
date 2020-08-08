@@ -98,11 +98,6 @@ module.exports = (env) => ({
     extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
-    // JQuery becomes available in every file
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
     // These variables become available in any file
     new webpack.DefinePlugin({
       'process.env.BASE_URL': `'${getBaseURL(env)}'`,

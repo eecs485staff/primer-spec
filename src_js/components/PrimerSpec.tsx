@@ -1,18 +1,19 @@
 import { h, Fragment } from 'preact';
 import { useEffect, useLayoutEffect } from 'preact/hooks';
 import { connect } from 'redux-zero/preact';
-import Config from './Config';
-import Sidebar from './components/sidebar/Sidebar';
-import Topbar from './components/Topbar';
-import Settings from './components/Settings';
-import Utilities from './Utilities';
-import { updateTheme } from './SubthemeSettings';
-import { useBeforePrint, useAfterPrint } from './utils/printHandlerHooks';
+import Config from '../Config';
+import Sidebar from './sidebar/Sidebar';
+import Topbar from './Topbar';
+import Settings from './Settings';
+import isSmallScreen from '../utils/isSmallScreen';
+import getChromeVersion from '../utils/getChromeVersion';
+import { updateTheme } from '../subthemes';
+import { useBeforePrint, useAfterPrint } from '../utils/printHandlerHooks';
 
 // Importing only for types
 import { BoundActions } from 'redux-zero/types/Actions';
-import actions from './actions';
-import { StoreStateType } from './store';
+import actions from '../actions';
+import { StoreStateType } from '../store';
 
 function PrimerSpec(
   props: StoreStateType & BoundActions<StoreStateType, typeof actions>,
@@ -33,9 +34,9 @@ function PrimerSpec(
   // Listen for changes to the window size.
   useLayoutEffect(() => {
     const window_resize_listener = () => {
-      const isSmallScreen = Utilities.isSmallScreen();
-      if (isSmallScreen !== props.isSmallScreen) {
-        props.setIsSmallScreen(isSmallScreen);
+      const isCurrentlySmallScreen = isSmallScreen();
+      if (isCurrentlySmallScreen !== props.isSmallScreen) {
+        props.setIsSmallScreen(isCurrentlySmallScreen);
       }
     };
 
@@ -91,7 +92,7 @@ function PrimerSpec(
  * @param isItalicsEnabled boolean indicating whether italics should be enabled
  */
 function toggleItalicsInChrome(enableItalics: boolean) {
-  const chromeVersion = Utilities.getChromeVersion();
+  const chromeVersion = getChromeVersion();
   if (chromeVersion === false || chromeVersion >= 82) {
     return;
   }
