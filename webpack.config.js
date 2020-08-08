@@ -107,6 +107,7 @@ module.exports = (env) => ({
     new webpack.DefinePlugin({
       'process.env.BASE_URL': `'${getBaseURL(env)}'`,
       'process.env.VERSION_RAW': `'${VERSION_RAW}'`,
+      'process.env.VERSION_STR': `'${VERSION_STR}'`,
     }),
   ],
   // Minimize output

@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { useEffect, useLayoutEffect } from 'preact/hooks';
 import { connect } from 'redux-zero/preact';
+import Config from './Config';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/Topbar';
 import Settings from './components/Settings';
@@ -46,7 +47,7 @@ function PrimerSpec(
   return (
     <Fragment>
       <Sidebar
-        contentNodeSelector="#primer-spec-plugin-main-content"
+        contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
         sidebarShown={props.sidebarShown}
         settingsShown={props.settingsShown}
         topbarHeight={props.topbarHeight}
