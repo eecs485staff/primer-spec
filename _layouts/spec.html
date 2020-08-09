@@ -79,46 +79,6 @@ version_string: v1.3
         {% endif %}
 
         {%- if page.latex %}
-        <script>
-            // This config was derived from the config TeX-MML-AM_CHTML, but
-            // disables the context-menu (which appears on right-click). It also
-            // removes unnecessary input formats MML and AM.
-            // Additionally, since Kramdown (the Markdown renderer) embeds
-            // LaTeX in special script tags compatible with MathJax v2, we
-            // need to include a script to "find" the LaTeX to render.
-            // Source: https://github.com/mathjax/MathJax/issues/2220#issuecomment-542963972
-            window.MathJax = {
-                options: {
-                    renderActions: {
-                        addMenu: [],
-                        checkLoading: [],
-                        find: [
-                            10,
-                            function (doc) {
-                                for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
-                                    const display = !!node.type.match(/; *mode=display/);
-                                    const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                                    const text = document.createTextNode('');
-                                    node.parentNode.replaceChild(text, node);
-                                    math.start = {node: text, delim: '', n: 0};
-                                    math.end = {node: text, delim: '', n: 0};
-                                    doc.math.push(math);
-                                }
-                            },
-                            '',
-                        ],
-                    },
-                    ignoreHtmlClass: 'tex2jax_ignore',
-                    processHtmlClass: 'tex2jax_process'
-                },
-                tex: {
-                    packages: ['base', 'ams', 'noerrors', 'noundefined']
-                },
-                loader: {
-                    load: ['[tex]/noerrors']
-                }
-            };
-            </script>
             <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
         {%- endif %}
     </body>
