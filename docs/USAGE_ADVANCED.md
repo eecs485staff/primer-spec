@@ -218,7 +218,7 @@ However, with some work, it is _possible_ to add Primer Spec styling to a plain 
 
    ```html
    <div id="primer-spec-top"></div>
-   <div id="primer-spec-app-container"></div>
+   <div id="primer-spec-app-container" onclick="return true;"></div>
    ```
 
 Your final HTML file will probably look something like this:
