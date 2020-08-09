@@ -24,6 +24,8 @@ export default {
   INIT_SUBTHEME_MODE,
 
   // Other constants
+  PRIMER_SPEC_APP_NODE_ID: 'primer-spec-app-container',
+  PRIMER_SPEC_CONTENT_PLUGIN_NODE_ID: 'primer-spec-plugin-main-content',
   PRIMER_SPEC_CONTENT_PREACT_NODE_ID: 'primer-spec-preact-main-content',
   SUBTHEME_NAME_STORAGE_KEY,
   SUBTHEME_MODE_STORAGE_KEY,

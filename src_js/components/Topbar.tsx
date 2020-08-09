@@ -4,17 +4,16 @@ import IconType from './common/IconType';
 import InlineButton from './common/InlineButton';
 
 type PropsType = {
+  isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
-  isSmallScreen: boolean;
   onTopbarHeightChange: (height: number) => void;
-  onClickToggleSidebar: () => void;
-  onClickToggleSettings: () => void;
+  onToggleSidebar: () => void;
+  onToggleSettings: () => void;
 };
 
 export default function Topbar(props: PropsType) {
   const topbarRef = useRef<HTMLDivElement>(null);
-  // TODO: Refresh the topbar height if the viewport width changes
   useLayoutEffect(() => {
     if (!props.isSmallScreen) {
       // On wide screens, the Topbar is transparent, so its effective height is
@@ -32,10 +31,7 @@ export default function Topbar(props: PropsType) {
   const sidebar_toggle =
     props.isSmallScreen && props.sidebarShown ? null : (
       <div class={`primer-spec-sidebar-toggle-fixed primer-spec-float-left`}>
-        <InlineButton
-          icon={IconType.SIDEBAR}
-          onClick={props.onClickToggleSidebar}
-        />
+        <InlineButton icon={IconType.SIDEBAR} onClick={props.onToggleSidebar} />
       </div>
     );
 
@@ -50,7 +46,7 @@ export default function Topbar(props: PropsType) {
       <div class="primer-spec-settings-toggle primer-spec-float-right">
         <InlineButton
           icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
-          onClick={props.onClickToggleSettings}
+          onClick={props.onToggleSettings}
         />
       </div>
     </div>

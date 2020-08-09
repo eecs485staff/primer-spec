@@ -9,7 +9,21 @@ export { Subthemes };
 const NOOP_HANDLER = () => {};
 
 /**
- * Encapsulates the Settings pane to select subthemes.
+ * Updates the appearance of the page based on the Subtheme details to be
+ * changed. If no Subtheme details are specified, the method uses Subtheme info
+ * from Storage.
+ *
+ * This method also persists Subtheme changes to Storage (unless
+ * `persistUpdate` is set to `false`.)
+ *
+ * @param newSubtheme   The subtheme details to be updated. This defaults to
+ *                      the subtheme from Storage.
+ * @param onUpdate      A function to be invoked while the theme is being
+ *                      updated. Will not be invoked if `persistUpdate` is set
+ *                      to `false`.
+ * @param persistUpdate Defaults to true. If set to false, the updated theme
+ *                      is not persisted to Storage (and will not invoke
+ *                      `onUpdate`.)
  */
 export function updateTheme(
   { name, mode }: Partial<SubthemeType> = {},

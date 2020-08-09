@@ -1,10 +1,10 @@
 import { h, Fragment } from 'preact';
 import { useState, useLayoutEffect } from 'preact/hooks';
 import Config from '../Config';
+import MainContent from './MainContent';
+import Settings from './Settings';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
-import Settings from './Settings';
-import MainContent from './MainContent';
 import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
@@ -16,8 +16,12 @@ import {
 
 type PropsType = { contentHTML: string };
 
+/**
+ * This component encapsulates the JS controlling Primer Spec, including the
+ * Sidebar, the Topbar and the Settings pane.
+ */
 export default function PrimerSpec(props: PropsType) {
-  // Initialize shared state
+  // Initialize all shared state
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
   const [sidebar_shown, setSidebarShown] = useState(
     !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
@@ -41,9 +45,9 @@ export default function PrimerSpec(props: PropsType) {
   // Listen for changes to the window size.
   useLayoutEffect(() => {
     const window_resize_listener = () => {
-      const isCurrentlySmallScreen = isSmallScreen();
-      if (isCurrentlySmallScreen !== is_small_screen) {
-        setIsSmallScreen(isCurrentlySmallScreen);
+      const is_window_now_a_small_screen = isSmallScreen();
+      if (is_window_now_a_small_screen !== is_small_screen) {
+        setIsSmallScreen(is_window_now_a_small_screen);
       }
     };
 
@@ -65,32 +69,32 @@ export default function PrimerSpec(props: PropsType) {
     <Fragment>
       <MainContent
         innerHTML={props.contentHTML}
-        sidebarShown={sidebar_shown}
         isSmallScreen={is_small_screen}
+        sidebarShown={sidebar_shown}
       />
       <Sidebar
         contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
+        isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
         topbarHeight={topbar_height}
-        isSmallScreen={is_small_screen}
         onToggleSidebar={toggleSidebarShown}
         onToggleSettings={toggleSettingsShown}
       />
       <Topbar
+        isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
-        isSmallScreen={is_small_screen}
         onTopbarHeightChange={setTopbarHeight}
-        onClickToggleSidebar={toggleSidebarShown}
-        onClickToggleSettings={toggleSettingsShown}
+        onToggleSidebar={toggleSidebarShown}
+        onToggleSettings={toggleSettingsShown}
       />
       <Settings
-        currentSubthemeName={subtheme_name}
-        currentSubthemeMode={subtheme_mode}
+        isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
-        isSmallScreen={is_small_screen}
+        currentSubthemeName={subtheme_name}
+        currentSubthemeMode={subtheme_mode}
         onSubthemeNameChange={(name) => updateTheme({ name }, setSubtheme)}
         onSubthemeModeChange={(mode) => updateTheme({ mode }, setSubtheme)}
       />

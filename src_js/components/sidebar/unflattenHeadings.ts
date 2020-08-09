@@ -12,9 +12,11 @@ export type HeadingsSectionType = {
  *
  * A particular heading's "section" consists of all subsequent headings with
  * lower precedence. For instance:
- *   Flat list of headings: [h2, h1, h3, h4, h3]
+ *
+ *   Flat list of headings: `[h2, h1, h3, h4, h3]`
  *   Active heading index: 3
  *   Resulting unflattened structure:
+ * ```
  *     [
  *       { heading: h2, section: [] },
  *       {
@@ -31,6 +33,7 @@ export type HeadingsSectionType = {
  *         ],
  *       }
  *     ]
+ * ```
  *
  * @param headings List of HTML elements representing heading nodes in the DOM
  * @param activeHeadingIndex (optional) Index of the active heading item.

@@ -1,31 +1,26 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { debounce } from 'debounce';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {
   contentNodeSelector: string;
+  isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
   topbarHeight: number;
-  isSmallScreen: boolean;
   onToggleSidebar: () => void;
   onToggleSettings: () => void;
 };
 
 export default function TableOfContents(props: PropsType) {
+  // We don't actually care about the window.scrollY state, we can get that
+  // from the window object on demand. We use a state-setter so that we can
+  // re-render the component.
   const [_, setWindowScrollDistance] = useState(window.scrollY || 0);
 
   // When the user scrolls, rerender the component.
   useEffect(() => {
-    // To prevent the scroll event from firing too rapidly, we use debounce to
-    // group up to 10ms of events.
-    // TODO: Do I really need to debounce when the interval is so short?
-    const scrollHandler = debounce(
-      () => setWindowScrollDistance(window.scrollY),
-      10,
-      true,
-    );
+    const scrollHandler = () => setWindowScrollDistance(window.scrollY);
     window.addEventListener('scroll', scrollHandler);
     return () => {
       window.removeEventListener('scroll', scrollHandler);

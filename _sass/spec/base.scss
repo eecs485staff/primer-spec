@@ -328,8 +328,7 @@ body,
   }
 }
 
-// Hide the main content, we'll use it to hydrate the PrimerSpecContent
-// component.
+// Hide the main content, we'll use it to hydrate the MainContent component.
 #primer-spec-plugin-main-content {
   display: none;
 }

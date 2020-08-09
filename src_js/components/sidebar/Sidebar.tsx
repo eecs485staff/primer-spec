@@ -8,10 +8,10 @@ import { usePrintInProgress } from '../../utils/hooks';
 type SidebarProps = {
   contentNodeSelector: string;
 
+  isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
   topbarHeight: number;
-  isSmallScreen: boolean;
   onToggleSidebar: () => void;
   onToggleSettings: () => void;
 };
@@ -44,11 +44,11 @@ export default function Sidebar(props: SidebarProps) {
     return () => {
       window.removeEventListener('click', window_click_listener);
     };
-  });
+  }, [props.isSmallScreen, props.sidebarShown]);
 
-  const isPrintInProgress = usePrintInProgress();
+  const is_print_in_progress = usePrintInProgress();
 
-  if (!props.sidebarShown || isPrintInProgress) {
+  if (!props.sidebarShown || is_print_in_progress) {
     return <div />;
   }
 
@@ -66,10 +66,10 @@ export default function Sidebar(props: SidebarProps) {
       <br />
       <TableOfContents
         contentNodeSelector={props.contentNodeSelector}
+        isSmallScreen={props.isSmallScreen}
         sidebarShown={props.sidebarShown}
         settingsShown={props.settingsShown}
         topbarHeight={props.topbarHeight}
-        isSmallScreen={props.isSmallScreen}
         onToggleSidebar={props.onToggleSidebar}
         onToggleSettings={props.onToggleSettings}
       />

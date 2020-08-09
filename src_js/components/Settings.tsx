@@ -8,11 +8,11 @@ import {
 } from '../utils/hooks';
 
 type PropsType = {
-  currentSubthemeName: string;
-  currentSubthemeMode: SubthemeModeSelectorType;
+  isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
-  isSmallScreen: boolean;
+  currentSubthemeName: string;
+  currentSubthemeMode: SubthemeModeSelectorType;
   onSubthemeNameChange: (newSubthemeName: string) => void;
   onSubthemeModeChange: (newSubthemeMode: SubthemeModeSelectorType) => void;
 };
@@ -20,7 +20,7 @@ type PropsType = {
 const NOOP_HANDLER = () => {};
 
 export default function Settings(props: PropsType) {
-  const isPrintInProgress = usePrintInProgress();
+  const is_print_in_progress = usePrintInProgress();
 
   // If a print is in progress, temporarily reset the theme to default light.
   useBeforePrint(
@@ -37,7 +37,7 @@ export default function Settings(props: PropsType) {
     [props.currentSubthemeName, props.currentSubthemeMode],
   );
 
-  if (!props.settingsShown || isPrintInProgress) {
+  if (!props.settingsShown || is_print_in_progress) {
     return null;
   }
 

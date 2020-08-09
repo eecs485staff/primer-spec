@@ -10,10 +10,10 @@ function main() {
   anchors.add();
 
   const main_content_node = document.getElementById(
-    'primer-spec-plugin-main-content',
+    Config.PRIMER_SPEC_CONTENT_PLUGIN_NODE_ID,
   );
   const app_container_node = document.getElementById(
-    'primer-spec-app-container',
+    Config.PRIMER_SPEC_APP_NODE_ID,
   );
 
   if (
@@ -28,6 +28,7 @@ function main() {
   }
 
   const main_content_html = main_content_node.innerHTML;
+  main_content_node.remove();
 
   injectPrimerSpecStyleSheets();
 
