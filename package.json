@@ -12,8 +12,7 @@
   "dependencies": {
     "anchor-js": "^4.2.2",
     "debounce": "^1.2.0",
-    "preact": "^10.4.6",
-    "redux-zero": "^5.1.7"
+    "preact": "^10.4.6"
   },
   "devDependencies": {
     "@types/anchor-js": "^4.1.0",

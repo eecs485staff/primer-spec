@@ -22,13 +22,14 @@ export default function Settings(props: PropsType) {
 
   // If a print is in progress, temporarily reset the theme to default light.
   useBeforePrint(
-    () => updateTheme({ name: 'default', mode: 'light' }, false),
+    () => updateTheme({ name: 'default', mode: 'light' }, () => {}, false),
     [],
   );
   useAfterPrint(
     () =>
       updateTheme(
         { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
+        () => {},
         false,
       ),
     [props.currentSubthemeName, props.currentSubthemeMode],

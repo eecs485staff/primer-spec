@@ -1,9 +1,8 @@
 import * as AnchorJS from 'anchor-js';
 import { h, render } from 'preact';
-import { Provider } from 'redux-zero/preact';
-import store from './store';
 import PrimerSpec from './components/PrimerSpec';
 import Config from './Config';
+import { updateTheme } from './subthemes';
 
 function main() {
   const anchors = new AnchorJS();
@@ -32,12 +31,9 @@ function main() {
 
   injectPrimerSpecStyleSheets();
 
-  render(
-    <Provider store={store}>
-      <PrimerSpec contentHTML={main_content_html} />
-    </Provider>,
-    app_container_node,
-  );
+  // Initialize the theme variables
+  updateTheme({}, () => {});
+  render(<PrimerSpec contentHTML={main_content_html} />, app_container_node);
 }
 
 function injectPrimerSpecStyleSheets() {

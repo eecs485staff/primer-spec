@@ -1,16 +1,7 @@
 import Subthemes from './RegisteredSubthemes';
 import { SubthemeModeType } from './Subtheme';
-import store from '../store';
 import Storage from '../utils/Storage';
 import Config from '../Config';
-
-export type SubthemeType = {
-  name: string;
-  mode: SubthemeModeSelectorType;
-};
-
-const SUBTHEME_STORAGE_KEY = 'spec_subtheme_name';
-const SUBTHEME_MODE_STORAGE_KEY = 'spec_subtheme_mode';
 
 // Expose Subthemes publicly
 export { Subthemes };
@@ -20,23 +11,27 @@ export { Subthemes };
  */
 export function updateTheme(
   { name, mode }: Partial<SubthemeType>,
-  updateStores: boolean = true,
+  onUpdate: (subtheme: SubthemeType) => void,
+  persistUpdate: boolean = true,
 ) {
-  const { currentSubthemeName, currentSubthemeMode } = getCurrentSubtheme();
+  const {
+    name: stored_subtheme_name,
+    mode: stored_subtheme_mode,
+  } = getStoredSubtheme();
 
-  let normalized_name = name ?? currentSubthemeName;
+  let normalized_name = name ?? stored_subtheme_name;
   if (!Subthemes[normalized_name]) {
     throw new Error(`Primer Spec: Theme name not found: ${normalized_name}`);
   }
 
-  let currently_selected_mode = mode ?? currentSubthemeMode;
+  let currently_selected_mode = mode ?? stored_subtheme_mode;
   let normalized_mode = normalizeSubthemeMode(currently_selected_mode);
 
   // First store changes. Then decide if we need to take any action on the DOM.
-  if (updateStores) {
-    store.setState({
-      currentSubthemeName: normalized_name,
-      currentSubthemeMode: currently_selected_mode,
+  if (persistUpdate) {
+    onUpdate({
+      name: normalized_name,
+      mode: currently_selected_mode,
     });
     storeSubtheme({ name: normalized_name, mode: currently_selected_mode });
   }
@@ -44,32 +39,18 @@ export function updateTheme(
   // If stores are not updated, the "current" subthemes from the store may be
   // stale. Hence, skip this optimization.
   if (
-    updateStores &&
-    normalized_name === currentSubthemeName &&
-    normalized_mode === currentSubthemeMode
+    persistUpdate &&
+    normalized_name === stored_subtheme_name &&
+    normalized_mode === stored_subtheme_mode
   ) {
     return;
   }
 
-  const old_subtheme = Subthemes[currentSubthemeName];
+  const old_subtheme = Subthemes[stored_subtheme_name];
   const new_subtheme = Subthemes[normalized_name];
 
-  old_subtheme.reset(normalizeSubthemeMode(currentSubthemeMode));
+  old_subtheme.reset(normalizeSubthemeMode(stored_subtheme_mode));
   new_subtheme.apply(normalized_mode);
-}
-
-// The first time the page loads, we need to init the theme from storage.
-updateTheme({
-  name: getStoredSubthemeName(),
-  mode: getStoredSubthemeMode(),
-});
-
-function getCurrentSubtheme() {
-  const { currentSubthemeName, currentSubthemeMode } = store.getState();
-  return {
-    currentSubthemeName: currentSubthemeName || Subthemes.default.name,
-    currentSubthemeMode: currentSubthemeMode || 'system',
-  };
 }
 
 function normalizeSubthemeMode(
@@ -98,8 +79,12 @@ function normalizeSubthemeMode(
  * @param subtheme the name to be stored in local storage
  */
 function storeSubtheme({ name, mode }: SubthemeType) {
-  Storage.set(SUBTHEME_STORAGE_KEY, name);
-  Storage.set(SUBTHEME_MODE_STORAGE_KEY, mode);
+  Storage.set(Config.SUBTHEME_NAME_STORAGE_KEY, name);
+  Storage.set(Config.SUBTHEME_MODE_STORAGE_KEY, mode);
+}
+
+function getStoredSubtheme() {
+  return { name: getStoredSubthemeName(), mode: getStoredSubthemeMode() };
 }
 
 /**
@@ -108,10 +93,10 @@ function storeSubtheme({ name, mode }: SubthemeType) {
  * available subtheme.
  */
 function getStoredSubthemeName() {
-  const stored_subtheme_name = Storage.get(SUBTHEME_STORAGE_KEY);
+  const stored_subtheme_name = Storage.get(Config.SUBTHEME_NAME_STORAGE_KEY);
   return stored_subtheme_name && Subthemes[stored_subtheme_name]
     ? stored_subtheme_name
-    : Config.DEFAULT_SUBTHEME_NAME;
+    : Config.INIT_SUBTHEME_NAME;
 }
 
 /**
@@ -120,9 +105,9 @@ function getStoredSubthemeName() {
  */
 function getStoredSubthemeMode(): SubthemeModeSelectorType {
   const stored_subtheme_mode = Storage.get(
-    SUBTHEME_MODE_STORAGE_KEY,
+    Config.SUBTHEME_MODE_STORAGE_KEY,
   ) as SubthemeModeSelectorType | null;
   return stored_subtheme_mode
     ? stored_subtheme_mode
-    : Config.DEFAULT_SUBTHEME_MODE;
+    : Config.INIT_SUBTHEME_MODE;
 }

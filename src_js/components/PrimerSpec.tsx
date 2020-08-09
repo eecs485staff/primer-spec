@@ -1,6 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useEffect, useLayoutEffect } from 'preact/hooks';
-import { connect } from 'redux-zero/preact';
+import { useState, useEffect, useLayoutEffect } from 'preact/hooks';
 import Config from '../Config';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
@@ -11,21 +10,28 @@ import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
 import { useBeforePrint, useAfterPrint } from '../utils/printHandlerHooks';
 
-// Importing only for types
-import { BoundActions } from 'redux-zero/types/Actions';
-import actions from '../actions';
-import { StoreStateType } from '../store';
-
 type PropsType = { contentHTML: string };
 
-function PrimerSpec(
-  props: PropsType &
-    StoreStateType &
-    BoundActions<StoreStateType, typeof actions>,
-) {
+export default function PrimerSpec(props: PropsType) {
+  const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
+  const [sidebar_shown, setSidebarShown] = useState(
+    !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
+  );
+  const [settings_shown, setSettingsShown] = useState(false);
+  const [topbar_height, setTopbarHeight] = useState(10);
+  const [subtheme_name, setSubthemeName] = useState(Config.INIT_SUBTHEME_NAME);
+  const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
+
+  const toggleSidebarShown = () => setSidebarShown(!sidebar_shown);
+  const toggleSettingsShown = () => setSettingsShown(!settings_shown);
+  const setSubtheme = ({ name, mode }: SubthemeType) => {
+    setSubthemeName(name);
+    setSubthemeMode(mode);
+  };
+
   // Listen for changes to system theme (light/dark mode)
   useEffect(() => {
-    const system_theme_change_listener = () => updateTheme({});
+    const system_theme_change_listener = () => updateTheme({}, () => {});
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addListener(system_theme_change_listener);
@@ -40,8 +46,8 @@ function PrimerSpec(
   useLayoutEffect(() => {
     const window_resize_listener = () => {
       const isCurrentlySmallScreen = isSmallScreen();
-      if (isCurrentlySmallScreen !== props.isSmallScreen) {
-        props.setIsSmallScreen(isCurrentlySmallScreen);
+      if (isCurrentlySmallScreen !== is_small_screen) {
+        setIsSmallScreen(isCurrentlySmallScreen);
       }
     };
 
@@ -49,7 +55,7 @@ function PrimerSpec(
     return () => {
       window.removeEventListener('resize', window_resize_listener);
     };
-  }, [props.isSmallScreen]);
+  }, [is_small_screen]);
 
   // Listen for print events
   useBeforePrint(() => {
@@ -63,34 +69,34 @@ function PrimerSpec(
     <Fragment>
       <MainContent
         innerHTML={props.contentHTML}
-        sidebarShown={props.sidebarShown}
-        isSmallScreen={props.isSmallScreen}
+        sidebarShown={sidebar_shown}
+        isSmallScreen={is_small_screen}
       />
       <Sidebar
         contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
-        sidebarShown={props.sidebarShown}
-        settingsShown={props.settingsShown}
-        topbarHeight={props.topbarHeight}
-        isSmallScreen={props.isSmallScreen}
-        onToggleSidebar={props.toggleSidebarShown}
-        onToggleSettings={props.toggleSettingsShown}
+        sidebarShown={sidebar_shown}
+        settingsShown={settings_shown}
+        topbarHeight={topbar_height}
+        isSmallScreen={is_small_screen}
+        onToggleSidebar={toggleSidebarShown}
+        onToggleSettings={toggleSettingsShown}
       />
       <Topbar
-        sidebarShown={props.sidebarShown}
-        settingsShown={props.settingsShown}
-        isSmallScreen={props.isSmallScreen}
-        onTopbarHeightChange={props.setTopbarHeight}
-        onClickToggleSidebar={props.toggleSidebarShown}
-        onClickToggleSettings={props.toggleSettingsShown}
+        sidebarShown={sidebar_shown}
+        settingsShown={settings_shown}
+        isSmallScreen={is_small_screen}
+        onTopbarHeightChange={setTopbarHeight}
+        onClickToggleSidebar={toggleSidebarShown}
+        onClickToggleSettings={toggleSettingsShown}
       />
       <Settings
-        currentSubthemeName={props.currentSubthemeName}
-        currentSubthemeMode={props.currentSubthemeMode}
-        sidebarShown={props.sidebarShown}
-        settingsShown={props.settingsShown}
-        isSmallScreen={props.isSmallScreen}
-        onSubthemeNameChange={props.setSubthemeName}
-        onSubthemeModeChange={props.setSubthemeMode}
+        currentSubthemeName={subtheme_name}
+        currentSubthemeMode={subtheme_mode}
+        sidebarShown={sidebar_shown}
+        settingsShown={settings_shown}
+        isSmallScreen={is_small_screen}
+        onSubthemeNameChange={(name) => updateTheme({ name }, setSubtheme)}
+        onSubthemeModeChange={(mode) => updateTheme({ mode }, setSubtheme)}
       />
     </Fragment>
   );
@@ -119,5 +125,3 @@ function toggleItalicsInChrome(enableItalics: boolean) {
     el.style.fontStyle = font_style;
   });
 }
-
-export default connect(null, actions)(PrimerSpec);
