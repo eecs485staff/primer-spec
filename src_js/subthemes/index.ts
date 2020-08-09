@@ -6,12 +6,14 @@ import Config from '../Config';
 // Expose Subthemes publicly
 export { Subthemes };
 
+const NOOP_HANDLER = () => {};
+
 /**
  * Encapsulates the Settings pane to select subthemes.
  */
 export function updateTheme(
-  { name, mode }: Partial<SubthemeType>,
-  onUpdate: (subtheme: SubthemeType) => void,
+  { name, mode }: Partial<SubthemeType> = {},
+  onUpdate: (subtheme: SubthemeType) => void = NOOP_HANDLER,
   persistUpdate: boolean = true,
 ) {
   const {

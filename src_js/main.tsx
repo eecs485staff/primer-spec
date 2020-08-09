@@ -32,7 +32,7 @@ function main() {
   injectPrimerSpecStyleSheets();
 
   // Initialize the theme variables
-  updateTheme({}, () => {});
+  updateTheme();
   render(<PrimerSpec contentHTML={main_content_html} />, app_container_node);
 }
 

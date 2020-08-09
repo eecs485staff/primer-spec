@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useState, useEffect, useLayoutEffect } from 'preact/hooks';
+import { useState, useLayoutEffect } from 'preact/hooks';
 import Config from '../Config';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
@@ -8,11 +8,16 @@ import MainContent from './MainContent';
 import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
-import { useBeforePrint, useAfterPrint } from '../utils/printHandlerHooks';
+import {
+  useBeforePrint,
+  useAfterPrint,
+  useColorSchemeHandler,
+} from '../utils/hooks';
 
 type PropsType = { contentHTML: string };
 
 export default function PrimerSpec(props: PropsType) {
+  // Initialize shared state
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
   const [sidebar_shown, setSidebarShown] = useState(
     !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
@@ -22,6 +27,7 @@ export default function PrimerSpec(props: PropsType) {
   const [subtheme_name, setSubthemeName] = useState(Config.INIT_SUBTHEME_NAME);
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
 
+  // Define derived methods to manipulate state
   const toggleSidebarShown = () => setSidebarShown(!sidebar_shown);
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
   const setSubtheme = ({ name, mode }: SubthemeType) => {
@@ -30,17 +36,7 @@ export default function PrimerSpec(props: PropsType) {
   };
 
   // Listen for changes to system theme (light/dark mode)
-  useEffect(() => {
-    const system_theme_change_listener = () => updateTheme({}, () => {});
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addListener(system_theme_change_listener);
-    return () => {
-      window
-        .matchMedia('(prefers-color-scheme: dark)')
-        .removeListener(system_theme_change_listener);
-    };
-  }, []);
+  useColorSchemeHandler(() => updateTheme(), []);
 
   // Listen for changes to the window size.
   useLayoutEffect(() => {

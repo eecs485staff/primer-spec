@@ -3,7 +3,7 @@ import { useEffect } from 'preact/hooks';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
-import { usePrintInProgress } from '../../utils/printHandlerHooks';
+import { usePrintInProgress } from '../../utils/hooks';
 
 type SidebarProps = {
   contentNodeSelector: string;

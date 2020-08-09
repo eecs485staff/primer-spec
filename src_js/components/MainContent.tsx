@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { usePrintInProgress } from '../utils/printHandlerHooks';
+import { usePrintInProgress } from '../utils/hooks';
 import Config from '../Config';
 
 type PropsType = {

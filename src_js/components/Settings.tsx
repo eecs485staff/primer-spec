@@ -5,7 +5,7 @@ import {
   usePrintInProgress,
   useBeforePrint,
   useAfterPrint,
-} from '../utils/printHandlerHooks';
+} from '../utils/hooks';
 
 type PropsType = {
   currentSubthemeName: string;
@@ -17,19 +17,21 @@ type PropsType = {
   onSubthemeModeChange: (newSubthemeMode: SubthemeModeSelectorType) => void;
 };
 
+const NOOP_HANDLER = () => {};
+
 export default function Settings(props: PropsType) {
   const isPrintInProgress = usePrintInProgress();
 
   // If a print is in progress, temporarily reset the theme to default light.
   useBeforePrint(
-    () => updateTheme({ name: 'default', mode: 'light' }, () => {}, false),
+    () => updateTheme({ name: 'default', mode: 'light' }, NOOP_HANDLER, false),
     [],
   );
   useAfterPrint(
     () =>
       updateTheme(
         { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
-        () => {},
+        NOOP_HANDLER,
         false,
       ),
     [props.currentSubthemeName, props.currentSubthemeMode],
