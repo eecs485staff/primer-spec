@@ -71,26 +71,6 @@ module.exports = (env) => ({
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-      // Liquid+HTML loader
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-          {
-            loader: 'liquid-loader',
-            options: {
-              data: {
-                // These variables are passed to the liquid templates.
-                base_url: getBaseURL(env),
-                primer_spec_version_raw: VERSION_RAW,
-                primer_spec_version_string: VERSION_STR,
-              },
-            },
-          },
-        ],
-      },
     ],
   },
   // When importing files, no need to mention these file-extensions

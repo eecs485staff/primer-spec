@@ -1,4 +1,7 @@
-# The Primer Spec theme
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
+# Primer Spec
+<!-- prettier-ignore-end -->
 
 [![Build Status](https://travis-ci.com/eecs485staff/primer-spec.svg?branch=master)](https://travis-ci.com/eecs485staff/primer-spec)
 [![Nightly Preview](https://img.shields.io/badge/nightly-preview-blue.svg)](https://preview.seshrs.ml/previews/eecs485staff/primer-spec-nightly)
@@ -14,12 +17,11 @@ Primer Spec is built on top of the wonderful [Primer theme](https://github.com/p
 
 ## Contents
 
-- [The Primer Spec theme](#the-primer-spec-theme)
-  - [Contents](#contents)
-  - [Usage](#usage)
-  - [User Showcase](#user-showcase)
-  - [Contributing](#contributing)
-  - [Acknowledgements](#acknowledgements)
+- [Contents](#contents)
+- [Usage](#usage)
+- [User Showcase](#user-showcase)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
 
 ## Usage
 
