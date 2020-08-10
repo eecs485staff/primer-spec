@@ -47,6 +47,7 @@ version_string: v1.3
               line-height: inherit;
             }
         </style>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" defer></script>
         {%- endif %}
     </head>
     <body>
@@ -77,9 +78,5 @@ version_string: v1.3
             ga('send', 'pageview');
         </script>
         {% endif %}
-
-        {%- if page.latex %}
-            <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
-        {%- endif %}
     </body>
 </html>
