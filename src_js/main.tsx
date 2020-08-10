@@ -33,7 +33,14 @@ function main() {
   injectPrimerSpecStyleSheets();
 
   // Initialize the theme variables
-  updateTheme();
+  updateTheme(
+    {
+      name: Config.INIT_SUBTHEME_NAME,
+      mode: Config.INIT_SUBTHEME_MODE,
+    },
+    () => {},
+    false,
+  );
   render(<PrimerSpec contentHTML={main_content_html} />, app_container_node);
 }
 

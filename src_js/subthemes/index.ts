@@ -123,7 +123,5 @@ function getStoredSubthemeMode(): SubthemeModeSelectorType {
   const stored_subtheme_mode = Storage.get(
     Config.SUBTHEME_MODE_STORAGE_KEY,
   ) as SubthemeModeSelectorType | null;
-  return stored_subtheme_mode
-    ? stored_subtheme_mode
-    : Config.INIT_SUBTHEME_MODE;
+  return stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE;
 }
