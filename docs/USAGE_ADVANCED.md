@@ -179,6 +179,10 @@ $$
 $$
 ```
 
+_NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
+GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
+correct contents for `_config.yml`.
+
 ## Using without Jekyll
 
 We recommend using Primer Spec with Jekyll because:
