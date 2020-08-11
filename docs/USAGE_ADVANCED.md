@@ -36,6 +36,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    gem 'jekyll-readme-index'
    gem 'jekyll-relative-links'
    gem 'jekyll-default-layout'
+   gem 'kramdown-parser-gfm'
 
    # jekyll-remote-theme doesn't support jekyll 4.0 yet
    gem 'jekyll', '<4.0'
