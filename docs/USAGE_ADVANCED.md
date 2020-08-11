@@ -5,9 +5,11 @@
 
 See the [Primer Spec README](../README.md) for the main usage instructions. This page contains further instructions for more advanced workflows.
 
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
 ## Contents
+<!-- prettier-ignore-end -->
 
-- [Contents](#contents)
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
