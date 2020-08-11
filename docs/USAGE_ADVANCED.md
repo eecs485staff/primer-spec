@@ -38,7 +38,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    gem 'jekyll-default-layout'
    gem 'kramdown-parser-gfm'
 
-   # jekyll-remote-theme doesn't support jekyll 4.0 yet
+   # GitHub Pages doesn't support jekyll 4.0 yet
    gem 'jekyll', '<4.0'
 
    # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
