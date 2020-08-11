@@ -15,9 +15,11 @@ _Primer Spec is a Jekyll theme that makes long informative web pages easier to r
 
 Primer Spec is built on top of the wonderful [Primer theme](https://github.com/pages-themes/primer), and adds functionality useful for pages with a lot of content. This theme was primarily designed for hosting project specifications for EECS courses at the University of Michigan. See the [User Showcase](#user-showcase) for inspiration.
 
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
 ## Contents
+<!-- prettier-ignore-end -->
 
-- [Contents](#contents)
 - [Usage](#usage)
 - [User Showcase](#user-showcase)
 - [Contributing](#contributing)
