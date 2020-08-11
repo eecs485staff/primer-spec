@@ -1,7 +1,10 @@
 {
-  "name": "jekyll-theme-primer",
+  "name": "jekyll-theme-primer-spec",
   "version": "0.1.0",
-  "description": "A Jekyll theme based on GitHub's Primer styles",
+  "description": "A Jekyll theme for sites with content-heavy pages, based on GitHub's Primer theme",
+  "repository": {
+    "url": "https://github.com/eecs485staff/primer-spec"
+  },
   "main": "index.html",
   "scripts": {
     "test": "script/cibuild",
