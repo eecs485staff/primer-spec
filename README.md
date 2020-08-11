@@ -50,9 +50,9 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
      - jekyll-default-layout
    kramdown:
      input: GFM
-    readme_index:
-      remove_originals: true
-      with_frontmatter: true
+   readme_index:
+     remove_originals: true
+     with_frontmatter: true
    ```
 
 4. Deploy your site with GitHub pages!
