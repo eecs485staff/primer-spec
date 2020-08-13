@@ -51,7 +51,7 @@ function injectPrimerSpecStyleSheets() {
     'anonymous',
   );
   injectStyleSheet(
-    `${Config.BASE_URL}/assets/${Config.VERSION_STR}/css/primer-spec-base.css`,
+    `${Config.BASE_URL}/assets/${Config.VERSION_MINOR_STR}/css/primer-spec-base.css`,
     null,
     'anonymous',
   );

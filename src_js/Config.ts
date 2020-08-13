@@ -16,7 +16,7 @@ export default {
   // From webpack config
   BASE_URL: process.env.BASE_URL,
   VERSION_RAW: process.env.VERSION_RAW,
-  VERSION_STR: process.env.VERSION_STR,
+  VERSION_MINOR_STR: process.env.VERSION_MINOR_STR,
 
   // From window.PrimerSpecConfig
   HIDE_SIDEBAR_ON_LOAD: window.PrimerSpecConfig.hideSidebarOnLoad || false,
