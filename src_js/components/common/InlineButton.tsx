@@ -11,7 +11,7 @@ export default function InlineButton(props: PropsType) {
     <span class="primer-spec-hoverable">
       <a
         href="#primer-spec-top"
-        class="primer-spec-sidebar-toggle primer-spec-hoverable no-print"
+        class="primer-spec-hoverable no-print"
         onClick={(event) => {
           event.preventDefault();
           props.onClick();

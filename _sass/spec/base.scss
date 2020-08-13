@@ -4,7 +4,7 @@ $SIDEBAR_WIDTH: 18em;
 $SIDEBAR_CONTENT_MARGIN: 0.5em;
 $SIDEBAR_RIGHT_BORDER_STYLE: 1px solid var(--sidebar-border-color, lightgrey);
 
-$ICON_FONT_SIZE: 2em;
+$ICON_FONT_SIZE: 28px;
 $ICON_HOVER_COLOR: rgb(211, 85, 2);
 $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 
@@ -37,10 +37,6 @@ $Z_INDEX_SIDEBAR: 4;
 
   // To make the sidebar appear on top of the topbar on mobile
   z-index: $Z_INDEX_SIDEBAR;
-
-  &-toggle-fixed {
-    font-size: $ICON_FONT_SIZE;
-  }
 
   // Need to set a background color because the sidebar overlays on top of
   // the content. (By default, the element has a transparent background.)
@@ -235,13 +231,6 @@ div[class^='primer-spec-toc-'] {
     background-color: var(--main-bg-color);
     z-index: $Z_INDEX_SETTINGS;
   }
-
-  &-toggle {
-    font-size: $ICON_FONT_SIZE;
-    &-hidden {
-      display: none;
-    }
-  }
 }
 
 /* Main Content */
@@ -269,6 +258,7 @@ h6 {
 }
 
 .primer-spec-hoverable {
+  font-size: $ICON_FONT_SIZE;
   color: var(--main-link-color) !important;
   // Reset pointer events because the Topbar disables this.
   pointer-events: auto;
