@@ -8,11 +8,7 @@ import Topbar from './Topbar';
 import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
-import {
-  useBeforePrint,
-  useAfterPrint,
-  useColorSchemeHandler,
-} from '../utils/hooks';
+import { useBeforePrint, useAfterPrint } from '../utils/hooks';
 
 type PropsType = { contentHTML: string };
 
@@ -40,9 +36,6 @@ export default function PrimerSpec(props: PropsType) {
     setSubthemeName(name);
     setSubthemeMode(mode);
   };
-
-  // Listen for changes to system theme (light/dark mode)
-  useColorSchemeHandler(() => updateTheme(), []);
 
   // Listen for changes to the window size.
   useLayoutEffect(() => {

@@ -8,6 +8,11 @@ export { Subthemes };
 
 const NOOP_HANDLER = () => {};
 
+// Listen for changes to the OS system theme.
+window
+  .matchMedia('(prefers-color-scheme: dark)')
+  .addListener(() => updateTheme());
+
 /**
  * Updates the appearance of the page based on the Subtheme details to be
  * changed. If no Subtheme details are specified, the method uses Subtheme info

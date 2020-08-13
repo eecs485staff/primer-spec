@@ -1,26 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 
 /**
- * Accepts a function that could contain imperative and possibly effectful
- * code that will be invoked when OS preferred-color-scheme changes.
- * @param handler Imperative function to be invoked when preferred-color-scheme
- *                changes
- * @param deps    A list of dependencies; the event listeners are re-registered
- *                if any of these change (compared using ===)
- */
-export function useColorSchemeHandler(
-  handler: (event: MediaQueryListEvent) => void,
-  deps?: any[],
-) {
-  useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(handler);
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeListener(handler);
-    };
-  }, deps);
-}
-
-/**
  * Returns a stateful boolean representing if a print-event is in progress
  * (between beforeprint and afterprint).
  */
