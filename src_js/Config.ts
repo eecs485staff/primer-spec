@@ -31,18 +31,3 @@ export default {
   SUBTHEME_MODE_STORAGE_KEY,
   DEFAULT_ACTIVE_SECTION_OFFSET_Y: 10,
 };
-
-// Need to declare that the window object may have a PrimerSpecConfig.
-declare global {
-  interface Window {
-    PrimerSpecConfig: {
-      hideSidebarOnLoad?: boolean;
-    };
-  }
-
-  type SubthemeModeSelectorType = 'light' | 'dark' | 'system';
-  type SubthemeType = {
-    name: string;
-    mode: SubthemeModeSelectorType;
-  };
-}
