@@ -58,7 +58,6 @@ export default function Settings(props: PropsType) {
         <label for="primer-spec-subtheme-selector">
           {'Choose your theme: '}
           <select
-            name="primer-spec-subtheme-selector"
             class="primer-spec-subtheme-selector"
             onChange={(e) =>
               props.onSubthemeNameChange((e.target as HTMLSelectElement)?.value)
@@ -74,7 +73,6 @@ export default function Settings(props: PropsType) {
         <label for="primer-spec-subtheme-mode-selector">
           {'Choose your theme mode: '}
           <select
-            name="primer-spec-subtheme-mode-selector"
             class="primer-spec-subtheme-mode-selector"
             onChange={(e) =>
               props.onSubthemeModeChange(
