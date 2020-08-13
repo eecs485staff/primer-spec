@@ -29,6 +29,7 @@ export default {
   PRIMER_SPEC_CONTENT_PREACT_NODE_ID: 'primer-spec-preact-main-content',
   SUBTHEME_NAME_STORAGE_KEY,
   SUBTHEME_MODE_STORAGE_KEY,
+  DEFAULT_ACTIVE_SECTION_OFFSET_Y: 10,
 };
 
 // Need to declare that the window object may have a PrimerSpecConfig.

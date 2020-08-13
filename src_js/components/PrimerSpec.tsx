@@ -27,7 +27,9 @@ export default function PrimerSpec(props: PropsType) {
     !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
   );
   const [settings_shown, setSettingsShown] = useState(false);
-  const [topbar_height, setTopbarHeight] = useState(10);
+  const [active_section_offset_y, setActiveSectionOffsetY] = useState(
+    Config.DEFAULT_ACTIVE_SECTION_OFFSET_Y,
+  );
   const [subtheme_name, setSubthemeName] = useState(Config.INIT_SUBTHEME_NAME);
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
 
@@ -77,7 +79,7 @@ export default function PrimerSpec(props: PropsType) {
         isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
-        topbarHeight={topbar_height}
+        activeSectionOffsetY={active_section_offset_y}
         onToggleSidebar={toggleSidebarShown}
         onToggleSettings={toggleSettingsShown}
       />
@@ -85,7 +87,7 @@ export default function PrimerSpec(props: PropsType) {
         isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
-        onTopbarHeightChange={setTopbarHeight}
+        onActiveSectionOffsetChange={setActiveSectionOffsetY}
         onToggleSidebar={toggleSidebarShown}
         onToggleSettings={toggleSettingsShown}
       />

@@ -11,7 +11,7 @@ type SidebarProps = {
   isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
-  topbarHeight: number;
+  activeSectionOffsetY: number;
   onToggleSidebar: () => void;
   onToggleSettings: () => void;
 };
@@ -69,7 +69,7 @@ export default function Sidebar(props: SidebarProps) {
         isSmallScreen={props.isSmallScreen}
         sidebarShown={props.sidebarShown}
         settingsShown={props.settingsShown}
-        topbarHeight={props.topbarHeight}
+        activeSectionOffsetY={props.activeSectionOffsetY}
         onToggleSidebar={props.onToggleSidebar}
         onToggleSettings={props.onToggleSettings}
       />

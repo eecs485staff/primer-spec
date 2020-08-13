@@ -7,7 +7,7 @@ type PropsType = {
   isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
-  onTopbarHeightChange: (height: number) => void;
+  onActiveSectionOffsetChange: (height: number) => void;
   onToggleSidebar: () => void;
   onToggleSettings: () => void;
 };
@@ -18,11 +18,11 @@ export default function Topbar(props: PropsType) {
     if (!props.isSmallScreen) {
       // On wide screens, the Topbar is transparent, so its effective height is
       // 0.
-      props.onTopbarHeightChange(20);
+      props.onActiveSectionOffsetChange(20);
     } else if (topbarRef.current) {
       // On small screens, the Topbar is opaque, so we should find its true
       // height.
-      props.onTopbarHeightChange(
+      props.onActiveSectionOffsetChange(
         topbarRef.current.getBoundingClientRect().height,
       );
     }

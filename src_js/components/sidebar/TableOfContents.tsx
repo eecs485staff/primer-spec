@@ -7,7 +7,7 @@ export type PropsType = {
   isSmallScreen: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
-  topbarHeight: number;
+  activeSectionOffsetY: number;
   onToggleSidebar: () => void;
   onToggleSettings: () => void;
 };
@@ -47,7 +47,7 @@ export default function TableOfContents(props: PropsType) {
 
   const tocNodes = generateTocNodesForContentNode(
     props.contentNodeSelector,
-    props.topbarHeight,
+    props.activeSectionOffsetY,
   );
 
   return <div id="primer-spec-toc">{tocNodes}</div>;
