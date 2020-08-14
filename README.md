@@ -76,6 +76,9 @@ The Primer Spec theme is currently used by the following courses at the Universi
 - [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 4: Web](https://eecs280staff.github.io/p4-web/).
 - [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java). Example [EECS 285 Project 3: Wheel of Fortune](https://eecs285.github.io/p3-wheel/).
 - [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
+- [EECS 370](https://www.eecs.umich.edu/courses/eecs370/) (Introduction to Computer Organization).
+- [EECS 441](https://eecs441.eecs.umich.edu/) (Mobile App Development for Entrepreneurs).
+- EECS 482 (Introduction to Operating Systems).
 
 Students: Would you like to see your course use this theme for their project specifications? Let your course staff know about this theme!
 
