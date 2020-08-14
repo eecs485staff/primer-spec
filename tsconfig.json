@@ -6,9 +6,11 @@
     // Process & infer types from .js files.
     "allowJs": true,
     // Enable strictest settings like strictNullChecks & noImplicitAny.
-    "strict": true
+    "strict": true,
     // Disallow features that require cross-file information for emit.
     // "isolatedModules": true
+    "jsx": "react",
+    "jsxFactory": "h"
   },
   "include": ["src_js"]
 }

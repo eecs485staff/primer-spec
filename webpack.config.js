@@ -15,7 +15,6 @@ const path = require('path');
 const semver = require('semver');
 const webpack = require('webpack');
 
-const PROD_ENV = 'prod';
 const DEV_URL = 'http://localhost:4000';
 const PROD_URL = 'https://eecs485staff.github.io/primer-spec';
 const VERSION_RAW = fs.readFileSync(
@@ -27,7 +26,7 @@ const VERSION_RAW = fs.readFileSync(
 // separate directory (so that specs that use older versions of Primer Spec
 // will still render correctly).
 const semver_version = semver.coerce(VERSION_RAW);
-const VERSION_STR = `v${semver_version.major}.${semver_version.minor}`;
+const VERSION_MINOR_STR = `v${semver_version.major}.${semver_version.minor}`;
 
 function getBaseURL(env) {
   let base_url;
@@ -48,9 +47,9 @@ function getBaseURL(env) {
 module.exports = (env) => ({
   mode: env && env.production ? 'production' : 'development',
   context: path.resolve(__dirname, 'src_js/'),
-  entry: './main.ts',
+  entry: './main.tsx',
   output: {
-    path: path.join(__dirname, `/assets/${VERSION_STR}/js/`),
+    path: path.join(__dirname, `/assets/${VERSION_MINOR_STR}/js/`),
     filename: 'primer_spec_plugin.min.js',
   },
   module: {
@@ -71,41 +70,18 @@ module.exports = (env) => ({
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-      // Liquid+HTML loader
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-          {
-            loader: 'liquid-loader',
-            options: {
-              data: {
-                // These variables are passed to the liquid templates.
-                base_url: getBaseURL(env),
-                primer_spec_version_raw: VERSION_RAW,
-                primer_spec_version_string: VERSION_STR,
-              },
-            },
-          },
-        ],
-      },
     ],
   },
   // When importing files, no need to mention these file-extensions
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
-    // JQuery becomes available in every file
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
     // These variables become available in any file
     new webpack.DefinePlugin({
-      'process.env.BASE_URL': `'${getBaseURL(env)}'`,
+      'process.env.BASE_URL': JSON.stringify(getBaseURL(env)),
+      'process.env.VERSION_RAW': JSON.stringify(VERSION_RAW),
+      'process.env.VERSION_MINOR_STR': JSON.stringify(VERSION_MINOR_STR),
     }),
   ],
   // Minimize output

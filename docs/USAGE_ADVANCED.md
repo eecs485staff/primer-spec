@@ -1,16 +1,22 @@
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
 # Advanced Usage
+<!-- prettier-ignore-end -->
 
 See the [Primer Spec README](../README.md) for the main usage instructions. This page contains further instructions for more advanced workflows.
 
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
 ## Contents
+<!-- prettier-ignore-end -->
 
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Other page configuration options](#other-page-configuration-options)
+    - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
 - [LaTeX](#latex)
 - [Using without Jekyll](#using-without-jekyll)
-- [Using GitHub Flavored Markdown](#using-github-flavored-markdown)
 
 ## Previewing locally
 
@@ -26,6 +32,16 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    gem 'jekyll-seo-tag'
    gem 'jekyll-remote-theme'
    gem 'jekyll-github-metadata'
+
+   # The following plugins are enabled on GitHub Pages without a _config.yml.
+   gem 'jekyll-optional-front-matter'
+   gem 'jekyll-readme-index'
+   gem 'jekyll-relative-links'
+   gem 'jekyll-default-layout'
+   gem 'kramdown-parser-gfm'
+
+   # GitHub Pages doesn't support jekyll 4.0 yet
+   gem 'jekyll', '<4.0'
 
    # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
    gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -121,6 +137,7 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 ```
 
 ## Other page configuration options
+
 The following configuration options can be specified in the ["front-matter"](https://jekyllrb.com/docs/front-matter/) of your page, in the same place that you specify the page's layout. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
 
 ```yml
@@ -129,40 +146,45 @@ layout: spec
 # Prevent the sidebar from expanding by default.
 hideSidebarOnLoad: true
 ---
-
 ...your webpage's MarkDown/HTML content...
 ```
 
 Primer Spec supports the following page configuration options:
 
 #### `hideSidebarOnLoad`: Boolean
+
 Prevent the sidebar (with table of contents) from appearing when a user loads the page. Defaults to `false`.
 
 ## LaTeX
+
 Primer Spec supports displaying Mathematical expressions using [LaTeX syntax and rendering](https://en.wikibooks.org/wiki/LaTeX/Mathematics). To enable LaTeX typesetting features, update the top of each MarkDown file with the `latex` option:
 
-  ```yml
-  ---
-  layout: spec
-  latex: true
-  ---
-  ```
+```yml
+---
+layout: spec
+latex: true
+---
+
+```
 
 LaTeX can be rendered inline or as separate blocks. Here is an example of a MarkDown file with LaTeX typesetting:
 
-  ```markdown
-  ---
-  layout: spec
-  latex: true
-  ---
+```markdown
+---
+layout: spec
+latex: true
+---
 
-  LaTeX can be inlined ($$ \forall x \in R $$) or as a separate math block.
+LaTeX can be inlined ($$ \forall x \in R $$) or as a separate math block.
 
-  $$
-  -b \pm \sqrt{b^2 - 4ac} \over 2a
-  $$
-  ```
+$$
+-b \pm \sqrt{b^2 - 4ac} \over 2a
+$$
+```
 
+_NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
+GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
+correct contents for `_config.yml`.
 
 ## Using without Jekyll
 
@@ -175,10 +197,10 @@ However, with some work, it is _possible_ to add Primer Spec styling to a plain 
 
 1. Make sure that all sections of your web page are marked by header tags (like `h1`, `h2`, etc.).
 
-2. Place all your main content within a `div` with ID `primer-spec-plugin-main-content` and a dummy `onClick` event handler:
+2. Place all your main content within a `div` with ID `primer-spec-plugin-main-content`:
 
    ```html
-   <div id="primer-spec-plugin-main-content" onClick="return true;">
+   <div id="primer-spec-plugin-main-content">
      <!-- Your main content goes here. -->
    </div>
    ```
@@ -193,10 +215,17 @@ However, with some work, it is _possible_ to add Primer Spec styling to a plain 
      href="https://eecs485staff.github.io/primer-spec/assets/<version>/css/primer-spec-base.css"
    />
    <script
-      src="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
-      crossorigin="anonymous"
-      defer
-    ></script>
+     src="https://eecs485staff.github.io/primer-spec/assets/<version>/js/primer_spec_plugin.min.js"
+     crossorigin="anonymous"
+     defer
+   ></script>
+   ```
+
+4. Add the following lines at the top of the `body` tag.
+
+   ```html
+   <div id="primer-spec-top"></div>
+   <div id="primer-spec-app-container" onclick="return true;"></div>
    ```
 
 Your final HTML file will probably look something like this:
@@ -219,7 +248,9 @@ Your final HTML file will probably look something like this:
     <title>My long project spec</title>
   </head>
   <body>
-    <div id="primer-spec-plugin-main-content" onClick="return true;">
+    <div id="primer-spec-top"></div>
+    <div id="primer-spec-app-container"></div>
+    <div id="primer-spec-plugin-main-content">
       <!-- Main content goes in here. For example: -->
       <h1 class="primer-spec-toc-ignore">My long project spec</h1>
       ...
@@ -234,18 +265,3 @@ Your final HTML file will probably look something like this:
 ```
 
 That's it! The page should now display with Primer Spec styling.
-
-## Using GitHub Flavored Markdown
-GitHub Flavored MarkDown (GFM) is an enhanced variant of MarkDown used by GitHub. There are some differences between GFM and "regular" MarkDown (as documented in [CommonMark'GitHub site](https://github.com/commonmark/commonmark-spec#differences-from-original-markdown)), but the differences are not significant for most users.
-
-If you prefer to express your GitHub Pages site's MarkDown files using GFM instead of "regular" MarkDown, you'll need to change your site's `_config.yml` by adding the line `markdwon: GFM`. Your final `_config.yml` may look like this:
-```yml
-remote_theme: eecs485staff/primer-spec
-plugins:
-    - jekyll-remote-theme
-
-# The default MarkDown processor for Jekyll is actually 'kramdown'. Change to GFM if you prefer.
-markdown: GFM
-```
-
-**WARNING:** The above config *only* works with GitHub Pages, and *does not* support [previewing Primer Spec locally](#previewing-locally).

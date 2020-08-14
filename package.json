@@ -1,41 +1,37 @@
 {
-  "name": "jekyll-theme-primer",
+  "name": "jekyll-theme-primer-spec",
   "version": "0.1.0",
-  "description": "A Jekyll theme based on GitHub's Primer styles",
+  "description": "A Jekyll theme for sites with content-heavy pages, based on GitHub's Primer theme",
+  "repository": {
+    "url": "https://github.com/eecs485staff/primer-spec"
+  },
   "main": "index.html",
   "scripts": {
-    "test": "script/cibuild"
+    "test": "script/cibuild",
+    "test:js": "npx jest"
   },
   "author": "Ben Balter",
   "license": "MIT",
   "dependencies": {
-    "anchor-js": "^4.2.0",
-    "jquery": "^3.5.0",
-    "primer-base": "^1.9.2",
-    "primer-layout": "^1.6.2",
-    "primer-markdown": "^3.7.13",
-    "primer-support": "^4.7.2",
-    "primer-utilities": "^4.14.4"
+    "anchor-js": "^4.2.2",
+    "preact": "^10.4.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@primer/sync": "^0.1.0",
     "@types/anchor-js": "^4.1.0",
-    "@types/jquery": "^3.3.31",
+    "@types/debounce": "^1.2.0",
+    "@types/jest": "^26.0.7",
     "@types/node": "^12.7.5",
+    "babel-jest": "^26.1.0",
     "babel-loader": "^8.0.6",
     "execa": "^4.0.0",
     "fs-extra": "^9.0.0",
-    "liquid-loader": "^0.1.4",
+    "jest": "^26.1.0",
     "listr": "^0.14.3",
     "prettier": "2.0.2",
     "semver": "^7.2.2",
+    "ts-jest": "^26.1.3",
     "ts-loader": "^6.0.4",
-    "typescript": "^3.6.2",
+    "typescript": "^3.9.7",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "yargs": "^15.3.1"

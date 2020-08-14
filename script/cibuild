@@ -17,6 +17,9 @@ fi
 npx prettier@2.0.2 -l "src_js/**/*.ts"
 npx prettier@2.0.2 -l "_sass/spec/**/*.scss"
 
+# Run JS tests
+npx jest
+
 # Sanity check that JavaScript was built properly and committed.
 # Run this only on Travis
 if [ ! "${TRAVIS-}" ]; then
