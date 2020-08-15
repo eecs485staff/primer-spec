@@ -14,8 +14,9 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Other page configuration options](#other-page-configuration-options)
+    - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
-- [LaTeX](#latex)
+    - [`latex`: Boolean](#latex-boolean)
 - [Using without Jekyll](#using-without-jekyll)
 
 ## Previewing locally
@@ -143,29 +144,32 @@ The following configuration options can be specified in the ["front-matter"](htt
 ```yml
 ---
 layout: spec
-# Prevent the sidebar from expanding by default.
-hideSidebarOnLoad: true
+
+# Disable the Sidebar completely
+disableSidebar: true
+# Render LaTeX expressions
+latex: true
 ---
 ...your webpage's MarkDown/HTML content...
 ```
 
 Primer Spec supports the following page configuration options:
 
+#### `disableSidebar`: Boolean
+
+Disable the the sidebar completely. (The Table of Contents will also not be generated.) Defaults to `false`.
+
+Example page: http://eecs485staff.github.io/primer-spec/disable-sidebar.html
+
 #### `hideSidebarOnLoad`: Boolean
 
 Prevent the sidebar (with table of contents) from appearing when a user loads the page. Defaults to `false`.
 
-## LaTeX
+Example page: http://eecs485staff.github.io/primer-spec/hide-sidebar-on-load.html
 
-Primer Spec supports displaying Mathematical expressions using [LaTeX syntax and rendering](https://en.wikibooks.org/wiki/LaTeX/Mathematics). To enable LaTeX typesetting features, update the top of each MarkDown file with the `latex` option:
+#### `latex`: Boolean
 
-```yml
----
-layout: spec
-latex: true
----
-
-```
+Render Mathematical expressions using [LaTeX syntax and rendering](https://en.wikibooks.org/wiki/LaTeX/Mathematics). Defaults to `false`.
 
 LaTeX can be rendered inline or as separate blocks. Here is an example of a MarkDown file with LaTeX typesetting:
 
@@ -181,6 +185,8 @@ $$
 -b \pm \sqrt{b^2 - 4ac} \over 2a
 $$
 ```
+
+For a full list of supported LaTeX commands, see the [MathJax docs](https://docs.mathjax.org/en/latest/input/tex/macros/index.html).
 
 _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
