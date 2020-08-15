@@ -65,7 +65,7 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
 
 - [Preview locally](docs/USAGE_ADVANCED.md#previewing-locally) (especially if you aren't using GitHub Pages)
 - [Hide sections from the sidebar](docs/USAGE_ADVANCED.md#hiding-sections-from-the-sidebar)
-- [Configure Primer Spec](docs/USAGE_ADVANCED.md#other-page-configuration-options)
+- [Configure Primer Spec](docs/USAGE_ADVANCED.md#page-configuration-options)
   - [Render math expressions with LaTeX](docs/USAGE_ADVANCED.md#latex-boolean)
   - [Disable the sidebar](docs/USAGE_ADVANCED.md#dissablesidebar-boolean)
   - (And more!)
