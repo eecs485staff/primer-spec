@@ -19,7 +19,11 @@ export default {
   VERSION_MINOR_STR: process.env.VERSION_MINOR_STR,
 
   // From window.PrimerSpecConfig
-  HIDE_SIDEBAR_ON_LOAD: window.PrimerSpecConfig.hideSidebarOnLoad || false,
+  HIDE_SIDEBAR_ON_LOAD:
+    window.PrimerSpecConfig.hideSidebarOnLoad ||
+    window.PrimerSpecConfig.disableSidebar ||
+    false,
+  DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
 

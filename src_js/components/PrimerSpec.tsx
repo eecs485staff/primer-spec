@@ -60,6 +60,18 @@ export default function PrimerSpec(props: PropsType) {
     toggleItalicsInChrome(true);
   }, []);
 
+  const sidebar = Config.DISABLE_SIDEBAR ? null : (
+    <Sidebar
+      contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
+      isSmallScreen={is_small_screen}
+      sidebarShown={sidebar_shown}
+      settingsShown={settings_shown}
+      activeSectionOffsetY={active_section_offset_y}
+      onToggleSidebar={toggleSidebarShown}
+      onToggleSettings={toggleSettingsShown}
+    />
+  );
+
   return (
     <Fragment>
       <MainContent
@@ -67,17 +79,11 @@ export default function PrimerSpec(props: PropsType) {
         isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
       />
-      <Sidebar
-        contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
-        isSmallScreen={is_small_screen}
-        sidebarShown={sidebar_shown}
-        settingsShown={settings_shown}
-        activeSectionOffsetY={active_section_offset_y}
-        onToggleSidebar={toggleSidebarShown}
-        onToggleSettings={toggleSettingsShown}
-      />
+      {sidebar}
       <Topbar
         isSmallScreen={is_small_screen}
+        showSidebarToggle={!Config.DISABLE_SIDEBAR}
+        showSettingsToggle={true}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
         onActiveSectionOffsetChange={setActiveSectionOffsetY}

@@ -1,6 +1,7 @@
 // Need to declare that the window object may have a PrimerSpecConfig.
 declare var PrimerSpecConfig: {
   hideSidebarOnLoad?: boolean;
+  disableSidebar?: boolean;
 };
 
 // Other global types

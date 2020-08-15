@@ -5,6 +5,8 @@ import InlineButton from './common/InlineButton';
 
 type PropsType = {
   isSmallScreen: boolean;
+  showSidebarToggle: boolean;
+  showSettingsToggle: boolean;
   sidebarShown: boolean;
   settingsShown: boolean;
   onActiveSectionOffsetChange: (height: number) => void;
@@ -28,12 +30,30 @@ export default function Topbar(props: PropsType) {
     }
   }, [props.isSmallScreen]);
 
-  const sidebar_toggle =
-    props.isSmallScreen && props.sidebarShown ? null : (
-      <div class={`primer-spec-sidebar-toggle-fixed primer-spec-float-left`}>
-        <InlineButton icon={IconType.SIDEBAR} onClick={props.onToggleSidebar} />
+  let sidebar_toggle = null;
+  if (props.showSidebarToggle) {
+    sidebar_toggle =
+      props.isSmallScreen && props.sidebarShown ? null : (
+        <div class={`primer-spec-sidebar-toggle-fixed primer-spec-float-left`}>
+          <InlineButton
+            icon={IconType.SIDEBAR}
+            onClick={props.onToggleSidebar}
+          />
+        </div>
+      );
+  }
+
+  let settings_toggle = null;
+  if (props.showSettingsToggle) {
+    settings_toggle = (
+      <div class="primer-spec-settings-toggle primer-spec-float-right">
+        <InlineButton
+          icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
+          onClick={props.onToggleSettings}
+        />
       </div>
     );
+  }
 
   return (
     <div
@@ -43,12 +63,7 @@ export default function Topbar(props: PropsType) {
       } ${props.settingsShown ? 'primer-spec-topbar-settings-shown' : ''}`}
     >
       {sidebar_toggle}
-      <div class="primer-spec-settings-toggle primer-spec-float-right">
-        <InlineButton
-          icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
-          onClick={props.onToggleSettings}
-        />
-      </div>
+      {settings_toggle}
     </div>
   );
 }
