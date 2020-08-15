@@ -13,10 +13,13 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
-- [Other page configuration options](#other-page-configuration-options)
+- [Page configuration options](#page-configuration-options)
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
+- [Site configuration options](#site-configuration-options)
+    - [`defaultSubthemeName`: String](#defaultsubthemename-string)
+    - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
 - [Using without Jekyll](#using-without-jekyll)
 
 ## Previewing locally
@@ -137,9 +140,9 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 <p>Spam spam spam.</p>
 ```
 
-## Other page configuration options
+## Page configuration options
 
-The following configuration options can be specified in the ["front-matter"](https://jekyllrb.com/docs/front-matter/) of your page, in the same place that you specify the page's layout. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
+The following configuration options can be specified in the ["front-matter"](https://jekyllrb.com/docs/front-matter/) of your page, in the same place that you specify the page's layout. For instance, to disable the Primer Spec sidebar and render LaTeX expressions, modify your page to look like this:
 
 ```yml
 ---
@@ -191,6 +194,41 @@ For a full list of supported LaTeX commands, see the [MathJax docs](https://docs
 _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
+
+## Site configuration options
+
+The following configuration options can be specified in the [`_config.yml`](https://jekyllrb.com/docs/configuration/) file of your site, under the `primerSpec` key. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
+
+```yml
+# REQUIRED configuration options, as specified in the Primer Spec README
+remote_theme: eecs485staff/primer-spec
+plugins:
+  - jekyll-remote-theme
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-relative-links
+  - jekyll-default-layout
+kramdown:
+  input: GFM
+readme_index:
+  remove_originals: true
+  with_frontmatter: true
+
+# OPTIONAL site configuration options
+primerSpec:
+  defaultSubthemeName: modern
+  # Other site configuration options can go here too.
+```
+
+Primer Spec supports the following site configuration options:
+
+#### `defaultSubthemeName`: String
+
+Specify the default subtheme name. This subtheme will be applied for first-time site visitors. Defaults to `default`.
+
+#### `defaultSubthemeMode`: String
+
+Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
 
 ## Using without Jekyll
 

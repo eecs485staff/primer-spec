@@ -9,7 +9,7 @@ version_string: v1.3
         <meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}
 
-        {% if jekyll.environment == "dev" %}
+        {%- if jekyll.environment == "dev" %}
             {% assign base_url = "http://localhost:4000" %}
         {% elsif jekyll.environment == "site-preview" %}
             {% assign url_size = site.url | size | minus: 1 %}    
@@ -23,6 +23,8 @@ version_string: v1.3
             window.PrimerSpecConfig = {
                 hideSidebarOnLoad: {{ page.hideSidebarOnLoad | default: false }},
                 disableSidebar: {{ page.disableSidebar | default: false }},
+                defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
+                defaultSubthemeMode: '{{ site.primerSpec.defaultSubthemeMode | default: "system" }}',
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>

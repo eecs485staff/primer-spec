@@ -40,13 +40,12 @@ export function updateTheme(
     mode: stored_subtheme_mode,
   } = getStoredSubtheme();
 
-  let normalized_name = name ?? stored_subtheme_name;
-  if (!Subthemes[normalized_name]) {
-    throw new Error(`Primer Spec: Theme name not found: ${normalized_name}`);
-  }
+  const normalized_name = verifySubthemeName(name ?? stored_subtheme_name);
 
-  let currently_selected_mode = mode ?? stored_subtheme_mode;
-  let normalized_mode = normalizeSubthemeMode(currently_selected_mode);
+  let currently_selected_mode = verifySubthemeMode(
+    mode ?? stored_subtheme_mode,
+  );
+  const normalized_mode = normalizeSubthemeMode(currently_selected_mode);
 
   // First store changes. Then decide if we need to take any action on the DOM.
   if (persistUpdate) {
@@ -115,9 +114,7 @@ function getStoredSubtheme() {
  */
 function getStoredSubthemeName() {
   const stored_subtheme_name = Storage.get(Config.SUBTHEME_NAME_STORAGE_KEY);
-  return stored_subtheme_name && Subthemes[stored_subtheme_name]
-    ? stored_subtheme_name
-    : Config.INIT_SUBTHEME_NAME;
+  return verifySubthemeName(stored_subtheme_name ?? Config.INIT_SUBTHEME_NAME);
 }
 
 /**
@@ -125,8 +122,29 @@ function getStoredSubthemeName() {
  * storage. If this cannot be retrieved, returns the default mode.
  */
 function getStoredSubthemeMode(): SubthemeModeSelectorType {
-  const stored_subtheme_mode = Storage.get(
-    Config.SUBTHEME_MODE_STORAGE_KEY,
-  ) as SubthemeModeSelectorType | null;
-  return stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE;
+  const stored_subtheme_mode = Storage.get(Config.SUBTHEME_MODE_STORAGE_KEY);
+  return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
+}
+
+function verifySubthemeName(name: string) {
+  if (name && Subthemes[name]) {
+    return name;
+  }
+  console.warn(
+    `Primer Spec: Invalid subtheme name: ${name}. Reverting to 'default'`,
+  );
+  return Subthemes.default.name;
+}
+
+function verifySubthemeMode(mode: string | null) {
+  switch (mode) {
+    case 'light':
+    case 'dark':
+    case 'system':
+      return mode;
+  }
+  console.warn(
+    `Primer Spec: Invalid subtheme mode: ${mode}. Reverting to 'system'`,
+  );
+  return 'system';
 }
