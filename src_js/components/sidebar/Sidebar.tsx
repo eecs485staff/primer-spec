@@ -59,7 +59,7 @@ export default function Sidebar(props: SidebarProps) {
       class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
       onClick={() => true}
     >
-      <h2 class="primer-spec-toc-ignore" id="contents">
+      <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
         Contents
         <InlineButton icon={IconType.SIDEBAR} onClick={props.onToggleSidebar} />
       </h2>
