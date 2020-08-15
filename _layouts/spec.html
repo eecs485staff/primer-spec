@@ -22,6 +22,7 @@ version_string: v1.3
         <script>
             window.PrimerSpecConfig = {
                 hideSidebarOnLoad: {{ page.hideSidebarOnLoad | default: false }},
+                disableSidebar: {{ page.disableSidebar | default: false }},
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
