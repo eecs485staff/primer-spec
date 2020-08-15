@@ -3,8 +3,12 @@ import Storage from './utils/Storage';
 const SUBTHEME_NAME_STORAGE_KEY = 'spec_subtheme_name';
 const SUBTHEME_MODE_STORAGE_KEY = 'spec_subtheme_mode';
 
-const INIT_SUBTHEME_NAME = Storage.get(SUBTHEME_NAME_STORAGE_KEY) || 'default';
+const INIT_SUBTHEME_NAME =
+  Storage.get(SUBTHEME_NAME_STORAGE_KEY) ||
+  window.PrimerSpecConfig.defaultSubthemeName ||
+  'default';
 const INIT_SUBTHEME_MODE = (Storage.get(SUBTHEME_MODE_STORAGE_KEY) ||
+  window.PrimerSpecConfig.defaultSubthemeMode ||
   'system') as SubthemeModeSelectorType;
 
 /**

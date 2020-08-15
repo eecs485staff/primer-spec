@@ -2,6 +2,8 @@
 declare var PrimerSpecConfig: {
   hideSidebarOnLoad?: boolean;
   disableSidebar?: boolean;
+  defaultSubthemeName?: string;
+  defaultSubthemeMode?: string;
 };
 
 // Other global types
