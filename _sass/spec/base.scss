@@ -322,3 +322,13 @@ body,
 #primer-spec-plugin-main-content {
   display: none;
 }
+
+// Task List styling *should* have been included in Primer CSS, but it looks
+// like they missed to include the styles! Here's a fix for Primer Spec pages,
+// we can remove this fix after Primer CSS has been updated.
+li.task-list-item {
+  list-style-type: none;
+}
+li.task-list-item .task-list-item-checkbox {
+  margin: 0 0.2em 0.25em -1.6em;
+}
