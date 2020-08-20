@@ -67,7 +67,10 @@ function generateTocNodesForContentNode(
   const headings = [
     ...contentNode.querySelectorAll('h1, h2, h3, h4, h5, h6'),
   ].filter((heading) => !heading.classList.contains('primer-spec-toc-ignore'));
-  let activeHeadingIndex = -1;
+
+  // Initialize activeHeadingIndex to the last index. If there are no active
+  // headings below the threshold, we should be highlighting this section.
+  let activeHeadingIndex = headings.length - 1;
   for (let i = 0; i < headings.length; ++i) {
     const heading = headings[i];
     if (heading.getBoundingClientRect().top - threshold > 0) {
