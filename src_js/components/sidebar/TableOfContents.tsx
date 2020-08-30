@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
@@ -96,13 +96,17 @@ function generateTocNodesForContentNode(
  */
 function generateTocNodes(headings: Element[], activeHeadingIndex: number) {
   const unflattened = unflattenHeadings(headings, activeHeadingIndex);
-  return unflattened.map((section) => generateTocNodesHelper(section));
+  return (
+    <ul class="primer-spec-toc-list">
+      {unflattened.map((section) => generateTocNodesHelper(section))}
+    </ul>
+  );
 }
 
 function generateTocNodesHelper(section: HeadingsSectionType) {
   const heading = section.heading as HTMLElement;
   return (
-    <Fragment>
+    <li>
       <div
         class={`primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()} ${
           section.active ? 'primer-spec-toc-active' : ''
@@ -110,10 +114,10 @@ function generateTocNodesHelper(section: HeadingsSectionType) {
       >
         <a href={getAnchorLink(heading)}>{heading.textContent}</a>
       </div>
-      <div class="primer-spec-toc-section">
+      <ul class="primer-spec-toc-section primer-spec-toc-list">
         {section.section.map((_section) => generateTocNodesHelper(_section))}
-      </div>
-    </Fragment>
+      </ul>
+    </li>
   );
 }
 
