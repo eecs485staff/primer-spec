@@ -54,14 +54,24 @@ export default function Sidebar(props: SidebarProps) {
 
   // The explicit onClick handler is needed to force Safari (iOS) to propagate
   // click events for the sidebar.
+  // We use an <aside> element to indicate to screen-readers that the Sidebar
+  // only contains complementary content.
+  // We also need to unset the Sidebar's `tabIndex` to make its border
+  // unfocusable.
   return (
-    <div
+    <aside
       class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
       onClick={() => true}
+      aria-label="Table of Contents"
+      tabIndex={-1}
     >
       <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
         Contents
-        <InlineButton icon={IconType.SIDEBAR} onClick={props.onToggleSidebar} />
+        <InlineButton
+          icon={IconType.SIDEBAR}
+          onClick={props.onToggleSidebar}
+          ariaLabel="Close navigation pane"
+        />
       </h2>
       <br />
       <TableOfContents
@@ -73,6 +83,6 @@ export default function Sidebar(props: SidebarProps) {
         onToggleSidebar={props.onToggleSidebar}
         onToggleSettings={props.onToggleSettings}
       />
-    </div>
+    </aside>
   );
 }

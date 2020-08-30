@@ -50,7 +50,7 @@ export default function TableOfContents(props: PropsType) {
     props.activeSectionOffsetY,
   );
 
-  return <div id="primer-spec-toc">{tocNodes}</div>;
+  return <nav id="primer-spec-toc">{tocNodes}</nav>;
 }
 
 function generateTocNodesForContentNode(

@@ -32,15 +32,15 @@ export default function Topbar(props: PropsType) {
 
   let sidebar_toggle = null;
   if (props.showSidebarToggle) {
-    sidebar_toggle =
-      props.isSmallScreen && props.sidebarShown ? null : (
-        <div class={`primer-spec-sidebar-toggle-fixed primer-spec-float-left`}>
-          <InlineButton
-            icon={IconType.SIDEBAR}
-            onClick={props.onToggleSidebar}
-          />
-        </div>
-      );
+    sidebar_toggle = props.sidebarShown ? null : (
+      <div class={`primer-spec-sidebar-toggle-fixed primer-spec-float-left`}>
+        <InlineButton
+          icon={IconType.SIDEBAR}
+          onClick={props.onToggleSidebar}
+          ariaLabel={'Open navigation pane'}
+        />
+      </div>
+    );
   }
 
   let settings_toggle = null;
@@ -50,13 +50,16 @@ export default function Topbar(props: PropsType) {
         <InlineButton
           icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
           onClick={props.onToggleSettings}
+          ariaLabel={
+            props.settingsShown ? 'Close settings pane' : 'Open settings pane'
+          }
         />
       </div>
     );
   }
 
   return (
-    <div
+    <header
       ref={topbarRef}
       class={`primer-spec-topbar position-fixed width-full top-0 left-0 py-2 no-print ${
         props.isSmallScreen ? 'primer-spec-topbar-mobile' : ''
@@ -64,6 +67,6 @@ export default function Topbar(props: PropsType) {
     >
       {sidebar_toggle}
       {settings_toggle}
-    </div>
+    </header>
   );
 }
