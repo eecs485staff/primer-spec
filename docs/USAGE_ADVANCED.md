@@ -14,12 +14,12 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Page configuration options](#page-configuration-options)
-    - [`disableSidebar`: Boolean](#disablesidebar-boolean)
-    - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
-    - [`latex`: Boolean](#latex-boolean)
+  - [`disableSidebar`: Boolean](#disablesidebar-boolean)
+  - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
+  - [`latex`: Boolean](#latex-boolean)
 - [Site configuration options](#site-configuration-options)
-    - [`defaultSubthemeName`: String](#defaultsubthemename-string)
-    - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+  - [`defaultSubthemeName`: String](#defaultsubthemename-string)
+  - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
 - [Using without Jekyll](#using-without-jekyll)
 
 ## Previewing locally
@@ -43,6 +43,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    gem 'jekyll-relative-links'
    gem 'jekyll-default-layout'
    gem 'kramdown-parser-gfm'
+   gem 'jemoji'
 
    # GitHub Pages doesn't support jekyll 4.0 yet
    gem 'jekyll', '<4.0'
@@ -208,6 +209,7 @@ plugins:
   - jekyll-readme-index
   - jekyll-relative-links
   - jekyll-default-layout
+  - jemoji
 kramdown:
   input: GFM
 readme_index:
