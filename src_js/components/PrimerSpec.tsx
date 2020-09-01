@@ -74,12 +74,6 @@ export default function PrimerSpec(props: PropsType) {
 
   return (
     <Fragment>
-      <MainContent
-        innerHTML={props.contentHTML}
-        isSmallScreen={is_small_screen}
-        sidebarShown={sidebar_shown}
-      />
-      {sidebar}
       <Topbar
         isSmallScreen={is_small_screen}
         showSidebarToggle={!Config.DISABLE_SIDEBAR}
@@ -90,6 +84,12 @@ export default function PrimerSpec(props: PropsType) {
         onToggleSidebar={toggleSidebarShown}
         onToggleSettings={toggleSettingsShown}
       />
+      <MainContent
+        innerHTML={props.contentHTML}
+        isSmallScreen={is_small_screen}
+        sidebarShown={sidebar_shown}
+      />
+      {sidebar}
       <Settings
         isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}

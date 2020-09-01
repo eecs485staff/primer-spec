@@ -4,6 +4,7 @@ import IconType from './IconType';
 export type PropsType = {
   icon: IconType;
   onClick: () => void;
+  ariaLabel?: string;
 };
 
 export default function InlineButton(props: PropsType) {
@@ -16,6 +17,7 @@ export default function InlineButton(props: PropsType) {
           event.preventDefault();
           props.onClick();
         }}
+        aria-label={props.ariaLabel}
       >
         <i class={props.icon}></i>
       </a>

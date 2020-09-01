@@ -112,6 +112,14 @@ $Z_INDEX_SIDEBAR: 4;
 
 // These are section headers in the sidebar
 .primer-spec-toc {
+  &-list {
+    list-style-type: none;
+  }
+  &-item {
+    // Prevent header items from ending too near the border of the Sidebar
+    padding-right: 1em;
+  }
+
   &-h1 {
     margin-left: auto;
     margin-top: 0.7em;
@@ -208,14 +216,10 @@ $Z_INDEX_SIDEBAR: 4;
 }
 
 // Attribute selector for all primer-spec-toc-* classes
-div[class^='primer-spec-toc-'] {
+div[class^='primer-spec-toc-'],
+.primer-spec-toc-section {
   padding-left: 0.5em;
   margin-left: 0em;
-
-  // Header items in the sidebar still need padding
-  &.primer-spec-toc-item {
-    padding-right: 1em;
-  }
 }
 
 .primer-spec-settings {

@@ -92,7 +92,7 @@ export default function Settings(props: PropsType) {
 
         <p>
           <small>
-            {'Does the spec display incorrectly?'}
+            {'Does the spec display incorrectly? '}
             <a href="https://github.com/eecs485staff/primer-spec/issues">
               {'Let us know by adding a new "issue" here.'}
             </a>
