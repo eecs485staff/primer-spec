@@ -1,16 +1,35 @@
 const local_storage_available = isStorageAvailable('localStorage');
 
 export default {
-  get: (key: string) => {
-    return local_storage_available ? window.localStorage.getItem(key) : null;
+  /**
+   * Get an item persisted in local storage by key.
+   *
+   * If `siteProperty` is set to `false`, returns a persisted value set for the
+   * current pathname (or `null` if unavailable).
+   */
+  get(key: string, siteProperty: boolean = true) {
+    return local_storage_available
+      ? window.localStorage.getItem(getMangledKey(key, siteProperty))
+      : null;
   },
 
-  set: (key: string, value: string) => {
+  /**
+   * Persist an item in local storage by key.
+   *
+   * If `siteProperty` is set to `false`, the property is stored with a
+   * reference to the path it was persisted from. Use `get()` with
+   * `siteProperty: false` to retrieve the value for the current pathname.
+   */
+  set(key: string, value: string, siteProperty: boolean = true) {
     if (local_storage_available) {
-      window.localStorage.setItem(key, value);
+      window.localStorage.setItem(getMangledKey(key, siteProperty), value);
     }
   },
 };
+
+function getMangledKey(key: string, siteProperty: boolean) {
+  return siteProperty ? key : `${document.location.pathname}__${key}`;
+}
 
 /**
  * Check if a particular type of storage is made available by the browser.
