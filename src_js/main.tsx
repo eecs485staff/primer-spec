@@ -50,11 +50,6 @@ function injectPrimerSpecStyleSheets() {
     'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr',
     'anonymous',
   );
-  injectStyleSheet(
-    `${Config.BASE_URL}/assets/${Config.VERSION_MINOR_STR}/css/primer-spec-base.css`,
-    null,
-    'anonymous',
-  );
 }
 
 function injectStyleSheet(
