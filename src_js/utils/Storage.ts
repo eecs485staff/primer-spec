@@ -25,6 +25,14 @@ export default {
       window.localStorage.setItem(getMangledKey(key, siteProperty), value);
     }
   },
+
+  getForPage(key: string) {
+    return this.get(key, false);
+  },
+
+  setForPage(key: string, value: string) {
+    return this.set(key, value, false);
+  },
 };
 
 function getMangledKey(key: string, siteProperty: boolean) {

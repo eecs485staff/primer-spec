@@ -97,20 +97,20 @@ function useTaskListCheckboxListeners(
 
 function getNumCheckboxesFromStorage() {
   const raw_count =
-    Storage.get(`${TASK_LIST_STORAGE_PREFIX}_count`, false) || '';
+    Storage.getForPage(`${TASK_LIST_STORAGE_PREFIX}_count`) || '';
   const count = parseInt(raw_count, 10);
   return count || 0;
 }
 
 function storeNumCheckboxes(num_checkboxes: number) {
-  Storage.set(`${TASK_LIST_STORAGE_PREFIX}_count`, `${num_checkboxes}`, false);
+  Storage.setForPage(`${TASK_LIST_STORAGE_PREFIX}_count`, `${num_checkboxes}`);
 }
 
 function getCheckboxState(index: number) {
-  const raw_state = Storage.get(`${TASK_LIST_STORAGE_PREFIX}_${index}`, false);
+  const raw_state = Storage.getForPage(`${TASK_LIST_STORAGE_PREFIX}_${index}`);
   return raw_state === 'true';
 }
 
 function setCheckboxState(index: number, state: boolean) {
-  Storage.set(`${TASK_LIST_STORAGE_PREFIX}_${index}`, `${state}`, false);
+  Storage.setForPage(`${TASK_LIST_STORAGE_PREFIX}_${index}`, `${state}`);
 }
