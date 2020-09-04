@@ -2,41 +2,48 @@ const local_storage_available = isStorageAvailable('localStorage');
 
 export default {
   /**
-   * Get an item persisted in local storage by key.
+   * Get an item persisted in local storage by key. These values are typically
+   * persisted across all pages in the same "website".
    *
-   * If `siteProperty` is set to `false`, returns a persisted value set for the
-   * current pathname (or `null` if unavailable).
+   * Use in conjunction with `Storage.set()`.
    */
-  get(key: string, siteProperty: boolean = true) {
-    return local_storage_available
-      ? window.localStorage.getItem(getMangledKey(key, siteProperty))
-      : null;
+  get(key: string) {
+    return local_storage_available ? window.localStorage.getItem(key) : null;
   },
 
   /**
-   * Persist an item in local storage by key.
+   * Persist an item in local storage by key. The item is persisted across all
+   * pages in the same "website".
    *
-   * If `siteProperty` is set to `false`, the property is stored with a
-   * reference to the path it was persisted from. Use `get()` with
-   * `siteProperty: false` to retrieve the value for the current pathname.
+   * Use in conjunction with `Storage.get()`.
    */
-  set(key: string, value: string, siteProperty: boolean = true) {
+  set(key: string, value: string) {
     if (local_storage_available) {
-      window.localStorage.setItem(getMangledKey(key, siteProperty), value);
+      window.localStorage.setItem(key, value);
     }
   },
 
+  /**
+   * Get an item persisted in local storage using `Storage.setForPage()`.
+   */
   getForPage(key: string) {
-    return this.get(key, false);
+    return this.get(mangleKeyWithPagePath(key));
   },
 
+  /**
+   * Persist an item in local storage, and mark it as being attached to the
+   * current page (as opposed to being available to all pages across the same
+   * "website").
+   *
+   * Retrieve items set using this method using `Storage.getForPage()`.
+   */
   setForPage(key: string, value: string) {
-    return this.set(key, value, false);
+    return this.set(mangleKeyWithPagePath(key), value);
   },
 };
 
-function getMangledKey(key: string, siteProperty: boolean) {
-  return siteProperty ? key : `${document.location.pathname}__${key}`;
+function mangleKeyWithPagePath(key: string) {
+  return `${document.location.pathname}__${key}`;
 }
 
 /**
