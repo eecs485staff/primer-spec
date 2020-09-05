@@ -1,16 +1,50 @@
 const local_storage_available = isStorageAvailable('localStorage');
 
 export default {
-  get: (key: string) => {
+  /**
+   * Get an item persisted in local storage by key. These values are typically
+   * persisted across all pages in the same "website".
+   *
+   * Use in conjunction with `Storage.set()`.
+   */
+  get(key: string) {
     return local_storage_available ? window.localStorage.getItem(key) : null;
   },
 
-  set: (key: string, value: string) => {
+  /**
+   * Persist an item in local storage by key. The item is persisted across all
+   * pages in the same "website".
+   *
+   * Use in conjunction with `Storage.get()`.
+   */
+  set(key: string, value: string) {
     if (local_storage_available) {
       window.localStorage.setItem(key, value);
     }
   },
+
+  /**
+   * Get an item persisted in local storage using `Storage.setForPage()`.
+   */
+  getForPage(key: string) {
+    return this.get(mangleKeyWithPagePath(key));
+  },
+
+  /**
+   * Persist an item in local storage, and mark it as being attached to the
+   * current page (as opposed to being available to all pages across the same
+   * "website").
+   *
+   * Retrieve items set using this method using `Storage.getForPage()`.
+   */
+  setForPage(key: string, value: string) {
+    return this.set(mangleKeyWithPagePath(key), value);
+  },
 };
+
+function mangleKeyWithPagePath(key: string) {
+  return `${document.location.pathname}__${key}`;
+}
 
 /**
  * Check if a particular type of storage is made available by the browser.
