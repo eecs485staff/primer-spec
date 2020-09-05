@@ -1,9 +1,9 @@
-import { RougeTheme, RougeVarsType, RougeStyle } from '../Subtheme';
+import { RougeTheme, RougeVarsType } from '../Subtheme';
 import { ROUGE_CLASS_NAMES, ROUGE_STYLE_PROPS } from '../Subtheme';
 
 interface RougeVarsTypeInternal {
   [class_name: string]: {
-    [style_prop: string]: string;
+    [style_prop: string]: string | undefined;
   };
 }
 
@@ -11,9 +11,11 @@ function apply(theme_vars: RougeVarsTypeInternal) {
   const documentEl = document.documentElement;
   ROUGE_CLASS_NAMES.map((class_name) => {
     if (theme_vars[class_name]) {
-      for (let [style_prop, value] of Object.entries(theme_vars[class_name])) {
+      for (const [style_prop, value] of Object.entries(
+        theme_vars[class_name],
+      )) {
         const var_name = `--primer-spec-rouge-${class_name}-${style_prop}`;
-        documentEl.style.setProperty(var_name, value);
+        documentEl.style.setProperty(var_name, value ?? null);
       }
     }
   });
@@ -40,8 +42,9 @@ export default function createRougeTheme(
 ): RougeTheme {
   return {
     name: name,
-    // @ts-ignore
-    apply: () => apply(theme_vars as RougeVarsTypeInternal),
+    // TODO: Figure out why TypeScript is not able to unify RougeVarsType and
+    //       RougeVarsTypeInternal.
+    apply: () => apply((theme_vars as unknown) as RougeVarsTypeInternal),
     reset: reset,
   };
 }

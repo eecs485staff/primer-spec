@@ -4,7 +4,7 @@ import { useEffect, useState } from 'preact/hooks';
  * Returns a stateful boolean representing if a print-event is in progress
  * (between beforeprint and afterprint).
  */
-export function usePrintInProgress() {
+export function usePrintInProgress(): boolean {
   const [isPrintInProgress, setIsPrintInProgress] = useState(false);
   useBeforePrint(() => setIsPrintInProgress(true), []);
   useAfterPrint(() => setIsPrintInProgress(false), []);
@@ -18,7 +18,7 @@ export function usePrintInProgress() {
  * @param deps A list of dependencies; the event listeners are re-registered if
  *             any of these change (compared using ===)
  */
-export function useBeforePrint(handler: () => void, deps?: any[]) {
+export function useBeforePrint(handler: () => void, deps?: unknown[]): void {
   useEffect(() => {
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;
@@ -51,7 +51,7 @@ export function useBeforePrint(handler: () => void, deps?: any[]) {
  * @param deps A list of dependencies; the event listeners are re-registered if
  *             any of these change (compared using ===)
  */
-export function useAfterPrint(handler: () => void, deps?: any[]) {
+export function useAfterPrint(handler: () => void, deps?: unknown[]): void {
   useEffect(() => {
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;

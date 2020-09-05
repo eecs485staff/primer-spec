@@ -12,7 +12,7 @@ function apply(
   const theme_vars = theme_definition[mode];
 
   const bodyEl = document.body;
-  for (let [theme_var, value] of Object.entries(theme_vars)) {
+  for (const [theme_var, value] of Object.entries(theme_vars)) {
     bodyEl.style.setProperty(theme_var, value);
   }
 

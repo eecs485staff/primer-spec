@@ -7,7 +7,7 @@ export default {
    *
    * Use in conjunction with `Storage.set()`.
    */
-  get(key: string) {
+  get(key: string): string | null {
     return local_storage_available ? window.localStorage.getItem(key) : null;
   },
 
@@ -17,7 +17,7 @@ export default {
    *
    * Use in conjunction with `Storage.get()`.
    */
-  set(key: string, value: string) {
+  set(key: string, value: string): void {
     if (local_storage_available) {
       window.localStorage.setItem(key, value);
     }
@@ -26,7 +26,7 @@ export default {
   /**
    * Get an item persisted in local storage using `Storage.setForPage()`.
    */
-  getForPage(key: string) {
+  getForPage(key: string): string | null {
     return this.get(mangleKeyWithPagePath(key));
   },
 
@@ -37,7 +37,7 @@ export default {
    *
    * Retrieve items set using this method using `Storage.getForPage()`.
    */
-  setForPage(key: string, value: string) {
+  setForPage(key: string, value: string): void {
     return this.set(mangleKeyWithPagePath(key), value);
   },
 };
@@ -51,8 +51,10 @@ function mangleKeyWithPagePath(key: string) {
  * @param type storage type (for instance, 'localStorage')
  */
 function isStorageAvailable(type: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let storage: any;
   try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     storage = window[type];
     const x = '__storage_test__';
