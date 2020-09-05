@@ -9,6 +9,7 @@ import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
 import { useBeforePrint, useAfterPrint } from '../utils/hooks';
+import Storage from '../utils/Storage';
 
 type PropsType = { contentHTML: string };
 
@@ -30,7 +31,10 @@ export default function PrimerSpec(props: PropsType) {
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
 
   // Define derived methods to manipulate state
-  const toggleSidebarShown = () => setSidebarShown(!sidebar_shown);
+  const toggleSidebarShown = () => {
+    Storage.setForPage('sidebar_hidden', sidebar_shown.toString());
+    setSidebarShown(!sidebar_shown);
+  };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
   const setSubtheme = ({ name, mode }: SubthemeType) => {
     setSubthemeName(name);
