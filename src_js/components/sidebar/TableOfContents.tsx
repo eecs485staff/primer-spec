@@ -40,6 +40,13 @@ export default function TableOfContents(props: PropsType) {
     };
 
     window.addEventListener('hashchange', hash_listener, false);
+
+    // Also account for user clicking the same sidebar item that is already selected [Fixes issue #66].
+    var sidebarTocListElements : any = document.body.querySelector('aside nav ul.primer-spec-toc-list');
+    if (sidebarTocListElements) {
+      sidebarTocListElements.addEventListener('click', hash_listener, false);
+    }
+
     return () => {
       window.removeEventListener('hashchange', hash_listener);
     };
