@@ -38,13 +38,15 @@ export default {
 };
 
 function getHideSidebarOnLoad() {
-  const sidebar_hidden_stored_value: string | null = Storage.getForPage('sidebar_hidden');
+  const sidebar_hidden_stored_value: string | null = Storage.getForPage(
+    'sidebar_hidden',
+  );
   var hideSidebar: boolean = false;
   if (sidebar_hidden_stored_value !== null) {
     hideSidebar = sidebar_hidden_stored_value === 'true';
-  }
-  else {
-    hideSidebar = window.PrimerSpecConfig.hideSidebarOnLoad ||
+  } else {
+    hideSidebar =
+      window.PrimerSpecConfig.hideSidebarOnLoad ||
       window.PrimerSpecConfig.disableSidebar ||
       false;
     Storage.setForPage('sidebar_hidden', hideSidebar.toString());
