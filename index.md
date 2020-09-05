@@ -25,8 +25,8 @@ This makes sense! Let's solve the problem of long specs by adding a sidebar. We'
 
 ## Learning Goals
 This project is meant to be open-ended — it's not autograded! At the end of this project, you should feel comfortable doing the following:
-- Use HTML and CSS to modify the design of a web page
-- Use JQuery and JavaScript to dynamically add content to the page
+- [ ] Use HTML and CSS to modify the design of a web page
+- [ ] Use JQuery and JavaScript to dynamically add content to the page
 
 If you wish, you can implement the other features of the official Primer Spec, as described in the optional [Other Features](#optional-other-features) section.
 
