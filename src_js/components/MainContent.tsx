@@ -16,7 +16,7 @@ export default function MainContent(props: PropsType) {
   const is_print_in_progress = usePrintInProgress();
   const main_el_ref = useRef<HTMLElement>(null);
 
-  useTaskListCheckboxListeners(main_el_ref, [props.innerHTML]);
+  useTaskListCheckboxes(main_el_ref, [props.innerHTML]);
 
   return (
     <main
@@ -33,12 +33,12 @@ export default function MainContent(props: PropsType) {
 }
 
 /**
- * A custom hook that uses `useEffect()` to persist checkbox state for
- * task-list checkboxes.
+ * A custom hook that uses `useEffect()` to enable task-list checkboxes and
+ * persist the checkbox state.
  * @param mainElRef A ref to the `<main>` element from MainContent
  * @param deps Dependencies for useEffect
  */
-function useTaskListCheckboxListeners(
+function useTaskListCheckboxes(
   mainElRef: RefObject<HTMLElement>,
   deps: Array<any>,
 ) {
@@ -49,10 +49,27 @@ function useTaskListCheckboxListeners(
       );
     }
 
+    // The structure of a task-list is:
+    // <ul class="task-list">
+    //   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled>Item 1</li>
+    //   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled>Item 2</li>
+    // </ul>
+
+    // Wrap the entire contents of each <li> in a <label> for better a11y
+    const task_list_items = mainElRef.current.querySelectorAll(
+      '.task-list-item',
+    );
+    task_list_items.forEach((task_list_item) => {
+      const label = document.createElement('label');
+      label.innerHTML = task_list_item.innerHTML;
+      task_list_item.innerHTML = '';
+      task_list_item.appendChild(label);
+    });
+
     // Find all GFM task-list checkboxes
     const task_checkboxes = [
       ...mainElRef.current.querySelectorAll(
-        '.task-list-item > input.task-list-item-checkbox[type="checkbox"]',
+        '.task-list-item input.task-list-item-checkbox[type="checkbox"]',
       ),
     ] as Array<HTMLInputElement>;
 
