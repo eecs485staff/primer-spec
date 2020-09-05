@@ -21,7 +21,7 @@ export default function PrimerSpec(props: PropsType) {
   // Initialize all shared state
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
   
-  var sidebarShownStoredValue : string = Storage.get('sidebar_shown_' + window.location) || "";
+  var sidebarShownStoredValue : string = Storage.getForPage('sidebar_shown') || "";
   var showSidebar : boolean = true;
   if (sidebarShownStoredValue.length > 0) {
     try {
@@ -43,7 +43,7 @@ export default function PrimerSpec(props: PropsType) {
 
   // Define derived methods to manipulate state
   const toggleSidebarShown = () => {
-    Storage.set('sidebar_shown_' + window.location, (!sidebar_shown).toString());
+    Storage.setForPage('sidebar_shown', (!sidebar_shown).toString());
     setSidebarShown(!sidebar_shown);
   };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
