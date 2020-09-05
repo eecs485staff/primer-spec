@@ -9,6 +9,7 @@ import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
 import { updateTheme } from '../subthemes';
 import { useBeforePrint, useAfterPrint } from '../utils/hooks';
+import Storage from '../utils/Storage';
 
 type PropsType = { contentHTML: string };
 
@@ -19,9 +20,20 @@ type PropsType = { contentHTML: string };
 export default function PrimerSpec(props: PropsType) {
   // Initialize all shared state
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
-  const [sidebar_shown, setSidebarShown] = useState(
-    !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
-  );
+  
+  var sidebarShownStoredValue : string = Storage.get('sidebar_shown_' + window.location) || "";
+  var showSidebar : boolean = true;
+  if (sidebarShownStoredValue.length > 0) {
+    try {
+      showSidebar = JSON.parse(sidebarShownStoredValue);
+    }
+    catch (e) {}
+  }
+  else {
+    showSidebar = !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen;
+  }
+
+  const [sidebar_shown, setSidebarShown] = useState(showSidebar);
   const [settings_shown, setSettingsShown] = useState(false);
   const [active_section_offset_y, setActiveSectionOffsetY] = useState(
     Config.DEFAULT_ACTIVE_SECTION_OFFSET_Y,
@@ -30,7 +42,10 @@ export default function PrimerSpec(props: PropsType) {
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
 
   // Define derived methods to manipulate state
-  const toggleSidebarShown = () => setSidebarShown(!sidebar_shown);
+  const toggleSidebarShown = () => {
+    Storage.set('sidebar_shown_' + window.location, (!sidebar_shown).toString());
+    setSidebarShown(!sidebar_shown);
+  };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
   const setSubtheme = ({ name, mode }: SubthemeType) => {
     setSubthemeName(name);
