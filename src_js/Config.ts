@@ -11,6 +11,8 @@ const INIT_SUBTHEME_MODE = (Storage.get(SUBTHEME_MODE_STORAGE_KEY) ||
   window.PrimerSpecConfig.defaultSubthemeMode ||
   'system') as SubthemeModeSelectorType;
 
+const HIDE_SIDEBAR_ON_LOAD = getHideSidebarOnLoad();
+
 /**
  * Exposes config variables defined in the webpack config (as a plugin)
  * or in window.PrimerSpecConfig. Also exposes constants used throughout the
@@ -23,10 +25,7 @@ export default {
   VERSION_MINOR_STR: process.env.VERSION_MINOR_STR,
 
   // From window.PrimerSpecConfig
-  HIDE_SIDEBAR_ON_LOAD:
-    window.PrimerSpecConfig.hideSidebarOnLoad ||
-    window.PrimerSpecConfig.disableSidebar ||
-    false,
+  HIDE_SIDEBAR_ON_LOAD: HIDE_SIDEBAR_ON_LOAD,
   DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
@@ -39,3 +38,22 @@ export default {
   SUBTHEME_MODE_STORAGE_KEY,
   DEFAULT_ACTIVE_SECTION_OFFSET_Y: 10,
 };
+
+function getHideSidebarOnLoad() {
+  var sidebarHiddenStoredValue : string = Storage.getForPage('sidebar_hidden') || "";
+  var hideSidebar : boolean = false;
+  if (sidebarHiddenStoredValue.length > 0) {
+    try {
+      hideSidebar = JSON.parse(sidebarHiddenStoredValue);
+    }
+    catch (e) {}
+  }
+  else {
+    hideSidebar = window.PrimerSpecConfig.hideSidebarOnLoad ||
+      window.PrimerSpecConfig.disableSidebar ||
+      false;
+    Storage.setForPage('sidebar_hidden', hideSidebar.toString());
+  }
+
+  return hideSidebar;
+}

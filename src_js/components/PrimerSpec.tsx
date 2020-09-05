@@ -20,20 +20,9 @@ type PropsType = { contentHTML: string };
 export default function PrimerSpec(props: PropsType) {
   // Initialize all shared state
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
-  
-  var sidebarShownStoredValue : string = Storage.getForPage('sidebar_shown') || "";
-  var showSidebar : boolean = true;
-  if (sidebarShownStoredValue.length > 0) {
-    try {
-      showSidebar = JSON.parse(sidebarShownStoredValue);
-    }
-    catch (e) {}
-  }
-  else {
-    showSidebar = !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen;
-  }
-
-  const [sidebar_shown, setSidebarShown] = useState(showSidebar);
+  const [sidebar_shown, setSidebarShown] = useState(
+    !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
+  );
   const [settings_shown, setSettingsShown] = useState(false);
   const [active_section_offset_y, setActiveSectionOffsetY] = useState(
     Config.DEFAULT_ACTIVE_SECTION_OFFSET_Y,
@@ -43,7 +32,7 @@ export default function PrimerSpec(props: PropsType) {
 
   // Define derived methods to manipulate state
   const toggleSidebarShown = () => {
-    Storage.setForPage('sidebar_shown', (!sidebar_shown).toString());
+    Storage.setForPage('sidebar_hidden', sidebar_shown.toString());
     setSidebarShown(!sidebar_shown);
   };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
