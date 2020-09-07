@@ -88,6 +88,7 @@ export default function unflattenHeadings(
     } else {
       // The current heading should NOT be part of the previous heading's
       // section.
+      // eslint-disable-next-line no-lonely-if
       if (stackOfSections.length) {
         // But maybe the current heading needs to be included in the section of
         // the heading before the previous? We need to compare with every

@@ -87,10 +87,9 @@ function normalizeSubthemeMode(
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // It's a dark theme
     return 'dark';
-  } else {
-    // It's not a dark theme
-    return 'light';
   }
+  // Otherwise, it's not a dark theme
+  return 'light';
 }
 
 /**

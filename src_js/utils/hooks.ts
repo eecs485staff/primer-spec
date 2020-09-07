@@ -6,8 +6,14 @@ import { useEffect, useState } from 'preact/hooks';
  */
 export function usePrintInProgress(): boolean {
   const [isPrintInProgress, setIsPrintInProgress] = useState(false);
-  useBeforePrint(() => setIsPrintInProgress(true), []);
-  useAfterPrint(() => setIsPrintInProgress(false), []);
+  useEffect(
+    useBeforePrint(() => setIsPrintInProgress(true)),
+    [],
+  );
+  useEffect(
+    useAfterPrint(() => setIsPrintInProgress(false)),
+    [],
+  );
   return isPrintInProgress;
 }
 
@@ -15,11 +21,9 @@ export function usePrintInProgress(): boolean {
  * Accepts a function that could contain imperative and possibly effectful
  * code that will be invoked when window.onbeforeprint fires.
  * @param handler Imperative function to be invoked onbeforeprint
- * @param deps A list of dependencies; the event listeners are re-registered if
- *             any of these change (compared using ===)
  */
-export function useBeforePrint(handler: () => void, deps?: unknown[]): void {
-  useEffect(() => {
+export function useBeforePrint(handler: () => void): () => void {
+  return () => {
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;
     if (window.matchMedia) {
@@ -41,18 +45,16 @@ export function useBeforePrint(handler: () => void, deps?: unknown[]): void {
       }
       window.removeEventListener('beforeprint', handler);
     };
-  }, deps);
+  };
 }
 
 /**
  * Accepts a function that could contain imperative and possibly effectful
  * code that will be invoked when window.onafterprint fires.
  * @param handler Imperative function to execute onafterprint
- * @param deps A list of dependencies; the event listeners are re-registered if
- *             any of these change (compared using ===)
  */
-export function useAfterPrint(handler: () => void, deps?: unknown[]): void {
-  useEffect(() => {
+export function useAfterPrint(handler: () => void): () => void {
+  return () => {
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;
     if (window.matchMedia) {
@@ -74,5 +76,5 @@ export function useAfterPrint(handler: () => void, deps?: unknown[]): void {
       }
       window.removeEventListener('afterprint', handler);
     };
-  }, deps);
+  };
 }

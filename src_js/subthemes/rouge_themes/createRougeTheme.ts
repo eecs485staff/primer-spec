@@ -1,5 +1,9 @@
-import { RougeTheme, RougeVarsType } from '../Subtheme';
-import { ROUGE_CLASS_NAMES, ROUGE_STYLE_PROPS } from '../Subtheme';
+import {
+  RougeTheme,
+  RougeVarsType,
+  ROUGE_CLASS_NAMES,
+  ROUGE_STYLE_PROPS,
+} from '../Subtheme';
 
 interface RougeVarsTypeInternal {
   [class_name: string]: {
@@ -41,10 +45,10 @@ export default function createRougeTheme(
   theme_vars: RougeVarsType,
 ): RougeTheme {
   return {
-    name: name,
+    name,
     // TODO: Figure out why TypeScript is not able to unify RougeVarsType and
     //       RougeVarsTypeInternal.
     apply: () => apply((theme_vars as unknown) as RougeVarsTypeInternal),
-    reset: reset,
+    reset,
   };
 }

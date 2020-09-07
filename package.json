@@ -9,14 +9,15 @@
   "scripts": {
     "build": "script/build",
     "format": "script/prettier",
-    "lint": "eslint ./src_js --ext .ts",
-    "lint:fix": "eslint ./src_js --ext .ts --fix",
+    "lint": "eslint ./src_js --max-warnings=0",
+    "lint:fix": "eslint ./src_js --max-warnings=0 --fix",
     "test": "script/cibuild",
     "test:js": "npx jest",
     "watch": "script/server"
   },
   "author": "Sesh Sadasivam, EECS 485 Staff, Ben Balter",
   "license": "MIT",
+  "sideEffects": false,
   "dependencies": {
     "anchor-js": "^4.2.2",
     "preact": "^10.4.6"
@@ -31,6 +32,7 @@
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.0.6",
     "eslint": "^7.8.1",
+    "eslint-config-preact": "^1.1.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "execa": "^4.0.0",

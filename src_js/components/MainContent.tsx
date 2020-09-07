@@ -12,11 +12,11 @@ type PropsType = {
 
 const TASK_LIST_STORAGE_PREFIX = 'primer_spec_task_list';
 
-export default function MainContent(props: PropsType) {
+export default function MainContent(props: PropsType): h.JSX.Element {
   const is_print_in_progress = usePrintInProgress();
   const main_el_ref = useRef<HTMLElement>(null);
 
-  useTaskListCheckboxes(main_el_ref, [props.innerHTML]);
+  useEffect(useTaskListCheckboxes(main_el_ref), [props.innerHTML]);
 
   return (
     <main
@@ -27,8 +27,9 @@ export default function MainContent(props: PropsType) {
           ? 'primer-spec-content-margin-extra'
           : ''
       } ${props.isSmallScreen ? 'primer-spec-content-mobile' : ''}`}
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: props.innerHTML }}
-    ></main>
+    />
   );
 }
 
@@ -38,11 +39,8 @@ export default function MainContent(props: PropsType) {
  * @param mainElRef A ref to the `<main>` element from MainContent
  * @param deps Dependencies for useEffect
  */
-function useTaskListCheckboxes(
-  mainElRef: RefObject<HTMLElement>,
-  deps: Array<any>,
-) {
-  useEffect(() => {
+function useTaskListCheckboxes(mainElRef: RefObject<HTMLElement>) {
+  return () => {
     if (!mainElRef.current) {
       throw new Error(
         'Primer Spec: Main Content: Expected main content ref to be initialized.',
@@ -109,7 +107,7 @@ function useTaskListCheckboxes(
         checkbox.removeEventListener('change', listeners[i]);
       });
     };
-  }, deps);
+  };
 }
 
 function getNumCheckboxesFromStorage() {
