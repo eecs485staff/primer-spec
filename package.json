@@ -17,7 +17,6 @@
   },
   "author": "Sesh Sadasivam, EECS 485 Staff, Ben Balter",
   "license": "MIT",
-  "sideEffects": false,
   "dependencies": {
     "anchor-js": "^4.2.2",
     "preact": "^10.4.6"
