@@ -1,16 +1,21 @@
 {
   "name": "jekyll-theme-primer-spec",
-  "version": "0.1.0",
+  "version": "1.4.0",
   "description": "A Jekyll theme for sites with content-heavy pages, based on GitHub's Primer theme",
   "repository": {
     "url": "https://github.com/eecs485staff/primer-spec"
   },
   "main": "index.html",
   "scripts": {
+    "build": "script/build",
+    "format": "script/prettier",
+    "lint": "eslint ./src_js --max-warnings=0",
+    "lint:fix": "eslint ./src_js --max-warnings=0 --fix",
     "test": "script/cibuild",
-    "test:js": "npx jest"
+    "test:js": "npx jest",
+    "watch": "script/server"
   },
-  "author": "Ben Balter",
+  "author": "Sesh Sadasivam, EECS 485 Staff, Ben Balter",
   "license": "MIT",
   "dependencies": {
     "anchor-js": "^4.2.2",
@@ -21,8 +26,14 @@
     "@types/debounce": "^1.2.0",
     "@types/jest": "^26.0.7",
     "@types/node": "^12.7.5",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.0.6",
+    "eslint": "^7.8.1",
+    "eslint-config-preact": "^1.1.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "execa": "^4.0.0",
     "fs-extra": "^9.0.0",
     "jest": "^26.1.0",

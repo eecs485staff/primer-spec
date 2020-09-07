@@ -4,22 +4,35 @@ import { useEffect, useState } from 'preact/hooks';
  * Returns a stateful boolean representing if a print-event is in progress
  * (between beforeprint and afterprint).
  */
-export function usePrintInProgress() {
+export function usePrintInProgress(): boolean {
   const [isPrintInProgress, setIsPrintInProgress] = useState(false);
-  useBeforePrint(() => setIsPrintInProgress(true), []);
-  useAfterPrint(() => setIsPrintInProgress(false), []);
+  useEffect(
+    useBeforePrint(() => setIsPrintInProgress(true)),
+    [],
+  );
+  useEffect(
+    useAfterPrint(() => setIsPrintInProgress(false)),
+    [],
+  );
   return isPrintInProgress;
 }
 
 /**
- * Accepts a function that could contain imperative and possibly effectful
- * code that will be invoked when window.onbeforeprint fires.
+ * Register a function (that could contain imperative and possibly effectful
+ * code) that will be invoked when window.onbeforeprint fires.
+ *
+ * The return-value is an augmented handler that must be used with
+ * `useEffect()`. For instance:
+ * ```
+ * useEffect(
+ *   useBeforePrint(handler),
+ *   [dep1, dep2],
+ * );
+ * ```
  * @param handler Imperative function to be invoked onbeforeprint
- * @param deps A list of dependencies; the event listeners are re-registered if
- *             any of these change (compared using ===)
  */
-export function useBeforePrint(handler: () => void, deps?: any[]) {
-  useEffect(() => {
+export function useBeforePrint(handler: () => void): () => void {
+  return () => {
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;
     if (window.matchMedia) {
@@ -41,18 +54,24 @@ export function useBeforePrint(handler: () => void, deps?: any[]) {
       }
       window.removeEventListener('beforeprint', handler);
     };
-  }, deps);
+  };
 }
 
 /**
- * Accepts a function that could contain imperative and possibly effectful
- * code that will be invoked when window.onafterprint fires.
+ * Register a function (that could contain imperative and possibly effectful
+ * code) that will be invoked when window.onafterprint fires.
+ *
+ * The return-value is an augmented handler that must be used with
+ * `useEffect()`. For instance:
+ * ```
+ * useEffect(
+ *   useAfterPrint(handler),
+ *   [dep1, dep2],
+ * );
  * @param handler Imperative function to execute onafterprint
- * @param deps A list of dependencies; the event listeners are re-registered if
- *             any of these change (compared using ===)
  */
-export function useAfterPrint(handler: () => void, deps?: any[]) {
-  useEffect(() => {
+export function useAfterPrint(handler: () => void): () => void {
+  return () => {
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;
     if (window.matchMedia) {
@@ -74,5 +93,5 @@ export function useAfterPrint(handler: () => void, deps?: any[]) {
       }
       window.removeEventListener('afterprint', handler);
     };
-  }, deps);
+  };
 }

@@ -12,7 +12,7 @@ export type PropsType = {
   onToggleSettings: () => void;
 };
 
-export default function TableOfContents(props: PropsType) {
+export default function TableOfContents(props: PropsType): h.JSX.Element {
   // We don't actually care about the window.scrollY state, we can get that
   // from the window object on demand. We use a state-setter so that we can
   // re-render the component.

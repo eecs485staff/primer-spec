@@ -7,7 +7,7 @@ export type PropsType = {
   ariaLabel?: string;
 };
 
-export default function InlineButton(props: PropsType) {
+export default function InlineButton(props: PropsType): h.JSX.Element {
   return (
     <span class="primer-spec-hoverable">
       <a
@@ -19,7 +19,7 @@ export default function InlineButton(props: PropsType) {
         }}
         aria-label={props.ariaLabel}
       >
-        <i class={props.icon}></i>
+        <i class={props.icon} />
       </a>
     </span>
   );

@@ -5,14 +5,14 @@ import { RougeVarsType } from '../Subtheme';
 // Readability changes are based on the original Roguify source:
 // https://github.com/rouge-ruby/rouge/blob/184848ae363c41b7f8372791d6f4701bf601c722/lib/rouge/themes/monokai_sublime.rb
 
-const black = '#000000';
+// const black = '#000000';
 const bright_green = '#a6e22e';
 const bright_pink = '#f92672';
 const carmine = '#960050';
 const dark = '#49483e';
-const dark_graphite = '#272822';
+// const dark_graphite = '#272822';
 const dark_grey = '#888888';
-const dark_red = '#aa0000';
+// const dark_red = '#aa0000';
 const dimgrey = '#75715e';
 const emperor = '#555555';
 const grey = '#999999';
@@ -20,8 +20,8 @@ const light_grey = '#aaaaaa';
 const light_violet = '#ae81ff';
 const soft_cyan = '#66d9ef';
 const soft_yellow = '#e6db74';
-const very_dark = '#1e0010';
-const whitish = '#f8f8f2';
+// const very_dark = '#1e0010';
+// const whitish = '#f8f8f2';
 const orange = '#f6aa11';
 const white = '#ffffff';
 

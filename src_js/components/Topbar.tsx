@@ -14,21 +14,22 @@ type PropsType = {
   onToggleSettings: () => void;
 };
 
-export default function Topbar(props: PropsType) {
+export default function Topbar(props: PropsType): h.JSX.Element {
   const topbarRef = useRef<HTMLDivElement>(null);
+  const { isSmallScreen, onActiveSectionOffsetChange } = props;
   useLayoutEffect(() => {
-    if (!props.isSmallScreen) {
+    if (!isSmallScreen) {
       // On wide screens, the Topbar is transparent, so its effective height is
       // 0.
-      props.onActiveSectionOffsetChange(20);
+      onActiveSectionOffsetChange(20);
     } else if (topbarRef.current) {
       // On small screens, the Topbar is opaque, so we should find its true
       // height.
-      props.onActiveSectionOffsetChange(
+      onActiveSectionOffsetChange(
         topbarRef.current.getBoundingClientRect().height,
       );
     }
-  }, [props.isSmallScreen]);
+  }, [isSmallScreen, onActiveSectionOffsetChange]);
 
   let sidebar_toggle = null;
   if (props.showSidebarToggle) {

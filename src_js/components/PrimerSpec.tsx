@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useState, useLayoutEffect } from 'preact/hooks';
+import { useState, useEffect, useLayoutEffect } from 'preact/hooks';
 import Config from '../Config';
 import MainContent from './MainContent';
 import Settings from './Settings';
@@ -17,7 +17,7 @@ type PropsType = { contentHTML: string };
  * This component encapsulates the JS controlling Primer Spec, including the
  * Sidebar, the Topbar and the Settings pane.
  */
-export default function PrimerSpec(props: PropsType) {
+export default function PrimerSpec(props: PropsType): h.JSX.Element {
   // Initialize all shared state
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
   const [sidebar_shown, setSidebarShown] = useState(
@@ -57,12 +57,18 @@ export default function PrimerSpec(props: PropsType) {
   }, [is_small_screen]);
 
   // Listen for print events
-  useBeforePrint(() => {
-    toggleItalicsInChrome(false);
-  }, []);
-  useAfterPrint(() => {
-    toggleItalicsInChrome(true);
-  }, []);
+  useEffect(
+    useBeforePrint(() => {
+      toggleItalicsInChrome(false);
+    }),
+    [],
+  );
+  useEffect(
+    useAfterPrint(() => {
+      toggleItalicsInChrome(true);
+    }),
+    [],
+  );
 
   const sidebar = Config.DISABLE_SIDEBAR ? null : (
     <Sidebar

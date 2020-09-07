@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { useEffect } from 'preact/hooks';
 import Config from '../Config';
 import { Subthemes, updateTheme } from '../subthemes';
 import {
@@ -19,21 +20,24 @@ type PropsType = {
 
 const NOOP_HANDLER = () => {};
 
-export default function Settings(props: PropsType) {
+export default function Settings(props: PropsType): h.JSX.Element | null {
   const is_print_in_progress = usePrintInProgress();
 
   // If a print is in progress, temporarily reset the theme to default light.
-  useBeforePrint(
-    () => updateTheme({ name: 'default', mode: 'light' }, NOOP_HANDLER, false),
+  useEffect(
+    useBeforePrint(() =>
+      updateTheme({ name: 'default', mode: 'light' }, NOOP_HANDLER, false),
+    ),
     [],
   );
-  useAfterPrint(
-    () =>
+  useEffect(
+    useAfterPrint(() =>
       updateTheme(
         { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
         NOOP_HANDLER,
         false,
       ),
+    ),
     [props.currentSubthemeName, props.currentSubthemeMode],
   );
 
@@ -103,6 +107,7 @@ export default function Settings(props: PropsType) {
           <a
             href="https://github.com/eecs485staff/primer-spec/"
             target="_blank"
+            rel="noreferrer"
           >
             {`Primer Spec v${Config.VERSION_RAW}`}
           </a>

@@ -33,8 +33,8 @@ window
 export function updateTheme(
   { name, mode }: Partial<SubthemeType> = {},
   onUpdate: (subtheme: SubthemeType) => void = NOOP_HANDLER,
-  persistUpdate: boolean = true,
-) {
+  persistUpdate = true,
+): void {
   const {
     name: stored_subtheme_name,
     mode: stored_subtheme_mode,
@@ -42,7 +42,7 @@ export function updateTheme(
 
   const normalized_name = verifySubthemeName(name ?? stored_subtheme_name);
 
-  let currently_selected_mode = verifySubthemeMode(
+  const currently_selected_mode = verifySubthemeMode(
     mode ?? stored_subtheme_mode,
   );
   const normalized_mode = normalizeSubthemeMode(currently_selected_mode);
@@ -87,10 +87,9 @@ function normalizeSubthemeMode(
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // It's a dark theme
     return 'dark';
-  } else {
-    // It's not a dark theme
-    return 'light';
   }
+  // Otherwise, it's not a dark theme
+  return 'light';
 }
 
 /**

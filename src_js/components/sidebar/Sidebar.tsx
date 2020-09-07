@@ -16,7 +16,8 @@ type SidebarProps = {
   onToggleSettings: () => void;
 };
 
-export default function Sidebar(props: SidebarProps) {
+export default function Sidebar(props: SidebarProps): h.JSX.Element {
+  const { isSmallScreen, sidebarShown, onToggleSidebar } = props;
   useEffect(() => {
     // On small screens, close the Sidebar if the user clicks outside the
     // Sidebar. We have to check the following before toggling the Sidebar:
@@ -32,19 +33,19 @@ export default function Sidebar(props: SidebarProps) {
         target &&
         !target.matches('.primer-spec-sidebar, .primer-spec-sidebar *') &&
         document.body.contains(target) &&
-        props.sidebarShown
+        sidebarShown
       ) {
-        props.onToggleSidebar();
+        onToggleSidebar();
       }
     };
 
-    if (props.isSmallScreen) {
+    if (isSmallScreen) {
       window.addEventListener('click', window_click_listener);
     }
     return () => {
       window.removeEventListener('click', window_click_listener);
     };
-  }, [props.isSmallScreen, props.sidebarShown]);
+  }, [isSmallScreen, sidebarShown, onToggleSidebar]);
 
   const is_print_in_progress = usePrintInProgress();
 

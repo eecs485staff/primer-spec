@@ -12,7 +12,7 @@ function apply(
   const theme_vars = theme_definition[mode];
 
   const bodyEl = document.body;
-  for (let [theme_var, value] of Object.entries(theme_vars)) {
+  for (const [theme_var, value] of Object.entries(theme_vars)) {
     bodyEl.style.setProperty(theme_var, value);
   }
 
@@ -50,7 +50,7 @@ export default function createSubtheme(
   theme_definition: SubthemeDefinitionType,
 ): Subtheme {
   return {
-    name: name,
+    name,
     apply: (mode: SubthemeModeType) => apply(theme_definition, mode),
     reset: (mode: SubthemeModeType) => reset(theme_definition, mode),
   };

@@ -40,7 +40,7 @@ export type HeadingsSectionType = {
  */
 export default function unflattenHeadings(
   headings: HTMLElementLikeType[],
-  activeHeadingIndex: number = -1,
+  activeHeadingIndex = -1,
 ): HeadingsSectionType[] {
   if (!headings.length) {
     return [];
@@ -88,11 +88,13 @@ export default function unflattenHeadings(
     } else {
       // The current heading should NOT be part of the previous heading's
       // section.
+      // eslint-disable-next-line no-lonely-if
       if (stackOfSections.length) {
         // But maybe the current heading needs to be included in the section of
         // the heading before the previous? We need to compare with every
         // section in the stack to be sure. (Notice that we don't increment
         // headingsIndex because we're not yet done with this heading.)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         previousHeadingSection = stackOfSections.pop()!;
       } else {
         // The current heading can't fit in any of the existing sections. We
