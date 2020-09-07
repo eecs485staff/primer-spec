@@ -18,8 +18,17 @@ export function usePrintInProgress(): boolean {
 }
 
 /**
- * Accepts a function that could contain imperative and possibly effectful
- * code that will be invoked when window.onbeforeprint fires.
+ * Register a function (that could contain imperative and possibly effectful
+ * code) that will be invoked when window.onbeforeprint fires.
+ *
+ * The return-value is an augmented handler that must be used with
+ * `useEffect()`. For instance:
+ * ```
+ * useEffect(
+ *   useBeforePrint(handler),
+ *   [dep1, dep2],
+ * );
+ * ```
  * @param handler Imperative function to be invoked onbeforeprint
  */
 export function useBeforePrint(handler: () => void): () => void {
@@ -49,8 +58,16 @@ export function useBeforePrint(handler: () => void): () => void {
 }
 
 /**
- * Accepts a function that could contain imperative and possibly effectful
- * code that will be invoked when window.onafterprint fires.
+ * Register a function (that could contain imperative and possibly effectful
+ * code) that will be invoked when window.onafterprint fires.
+ *
+ * The return-value is an augmented handler that must be used with
+ * `useEffect()`. For instance:
+ * ```
+ * useEffect(
+ *   useAfterPrint(handler),
+ *   [dep1, dep2],
+ * );
  * @param handler Imperative function to execute onafterprint
  */
 export function useAfterPrint(handler: () => void): () => void {
