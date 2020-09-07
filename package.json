@@ -1,19 +1,21 @@
 {
   "name": "jekyll-theme-primer-spec",
-  "version": "0.1.0",
+  "version": "1.4.0",
   "description": "A Jekyll theme for sites with content-heavy pages, based on GitHub's Primer theme",
   "repository": {
     "url": "https://github.com/eecs485staff/primer-spec"
   },
   "main": "index.html",
   "scripts": {
+    "build": "script/build",
     "format": "script/prettier",
     "lint": "eslint ./src_js --ext .ts",
     "lint:fix": "eslint ./src_js --ext .ts --fix",
     "test": "script/cibuild",
-    "test:js": "npx jest"
+    "test:js": "npx jest",
+    "watch": "script/server"
   },
-  "author": "Ben Balter",
+  "author": "Sesh Sadasivam, EECS 485 Staff, Ben Balter",
   "license": "MIT",
   "dependencies": {
     "anchor-js": "^4.2.2",

@@ -14,8 +14,10 @@ if [ "$(git rev-parse --abbrev-ref HEAD)" = 'master' ]; then
 fi
 
 # Verify that all files are Prettified
+echo "Veryifying that all files are Prettified..."
 npx prettier@2.0.2 -l "src_js/**/*.ts"
 npx prettier@2.0.2 -l "_sass/spec/**/*.scss"
+echo "Prettier check passed."
 
 # Run JS tests
 npm run lint
