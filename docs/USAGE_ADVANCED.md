@@ -14,12 +14,12 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Page configuration options](#page-configuration-options)
-  - [`disableSidebar`: Boolean](#disablesidebar-boolean)
-  - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
-  - [`latex`: Boolean](#latex-boolean)
+    - [`disableSidebar`: Boolean](#disablesidebar-boolean)
+    - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
+    - [`latex`: Boolean](#latex-boolean)
 - [Site configuration options](#site-configuration-options)
-  - [`defaultSubthemeName`: String](#defaultsubthemename-string)
-  - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+    - [`defaultSubthemeName`: String](#defaultsubthemename-string)
+    - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
 - [Using without Jekyll](#using-without-jekyll)
 
 ## Previewing locally
@@ -106,6 +106,7 @@ description: [A short description of your site's purpose]
 Additionally, you may choose to set the following optional variables:
 
 ```yml
+favicon: [Path/URL to 32x32 favicon]
 google_analytics: [Your Google Analytics tracking ID]
 ```
 
