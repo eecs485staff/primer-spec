@@ -23,10 +23,7 @@ export default {
   VERSION_MINOR_STR: process.env.VERSION_MINOR_STR,
 
   // From window.PrimerSpecConfig
-  HIDE_SIDEBAR_ON_LOAD:
-    window.PrimerSpecConfig.hideSidebarOnLoad ||
-    window.PrimerSpecConfig.disableSidebar ||
-    false,
+  HIDE_SIDEBAR_ON_LOAD: getHideSidebarOnLoad(),
   DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
@@ -39,3 +36,21 @@ export default {
   SUBTHEME_MODE_STORAGE_KEY,
   DEFAULT_ACTIVE_SECTION_OFFSET_Y: 10,
 };
+
+function getHideSidebarOnLoad() {
+  const sidebar_hidden_stored_value: string | null = Storage.getForPage(
+    'sidebar_hidden',
+  );
+  var hideSidebar: boolean = false;
+  if (sidebar_hidden_stored_value !== null) {
+    hideSidebar = sidebar_hidden_stored_value === 'true';
+  } else {
+    hideSidebar =
+      window.PrimerSpecConfig.hideSidebarOnLoad ||
+      window.PrimerSpecConfig.disableSidebar ||
+      false;
+    Storage.setForPage('sidebar_hidden', hideSidebar.toString());
+  }
+
+  return hideSidebar;
+}

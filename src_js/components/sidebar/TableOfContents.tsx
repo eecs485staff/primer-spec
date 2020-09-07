@@ -27,30 +27,28 @@ export default function TableOfContents(props: PropsType) {
     };
   }, []);
 
-  // When a TOC item is clicked, close the Settings. Also close the Sidebar on
-  // small screens.
-  useEffect(() => {
-    const hash_listener = () => {
-      if (props.isSmallScreen && props.sidebarShown) {
-        props.onToggleSidebar();
-      }
-      if (props.settingsShown) {
-        props.onToggleSettings();
-      }
-    };
-
-    window.addEventListener('hashchange', hash_listener, false);
-    return () => {
-      window.removeEventListener('hashchange', hash_listener);
-    };
-  }, [props.isSmallScreen, props.sidebarShown, props.settingsShown]);
-
   const tocNodes = generateTocNodesForContentNode(
     props.contentNodeSelector,
     props.activeSectionOffsetY,
   );
 
-  return <nav id="primer-spec-toc">{tocNodes}</nav>;
+  return (
+    <nav
+      id="primer-spec-toc"
+      onClick={() => {
+        // When a TOC item is clicked, close the Settings. Also close the Sidebar on
+        // small screens.
+        if (props.isSmallScreen && props.sidebarShown) {
+          props.onToggleSidebar();
+        }
+        if (props.settingsShown) {
+          props.onToggleSettings();
+        }
+      }}
+    >
+      {tocNodes}
+    </nav>
+  );
 }
 
 function generateTocNodesForContentNode(
