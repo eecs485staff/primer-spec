@@ -9,6 +9,10 @@ version_string: v1.4
         <meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}
 
+        {%- if site.favicon %}
+        <link rel="icon" href="{{ site.favicon | relative_url }}">
+        {%- endif %}
+
         {%- if jekyll.environment == "dev" %}
             {% assign base_url = "http://localhost:4000" %}
         {% elsif jekyll.environment == "site-preview" %}
