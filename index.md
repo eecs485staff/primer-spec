@@ -107,7 +107,7 @@ _**Pro tip:** Use `div` (unstylyed containers) and classes liberally. They make 
 
 _**Pro tip:** Use your browser's "developer tools" to modify CSS styles on your page to dynamically see the effects of your changes._
 
-# JavaScript Content Generator
+# `JavaScript` Content Generator
 The spec page looks great! But if you hard-coded all the headings on the page, you _know_ how much time it takes to hard-code the sidebar contents. Imagine having to do that for several different project specs in a course website! It would be nice to _automatically_ generate the sidebar contents for any web page. Let's use JavaScript to write this content generator.
 
 (If you didn't hard-code all the headings on the page, then your sidebar is still incomplete, so you need to write this JavaScript generator anyway.)
@@ -116,7 +116,7 @@ Your generator will vary depending on your HTML sidebar design. Simple sidebar d
 
 Here are some suggestions for getting started.
 
-#### Where should I write the JavaScript code?
+#### Where should I write the `JavaScript` code?
 Write your code in `spec.js`. This code is loaded and executed at the very end, after all other content and scripts are loaded and executed. As a result, your code in `spec.js` will have access to [JQuery APIs](https://api.jquery.com/).
 
 JQuery APIs let you find HTML elements using CSS selectors and easily manipulate them. For example:

@@ -213,6 +213,20 @@ $Z_INDEX_SIDEBAR: 4;
       color: var(--sidebar-toc-section-link-color);
     }
   }
+
+  // Use the MarkDown body styles for inline code blocks in the Sidebar.
+  code,
+  tt {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba($black, 0.05);
+    border-radius: $border-radius;
+
+    br {
+      display: none;
+    }
+  }
 }
 
 // Attribute selector for all primer-spec-toc-* classes
