@@ -20,6 +20,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Site configuration options](#site-configuration-options)
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+- [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
 
 ## Previewing locally
@@ -232,6 +233,21 @@ Specify the default subtheme name. This subtheme will be applied for first-time 
 #### `defaultSubthemeMode`: String
 
 Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
+
+## Pinning to a specific version
+
+We take care to release new versions of Primer Spec on the `master` branch only between semesters at the University of Michigan. However, if your site needs an even stronger guarantee of stability, you can pin your site to a specific _minor_ version of Primer Spec.
+
+1. Visit the [Primer Spec Releases](https://github.com/eecs485staff/primer-spec/releases) page. Find the version to which you'd like to pin your site, and note down its title. (For instance, `v1.3.1+fa20`.)
+2. Update your site's `_config.yml` with the version tag from step (1). Specifically, update this line:
+   ```yml
+   # Replace the contents after the '@' symbol with the version tag from
+   # step (1).
+   remote_theme: eecs485staff/primer-spec@v1.3.1+fa20
+   ```
+3. Don't forget to update your Primer Spec version regularly!
+
+Note that you will _always_ get patch version updates for a specific minor version. (For instance, if you pin to `v1.3.1`, you will automatically be upgraded to `v1.3.2` if that version is released.)
 
 ## Using without Jekyll
 
