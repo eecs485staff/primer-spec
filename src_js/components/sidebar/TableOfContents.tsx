@@ -33,20 +33,22 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
   );
 
   return (
-    <nav
-      id="primer-spec-toc"
-      onClick={() => {
-        // When a TOC item is clicked, close the Settings. Also close the Sidebar on
-        // small screens.
-        if (props.isSmallScreen && props.sidebarShown) {
-          props.onToggleSidebar();
-        }
-        if (props.settingsShown) {
-          props.onToggleSettings();
-        }
-      }}
-    >
-      {tocNodes}
+    <nav id="primer-spec-toc">
+      <div
+        role="presentation"
+        onClick={() => {
+          // When a TOC item is clicked, close the Settings. Also close the Sidebar on
+          // small screens.
+          if (props.isSmallScreen && props.sidebarShown) {
+            props.onToggleSidebar();
+          }
+          if (props.settingsShown) {
+            props.onToggleSettings();
+          }
+        }}
+      >
+        {tocNodes}
+      </div>
     </nav>
   );
 }
