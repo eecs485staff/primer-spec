@@ -62,28 +62,29 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
   return (
     <aside
       class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
-      onClick={() => true}
       aria-label="Table of Contents"
       tabIndex={-1}
     >
-      <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
-        Contents
-        <InlineButton
-          icon={IconType.SIDEBAR}
-          onClick={props.onToggleSidebar}
-          ariaLabel="Close navigation pane"
+      <div role="presentation" onClick={() => true}>
+        <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
+          Contents
+          <InlineButton
+            icon={IconType.SIDEBAR}
+            onClick={props.onToggleSidebar}
+            ariaLabel="Close navigation pane"
+          />
+        </h2>
+        <br />
+        <TableOfContents
+          contentNodeSelector={props.contentNodeSelector}
+          isSmallScreen={props.isSmallScreen}
+          sidebarShown={props.sidebarShown}
+          settingsShown={props.settingsShown}
+          activeSectionOffsetY={props.activeSectionOffsetY}
+          onToggleSidebar={props.onToggleSidebar}
+          onToggleSettings={props.onToggleSettings}
         />
-      </h2>
-      <br />
-      <TableOfContents
-        contentNodeSelector={props.contentNodeSelector}
-        isSmallScreen={props.isSmallScreen}
-        sidebarShown={props.sidebarShown}
-        settingsShown={props.settingsShown}
-        activeSectionOffsetY={props.activeSectionOffsetY}
-        onToggleSidebar={props.onToggleSidebar}
-        onToggleSettings={props.onToggleSettings}
-      />
+      </div>
     </aside>
   );
 }

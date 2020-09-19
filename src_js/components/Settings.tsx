@@ -59,8 +59,9 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
         } ${props.isSmallScreen ? 'primer-spec-content-mobile' : ''}`}
       >
         <h1 class="primer-spec-toc-ignore">{'Spec Theme Settings'}</h1>
-        <label for="primer-spec-subtheme-selector">
+        <label>
           {'Choose your theme: '}
+          {/* eslint-disable-next-line jsx-a11y/no-onchange */}
           <select
             class="primer-spec-subtheme-selector"
             onChange={(e) =>
@@ -74,8 +75,9 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
         <br />
         <br />
 
-        <label for="primer-spec-subtheme-mode-selector">
+        <label>
           {'Choose your theme mode: '}
+          {/* eslint-disable-next-line jsx-a11y/no-onchange */}
           <select
             class="primer-spec-subtheme-mode-selector"
             onChange={(e) =>
