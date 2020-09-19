@@ -42,6 +42,13 @@ function main() {
     false,
   );
   render(<PrimerSpec contentHTML={main_content_html} />, app_container_node);
+
+  // To make the theme more discoverable for potential contributors:
+  console.info(
+    '\nThis page is formatted using %cPrimer Spec.%c\n\nWould you like to contribute to the theme? Check out:\nhttps://github.com/eecs485staff/primer-spec\n',
+    'font-weight: bolder;',
+    '',
+  );
 }
 
 function injectPrimerSpecStyleSheets() {
