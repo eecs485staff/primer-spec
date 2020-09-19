@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
@@ -33,7 +33,7 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
   );
 
   return (
-    <nav id="primer-spec-toc">
+    <nav class="primer-spec-toc">
       <div
         role="presentation"
         onClick={() => {
@@ -105,6 +105,7 @@ function generateTocNodes(headings: Element[], activeHeadingIndex: number) {
 
 function generateTocNodesHelper(section: HeadingsSectionType) {
   const heading = section.heading as HTMLElement;
+  const headingLabel = getHeadingLabel(heading);
   return (
     <li>
       <div
@@ -112,7 +113,7 @@ function generateTocNodesHelper(section: HeadingsSectionType) {
           section.active ? 'primer-spec-toc-active' : ''
         }`}
       >
-        <a href={getAnchorLink(heading)}>{heading.textContent}</a>
+        <a href={getAnchorLink(heading)}>{headingLabel}</a>
       </div>
       <ul class="primer-spec-toc-section primer-spec-toc-list">
         {section.section.map((_section) => generateTocNodesHelper(_section))}
@@ -130,4 +131,59 @@ function getAnchorLink(headingNode: HTMLElement) {
     return '#';
   }
   return anchorNode.getAttribute('href') || '#';
+}
+
+// We memoize the heading label since it's not expected to change
+// for the lifetime of the page.
+const headingLabelMemo: { [id: string]: h.JSX.Element } = {};
+/**
+ * Generate a label for use in the ToC Sidebar that represents the given
+ * `headingNode`.
+ *
+ * Ordinarily, `headingNode.innerText` would have been sufficient, but this
+ * function preserves inline code-blocks in headings.
+ *
+ * @param headingNode The heading node for which we need to generate a label
+ */
+function getHeadingLabel(headingNode: HTMLElement): h.JSX.Element {
+  if (headingNode.id && headingLabelMemo[headingNode.id]) {
+    return headingLabelMemo[headingNode.id];
+  }
+
+  let headingLabel: h.JSX.Element | null = null;
+  try {
+    const labelComponents: h.JSX.Element[] = [];
+    headingNode.childNodes.forEach((childNode) => {
+      switch (childNode.nodeType) {
+        case Node.TEXT_NODE:
+          labelComponents.push(<Fragment>{childNode.nodeValue}</Fragment>);
+          break;
+
+        case Node.ELEMENT_NODE:
+          if (!(childNode instanceof HTMLElement)) {
+            throw new Error('getHeadingLabel expected HTML Element');
+          }
+          if (childNode.tagName === 'CODE' || childNode.tagName === 'TT') {
+            labelComponents.push(
+              <code class={[...childNode.classList].join(' ')}>
+                {childNode.innerText}
+              </code>,
+            );
+          }
+          break;
+      }
+    });
+    headingLabel = <Fragment>{labelComponents}</Fragment>;
+  } catch (e) {
+    console.error(
+      'Primer Spec ToC: Errored while building heading label for heading',
+      headingNode,
+    );
+    headingLabel = <Fragment>{headingNode.innerText}</Fragment>;
+  }
+
+  if (headingNode.id) {
+    headingLabelMemo[headingNode.id] = headingLabel;
+  }
+  return headingLabel;
 }

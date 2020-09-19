@@ -213,6 +213,20 @@ $Z_INDEX_SIDEBAR: 4;
       color: var(--sidebar-toc-section-link-color);
     }
   }
+
+  // Use the MarkDown body styles for inline code blocks in the Sidebar.
+  code,
+  tt {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba($black, 0.05);
+    border-radius: $border-radius;
+
+    br {
+      display: none;
+    }
+  }
 }
 
 // Attribute selector for all primer-spec-toc-* classes
@@ -285,30 +299,40 @@ body,
   color: var(--main-text-color);
 }
 
+// We reuse this mixin to define theme color properties for tables and
+// code-blocks.
+@mixin theme-colors($property-name, $bg-color-fallback) {
+  color: var(--main-#{$property-name}-text-color, inherit);
+  background-color: var(--main-#{$property-name}-bg-color, $bg-color-fallback);
+  border: var(--main-#{$property-name}-border, inherit);
+}
+
+// Add the same background colors to code-blocks in the Sidebar.
+.primer-spec-toc div:not(.primer-spec-toc-active) {
+  code,
+  tt {
+    @include theme-colors(tt, rgba(27, 31, 35, 0.05));
+  }
+}
+
 .markdown-body {
   // These are user-defined preformatted blocks.
   :not(.highlight) {
     & > pre:not(.highlight),
     & > code,
     & > tt {
-      color: var(--main-tt-text-color, inherit);
-      background-color: var(--main-tt-bg-color, rgba(27, 31, 35, 0.05));
-      border: var(--main-tt-border, inherit);
+      @include theme-colors(tt, rgba(27, 31, 35, 0.05));
     }
   }
 
   // These are code blocks with syntax highlighting by Rogue
   .highlight pre.highlight,
   pre {
-    color: var(--main-table-pre-text-color);
-    background-color: var(--main-table-pre-bg-color, #f6f8fa);
-    border: var(--main-table-pre-border);
+    @include theme-colors(table-pre, #f6f8fa);
   }
 
   table tr {
-    color: var(--main-table-pre-text-color);
-    background-color: var(--main-table-pre-bg-color);
-    border: var(--main-table-pre-border);
+    @include theme-colors(table-pre, #f6f8fa);
   }
 
   // In the original Primer theme, every other row is colored contrastively.
