@@ -6,13 +6,6 @@ import Config from '../Config';
 // Expose Subthemes publicly
 export { Subthemes };
 
-const NOOP_HANDLER = () => {};
-
-// Listen for changes to the OS system theme.
-window
-  .matchMedia('(prefers-color-scheme: dark)')
-  .addListener(() => updateTheme());
-
 /**
  * Updates the appearance of the page based on the Subtheme details to be
  * changed. If no Subtheme details are specified, the method uses Subtheme info
@@ -23,16 +16,12 @@ window
  *
  * @param newSubtheme   The subtheme details to be updated. This defaults to
  *                      the subtheme from Storage.
- * @param onUpdate      A function to be invoked while the theme is being
- *                      updated. Will not be invoked if `persistUpdate` is set
- *                      to `false`.
  * @param persistUpdate Defaults to true. If set to false, the updated theme
  *                      is not persisted to Storage (and will not invoke
  *                      `onUpdate`.)
  */
 export function updateTheme(
   { name, mode }: Partial<SubthemeType> = {},
-  onUpdate: (subtheme: SubthemeType) => void = NOOP_HANDLER,
   persistUpdate = true,
 ): void {
   const {
@@ -49,10 +38,6 @@ export function updateTheme(
 
   // First store changes. Then decide if we need to take any action on the DOM.
   if (persistUpdate) {
-    onUpdate({
-      name: normalized_name,
-      mode: currently_selected_mode,
-    });
     storeSubtheme({ name: normalized_name, mode: currently_selected_mode });
   }
 
@@ -71,6 +56,25 @@ export function updateTheme(
 
   old_subtheme.reset(normalizeSubthemeMode(stored_subtheme_mode));
   new_subtheme.apply(normalized_mode);
+}
+
+/**
+ * Retrieve the previously stored subtheme name from persistent local
+ * storage. If this cannot be retrieved, returns the name of the first
+ * available subtheme.
+ */
+export function getStoredSubthemeName(): string {
+  const stored_subtheme_name = Storage.get(Config.SUBTHEME_NAME_STORAGE_KEY);
+  return verifySubthemeName(stored_subtheme_name ?? Config.INIT_SUBTHEME_NAME);
+}
+
+/**
+ * Retrieve the previously stored subtheme mode from persistent local
+ * storage. If this cannot be retrieved, returns the default mode.
+ */
+export function getStoredSubthemeMode(): SubthemeModeSelectorType {
+  const stored_subtheme_mode = Storage.get(Config.SUBTHEME_MODE_STORAGE_KEY);
+  return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
 }
 
 function normalizeSubthemeMode(
@@ -104,25 +108,6 @@ function storeSubtheme({ name, mode }: SubthemeType) {
 
 function getStoredSubtheme() {
   return { name: getStoredSubthemeName(), mode: getStoredSubthemeMode() };
-}
-
-/**
- * Retrieve the previously stored subtheme name from persistent local
- * storage. If this cannot be retrieved, returns the name of the first
- * available subtheme.
- */
-function getStoredSubthemeName() {
-  const stored_subtheme_name = Storage.get(Config.SUBTHEME_NAME_STORAGE_KEY);
-  return verifySubthemeName(stored_subtheme_name ?? Config.INIT_SUBTHEME_NAME);
-}
-
-/**
- * Retrieve the previously stored subtheme mode from persistent local
- * storage. If this cannot be retrieved, returns the default mode.
- */
-function getStoredSubthemeMode(): SubthemeModeSelectorType {
-  const stored_subtheme_mode = Storage.get(Config.SUBTHEME_MODE_STORAGE_KEY);
-  return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
 }
 
 function verifySubthemeName(name: string) {

@@ -18,15 +18,13 @@ type PropsType = {
   onSubthemeModeChange: (newSubthemeMode: SubthemeModeSelectorType) => void;
 };
 
-const NOOP_HANDLER = () => {};
-
 export default function Settings(props: PropsType): h.JSX.Element | null {
   const is_print_in_progress = usePrintInProgress();
 
   // If a print is in progress, temporarily reset the theme to default light.
   useEffect(
     useBeforePrint(() =>
-      updateTheme({ name: 'default', mode: 'light' }, NOOP_HANDLER, false),
+      updateTheme({ name: 'default', mode: 'light' }, false),
     ),
     [],
   );
@@ -34,7 +32,6 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
     useAfterPrint(() =>
       updateTheme(
         { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
-        NOOP_HANDLER,
         false,
       ),
     ),

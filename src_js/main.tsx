@@ -38,9 +38,13 @@ function main() {
       name: Config.INIT_SUBTHEME_NAME,
       mode: Config.INIT_SUBTHEME_MODE,
     },
-    () => {},
     false,
   );
+  // Listen for changes to the OS system theme.
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addListener(() => updateTheme());
+
   render(<PrimerSpec contentHTML={main_content_html} />, app_container_node);
 
   // To make the theme more discoverable for potential contributors:
