@@ -7,7 +7,11 @@ import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
 import isSmallScreen from '../utils/isSmallScreen';
 import getChromeVersion from '../utils/getChromeVersion';
-import { updateTheme } from '../subthemes';
+import {
+  updateTheme,
+  getStoredSubthemeName,
+  getStoredSubthemeMode,
+} from '../subthemes';
 import { useBeforePrint, useAfterPrint } from '../utils/hooks';
 import Storage from '../utils/Storage';
 
@@ -36,9 +40,10 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     setSidebarShown(!sidebar_shown);
   };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
-  const setSubtheme = ({ name, mode }: SubthemeType) => {
-    setSubthemeName(name);
-    setSubthemeMode(mode);
+  const setTheme = (themeDelta: Partial<SubthemeType>) => {
+    updateTheme(themeDelta);
+    setSubthemeName(getStoredSubthemeName());
+    setSubthemeMode(getStoredSubthemeMode());
   };
 
   // Listen for changes to the window size.
@@ -106,8 +111,8 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
         settingsShown={settings_shown}
         currentSubthemeName={subtheme_name}
         currentSubthemeMode={subtheme_mode}
-        onSubthemeNameChange={(name) => updateTheme({ name }, setSubtheme)}
-        onSubthemeModeChange={(mode) => updateTheme({ mode }, setSubtheme)}
+        onSubthemeNameChange={(name) => setTheme({ name })}
+        onSubthemeModeChange={(mode) => setTheme({ mode })}
       />
     </Fragment>
   );
