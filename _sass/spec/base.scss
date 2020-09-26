@@ -118,6 +118,11 @@ $Z_INDEX_SIDEBAR: 4;
   &-item {
     // Prevent header items from ending too near the border of the Sidebar
     padding-right: 1em;
+    // If a heading item is too long and cannot be broken by the browser,
+    // don't expand the width of the entire Sidebar. Instead, only make the
+    // "offending" heading scrollable. (Kind-of-like how we currently treat
+    // code-blocks and LaTeX on small screens.)
+    overflow: scroll;
   }
 
   &-h1 {
