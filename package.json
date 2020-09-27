@@ -9,8 +9,8 @@
   "scripts": {
     "build": "script/build",
     "format": "script/prettier",
-    "lint": "eslint ./src_js --max-warnings=0",
-    "lint:fix": "eslint ./src_js --max-warnings=0 --fix",
+    "lint": "eslint --max-warnings=0 ./src_js",
+    "lint:fix": "eslint --max-warnings=0 --fix ./src_js",
     "test": "script/cibuild",
     "test:js": "npx jest",
     "watch": "script/server"
@@ -33,6 +33,7 @@
     "eslint": "^7.8.1",
     "eslint-config-preact": "^1.1.1",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
     "execa": "^4.0.0",

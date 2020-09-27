@@ -3,9 +3,9 @@ import { useEffect } from 'preact/hooks';
 import Config from '../Config';
 import { Subthemes, updateTheme } from '../subthemes';
 import {
-  usePrintInProgress,
-  useBeforePrint,
   useAfterPrint,
+  useBeforePrint,
+  usePrintInProgress,
 } from '../utils/hooks';
 
 type PropsType = {

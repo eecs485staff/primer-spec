@@ -1,18 +1,18 @@
-import { h, Fragment } from 'preact';
-import { useState, useEffect, useLayoutEffect } from 'preact/hooks';
+import { Fragment, h } from 'preact';
+import { useEffect, useLayoutEffect, useState } from 'preact/hooks';
+import {
+  getStoredSubthemeMode,
+  getStoredSubthemeName,
+  updateTheme,
+} from '../subthemes';
+import getChromeVersion from '../utils/getChromeVersion';
+import { useAfterPrint, useBeforePrint } from '../utils/hooks';
 import Config from '../Config';
 import MainContent from './MainContent';
 import Settings from './Settings';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
 import isSmallScreen from '../utils/isSmallScreen';
-import getChromeVersion from '../utils/getChromeVersion';
-import {
-  updateTheme,
-  getStoredSubthemeName,
-  getStoredSubthemeMode,
-} from '../subthemes';
-import { useBeforePrint, useAfterPrint } from '../utils/hooks';
 import Storage from '../utils/Storage';
 
 type PropsType = { contentHTML: string };

@@ -1,6 +1,6 @@
 import Subtheme, {
-  SubthemeDefinitionType,
   SUBTHEME_VARS,
+  SubthemeDefinitionType,
   SubthemeModeType,
 } from './Subtheme';
 import RougeThemes from './rouge_themes';

@@ -1,5 +1,5 @@
-import { h, Fragment } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
+import { Fragment, h } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {

@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const Listr = require('listr');
 const path = require('path');
 const semver = require('semver');
+const yargs = require('yargs');
 
 const ROOT_PATH = path.resolve(__dirname, '../');
 const VERSION_FILEPATH = path.resolve(ROOT_PATH, 'VERSION');
@@ -44,7 +45,7 @@ function freezeAssetsForVersion(version_str) {
   ]);
 }
 
-require('yargs')
+yargs
   .command(
     'bump <release_type>',
     'bump the minor/major version of the develop branch by creating the appropriate asset files',
@@ -145,7 +146,8 @@ require('yargs')
     'freeze',
     'freeze the current develop version',
     () => {},
-    (argv) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    (_argv) => {
       // Write to the VERSION file
       fs.writeFileSync(VERSION_FILEPATH, `${CURRENT_VERSION}`);
       console.log(`Version frozen to v${CURRENT_VERSION}`);

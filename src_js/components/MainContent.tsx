@@ -1,4 +1,4 @@
-import { h, RefObject } from 'preact';
+import { RefObject, h } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import Config from '../Config';
 import { usePrintInProgress } from '../utils/hooks';

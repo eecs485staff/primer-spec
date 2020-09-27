@@ -1,8 +1,8 @@
 import {
-  RougeTheme,
-  RougeVarsType,
   ROUGE_CLASS_NAMES,
   ROUGE_STYLE_PROPS,
+  RougeTheme,
+  RougeVarsType,
 } from '../Subtheme';
 
 interface RougeVarsTypeInternal {

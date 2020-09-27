@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useRef, useLayoutEffect } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 import IconType from './common/IconType';
 import InlineButton from './common/InlineButton';
 
