@@ -1,9 +1,10 @@
 import { h } from 'preact';
-import { useEffect } from 'preact/hooks';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 import { usePrintInProgress } from '../../utils/hooks';
+import Storage from '../../utils/Storage';
 
 type SidebarProps = {
   contentNodeSelector: string;
@@ -16,8 +17,24 @@ type SidebarProps = {
   onToggleSettings: () => void;
 };
 
+const SIDEBAR_SCROLL_POSITION_STORAGE_KEY =
+  'primer_spec_sidebar_scroll_position';
+
 export default function Sidebar(props: SidebarProps): h.JSX.Element {
   const { isSmallScreen, sidebarShown, onToggleSidebar } = props;
+
+  const is_print_in_progress = usePrintInProgress();
+  const sidebar_ref = useRef<HTMLElement>(null);
+
+  const saveScrollPositionThenToggleSidebar = useCallback(() => {
+    // Before closing the sidebar, persist the scroll position within the
+    // Sidebar.
+    if (sidebar_ref?.current) {
+      setSidebarScrollPosition(sidebar_ref.current.scrollTop);
+    }
+    onToggleSidebar();
+  }, [onToggleSidebar]);
+
   useEffect(() => {
     // On small screens, close the Sidebar if the user clicks outside the
     // Sidebar. We have to check the following before toggling the Sidebar:
@@ -35,7 +52,7 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
         document.body.contains(target) &&
         sidebarShown
       ) {
-        onToggleSidebar();
+        saveScrollPositionThenToggleSidebar();
       }
     };
 
@@ -45,9 +62,19 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
     return () => {
       window.removeEventListener('click', window_click_listener);
     };
-  }, [isSmallScreen, sidebarShown, onToggleSidebar]);
+  }, [isSmallScreen, sidebarShown, saveScrollPositionThenToggleSidebar]);
 
-  const is_print_in_progress = usePrintInProgress();
+  useLayoutEffect(() => {
+    // Use the persisted scroll position if available, then reset it.
+    // useLayoutEffect runs *before* the screen is updated. This means that
+    // the Sidebar scrolls *before* it's shown to the user (preventing
+    // "flashing".)
+    const scrollPosition = getSidebarScrollPosition();
+    if (scrollPosition && sidebar_ref?.current) {
+      sidebar_ref.current.scrollTop = scrollPosition;
+      setSidebarScrollPosition(null);
+    }
+  });
 
   if (!props.sidebarShown || is_print_in_progress) {
     return <div />;
@@ -61,6 +88,7 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
   // unfocusable.
   return (
     <aside
+      ref={sidebar_ref}
       class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
       aria-label="Table of Contents"
       tabIndex={-1}
@@ -70,7 +98,7 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
           Contents
           <InlineButton
             icon={IconType.SIDEBAR}
-            onClick={props.onToggleSidebar}
+            onClick={saveScrollPositionThenToggleSidebar}
             ariaLabel="Close navigation pane"
           />
         </h2>
@@ -81,10 +109,22 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
           sidebarShown={props.sidebarShown}
           settingsShown={props.settingsShown}
           activeSectionOffsetY={props.activeSectionOffsetY}
-          onToggleSidebar={props.onToggleSidebar}
+          onToggleSidebar={saveScrollPositionThenToggleSidebar}
           onToggleSettings={props.onToggleSettings}
         />
       </div>
     </aside>
   );
+}
+
+function setSidebarScrollPosition(scrollPosition: number | null): void {
+  Storage.setForPage(SIDEBAR_SCROLL_POSITION_STORAGE_KEY, `${scrollPosition}`);
+}
+
+function getSidebarScrollPosition(): number | null {
+  const scrollPosition = parseInt(
+    Storage.getForPage(SIDEBAR_SCROLL_POSITION_STORAGE_KEY) || '',
+    10,
+  );
+  return Number.isNaN(scrollPosition) ? null : scrollPosition;
 }
