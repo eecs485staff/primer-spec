@@ -32,7 +32,7 @@ $Z_INDEX_SIDEBAR: 4;
   width: $SIDEBAR_WIDTH;
   padding-left: 1em;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
 
   // To make the sidebar appear on top of the topbar on mobile
@@ -122,7 +122,7 @@ $Z_INDEX_SIDEBAR: 4;
     // don't expand the width of the entire Sidebar. Instead, only make the
     // "offending" heading scrollable. (Kind-of-like how we currently treat
     // code-blocks and LaTeX on small screens.)
-    overflow: scroll;
+    overflow: auto;
   }
 
   &-h1 {

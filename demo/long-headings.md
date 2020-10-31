@@ -6,7 +6,7 @@ layout: spec
 
 {: .primer-spec-toc-ignore }
 
-This page demonstrates Primer Spec's handling of long headings in the Sidebar. We achieve this by using the CSS property `overflow: scroll` on potentially long elements that should not affect the width of its container
+This page demonstrates Primer Spec's handling of long headings in the Sidebar. We achieve this by using the CSS property `overflow: auto` on potentially long elements that should not affect the width of its container
 
 ## Short heading
 
