@@ -1,23 +1,30 @@
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
 # Contributing to The Primer Spec Theme
+<!-- prettier-ignore-end -->
 
 _This document was adapted in part from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer)._
 
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
 ## Contents
+<!-- prettier-ignore-end -->
 
-- [Support](#looking-for-support)
-- [Reporting bugs](#how-to-report-a-bug)
-- [Suggesting features](#how-to-suggest-a-feature-or-enhancement)
-- [Proposing changes](#how-to-propose-changes)
+- [Looking for support?](#looking-for-support)
+- [How to report a bug](#how-to-report-a-bug)
+- [How to suggest a feature or enhancement](#how-to-suggest-a-feature-or-enhancement)
+- [How to propose changes](#how-to-propose-changes)
+  - [Dev Onboarding](#dev-onboarding)
   - [Typical workflow](#typical-workflow)
   - [Bootstrap your local environment](#bootstrap-your-local-environment)
   - [Run tests](#run-tests)
   - [Adding new subthemes](#adding-new-subthemes)
 - [Maintenance & Release](#maintenance--release)
   - [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
-  - [Semester Release Process](#releasing-for-the-next-semester)
+  - [Releasing for the next semester](#releasing-for-the-next-semester)
   - [Bumping the version in Pull Requests](#bumping-the-version-in-pull-requests)
 - [Modifications from Primer](#modifications-from-primer)
-- [Code of Conduct](#code-of-conduct)
+- [Code of conduct](#code-of-conduct)
 - [Additional Resources](#additional-resources)
 
 ## Looking for support?
@@ -46,6 +53,10 @@ Feature requests are welcome. But take a moment to find out whether your idea fi
 ## How to propose changes
 
 Here are a few general guidelines for proposing changes:
+
+### Dev Onboarding
+
+Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the organization of the Primer Spec repository and how the theme works in general.
 
 ### Typical workflow
 
