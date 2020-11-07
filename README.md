@@ -75,6 +75,7 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
 
 The Primer Spec theme is currently used by the following courses at the University of Michigan:
 
+- [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts). Example [EECS 183 Project 2: Birthdays](https://eecs183.github.io/p2-birthdays/).
 - [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 4: Web](https://eecs280staff.github.io/p4-web/).
 - [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java). Example [EECS 285 Project 3: Wheel of Fortune](https://eecs285.github.io/p3-wheel/).
 - [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
