@@ -3,5 +3,10 @@ cache: bundler
 rvm: 2.6
 node_js: 10
 
+branches:
+  only:
+    - master
+    - develop
+
 install: nvm use node && script/bootstrap
 script: script/cibuild
