@@ -34,6 +34,7 @@ export const SUBTHEME_VARS = [
   '--main-tt-bg-color',
   '--main-tt-border',
   '--main-blockquote-text-color',
+  '--main-blockquote-text-border',
   '--main-header-border-bottom-color',
 ];
 

@@ -348,6 +348,7 @@ body,
 
   blockquote {
     color: var(--main-blockquote-text-color);
+    border-left: 0.25em solid var(--main-blockquote-text-border, #dfe2e5);
   }
 }
 
