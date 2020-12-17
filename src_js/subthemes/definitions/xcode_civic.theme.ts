@@ -1,4 +1,5 @@
 import { SubthemeDefinitionType } from '../Subtheme';
+import common_dark_theme_colors from './common_dark_theme_colors';
 
 const XCODE_DARK_BG_COLOR = 'rgb(40, 41, 35)';
 const XCODE_DARK_TEXT_COLOR = 'white';
@@ -35,13 +36,16 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-table-pre-bg-color': '#f6f8fa',
     '--main-table-pre-text-color': 'black',
     '--main-blockquote-text-color': '#ccc',
-    '--main-tt-text-color': 'white',
-    '--main-tt-bg-color': '#696969',
+    '--tt-text-color': 'white',
+    '--tt-bg-color': '#696969',
+    '--tt-border-radius': '3px',
     '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
     rouge_theme: 'default',
   },
   dark: {
+    ...common_dark_theme_colors,
+
     '--sidebar-bg-color': 'rgb(75, 77, 85)',
     '--sidebar-heading-text-color': 'white',
     '--sidebar-heading-link-color': 'white',
@@ -67,9 +71,8 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-table-pre-bg-color': XCODE_DARK_BG_COLOR,
     '--main-table-pre-text-color': XCODE_DARK_TEXT_COLOR,
     '--main-table-pre-border': '1px solid rgb(60, 62, 66)',
-    '--main-tt-bg-color': XCODE_DARK_BG_COLOR,
-    '--main-tt-text-color': XCODE_DARK_TEXT_COLOR,
-    '--main-tt-border': '1px solid rgb(60, 62, 66)',
+    '--tt-text-color': 'white',
+    '--tt-border-radius': '6px',
     '--main-blockquote-text-color': '#999999',
     '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 

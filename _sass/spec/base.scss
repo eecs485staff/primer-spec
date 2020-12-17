@@ -307,16 +307,24 @@ body,
 // We reuse this mixin to define theme color properties for tables and
 // code-blocks.
 @mixin theme-colors($property-name, $bg-color-fallback) {
-  color: var(--main-#{$property-name}-text-color, inherit);
-  background-color: var(--main-#{$property-name}-bg-color, $bg-color-fallback);
-  border: var(--main-#{$property-name}-border, inherit);
+  color: var(--#{$property-name}-text-color, inherit);
+  background-color: var(--#{$property-name}-bg-color, $bg-color-fallback);
+  border: var(--#{$property-name}-border, inherit);
+  border-radius: var(--#{$property-name}-border-radius, inherit);
 }
 
 // Add the same background colors to code-blocks in the Sidebar.
-.primer-spec-toc div:not(.primer-spec-toc-active) {
+.primer-spec-toc {
   code,
   tt {
     @include theme-colors(tt, rgba(27, 31, 35, 0.05));
+  }
+
+  .primer-spec-toc-active {
+    code,
+    tt {
+      @include theme-colors(sidebar-tt-active, inherit);
+    }
   }
 }
 
@@ -333,11 +341,11 @@ body,
   // These are code blocks with syntax highlighting by Rogue
   .highlight pre.highlight,
   pre {
-    @include theme-colors(table-pre, #f6f8fa);
+    @include theme-colors(main-table-pre, #f6f8fa);
   }
 
   table tr {
-    @include theme-colors(table-pre, #f6f8fa);
+    @include theme-colors(main-table-pre, #f6f8fa);
   }
 
   // In the original Primer theme, every other row is colored contrastively.

@@ -22,6 +22,7 @@ const default_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h1-section-link-color': DEFAULT_DARK_BG_COLOR,
     '--sidebar-active-toc-h2-section-link-color': DEFAULT_DARK_BG_COLOR,
     '--sidebar-toc-section-link-color': DEFAULT_DARK_SIDEBAR_HEADING_COLOR,
+    '--sidebar-tt-active-text-color': DEFAULT_DARK_BG_COLOR,
 
     '--main-heading-text-color': DEFAULT_DARK_MAIN_HEADING_COLOR,
     '--main-heading-link-color': DEFAULT_DARK_LINK_COLOR,
