@@ -29,6 +29,7 @@ const modern_theme_vars: SubthemeDefinitionType = {
     '--main-heading-text-color': MODERN_PRIMARY_COLOR,
     '--main-heading-link-color': MODERN_PRIMARY_COLOR,
     '--main-link-color': MODERN_MAIN_LINK_COLOR,
+    '--tt-border-radius': '3px',
     '--hoverable-link-hover-color': '#a51e19', // darken($MODERN_MAIN_LINK_COLOR, 30%)
 
     rouge_theme: 'default',
@@ -47,6 +48,7 @@ const modern_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h1-section-link-color': MODERN_DARK_SIDEBAR_BG_COLOR,
     '--sidebar-active-toc-h2-section-link-color': MODERN_DARK_SIDEBAR_BG_COLOR,
     '--sidebar-toc-section-link-color': 'white',
+    '--sidebar-tt-active-text-color': MODERN_DARK_SIDEBAR_BG_COLOR,
 
     '--main-heading-text-color': MODERN_DARK_HEADING_COLOR,
     '--main-heading-link-color': MODERN_DARK_HEADING_COLOR,
