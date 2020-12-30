@@ -37,6 +37,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    gem 'jekyll-seo-tag'
    gem 'jekyll-remote-theme'
    gem 'jekyll-github-metadata'
+   gem 'webrick'
 
    # The following plugins are enabled on GitHub Pages without a _config.yml.
    gem 'jekyll-optional-front-matter'
