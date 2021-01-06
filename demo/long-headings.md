@@ -22,6 +22,10 @@ I copied the words from [Wikipedia](https://en.wikipedia.org/wiki/Longest_word_i
 
 I copied this from [Wikipedia](https://en.wikipedia.org/wiki/Longest_word_in_English#Notable_long_words), and it looks like the editors added "soft hyphens" (U+00AD) to the string to allow it to break neatly in the Sidebar.
 
+## `https://preview.seshrs.ml/preview/MyFancyOrganizationName/MySuperFancyRepoWhoseNameHasFortyEightCharacters`
+
+Here's a long heading in an inline code block. And yes, that repo name actually _does_ have 48 characters!
+
 ## Bababadalgharaghtakamminarronnkonnbronntonnerronntuonnthunntrovarrhounawnskawntoohoohoordenenthurnuk
 
 ## It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way—in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only.
