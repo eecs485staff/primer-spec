@@ -124,9 +124,8 @@ $Z_INDEX_SIDEBAR: 4;
     // "offending" heading scrollable. (Kind-of-like how we currently treat
     // code-blocks and LaTeX on small screens.)
     overflow-x: auto;
-    // But don't show vertical scrollbars, they look jarring. Instead, let the
-    // content overflow its content box if needed.
-    overflow-y: visible;
+    // But don't show vertical scrollbars, they look jarring.
+    overflow-y: hidden;
   }
 
   &-h1 {
