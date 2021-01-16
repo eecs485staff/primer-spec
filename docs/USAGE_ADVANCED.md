@@ -166,13 +166,13 @@ Primer Spec supports the following page configuration options:
 
 Disable the the sidebar completely. (The Table of Contents will also not be generated.) Defaults to `false`.
 
-Example page: http://eecs485staff.github.io/primer-spec/disable-sidebar.html
+Example page: http://eecs485staff.github.io/primer-spec/demo/disable-sidebar.html
 
 #### `hideSidebarOnLoad`: Boolean
 
 Prevent the sidebar (with table of contents) from appearing when a user loads the page. Defaults to `false`.
 
-Example page: http://eecs485staff.github.io/primer-spec/hide-sidebar-on-load.html
+Example page: http://eecs485staff.github.io/primer-spec/demo/hide-sidebar-on-load.html
 
 #### `latex`: Boolean
 

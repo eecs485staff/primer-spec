@@ -20,7 +20,6 @@ _This document was adapted in part from the corresponding documents from the ori
   - [Run tests](#run-tests)
   - [Adding new subthemes](#adding-new-subthemes)
 - [Maintenance & Release](#maintenance--release)
-  - [Keeping this theme up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
   - [Releasing for the next semester](#releasing-for-the-next-semester)
   - [Bumping the version in Pull Requests](#bumping-the-version-in-pull-requests)
 - [Modifications from Primer](#modifications-from-primer)
@@ -66,12 +65,12 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
 4. [Bootstrap your local environment.](#bootstrap-your-local-environment)
 5. Make some changes and create commits.
 6. Push your branch to GitHub. (`git push -u origin feature/my-feature`)
-7. Open a pull request from your branch to the EECS 485 repository's `develop` branch. (For example, https://github.com/eecs485staff/primer-spec/compare/eecs485staff:develop...pages-themes:master)
+7. Open a pull request from your branch to the EECS 485 repository's `develop` branch.
 8. Wait for a project member to review your changes and determine its [semver label](#bumping-the-version-in-pull-requests).
 
 ### Bootstrap your local environment
 
-1. Ensure that you have a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first.
+1. Ensure that you have a version of Ruby later than 2.4.0. If you're on a Mac, you may need to run `brew install ruby` first.
 
 2. Run `script/bootstrap`.
 
@@ -103,44 +102,12 @@ _Pro tip: Upload screenshots of the new subtheme to make it easier to review you
 
 ## Maintenance & Release
 
-This theme is used by several courses at the University of Michigan, including EECS 280, EECS 285, EECS 482 and EECS 485. If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
+This theme is used by [several courses at the University of Michigan](../README.md#user-showcase). If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
 
 Some notes about maintaining this project:
 
-1. [Keep the `develop` branch up-to-date with Primer](#keeping-this-theme-up-to-date-with-primer)
-2. [Create a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
-3. [Bump the version if required in Pull Requests](#bumping-the-version-in-pull-requests)
-
-### Keeping this theme up-to-date with Primer
-
-It's important to periodically check for changes from the [original upstream theme (Primer)](https://github.com/pages-themes/primer). Follow these steps:
-
-1. If you have not already done so, add the original upstream repo as a "remote" to your local Git setup. (This will allow you to cherry-pick commits.)
-
-```console
-$ pwd
-/users/seshrs/primer-spec
-$ git remote add upstream https://github.com/pages-themes/primer.git
-```
-
-2. Get the latest code from the `upstream` remote.
-
-```console
-$ git fetch upstream
-```
-
-3. Compare the two repositories to check for changes. This can be achieved by [drafting a Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...pages-themes:master).
-
-4. If there are changes, check the scope of changes. (If there are changes to `_layouts/default.html`, they may have to be reflected in `_layouts/spec.html` also.)
-
-5. Create a new branch and merge the upstream master branch. You may have to resolve merge conflicts.
-
-```console
-$ git checkout -b maintenance/f19
-$ git merge upstream/master maintenance/f19
-```
-
-5. Push this branch to `origin` and [open a new Pull Request](https://github.com/eecs485staff/primer-spec/compare/develop...eecs485staff:develop).
+1. [Create a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
+2. [Bump the version if required in Pull Requests](#bumping-the-version-in-pull-requests)
 
 ### Releasing for the next semester
 
@@ -193,7 +160,7 @@ Primer Spec uses [semantic versioning](https://semver.org/) to communicate the s
 Imagine labeling every change to this project with the following labels (listed _in increasing order of precedence_):
 
 - `noop`: No updates to client-facing code; documentation updates. Does not require a version bump.
-- `patch`: Bugfixes that do not affect any CSS or HTML files; bugfixes that do not change the appearance of a site.
+- `patch`: Bugfixes that do not affect any HTML files; bugfixes that do not drastically change the appearance of a site.
 - `minor`: Changes to CSS or HTML files that do not require users to update their config files; minor changes to the appearance of a site.
 - `major`: Changes that require users to update their configs or deployment systems.
 
@@ -222,6 +189,8 @@ Here are key changes made to the original Primer theme to add a sidebar:
 - `_sass/spec/`: SCSS files needed to display the sidebar and subthemes. Stylesheets in `assets/css` include these files.
 
 - `src_js`: TypeScript code that generates a table of contents, the sidebar and the subtheme-picker modal. The code also adds HTML and CSS scaffolding needed for the theme. The TypeScript code is bundled by webpack into `assets/js/primer_spec_plugin.min.js`.
+
+Further reading: [DEV_README.md](DEV_README.md)
 
 ## Code of conduct
 

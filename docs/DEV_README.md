@@ -121,8 +121,8 @@ Starting with [version v1.2](https://github.com/eecs485staff/primer-spec/release
 
 When an external site is built, the `spec` layout is used so that the HTML never changes. However, the pages use JS and CSS assets that are hosted on https://eecs485staff.github.io/primer-spec. Hence, to guarantee backwards-compatibility:
 
-- The CSS files must not change for a given minor version.
-- Changes to the JS file must not depend on changes to the CSS or HTML.
+- The CSS files must not change drastically for a given minor version.
+- Changes to the JS/CSS files must not depend on changes to the HTML templates.
 - The URL for those assets must remain stable and unchanged.
 
 To facilitate the above requirements, the `assets` directory is versioned. Before adding `minor` or `major` changes, the previous version's assets _must_ be archived by using [`script/version bump`](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bumping-the-version-in-pull-requests).
