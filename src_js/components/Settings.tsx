@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useEffect } from 'preact/hooks';
+import { useCallback, useEffect } from 'preact/hooks';
 import Config from '../Config';
 import { Subthemes, updateTheme } from '../subthemes';
 import {
@@ -22,21 +22,21 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
   const is_print_in_progress = usePrintInProgress();
 
   // If a print is in progress, temporarily reset the theme to default light.
-  useEffect(
-    useBeforePrint(() =>
+  const beforePrint = useCallback(useBeforePrint, []);
+  const afterPrint = useCallback(useAfterPrint, []);
+  useEffect(() => {
+    return beforePrint(() =>
       updateTheme({ name: 'default', mode: 'light' }, false),
-    ),
-    [],
-  );
-  useEffect(
-    useAfterPrint(() =>
+    );
+  }, [beforePrint]);
+  useEffect(() => {
+    return afterPrint(() =>
       updateTheme(
         { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
         false,
       ),
-    ),
-    [props.currentSubthemeName, props.currentSubthemeMode],
-  );
+    );
+  }, [afterPrint, props.currentSubthemeName, props.currentSubthemeMode]);
 
   if (!props.settingsShown || is_print_in_progress) {
     return null;

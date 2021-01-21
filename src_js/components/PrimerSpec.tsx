@@ -1,5 +1,10 @@
 import { Fragment, h } from 'preact';
-import { useEffect, useLayoutEffect, useState } from 'preact/hooks';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'preact/hooks';
 import {
   getStoredSubthemeMode,
   getStoredSubthemeName,
@@ -62,18 +67,18 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
   }, [is_small_screen]);
 
   // Listen for print events
-  useEffect(
-    useBeforePrint(() => {
+  const beforePrint = useCallback(useBeforePrint, []);
+  const afterPrint = useCallback(useAfterPrint, []);
+  useEffect(() => {
+    return beforePrint(() => {
       toggleItalicsInChrome(false);
-    }),
-    [],
-  );
-  useEffect(
-    useAfterPrint(() => {
+    });
+  }, [beforePrint]);
+  useEffect(() => {
+    return afterPrint(() => {
       toggleItalicsInChrome(true);
-    }),
-    [],
-  );
+    });
+  }, [afterPrint]);
 
   const sidebar = Config.DISABLE_SIDEBAR ? null : (
     <Sidebar
