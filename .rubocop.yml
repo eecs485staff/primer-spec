@@ -1,6 +1,7 @@
 AllCops:
+  NewCops: enable
   Exclude:
     - _site/**/*
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false

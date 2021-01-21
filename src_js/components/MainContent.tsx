@@ -1,5 +1,5 @@
 import { RefObject, h } from 'preact';
-import { useEffect, useRef } from 'preact/hooks';
+import { useCallback, useEffect, useRef } from 'preact/hooks';
 import Config from '../Config';
 import { usePrintInProgress } from '../utils/hooks';
 import Storage from '../utils/Storage';
@@ -16,7 +16,12 @@ export default function MainContent(props: PropsType): h.JSX.Element {
   const is_print_in_progress = usePrintInProgress();
   const main_el_ref = useRef<HTMLElement>(null);
 
-  useEffect(useTaskListCheckboxes(main_el_ref), [props.innerHTML]);
+  const taskListCheckboxEffect = useCallback(useTaskListCheckboxes, [
+    props.innerHTML,
+  ]);
+  useEffect(() => {
+    return taskListCheckboxEffect(main_el_ref);
+  }, [taskListCheckboxEffect]);
 
   return (
     <main
@@ -34,79 +39,75 @@ export default function MainContent(props: PropsType): h.JSX.Element {
 }
 
 /**
- * A custom hook that uses `useEffect()` to enable task-list checkboxes and
- * persist the checkbox state.
+ * A custom hook that enables task-list checkboxes and persists the checkbox
+ * state. Intended to be used inside `useEffect()`. Returns a cleanup method
+ * to remove the event listeners.
  * @param mainElRef A ref to the `<main>` element from MainContent
- * @param deps Dependencies for useEffect
  */
 function useTaskListCheckboxes(mainElRef: RefObject<HTMLElement>) {
-  return () => {
-    if (!mainElRef.current) {
-      throw new Error(
-        'Primer Spec: Main Content: Expected main content ref to be initialized.',
-      );
-    }
-
-    // The structure of a task-list is:
-    // <ul class="task-list">
-    //   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled>Item 1</li>
-    //   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled>Item 2</li>
-    // </ul>
-
-    // Wrap the entire contents of each <li> in a <label> for better a11y
-    const task_list_items = mainElRef.current.querySelectorAll(
-      '.task-list-item',
+  if (!mainElRef.current) {
+    throw new Error(
+      'Primer Spec: Main Content: Expected main content ref to be initialized.',
     );
-    task_list_items.forEach((task_list_item) => {
-      const label = document.createElement('label');
-      label.innerHTML = task_list_item.innerHTML;
-      task_list_item.innerHTML = '';
-      task_list_item.appendChild(label);
-    });
+  }
 
-    // Find all GFM task-list checkboxes
-    const task_checkboxes = [
-      ...mainElRef.current.querySelectorAll(
-        '.task-list-item input.task-list-item-checkbox[type="checkbox"]',
-      ),
-    ] as Array<HTMLInputElement>;
+  // The structure of a task-list is:
+  // <ul class="task-list">
+  //   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled>Item 1</li>
+  //   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled>Item 2</li>
+  // </ul>
 
-    let should_use_default_values = false;
-    if (task_checkboxes.length !== getNumCheckboxesFromStorage()) {
-      // If the number of checkboxes is different, then it's possible that
-      // the page has changed (or the user is viewing this page for the first
-      // time.)
-      // Hence, we ignore storage values and render/store default states to
-      // storage for future reloads.
-      should_use_default_values = true;
-      storeNumCheckboxes(task_checkboxes.length);
+  // Wrap the entire contents of each <li> in a <label> for better a11y
+  const task_list_items = mainElRef.current.querySelectorAll('.task-list-item');
+  task_list_items.forEach((task_list_item) => {
+    const label = document.createElement('label');
+    label.innerHTML = task_list_item.innerHTML;
+    task_list_item.innerHTML = '';
+    task_list_item.appendChild(label);
+  });
+
+  // Find all GFM task-list checkboxes
+  const task_checkboxes = [
+    ...mainElRef.current.querySelectorAll(
+      '.task-list-item input.task-list-item-checkbox[type="checkbox"]',
+    ),
+  ] as Array<HTMLInputElement>;
+
+  let should_use_default_values = false;
+  if (task_checkboxes.length !== getNumCheckboxesFromStorage()) {
+    // If the number of checkboxes is different, then it's possible that
+    // the page has changed (or the user is viewing this page for the first
+    // time.)
+    // Hence, we ignore storage values and render/store default states to
+    // storage for future reloads.
+    should_use_default_values = true;
+    storeNumCheckboxes(task_checkboxes.length);
+  }
+
+  // Keep track of the listeners so that we can unregister them if the
+  // innerHTML prop to MainContent ever changes.
+  const listeners: Array<() => void> = [];
+  task_checkboxes.forEach((checkbox, i) => {
+    checkbox.disabled = false;
+    if (should_use_default_values) {
+      setCheckboxState(i, checkbox.checked);
+    } else {
+      checkbox.checked = getCheckboxState(i);
     }
 
-    // Keep track of the listeners so that we can unregister them if the
-    // innerHTML prop to MainContent ever changes.
-    const listeners: Array<() => void> = [];
-    task_checkboxes.forEach((checkbox, i) => {
-      checkbox.disabled = false;
-      if (should_use_default_values) {
-        setCheckboxState(i, checkbox.checked);
-      } else {
-        checkbox.checked = getCheckboxState(i);
-      }
-
-      const checkbox_change_listener = () => {
-        // Persist preference
-        setCheckboxState(i, checkbox.checked);
-      };
-      listeners.push(checkbox_change_listener);
-
-      checkbox.addEventListener('change', checkbox_change_listener);
-    });
-
-    return () => {
-      task_checkboxes.forEach((checkbox, i) => {
-        checkbox.removeEventListener('change', listeners[i]);
-      });
+    const checkbox_change_listener = () => {
+      // Persist preference
+      setCheckboxState(i, checkbox.checked);
     };
+    listeners.push(checkbox_change_listener);
+
+    checkbox.addEventListener('change', checkbox_change_listener);
+  });
+
+  return () => {
+    task_checkboxes.forEach((checkbox, i) => {
+      checkbox.removeEventListener('change', listeners[i]);
+    });
   };
 }
 

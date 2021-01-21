@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 
 /**
  * Returns a stateful boolean representing if a print-event is in progress
@@ -6,14 +6,14 @@ import { useEffect, useState } from 'preact/hooks';
  */
 export function usePrintInProgress(): boolean {
   const [isPrintInProgress, setIsPrintInProgress] = useState(false);
-  useEffect(
-    useBeforePrint(() => setIsPrintInProgress(true)),
-    [],
-  );
-  useEffect(
-    useAfterPrint(() => setIsPrintInProgress(false)),
-    [],
-  );
+  const beforePrint = useCallback(useBeforePrint, []);
+  const afterPrint = useCallback(useAfterPrint, []);
+  useEffect(() => {
+    return beforePrint(() => setIsPrintInProgress(true));
+  }, [beforePrint]);
+  useEffect(() => {
+    return afterPrint(() => setIsPrintInProgress(false));
+  }, [afterPrint]);
   return isPrintInProgress;
 }
 
@@ -21,39 +21,38 @@ export function usePrintInProgress(): boolean {
  * Register a function (that could contain imperative and possibly effectful
  * code) that will be invoked when window.onbeforeprint fires.
  *
- * The return-value is an augmented handler that must be used with
- * `useEffect()`. For instance:
+ * The return-value is a cleanup method that must be returned at the end of
+ * the `useEffect()` handler. For instance:
  * ```
+ * const beforePrint = useCallback(useBeforePrint, []);
  * useEffect(
- *   useBeforePrint(handler),
- *   [dep1, dep2],
+ *   () => { return beforePrint(handler); },
+ *   [beforePrint, dep1, dep2],
  * );
  * ```
  * @param handler Imperative function to be invoked onbeforeprint
  */
 export function useBeforePrint(handler: () => void): () => void {
-  return () => {
-    // Safari < 13 requires this polyfill:
-    let mql_listener: (mql: MediaQueryListEvent) => void;
-    if (window.matchMedia) {
-      mql_listener = (mql) => {
-        if (mql.matches) {
-          // webkit equivalent of onbeforeprint
-          handler();
-        }
-      };
-      window.matchMedia('print').addListener(mql_listener);
-    }
-
-    // Non-Safari browsers support this:
-    window.addEventListener('beforeprint', handler);
-
-    return () => {
-      if (window.matchMedia) {
-        window.matchMedia('print').removeListener(mql_listener);
+  // Safari < 13 requires this polyfill:
+  let mql_listener: (mql: MediaQueryListEvent) => void;
+  if (window.matchMedia) {
+    mql_listener = (mql) => {
+      if (mql.matches) {
+        // webkit equivalent of onbeforeprint
+        handler();
       }
-      window.removeEventListener('beforeprint', handler);
     };
+    window.matchMedia('print').addListener(mql_listener);
+  }
+
+  // Non-Safari browsers support this:
+  window.addEventListener('beforeprint', handler);
+
+  return () => {
+    if (window.matchMedia) {
+      window.matchMedia('print').removeListener(mql_listener);
+    }
+    window.removeEventListener('beforeprint', handler);
   };
 }
 
@@ -61,37 +60,37 @@ export function useBeforePrint(handler: () => void): () => void {
  * Register a function (that could contain imperative and possibly effectful
  * code) that will be invoked when window.onafterprint fires.
  *
- * The return-value is an augmented handler that must be used with
- * `useEffect()`. For instance:
+ * The return-value is a cleanup method that must be returned at the end of
+ * the `useEffect()` handler. For instance:
  * ```
+ * const afterPrint = useCallback(useAfterPrint, []);
  * useEffect(
- *   useAfterPrint(handler),
- *   [dep1, dep2],
+ *   () => { return afterPrint(handler); },
+ *   [afterPrint, dep1, dep2],
  * );
+ * ```
  * @param handler Imperative function to execute onafterprint
  */
 export function useAfterPrint(handler: () => void): () => void {
-  return () => {
-    // Safari < 13 requires this polyfill:
-    let mql_listener: (mql: MediaQueryListEvent) => void;
-    if (window.matchMedia) {
-      mql_listener = (mql) => {
-        if (!mql.matches) {
-          // webkit equivalent of onafterprint
-          handler();
-        }
-      };
-      window.matchMedia('print').addListener(mql_listener);
-    }
-
-    // Non-Safari browsers support this:
-    window.addEventListener('afterprint', handler);
-
-    return () => {
-      if (window.matchMedia) {
-        window.matchMedia('print').removeListener(mql_listener);
+  // Safari < 13 requires this polyfill:
+  let mql_listener: (mql: MediaQueryListEvent) => void;
+  if (window.matchMedia) {
+    mql_listener = (mql) => {
+      if (!mql.matches) {
+        // webkit equivalent of onafterprint
+        handler();
       }
-      window.removeEventListener('afterprint', handler);
     };
+    window.matchMedia('print').addListener(mql_listener);
+  }
+
+  // Non-Safari browsers support this:
+  window.addEventListener('afterprint', handler);
+
+  return () => {
+    if (window.matchMedia) {
+      window.matchMedia('print').removeListener(mql_listener);
+    }
+    window.removeEventListener('afterprint', handler);
   };
 }
