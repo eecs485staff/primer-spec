@@ -34,6 +34,20 @@ version_string: v1.5
                 disableSidebar: {{ page.disableSidebar | default: false }},
                 defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
                 defaultSubthemeMode: '{{ site.primerSpec.defaultSubthemeMode | default: "system" }}',
+                sitemapUrls: [
+                    {%- if site.primerSpec.enableSitemap %}
+                    {%- for page in site.pages -%}
+                    {
+                        url: '{{ page.url }}',
+                        path: '{{ page.path }}',
+                        {%- if page.title -%}
+                        title: '{{ page.title }}',
+                        {%- endif %}
+                    },
+                    {%- endfor -%}
+                    {%- endif -%}
+                ],
+                sitemapSiteTitle: '{{ site.title | default: "" }}',
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
