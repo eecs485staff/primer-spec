@@ -1,5 +1,11 @@
 import { h } from 'preact';
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'preact/hooks';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
@@ -17,6 +23,8 @@ type SidebarProps = {
   onToggleSettings: () => void;
 };
 
+type NavType = 'toc' | 'sitemap';
+
 const SIDEBAR_SCROLL_POSITION_STORAGE_KEY =
   'primer_spec_sidebar_scroll_position';
 
@@ -25,6 +33,8 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
 
   const is_print_in_progress = usePrintInProgress();
   const sidebar_ref = useRef<HTMLElement>(null);
+
+  const [currentNavType, setCurrentNavType] = useState<NavType>('toc');
 
   const saveScrollPositionThenToggleSidebar = useCallback(() => {
     // Before closing the sidebar, persist the scroll position within the
@@ -93,6 +103,24 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
       aria-label="Table of Contents"
       tabIndex={-1}
     >
+      <div class="tabnav">
+        <nav class="tabnav-tabs" aria-label="Navigation type">
+          <a
+            class="tabnav-tab"
+            href="#url"
+            aria-current={currentNavType === 'toc' ? 'location' : undefined}
+          >
+            Page Contents
+          </a>
+          <a
+            class="tabnav-tab"
+            href="#url"
+            aria-current={currentNavType === 'sitemap' ? 'location' : undefined}
+          >
+            Sitemap
+          </a>
+        </nav>
+      </div>
       <div role="presentation" onClick={() => true}>
         <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
           Contents
