@@ -27,6 +27,8 @@ export default {
   DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
+  SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
+  SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
 
   // Other constants
   PRIMER_SPEC_APP_NODE_ID: 'primer-spec-app-container',
