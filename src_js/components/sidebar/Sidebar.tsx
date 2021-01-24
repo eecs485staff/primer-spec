@@ -3,14 +3,18 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'preact/hooks';
+import Config from '../../Config';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 import { usePrintInProgress } from '../../utils/hooks';
 import Storage from '../../utils/Storage';
+import unflattenSitemapTree from './unflattenSitemapTree';
+import Sitemap from './Sitemap';
 
 type SidebarProps = {
   contentNodeSelector: string;
@@ -35,6 +39,12 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
   const sidebar_ref = useRef<HTMLElement>(null);
 
   const [currentNavType, setCurrentNavType] = useState<NavType>('toc');
+
+  const sitemapNode = useMemo(
+    () => unflattenSitemapTree(Config.SITEMAP_URLS, Config.SITEMAP_SITE_TITLE),
+    [],
+  );
+  const isSitemapAvailable = !!sitemapNode;
 
   const saveScrollPositionThenToggleSidebar = useCallback(() => {
     // Before closing the sidebar, persist the scroll position within the
@@ -90,6 +100,22 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
     return <div />;
   }
 
+  const headerLabel = currentNavType === 'toc' ? 'Contents' : 'Sitemap';
+  const sidebarChild =
+    currentNavType === 'toc' ? (
+      <TableOfContents
+        contentNodeSelector={props.contentNodeSelector}
+        isSmallScreen={props.isSmallScreen}
+        sidebarShown={props.sidebarShown}
+        settingsShown={props.settingsShown}
+        activeSectionOffsetY={props.activeSectionOffsetY}
+        onToggleSidebar={saveScrollPositionThenToggleSidebar}
+        onToggleSettings={props.onToggleSettings}
+      />
+    ) : (
+      <Sitemap sitemapNode={sitemapNode} />
+    );
+
   // The explicit onClick handler is needed to force Safari (iOS) to propagate
   // click events for the sidebar.
   // We use an <aside> element to indicate to screen-readers that the Sidebar
@@ -103,43 +129,39 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
       aria-label="Table of Contents"
       tabIndex={-1}
     >
-      <div class="tabnav">
-        <nav class="tabnav-tabs" aria-label="Navigation type">
-          <a
-            class="tabnav-tab"
-            href="#url"
-            aria-current={currentNavType === 'toc' ? 'location' : undefined}
-          >
-            Page Contents
-          </a>
-          <a
-            class="tabnav-tab"
-            href="#url"
-            aria-current={currentNavType === 'sitemap' ? 'location' : undefined}
-          >
-            Sitemap
-          </a>
-        </nav>
-      </div>
-      <div role="presentation" onClick={() => true}>
-        <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
-          Contents
-          <InlineButton
-            icon={IconType.SIDEBAR}
-            onClick={saveScrollPositionThenToggleSidebar}
-            ariaLabel="Close navigation pane"
-          />
-        </h2>
-        <br />
-        <TableOfContents
-          contentNodeSelector={props.contentNodeSelector}
-          isSmallScreen={props.isSmallScreen}
-          sidebarShown={props.sidebarShown}
-          settingsShown={props.settingsShown}
-          activeSectionOffsetY={props.activeSectionOffsetY}
-          onToggleSidebar={saveScrollPositionThenToggleSidebar}
-          onToggleSettings={props.onToggleSettings}
+      <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
+        {headerLabel}
+        <InlineButton
+          icon={IconType.SIDEBAR}
+          onClick={saveScrollPositionThenToggleSidebar}
+          ariaLabel="Close navigation pane"
         />
+      </h2>
+      <br />
+      {isSitemapAvailable ? (
+        <div class="tabnav">
+          <nav class="tabnav-tabs" aria-label="Navigation type">
+            <button
+              class="tabnav-tab"
+              aria-current={currentNavType === 'toc' ? 'location' : undefined}
+              onClick={() => setCurrentNavType('toc')}
+            >
+              <i class="fas fa-stream" /> Contents
+            </button>
+            <button
+              class="tabnav-tab"
+              aria-current={
+                currentNavType === 'sitemap' ? 'location' : undefined
+              }
+              onClick={() => setCurrentNavType('sitemap')}
+            >
+              <i class="fas fa-sitemap" /> Sitemap
+            </button>
+          </nav>
+        </div>
+      ) : null}
+      <div role="presentation" onClick={() => true}>
+        {sidebarChild}
       </div>
     </aside>
   );
