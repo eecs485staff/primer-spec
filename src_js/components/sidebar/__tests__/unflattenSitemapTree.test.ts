@@ -64,36 +64,37 @@ describe('unflattenSitemapTree', () => {
       ];
 
       const expectedSitemap = {
-        type: 'page',
         page: { name: SITE_TITLE, url: '/my-repo/' },
-        children: [
+        childPages: [
           {
-            type: 'page',
             page: { name: 'About', url: '/my-repo/about.html' },
-            children: [],
+            childPages: [],
+            childDirs: [],
           },
+        ],
+        childDirs: [
           {
-            type: 'dir',
             dir: 'setup-docs',
             title: 'Setup Docs',
-            children: [
+            childPages: [
               {
-                type: 'page',
                 page: {
                   name: 'Windows Visual Studio',
                   url: '/my-repo/setup-docs/windows_visual_studio.html',
                 },
-                children: [],
+                childPages: [],
+                childDirs: [],
               },
               {
-                type: 'page',
                 page: {
                   name: 'Linux Nano',
                   url: '/my-repo/setup-docs/linux_nano.html',
                 },
-                children: [],
+                childPages: [],
+                childDirs: [],
               },
             ],
+            childDirs: [],
           },
         ],
       };
@@ -114,15 +115,15 @@ describe('unflattenSitemapTree', () => {
       ];
 
       const expectedSitemap = {
-        type: 'page',
         page: { name: SITE_TITLE, url: '/my-repo/' },
-        children: [
+        childPages: [
           {
-            type: 'page',
             page: { name: 'About', url: '/my-repo/about.html' },
-            children: [],
+            childPages: [],
+            childDirs: [],
           },
         ],
+        childDirs: [],
       };
       expect(unflattenSitemapTree(sitemapPagesInfo, SITE_TITLE)).toStrictEqual(
         expectedSitemap,
@@ -145,25 +146,26 @@ describe('unflattenSitemapTree', () => {
       ];
 
       const expectedSitemap = {
-        type: 'page',
         page: { name: SITE_TITLE, url: '/' },
-        children: [
+        childPages: [
           {
-            type: 'page',
             page: { name: 'CUSTOM ABOUT-PAGE', url: '/about.html' },
-            children: [],
+            childPages: [],
+            childDirs: [],
           },
+        ],
+        childDirs: [
           {
-            type: 'dir',
             dir: 'setup-docs',
             title: 'Setup Docs',
-            children: [
+            childPages: [
               {
-                type: 'page',
                 page: { name: 'Linux', url: '/setup-docs/linux_nano.html' },
-                children: [],
+                childPages: [],
+                childDirs: [],
               },
             ],
+            childDirs: [],
           },
         ],
       };

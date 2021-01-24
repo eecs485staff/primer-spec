@@ -1,16 +1,16 @@
 export type SitemapPageType = { name: string; url: string };
 export type SitemapNodePageType = {
-  type: 'page';
   page: SitemapPageType;
-  children: Array<SitemapTreeNode>;
+  childPages: Array<SitemapNodePageType>;
+  childDirs: Array<SitemapNodeDirType>;
 };
 export type SitemapNodeDirType = {
-  type: 'dir';
   dir: string;
   title: string;
-  children: Array<SitemapTreeNode>;
+  childPages: Array<SitemapNodePageType>;
+  childDirs: Array<SitemapNodeDirType>;
 };
-export type SitemapTreeNode = SitemapNodePageType | SitemapNodeDirType;
+export type SitemapNodeType = SitemapNodePageType | SitemapNodeDirType;
 
 /**
  * Convert a list of sitemap entries into a structured sitemap tree
@@ -23,7 +23,7 @@ export default function unflattenSitemapTree(
   // eslint-disable-next-line no-undef
   sitemapPagesInfo: Array<SitemapPageInfoType>,
   siteTitle: string,
-): null | SitemapTreeNode {
+): SitemapNodePageType | null {
   // Require a root page, and remove it from the list of pages.
   // Root pages path always starts with 'index' or 'README', and could be
   // a Markdown or HTML file.
@@ -46,10 +46,10 @@ export default function unflattenSitemapTree(
     return null;
   }
 
-  const rootNode: SitemapTreeNode = {
-    type: 'page',
+  const rootNode: SitemapNodePageType = {
     page: { name: rootPageInfo.title || siteTitle, url: rootPageInfo.url },
-    children: [],
+    childPages: [],
+    childDirs: [],
   };
 
   sitemapPagesInfo.forEach((pageInfo) => {
@@ -63,37 +63,43 @@ function addPathToNode(
   path: string,
   url: string,
   title: string | undefined,
-  rootNode: SitemapTreeNode,
+  rootNode: SitemapNodeType,
 ): void {
   const pathParts = path.split('/');
   if (pathParts.length === 1) {
+    // It's a page
     const name = title || getSitemapName(path);
     const page: SitemapPageType = { name, url };
-    const newNode: SitemapNodePageType = { type: 'page', page, children: [] };
-    rootNode.children.push(newNode);
+    const newNode: SitemapNodePageType = {
+      page,
+      childPages: [],
+      childDirs: [],
+    };
+    rootNode.childPages.push(newNode);
   } else {
+    // It's a dir
     const dir = pathParts[0];
     const restOfPath = pathParts.slice(1).join('/');
 
     // Check if the directory has already been added
-    const indexOfDir = rootNode.children.findIndex(
-      (child) => child.type === 'dir' && child.dir === dir,
+    const indexOfDir = rootNode.childDirs.findIndex(
+      (child) => child.dir === dir,
     );
-    if (indexOfDir === -1) {
+    if (indexOfDir !== -1) {
+      // Add to the existing dir
+      addPathToNode(restOfPath, url, title, rootNode.childDirs[indexOfDir]);
+    } else {
       // Need to create a new directory
       const dirTitle = getSitemapName(dir);
       const newNode: SitemapNodeDirType = {
-        type: 'dir',
         dir,
         title: dirTitle,
-        children: [],
+        childPages: [],
+        childDirs: [],
       };
 
       addPathToNode(restOfPath, url, title, newNode);
-      rootNode.children.push(newNode);
-    } else {
-      // Add to the existing dir
-      addPathToNode(restOfPath, url, title, rootNode.children[indexOfDir]);
+      rootNode.childDirs.push(newNode);
     }
   }
 }
