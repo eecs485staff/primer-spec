@@ -15,7 +15,7 @@ export default function Sitemap(props: PropsType): h.JSX.Element {
   }
 
   return (
-    <nav class="primer-spec-toc">
+    <nav class="primer-spec-toc" aria-label="Sitemap">
       <ul class="primer-spec-toc-list">
         <li>
           <div
