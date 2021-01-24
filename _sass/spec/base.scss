@@ -55,6 +55,25 @@ $Z_INDEX_SIDEBAR: 4;
       color: var(--sidebar-heading-link-color);
     }
   }
+
+  // For the tabnav (to switch between contents and sitemap):
+  // Primer CSS already provides the styles, we just need to control the colors
+  // based on the theme.
+  .tabnav {
+    border-color: var(--sidebar-toc-h1-border-color);
+
+    .tabnav-tab {
+      color: var(--sidebar-heading-text-color);
+    }
+
+    .tabnav-tab.selected,
+    .tabnav-tab[aria-selected='true'],
+    .tabnav-tab[aria-current]:not([aria-current='false']) {
+      background-color: var(--sidebar-bg-color);
+      color: var(--sidebar-heading-text-color);
+      border-color: var(--sidebar-toc-h1-border-color);
+    }
+  }
 }
 
 .primer-spec-topbar {
@@ -214,6 +233,7 @@ $Z_INDEX_SIDEBAR: 4;
     }
   }
   &-item:not(.primer-spec-toc-active) {
+    color: var(--sidebar-toc-section-link-color);
     &:link,
     &:visited,
     :link,
