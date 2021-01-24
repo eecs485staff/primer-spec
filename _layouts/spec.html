@@ -36,12 +36,15 @@ version_string: v1.5
                 defaultSubthemeMode: '{{ site.primerSpec.defaultSubthemeMode | default: "system" }}',
                 sitemapUrls: [
                     {%- if site.primerSpec.enableSitemap %}
-                    {%- for page in site.pages -%}
+                    {%- for sitePage in site.pages -%}
                     {
-                        url: '{{ page.url }}',
-                        path: '{{ page.path }}',
-                        {%- if page.title -%}
-                        title: '{{ page.title }}',
+                        url: '{{ sitePage.url }}',
+                        path: '{{ sitePage.path }}',
+                        {%- if sitePage.title -%}
+                        title: '{{ sitePage.title }}',
+                        {%- endif -%}
+                        {% if sitePage.path == page.path -%}
+                        current: true,
                         {%- endif %}
                     },
                     {%- endfor -%}

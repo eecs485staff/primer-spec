@@ -56,6 +56,7 @@ describe('unflattenSitemapTree', () => {
         {
           url: '/my-repo/setup-docs/windows_visual_studio.html',
           path: 'setup-docs/windows_visual_studio.html',
+          current: true,
         },
         {
           url: '/my-repo/setup-docs/linux_nano.html',
@@ -64,10 +65,10 @@ describe('unflattenSitemapTree', () => {
       ];
 
       const expectedSitemap = {
-        page: { name: SITE_TITLE, url: '/my-repo/' },
+        page: { name: SITE_TITLE, url: '/my-repo/', current: false },
         childPages: [
           {
-            page: { name: 'About', url: '/my-repo/about.html' },
+            page: { name: 'About', url: '/my-repo/about.html', current: false },
             childPages: [],
             childDirs: [],
           },
@@ -81,6 +82,7 @@ describe('unflattenSitemapTree', () => {
                 page: {
                   name: 'Windows Visual Studio',
                   url: '/my-repo/setup-docs/windows_visual_studio.html',
+                  current: true,
                 },
                 childPages: [],
                 childDirs: [],
@@ -89,6 +91,7 @@ describe('unflattenSitemapTree', () => {
                 page: {
                   name: 'Linux Nano',
                   url: '/my-repo/setup-docs/linux_nano.html',
+                  current: false,
                 },
                 childPages: [],
                 childDirs: [],
@@ -115,10 +118,10 @@ describe('unflattenSitemapTree', () => {
       ];
 
       const expectedSitemap = {
-        page: { name: SITE_TITLE, url: '/my-repo/' },
+        page: { name: SITE_TITLE, url: '/my-repo/', current: false },
         childPages: [
           {
-            page: { name: 'About', url: '/my-repo/about.html' },
+            page: { name: 'About', url: '/my-repo/about.html', current: false },
             childPages: [],
             childDirs: [],
           },
@@ -146,10 +149,14 @@ describe('unflattenSitemapTree', () => {
       ];
 
       const expectedSitemap = {
-        page: { name: SITE_TITLE, url: '/' },
+        page: { name: SITE_TITLE, url: '/', current: false },
         childPages: [
           {
-            page: { name: 'CUSTOM ABOUT-PAGE', url: '/about.html' },
+            page: {
+              name: 'CUSTOM ABOUT-PAGE',
+              url: '/about.html',
+              current: false,
+            },
             childPages: [],
             childDirs: [],
           },
@@ -160,7 +167,11 @@ describe('unflattenSitemapTree', () => {
             title: 'Setup Docs',
             childPages: [
               {
-                page: { name: 'Linux', url: '/setup-docs/linux_nano.html' },
+                page: {
+                  name: 'Linux',
+                  url: '/setup-docs/linux_nano.html',
+                  current: false,
+                },
                 childPages: [],
                 childDirs: [],
               },

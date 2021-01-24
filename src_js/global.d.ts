@@ -20,4 +20,5 @@ declare type SitemapPageInfoType = {
   url: string;
   path: string;
   title?: string;
+  current?: boolean;
 };

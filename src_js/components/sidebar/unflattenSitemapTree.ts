@@ -1,4 +1,4 @@
-export type SitemapPageType = { name: string; url: string };
+export type SitemapPageType = { name: string; url: string; current: boolean };
 export type SitemapNodePageType = {
   page: SitemapPageType;
   childPages: Array<SitemapNodePageType>;
@@ -47,13 +47,23 @@ export default function unflattenSitemapTree(
   }
 
   const rootNode: SitemapNodePageType = {
-    page: { name: rootPageInfo.title || siteTitle, url: rootPageInfo.url },
+    page: {
+      name: rootPageInfo.title || siteTitle,
+      url: rootPageInfo.url,
+      current: !!rootPageInfo.current,
+    },
     childPages: [],
     childDirs: [],
   };
 
   sitemapPagesInfo.forEach((pageInfo) => {
-    addPathToNode(pageInfo.path, pageInfo.url, pageInfo.title, rootNode);
+    addPathToNode(
+      pageInfo.path,
+      pageInfo.url,
+      pageInfo.title,
+      pageInfo.current,
+      rootNode,
+    );
   });
 
   return rootNode;
@@ -63,13 +73,14 @@ function addPathToNode(
   path: string,
   url: string,
   title: string | undefined,
+  current: boolean | undefined,
   rootNode: SitemapNodeType,
 ): void {
   const pathParts = path.split('/');
   if (pathParts.length === 1) {
     // It's a page
     const name = title || getSitemapName(path);
-    const page: SitemapPageType = { name, url };
+    const page: SitemapPageType = { name, url, current: !!current };
     const newNode: SitemapNodePageType = {
       page,
       childPages: [],
@@ -87,7 +98,13 @@ function addPathToNode(
     );
     if (indexOfDir !== -1) {
       // Add to the existing dir
-      addPathToNode(restOfPath, url, title, rootNode.childDirs[indexOfDir]);
+      addPathToNode(
+        restOfPath,
+        url,
+        title,
+        current,
+        rootNode.childDirs[indexOfDir],
+      );
     } else {
       // Need to create a new directory
       const dirTitle = getSitemapName(dir);
@@ -98,7 +115,7 @@ function addPathToNode(
         childDirs: [],
       };
 
-      addPathToNode(restOfPath, url, title, newNode);
+      addPathToNode(restOfPath, url, title, current, newNode);
       rootNode.childDirs.push(newNode);
     }
   }

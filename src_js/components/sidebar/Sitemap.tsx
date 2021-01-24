@@ -17,7 +17,11 @@ export default function Sitemap(props: PropsType): h.JSX.Element {
     <nav class="primer-spec-toc">
       <ul class="primer-spec-toc-list">
         <li>
-          <div class={'primer-spec-toc-item primer-spec-toc-h1'}>
+          <div
+            class={`primer-spec-toc-item primer-spec-toc-h1 ${
+              sitemapNode.page.current ? 'primer-spec-toc-active' : ''
+            }`}
+          >
             <a href={sitemapNode.page.url}>
               <i class="fas fa-home" /> {sitemapNode.page.name}
             </a>
@@ -35,7 +39,11 @@ function generateListItems(node: SitemapNodeType, level = 1): h.JSX.Element[] {
   const pageItems = node.childPages.map((childPage) => (
     <Fragment>
       <li>
-        <div class={`primer-spec-toc-item primer-spec-toc-h${effectiveLevel}`}>
+        <div
+          class={`primer-spec-toc-item primer-spec-toc-h${effectiveLevel} ${
+            childPage.page.current ? 'primer-spec-toc-active' : ''
+          }`}
+        >
           <a href={childPage.page.url}>{childPage.page.name}</a>
         </div>
         <ul class="primer-spec-toc-section primer-spec-toc-list">
