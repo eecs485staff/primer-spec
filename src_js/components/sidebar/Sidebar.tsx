@@ -100,6 +100,18 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
     return <div />;
   }
 
+  const toc = (
+    <TableOfContents
+      contentNodeSelector={props.contentNodeSelector}
+      isSmallScreen={props.isSmallScreen}
+      sidebarShown={props.sidebarShown}
+      settingsShown={props.settingsShown}
+      activeSectionOffsetY={props.activeSectionOffsetY}
+      onToggleSidebar={saveScrollPositionThenToggleSidebar}
+      onToggleSettings={props.onToggleSettings}
+    />
+  );
+
   // The explicit onClick handler is needed to force Safari (iOS) to propagate
   // click events for the sidebar.
   // We use an <aside> element to indicate to screen-readers that the Sidebar
@@ -135,20 +147,16 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
           </Fragment>
         ) : null}
 
-        <details open>
-          <summary>
-            <i class="fas fa-stream" /> On this page
-          </summary>
-          <TableOfContents
-            contentNodeSelector={props.contentNodeSelector}
-            isSmallScreen={props.isSmallScreen}
-            sidebarShown={props.sidebarShown}
-            settingsShown={props.settingsShown}
-            activeSectionOffsetY={props.activeSectionOffsetY}
-            onToggleSidebar={saveScrollPositionThenToggleSidebar}
-            onToggleSettings={props.onToggleSettings}
-          />
-        </details>
+        {isSitemapAvailable ? (
+          <details open>
+            <summary>
+              <i class="fas fa-stream" /> On this page
+            </summary>
+            {toc}
+          </details>
+        ) : (
+          toc
+        )}
       </div>
     </aside>
   );
