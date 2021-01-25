@@ -1,5 +1,4 @@
 import { Fragment, h } from 'preact';
-import Config from '../../Config';
 
 import type {
   SitemapNodePageType,
@@ -23,7 +22,7 @@ export default function Sitemap(props: PropsType): h.JSX.Element {
               sitemapNode.page.current ? 'primer-spec-toc-active' : ''
             }`}
           >
-            <a href={getUrl(sitemapNode.page.url)}>
+            <a href={sitemapNode.page.url}>
               <i class="fas fa-home" /> {sitemapNode.page.name}
             </a>
           </div>
@@ -45,7 +44,7 @@ function generateListItems(node: SitemapNodeType, level = 1): h.JSX.Element[] {
             childPage.page.current ? 'primer-spec-toc-active' : ''
           }`}
         >
-          <a href={getUrl(childPage.page.url)}>{childPage.page.name}</a>
+          <a href={childPage.page.url}>{childPage.page.name}</a>
         </div>
         <ul class="primer-spec-toc-section primer-spec-toc-list">
           {...generateListItems(childPage, level + 1)}
@@ -68,8 +67,4 @@ function generateListItems(node: SitemapNodeType, level = 1): h.JSX.Element[] {
   ));
 
   return [...pageItems, ...dirItems];
-}
-
-function getUrl(absoluteUrl: string): string {
-  return Config.BASE_URL + absoluteUrl;
 }
