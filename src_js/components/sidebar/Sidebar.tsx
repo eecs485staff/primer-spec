@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import {
   useCallback,
   useEffect,
@@ -100,22 +100,6 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
     return <div />;
   }
 
-  const headerLabel = currentNavType === 'toc' ? 'Contents' : 'Sitemap';
-  const sidebarChild =
-    currentNavType === 'toc' ? (
-      <TableOfContents
-        contentNodeSelector={props.contentNodeSelector}
-        isSmallScreen={props.isSmallScreen}
-        sidebarShown={props.sidebarShown}
-        settingsShown={props.settingsShown}
-        activeSectionOffsetY={props.activeSectionOffsetY}
-        onToggleSidebar={saveScrollPositionThenToggleSidebar}
-        onToggleSettings={props.onToggleSettings}
-      />
-    ) : (
-      <Sitemap sitemapNode={sitemapNode} />
-    );
-
   // The explicit onClick handler is needed to force Safari (iOS) to propagate
   // click events for the sidebar.
   // We use an <aside> element to indicate to screen-readers that the Sidebar
@@ -130,7 +114,7 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
       tabIndex={-1}
     >
       <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
-        {headerLabel}
+        Contents
         <InlineButton
           icon={IconType.SIDEBAR}
           onClick={saveScrollPositionThenToggleSidebar}
@@ -138,30 +122,33 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
         />
       </h2>
       <br />
-      {isSitemapAvailable ? (
-        <div class="tabnav">
-          <nav class="tabnav-tabs" aria-label="Navigation type">
-            <button
-              class="tabnav-tab"
-              aria-current={currentNavType === 'toc' ? 'location' : undefined}
-              onClick={() => setCurrentNavType('toc')}
-            >
-              <i class="fas fa-stream" /> Contents
-            </button>
-            <button
-              class="tabnav-tab"
-              aria-current={
-                currentNavType === 'sitemap' ? 'location' : undefined
-              }
-              onClick={() => setCurrentNavType('sitemap')}
-            >
-              <i class="fas fa-sitemap" /> Sitemap
-            </button>
-          </nav>
-        </div>
-      ) : null}
       <div role="presentation" onClick={() => true}>
-        {sidebarChild}
+        {isSitemapAvailable ? (
+          <Fragment>
+            <details>
+              <summary>
+                <i class="fas fa-sitemap" /> Sitemap
+              </summary>
+              <Sitemap sitemapNode={sitemapNode} />
+            </details>
+            <hr />
+          </Fragment>
+        ) : null}
+
+        <details open>
+          <summary>
+            <i class="fas fa-stream" /> On this page
+          </summary>
+          <TableOfContents
+            contentNodeSelector={props.contentNodeSelector}
+            isSmallScreen={props.isSmallScreen}
+            sidebarShown={props.sidebarShown}
+            settingsShown={props.settingsShown}
+            activeSectionOffsetY={props.activeSectionOffsetY}
+            onToggleSidebar={saveScrollPositionThenToggleSidebar}
+            onToggleSettings={props.onToggleSettings}
+          />
+        </details>
       </div>
     </aside>
   );

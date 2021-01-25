@@ -42,6 +42,8 @@ $Z_INDEX_SIDEBAR: 4;
   // the content. (By default, the element has a transparent background.)
   background-color: var(--sidebar-bg-color);
 
+  color: var(--sidebar-toc-section-link-color);
+
   // These are headers within the sidebar
   h1,
   h2,
@@ -56,21 +58,12 @@ $Z_INDEX_SIDEBAR: 4;
     }
   }
 
-  // For the tabnav (to switch between contents and sitemap):
-  // Primer CSS already provides the styles, we just need to control the colors
-  // based on the theme.
-  .tabnav {
-    border-color: var(--sidebar-toc-h1-border-color);
-
-    .tabnav-tab {
-      color: var(--sidebar-heading-text-color);
+  details {
+    & > summary {
+      font-size: 1.2em;
     }
 
-    .tabnav-tab.selected,
-    .tabnav-tab[aria-selected='true'],
-    .tabnav-tab[aria-current]:not([aria-current='false']) {
-      background-color: var(--sidebar-bg-color);
-      color: var(--sidebar-heading-text-color);
+    hr {
       border-color: var(--sidebar-toc-h1-border-color);
     }
   }
