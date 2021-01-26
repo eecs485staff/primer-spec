@@ -1,5 +1,5 @@
 {
-  title: "{{ include.item.title }}",
+  title: "{{ include.item.title | default: '' }}",
   {%- if include.item.url -%}
   url: "{{ include.item.url }}",
   {%- elsif include.item.pages -%}

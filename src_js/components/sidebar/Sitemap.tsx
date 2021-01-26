@@ -44,7 +44,15 @@ function generateListItems(node: SitemapNodeType, level = 1): h.JSX.Element[] {
             childPage.page.current ? 'primer-spec-toc-active' : ''
           }`}
         >
-          <a href={childPage.page.url}>{childPage.page.name}</a>
+          <a
+            href={childPage.page.url}
+            target={childPage.page.external ? 'blank' : undefined}
+          >
+            {childPage.page.name}{' '}
+            {childPage.page.external ? (
+              <i class="external-icon fas fa-external-link-alt" />
+            ) : null}
+          </a>
         </div>
         <ul class="primer-spec-toc-section primer-spec-toc-list">
           {...generateListItems(childPage, level + 1)}

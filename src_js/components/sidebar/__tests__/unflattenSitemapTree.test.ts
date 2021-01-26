@@ -28,7 +28,7 @@ describe('unflattenSitemapTree', () => {
   describe('cases where sitemap is not created', () => {
     test('empty sitemap', () => {
       global.console.debug = jest.fn();
-      expect(unflattenSitemapTree([], SITE_TITLE)).toBe(null);
+      expect(unflattenSitemapTree([], [], SITE_TITLE)).toBe(null);
       expect(console.debug).toBeCalled();
     });
 
@@ -38,13 +38,13 @@ describe('unflattenSitemapTree', () => {
       const sitemapPagesInfo = [
         { url: '/something.html', path: 'something.html' },
       ];
-      expect(unflattenSitemapTree(sitemapPagesInfo, SITE_TITLE)).toBe(null);
+      expect(unflattenSitemapTree(sitemapPagesInfo, [], SITE_TITLE)).toBe(null);
       expect(console.debug).toBeCalled();
     });
 
     test('single root item', () => {
       const sitemapPagesInfo = [{ url: '/', path: 'README.md' }];
-      expect(unflattenSitemapTree(sitemapPagesInfo, SITE_TITLE)).toBe(null);
+      expect(unflattenSitemapTree(sitemapPagesInfo, [], SITE_TITLE)).toBe(null);
     });
   });
 
@@ -102,9 +102,9 @@ describe('unflattenSitemapTree', () => {
         ],
       };
 
-      expect(unflattenSitemapTree(sitemapPagesInfo, SITE_TITLE)).toStrictEqual(
-        expectedSitemap,
-      );
+      expect(
+        unflattenSitemapTree(sitemapPagesInfo, [], SITE_TITLE),
+      ).toStrictEqual(expectedSitemap);
     });
 
     test('remove assets pages', () => {
@@ -128,9 +128,9 @@ describe('unflattenSitemapTree', () => {
         ],
         childDirs: [],
       };
-      expect(unflattenSitemapTree(sitemapPagesInfo, SITE_TITLE)).toStrictEqual(
-        expectedSitemap,
-      );
+      expect(
+        unflattenSitemapTree(sitemapPagesInfo, [], SITE_TITLE),
+      ).toStrictEqual(expectedSitemap);
     });
 
     test('respects page titles', () => {
@@ -180,9 +180,9 @@ describe('unflattenSitemapTree', () => {
           },
         ],
       };
-      expect(unflattenSitemapTree(sitemapPagesInfo, SITE_TITLE)).toStrictEqual(
-        expectedSitemap,
-      );
+      expect(
+        unflattenSitemapTree(sitemapPagesInfo, [], SITE_TITLE),
+      ).toStrictEqual(expectedSitemap);
     });
   });
 });

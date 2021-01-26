@@ -1,4 +1,9 @@
-export type SitemapPageType = { name: string; url: string; current: boolean };
+export type SitemapPageType = {
+  name: string;
+  url: string;
+  current: boolean;
+  external?: boolean;
+};
 export type SitemapNodePageType = {
   page: SitemapPageType;
   childPages: Array<SitemapNodePageType>;
@@ -19,9 +24,8 @@ export type SitemapNodeType = SitemapNodePageType | SitemapNodeDirType;
  *                         paths MUST be `/`.
  */
 export default function unflattenSitemapTree(
-  // TODO: Figure out why ESLint complains about the type being undefined.
-  // eslint-disable-next-line no-undef
   sitemapPagesInfo: Array<SitemapPageInfoType>,
+  sitemapCustomLinks: Array<SitemapCustomLinksType>,
   siteTitle: string,
 ): SitemapNodePageType | null {
   // Require a root page, and remove it from the list of pages.
@@ -66,6 +70,8 @@ export default function unflattenSitemapTree(
     );
   });
 
+  sitemapCustomLinks.forEach((item) => addCustomLinkToNode(item, rootNode));
+
   return rootNode;
 }
 
@@ -80,12 +86,7 @@ function addPathToNode(
   if (pathParts.length === 1) {
     // It's a page
     const name = title || getSitemapName(path);
-    const page: SitemapPageType = { name, url, current: !!current };
-    const newNode: SitemapNodePageType = {
-      page,
-      childPages: [],
-      childDirs: [],
-    };
+    const newNode = createPageNode(name, url, !!current);
     rootNode.childPages.push(newNode);
   } else {
     // It's a dir
@@ -119,6 +120,42 @@ function addPathToNode(
       rootNode.childDirs.push(newNode);
     }
   }
+}
+
+function addCustomLinkToNode(
+  item: SitemapCustomLinksType,
+  rootNode: SitemapNodeType,
+): void {
+  if (item.url) {
+    rootNode.childPages.push(createPageNode(item.title, item.url, false, true));
+  } else if (item.pages) {
+    const newNode: SitemapNodeDirType = {
+      dir: item.title,
+      title: item.title,
+      childPages: [],
+      childDirs: [],
+    };
+    item.pages.forEach((childItem) => addCustomLinkToNode(childItem, newNode));
+    rootNode.childDirs.push(newNode);
+  } else {
+    console.debug(
+      'Primer Spec: unflattenSitemapTree: addCustomLinkToNode: Received incomplete item with title',
+      item.title,
+    );
+  }
+}
+
+function createPageNode(
+  name: string,
+  url: string,
+  current: boolean,
+  external?: boolean,
+): SitemapNodePageType {
+  return {
+    page: { name, url, current, external },
+    childPages: [],
+    childDirs: [],
+  };
 }
 
 export function getSitemapName(pathName: string): string {

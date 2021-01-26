@@ -27,8 +27,6 @@ type SidebarProps = {
   onToggleSettings: () => void;
 };
 
-type NavType = 'toc' | 'sitemap';
-
 const SIDEBAR_SCROLL_POSITION_STORAGE_KEY =
   'primer_spec_sidebar_scroll_position';
 
@@ -38,10 +36,13 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
   const is_print_in_progress = usePrintInProgress();
   const sidebar_ref = useRef<HTMLElement>(null);
 
-  const [currentNavType, setCurrentNavType] = useState<NavType>('toc');
-
   const sitemapNode = useMemo(
-    () => unflattenSitemapTree(Config.SITEMAP_URLS, Config.SITEMAP_SITE_TITLE),
+    () =>
+      unflattenSitemapTree(
+        Config.SITEMAP_URLS,
+        Config.SITEMAP_CUSTOM_LINKS,
+        Config.SITEMAP_SITE_TITLE,
+      ),
     [],
   );
   const isSitemapAvailable = !!sitemapNode;
