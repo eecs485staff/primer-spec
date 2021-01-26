@@ -28,6 +28,7 @@ export default {
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
+  SITEMAP_CUSTOM_LINKS: window.PrimerSpecConfig.sitemapCustomLinks || [],
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
 
   // Other constants
