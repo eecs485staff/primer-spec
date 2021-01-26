@@ -35,7 +35,7 @@ version_string: v1.5
                 defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
                 defaultSubthemeMode: '{{ site.primerSpec.defaultSubthemeMode | default: "system" }}',
                 sitemapUrls: [
-                    {%- if site.primerSpec.enableSitemap %}
+                    {%- if site.primerSpec.sitemap.autogenerate %}
                     {%- for sitePage in site.pages -%}
                     {
                         url: '{{ sitePage.url | absolute_url }}',
@@ -49,6 +49,11 @@ version_string: v1.5
                     },
                     {%- endfor -%}
                     {%- endif -%}
+                ],
+                sitemapCustomLinks: [
+                    {%- for item in site.primerSpec.sitemap.custom_links -%}
+                    {% include sitemap_custom_item.js item=item %},
+                    {%- endfor -%}
                 ],
                 sitemapSiteTitle: '{{ site.title | default: "" }}',
             };
