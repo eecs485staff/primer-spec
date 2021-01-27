@@ -1,6 +1,6 @@
 ---
 layout: spec
-title: Long Headings Demo
+title: Long Headings (Demo)
 ---
 
 # Long Headings
