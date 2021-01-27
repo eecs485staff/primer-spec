@@ -38,7 +38,7 @@ version_string: v1.5
                     {%- if site.primerSpec.sitemap.autogenerate %}
                     {%- for sitePage in site.pages -%}
                     {
-                        url: '{{ sitePage.url | absolute_url }}',
+                        url: '{{ sitePage.url | relative_url }}',
                         path: '{{ sitePage.path }}',
                         {%- if sitePage.title -%}
                         title: '{{ sitePage.title }}',
