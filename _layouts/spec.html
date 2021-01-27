@@ -52,7 +52,7 @@ version_string: v1.5
                 ],
                 sitemapCustomLinks: [
                     {%- for item in site.primerSpec.sitemap.custom_links -%}
-                    {% include sitemap_custom_item.js item=item %},
+                    {% include sitemap_custom_item.liquid.js item=item %},
                     {%- endfor -%}
                 ],
                 sitemapSiteTitle: '{{ site.title | default: "" }}',
