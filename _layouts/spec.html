@@ -37,6 +37,9 @@ version_string: v1.5
                 sitemapUrls: [
                     {%- if site.primerSpec.sitemap.autogenerate %}
                     {%- for sitePage in site.pages -%}
+                    {%- if sitePage.excludeFromSitemap -%}
+                    {%- continue -%}
+                    {%- else -%}
                     {
                         url: '{{ sitePage.url | relative_url }}',
                         path: '{{ sitePage.path }}',
@@ -47,6 +50,7 @@ version_string: v1.5
                         current: true,
                         {%- endif %}
                     },
+                    {%- endif -%}
                     {%- endfor -%}
                     {%- endif -%}
                 ],
