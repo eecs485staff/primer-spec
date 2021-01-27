@@ -10,9 +10,14 @@
     "editor.tabSize": 2,
     "search.exclude": {
       "_site": true
-    }
+    },
+    "html.validate.scripts": false
   },
   "extensions": {
-    "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "sissel.shopify-liquid"
+    ]
   }
 }
