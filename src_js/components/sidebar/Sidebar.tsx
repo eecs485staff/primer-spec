@@ -1,11 +1,18 @@
-import { h } from 'preact';
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
+import { h, Fragment } from 'preact';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'preact/hooks';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 import { usePrintInProgress } from '../../utils/hooks';
 import Storage from '../../utils/Storage';
 import SidebarContent from './SidebarContent';
+import getSitemapUrls from './getSitemapUrls';
 
 type SidebarProps = {
   contentNodeSelector: string;
@@ -26,6 +33,8 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
 
   const is_print_in_progress = usePrintInProgress();
   const sidebar_ref = useRef<HTMLElement>(null);
+
+  const sitemapUrls = useMemo(() => getSitemapUrls(), []);
 
   const saveScrollPositionThenToggleSidebar = useCallback(() => {
     // Before closing the sidebar, persist the scroll position within the
@@ -95,15 +104,25 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
       tabIndex={-1}
     >
       <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
+        {sitemapUrls == null ? undefined : (
+          <Fragment>
+            <InlineButton
+              icon={IconType.HOME}
+              href={sitemapUrls.rootPage.url}
+              ariaLabel={sitemapUrls.rootPage.title || 'Home'}
+            />{' '}
+          </Fragment>
+        )}
         Contents
         <InlineButton
           icon={IconType.SIDEBAR}
+          floatRight
           onClick={saveScrollPositionThenToggleSidebar}
           ariaLabel="Close navigation pane"
         />
       </h2>
       <br />
-      <SidebarContent>
+      <SidebarContent sitemap={sitemapUrls}>
         <TableOfContents
           contentNodeSelector={props.contentNodeSelector}
           isSmallScreen={props.isSmallScreen}

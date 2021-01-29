@@ -353,7 +353,7 @@ h6 {
     text-decoration: none;
   }
 
-  #primer-spec-toc-contents > & {
+  #primer-spec-toc-contents > &.primer-spec-hoverable-float-right {
     float: right;
     margin-right: 0.5em;
   }
