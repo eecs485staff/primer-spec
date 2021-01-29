@@ -20,24 +20,3 @@ kramdown:
 primerSpec:
   sitemap:
     autogenerate: true
-    custom_links:
-      - title: Other Deployments
-        pages:
-          - title: Stable
-            url: https://eecs485staff.github.io/primer-spec
-          - title: Latest
-            url: https://preview.seshrs.ml/previews/eecs485staff/primer-spec-nightly/
-      - title: Example specs
-        pages:
-          - title: EECS 485
-            pages:
-              - title: p1-insta485-static
-                url: https://eecs485staff.github.io/p1-insta485-static
-              - title: p4-mapreduce
-                url: https://eecs485staff.github.io/p4-mapreduce
-          - title: EECS 280
-            pages:
-              - title: p2-cv
-                url: https://eecs280staff.github.io/p2-cv
-              - title: p5-ml
-                url: https://eecs280staff.github.io/p5-ml

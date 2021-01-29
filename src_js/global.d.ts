@@ -6,7 +6,6 @@ declare var PrimerSpecConfig: {
   defaultSubthemeName?: string;
   defaultSubthemeMode?: string;
   sitemapUrls?: Array<SitemapPageInfoType>;
-  sitemapCustomLinks: Array<SitemapCustomLinksType>;
   sitemapSiteTitle?: string;
 };
 
@@ -22,10 +21,4 @@ declare type SitemapPageInfoType = {
   path: string;
   title?: string;
   current?: boolean;
-};
-
-declare type SitemapCustomLinksType = {
-  title: string;
-  url?: string;
-  pages?: Array<SitemapCustomLinksType>;
 };

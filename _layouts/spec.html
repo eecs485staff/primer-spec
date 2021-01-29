@@ -54,11 +54,6 @@ version_string: v1.5
                     {%- endfor -%}
                     {%- endif -%}
                 ],
-                sitemapCustomLinks: [
-                    {%- for item in site.primerSpec.sitemap.custom_links -%}
-                    {% include sitemap_custom_item.liquid item=item %},
-                    {%- endfor -%}
-                ],
                 sitemapSiteTitle: '{{ site.title | default: "" }}',
             };
         </script>
