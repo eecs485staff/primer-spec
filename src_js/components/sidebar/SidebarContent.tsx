@@ -23,7 +23,7 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
     <div role="presentation" onClick={() => true}>
       <details open={processedSitemap.rootPage.current ? undefined : true}>
         <summary>
-          <i class="fas fa-sitemap" /> Supplemental Pages
+          <i class="fas fa-sitemap" /> {Config.SITEMAP_LABEL}
         </summary>
         {processedSitemap.siteUrls.map((sitePage) => (
           <SitemapPage page={sitePage}>

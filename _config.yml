@@ -20,3 +20,4 @@ kramdown:
 primerSpec:
   sitemap:
     autogenerate: true
+    label: Tutorials

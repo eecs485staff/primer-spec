@@ -54,6 +54,7 @@ version_string: v1.5
                     {%- endfor -%}
                     {%- endif -%}
                 ],
+                sitemapLabel: '{{ site.primerSpec.sitemap.label | default: "" }}',
                 sitemapSiteTitle: '{{ site.title | default: "" }}',
             };
         </script>
