@@ -58,9 +58,41 @@ $Z_INDEX_SIDEBAR: 4;
     }
   }
 
+  .left-space-fix {
+    // We want the background-border to extend a bit to the left. We
+    // achieve this by moving the entire element to the left, and then
+    // adding padding to keep the content's position unchanged.
+    margin-left: -0.5em;
+    padding-left: 0.5em;
+  }
+
   details {
     & > summary {
+      // Match the H1 styles
       font-size: 1.2em;
+      margin-top: 0.7em;
+      font-weight: bold;
+      color: var(--sidebar-toc-h1-link-color);
+      &.primer-spec-toc-active {
+        color: var(
+          --sidebar-active-toc-h1-section-link-color,
+          var(--sidebar-active-toc-section-link-color)
+        );
+      }
+    }
+
+    details > summary {
+      // Match the H2 styles
+      font-size: 1.2em;
+      margin-top: 0.5em;
+      font-weight: 500;
+      color: var(--sidebar-toc-h2-link-color);
+      &.primer-spec-toc-active {
+        color: var(
+          --sidebar-active-toc-h2-section-link-color,
+          var(--sidebar-active-toc-section-link-color)
+        );
+      }
     }
 
     hr {
@@ -142,6 +174,17 @@ $Z_INDEX_SIDEBAR: 4;
     overflow-x: auto;
     // But don't show vertical scrollbars, they look jarring.
     overflow-y: hidden;
+  }
+  &-sitemap-item {
+    // Needs to be `padding`. `margin` cuts off background color of child
+    // elements!
+    padding-left: 1em;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &:not(.primer-spec-toc-active) {
+      color: var(--sidebar-toc-h1-link-color) !important;
+    }
   }
 
   &-h1 {
@@ -226,7 +269,7 @@ $Z_INDEX_SIDEBAR: 4;
     &:visited,
     :link,
     :visited {
-      color: var(--sidebar-active-toc-section-link-color);
+      color: var(--sidebar-active-toc-section-link-color) !important;
     }
   }
   &-item:not(.primer-spec-toc-active) {

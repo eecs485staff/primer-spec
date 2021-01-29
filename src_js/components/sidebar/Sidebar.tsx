@@ -1,20 +1,11 @@
-import { h, Fragment } from 'preact';
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'preact/hooks';
-import Config from '../../Config';
+import { h } from 'preact';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 import { usePrintInProgress } from '../../utils/hooks';
 import Storage from '../../utils/Storage';
-import unflattenSitemapTree from './unflattenSitemapTree';
-import Sitemap from './Sitemap';
+import SidebarContent from './SidebarContent';
 
 type SidebarProps = {
   contentNodeSelector: string;
@@ -35,17 +26,6 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
 
   const is_print_in_progress = usePrintInProgress();
   const sidebar_ref = useRef<HTMLElement>(null);
-
-  const sitemapNode = useMemo(
-    () =>
-      unflattenSitemapTree(
-        Config.SITEMAP_URLS,
-        Config.SITEMAP_CUSTOM_LINKS,
-        Config.SITEMAP_SITE_TITLE,
-      ),
-    [],
-  );
-  const isSitemapAvailable = !!sitemapNode;
 
   const saveScrollPositionThenToggleSidebar = useCallback(() => {
     // Before closing the sidebar, persist the scroll position within the
@@ -101,18 +81,6 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
     return <div />;
   }
 
-  const toc = (
-    <TableOfContents
-      contentNodeSelector={props.contentNodeSelector}
-      isSmallScreen={props.isSmallScreen}
-      sidebarShown={props.sidebarShown}
-      settingsShown={props.settingsShown}
-      activeSectionOffsetY={props.activeSectionOffsetY}
-      onToggleSidebar={saveScrollPositionThenToggleSidebar}
-      onToggleSettings={props.onToggleSettings}
-    />
-  );
-
   // The explicit onClick handler is needed to force Safari (iOS) to propagate
   // click events for the sidebar.
   // We use an <aside> element to indicate to screen-readers that the Sidebar
@@ -135,30 +103,17 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
         />
       </h2>
       <br />
-      <div role="presentation" onClick={() => true}>
-        {isSitemapAvailable ? (
-          <Fragment>
-            <details>
-              <summary>
-                <i class="fas fa-sitemap" /> Sitemap
-              </summary>
-              <Sitemap sitemapNode={sitemapNode} />
-            </details>
-            <hr />
-          </Fragment>
-        ) : null}
-
-        {isSitemapAvailable ? (
-          <details open>
-            <summary>
-              <i class="fas fa-stream" /> On this page
-            </summary>
-            {toc}
-          </details>
-        ) : (
-          toc
-        )}
-      </div>
+      <SidebarContent>
+        <TableOfContents
+          contentNodeSelector={props.contentNodeSelector}
+          isSmallScreen={props.isSmallScreen}
+          sidebarShown={props.sidebarShown}
+          settingsShown={props.settingsShown}
+          activeSectionOffsetY={props.activeSectionOffsetY}
+          onToggleSidebar={saveScrollPositionThenToggleSidebar}
+          onToggleSettings={props.onToggleSettings}
+        />
+      </SidebarContent>
     </aside>
   );
 }
