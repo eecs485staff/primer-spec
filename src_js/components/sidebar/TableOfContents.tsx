@@ -20,8 +20,12 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
 
   // When the user scrolls, rerender the component.
   useEffect(() => {
-    const scrollHandler = () => setWindowScrollDistance(window.scrollY);
-    window.addEventListener('scroll', scrollHandler);
+    const scrollHandler = () => {
+      window.requestAnimationFrame(() =>
+        setWindowScrollDistance(window.scrollY),
+      );
+    };
+    window.addEventListener('scroll', scrollHandler, { passive: true });
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
