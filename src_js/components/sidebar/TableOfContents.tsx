@@ -20,11 +20,19 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
 
   // When the user scrolls, rerender the component.
   useEffect(() => {
+    // Throttle scroll events using rAF.
+    // Based on: https://css-tricks.com/debouncing-throttling-explained-examples/
+    let ticking = false;
     const scrollHandler = () => {
-      window.requestAnimationFrame(() =>
-        setWindowScrollDistance(window.scrollY),
-      );
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setWindowScrollDistance(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
     window.addEventListener('scroll', scrollHandler, { passive: true });
     return () => {
       window.removeEventListener('scroll', scrollHandler);
