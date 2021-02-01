@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import Config from '../../Config';
 import getSitemapName from './getSitemapName';
 
@@ -16,8 +16,12 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
   }
 
   return (
-    <div role="presentation" onClick={() => true}>
-      <details open={props.sitemap.rootPage.current ? undefined : true}>
+    <Fragment>
+      <details
+        role="navigation"
+        aria-label={Config.SITEMAP_LABEL}
+        open={props.sitemap.rootPage.current ? undefined : true}
+      >
         <summary>
           <i class="fas fa-sitemap" /> {Config.SITEMAP_LABEL}
         </summary>
@@ -31,7 +35,7 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
       <SitemapPage page={props.sitemap.rootPage} dedent>
         {props.sitemap.rootPage.current ? props.children : undefined}
       </SitemapPage>
-    </div>
+    </Fragment>
   );
 }
 
@@ -52,15 +56,22 @@ function SitemapPage(props: {
       </details>
     );
   }
+  // Wrap everything in an <a/> element to indicate to mouse-users that it's
+  // a hyperlink. But don't make it focusable because the <summary/> element
+  // is itself focusable. Let the <summary/> function as the true hyperlink
+  // element for keyboard users and screen-readers.
   return (
-    <a
-      href={props.page.url}
-      onClick={() => {
-        window.location.href = props.page.url;
-      }}
-    >
+    <a href={props.page.url} tabIndex={-1}>
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
-        <summary onClick={(e) => e.preventDefault()}>{title}</summary>
+        <summary
+          role="link"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = props.page.url;
+          }}
+        >
+          {title}
+        </summary>
       </details>
     </a>
   );

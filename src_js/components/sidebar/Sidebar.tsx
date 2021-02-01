@@ -100,7 +100,7 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
     <aside
       ref={sidebar_ref}
       class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
-      aria-label="Table of Contents"
+      aria-label="Contents Sidebar"
       tabIndex={-1}
     >
       <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
