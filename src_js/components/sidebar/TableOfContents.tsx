@@ -20,8 +20,20 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
 
   // When the user scrolls, rerender the component.
   useEffect(() => {
-    const scrollHandler = () => setWindowScrollDistance(window.scrollY);
-    window.addEventListener('scroll', scrollHandler);
+    // Throttle scroll events using rAF.
+    // Based on: https://css-tricks.com/debouncing-throttling-explained-examples/
+    let ticking = false;
+    const scrollHandler = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setWindowScrollDistance(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
