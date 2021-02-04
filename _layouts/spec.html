@@ -35,7 +35,8 @@ version_string: v1.5
                 defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
                 defaultSubthemeMode: '{{ site.primerSpec.defaultSubthemeMode | default: "system" }}',
                 sitemapUrls: [
-                    {%- if site.primerSpec.sitemap.autogenerate %}
+                    {%- if page.excludeFromSitemap -%}
+                    {%- elsif site.primerSpec.sitemap %}
                     {%- for sitePage in site.pages -%}
                     {%- if sitePage.excludeFromSitemap -%}
                     {%- continue -%}
