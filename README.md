@@ -69,6 +69,7 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
 - [Configure Primer Spec](docs/USAGE_ADVANCED.md#page-configuration-options)
   - [Render math expressions with LaTeX](docs/USAGE_ADVANCED.md#latex-boolean)
   - [Disable the sidebar](docs/USAGE_ADVANCED.md#dissablesidebar-boolean)
+  - [Render a sitemap](docs/USAGE_ADVANCED.md#sitemap-boolean--label-string)
   - (And more!)
 
 ## User Showcase

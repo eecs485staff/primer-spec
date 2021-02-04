@@ -17,9 +17,11 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
+    - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+    - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
 
@@ -199,6 +201,12 @@ _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
 
+#### `excludeFromSitemap`: Boolean
+
+Prevent the page from being displayed as part of the [Sitemap](#sitemap-boolean--label-string) in the Sidebar. This option does not have any effect if the [`sitemap` site-wide configuration option](#sitemap-boolean--label-string) is not set.
+
+_NOTE:_ If the site-wide option `sitemap` is enabled, then a Sitemap will _not_ be rendered on the page.
+
 ## Site configuration options
 
 The following configuration options can be specified in the [`_config.yml`](https://jekyllrb.com/docs/configuration/) file of your site, under the `primerSpec` key. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
@@ -234,6 +242,27 @@ Specify the default subtheme name. This subtheme will be applied for first-time 
 #### `defaultSubthemeMode`: String
 
 Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
+
+#### `sitemap`: Boolean | {label: String}
+
+If set to `true`, a sitemap will be auto-generated and displayed in the Sidebar of every Primer Spec page with the label _"Supplemental Pages"_.
+
+To customize the label, specify it under a `label` field. Your `_config.yml` would look like this:
+
+```yml
+# REQUIRED configuration options
+# ...
+
+# OPTIONAL site configuration options
+primerSpec:
+  sitemap:
+    label: My custom sitemap label
+  # ... (other site configuration options)
+```
+
+To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludeFromSitemap-boolean) in the front-matter of your page.
+
+_NOTE:_ A sitemap will only be rendered if your site has multiple pages.
 
 ## Pinning to a specific version
 
