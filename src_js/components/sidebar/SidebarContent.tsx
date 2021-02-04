@@ -22,9 +22,7 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
         aria-label={Config.SITEMAP_LABEL}
         open={props.sitemap.rootPage.current ? undefined : true}
       >
-        <summary>
-          <i class="fas fa-sitemap" /> {Config.SITEMAP_LABEL}
-        </summary>
+        <summary>{Config.SITEMAP_LABEL}</summary>
         {props.sitemap.siteUrls.map((sitePage) => (
           <SitemapPage page={sitePage}>
             {sitePage.current ? props.children : undefined}
