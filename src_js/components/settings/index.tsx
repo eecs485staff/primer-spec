@@ -1,12 +1,13 @@
 import { h } from 'preact';
 import { useCallback, useEffect } from 'preact/hooks';
-import Config from '../Config';
-import { Subthemes, updateTheme } from '../subthemes';
+import Config from '../../Config';
+import { Subthemes, updateTheme } from '../../subthemes';
 import {
   useAfterPrint,
   useBeforePrint,
   usePrintInProgress,
-} from '../utils/hooks';
+} from '../../utils/hooks';
+import ThemePreview from './ThemePreview';
 
 type PropsType = {
   isSmallScreen: boolean;
@@ -111,6 +112,9 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
             {`Primer Spec v${Config.VERSION_RAW}`}
           </a>
         </p>
+        <div style="width: 600px">
+          <ThemePreview />
+        </div>
       </div>
     </div>
   );

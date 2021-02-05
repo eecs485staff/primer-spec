@@ -14,7 +14,7 @@ import getChromeVersion from '../utils/getChromeVersion';
 import { useAfterPrint, useBeforePrint } from '../utils/hooks';
 import Config from '../Config';
 import MainContent from './MainContent';
-import Settings from './Settings';
+import Settings from './settings';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
 import isSmallScreen from '../utils/isSmallScreen';
