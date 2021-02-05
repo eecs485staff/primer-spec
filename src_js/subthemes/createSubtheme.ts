@@ -51,6 +51,7 @@ export default function createSubtheme(
 ): Subtheme {
   return {
     name,
+    theme_definition,
     apply: (mode: SubthemeModeType) => apply(theme_definition, mode),
     reset: (mode: SubthemeModeType) => reset(theme_definition, mode),
   };

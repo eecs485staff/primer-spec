@@ -1,10 +1,11 @@
 import Subthemes from './RegisteredSubthemes';
-import { SubthemeModeType } from './Subtheme';
+import RegisteredSubthemeType, { SubthemeModeType } from './Subtheme';
 import Storage from '../utils/Storage';
 import Config from '../Config';
 
 // Expose Subthemes publicly
 export { Subthemes };
+export type { RegisteredSubthemeType };
 
 /**
  * Updates the appearance of the page based on the Subtheme details to be
