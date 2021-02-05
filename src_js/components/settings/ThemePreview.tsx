@@ -1,21 +1,47 @@
 import { h } from 'preact';
 
-export default function ThemePreview(): h.JSX.Element {
-  const mainBgColor = '#fff';
-  const sidebarBgColor = '#fff';
-  const sidebarHeadingTextColor = '#000';
-  const sidebarTocH1LinkColor = '#555';
-  const sidebarActiveTocSectionBgColor = '#dbdbdb';
-  const sidebarActiveTocH2SectionLinkColor = '#000';
-  const sidebarTocH2LinkColor = '#000';
-  const sidebarTocH1BorderColor = '#eaecef';
-  const mainHeadingTextColor = '#555';
-  const mainTextColor = '#000';
-  const mainHeaderBorderBottomColor = '#eaecef';
-  const mainLinkColor = '#555';
-  const mainTablePreBgColor = '#f6f8fa';
-  const mainTablePreBorderColor = 'none';
-  const sidebarBorderColor = '#eaecef';
+import type { RegisteredSubthemeType } from '../../subthemes';
+
+type PropsType = {
+  subtheme: RegisteredSubthemeType;
+  mode: 'light' | 'dark';
+};
+
+export default function ThemePreview(props: PropsType): h.JSX.Element {
+  const { theme_definition } = props.subtheme;
+  const { mode } = props;
+
+  const mainBgColor = theme_definition[mode]['--main-bg-color'] || 'white';
+  const sidebarBgColor =
+    theme_definition[mode]['--sidebar-bg-color'] || 'white';
+  const sidebarHeadingTextColor =
+    theme_definition[mode]['--sidebar-heading-text-color'] || 'black';
+  const sidebarTocH1LinkColor =
+    theme_definition[mode]['--sidebar-toc-h1-link-color'] || '#0366d6';
+  const sidebarActiveTocSectionBgColor =
+    theme_definition[mode]['--sidebar-active-toc-section-bg-color'] ||
+    '#faed27';
+  const sidebarActiveTocSectionLinkColor =
+    theme_definition[mode]['--sidebar-active-toc-section-link-color'] ||
+    'black';
+  const sidebarTocSectionLinkColor =
+    theme_definition[mode]['--sidebar-toc-section-link-color'] || 'black';
+  const sidebarTocH1BorderColor =
+    theme_definition[mode]['--sidebar-toc-h1-border-color'] || 'lightgrey';
+  const mainHeadingLinkColor =
+    theme_definition[mode]['--main-heading-link-color'] || '#0366d6';
+  const mainTextColor = theme_definition[mode]['--main-text-color'] || 'black';
+  const mainHeaderBorderBottomColor =
+    theme_definition[mode]['--main-header-border-bottom-color'] || '#eaecef';
+  const mainLinkColor =
+    theme_definition[mode]['--main-link-color'] || '#0366d6';
+  const mainTablePreBgColor =
+    theme_definition[mode]['--main-table-pre-bg-color'] || '#f6f8fa';
+  const sidebarBorderColor =
+    theme_definition[mode]['--sidebar-border-color'] || '#eaecef';
+
+  const mainTablePreBorderColor = mode === 'light' ? 'none' : 'rgb(60, 62, 66)';
+
   return (
     <svg
       viewBox="30.774 27.546 298.133 175.743"
@@ -24,14 +50,14 @@ export default function ThemePreview(): h.JSX.Element {
       <defs>
         <style>
           {`.main-bg{fill:${mainBgColor};}`}
-          {`.sidebar-bg{fill:${sidebarBgColor};}`}
+          {`.sidebar-bg{fill:${sidebarBgColor};stroke:${sidebarBgColor};}`}
           {`.sidebar-heading{fill:${sidebarHeadingTextColor};}`}
           {`.sidebar-toc-h1-link{fill:${sidebarTocH1LinkColor};}`}
           {`.sidebar-active-toc-section-bg{fill:${sidebarActiveTocSectionBgColor};}`}
-          {`.sidebar-active-toc-h2-section-link{fill:${sidebarActiveTocH2SectionLinkColor};}`}
-          {`.sidebar-toc-h2-link{fill:${sidebarTocH2LinkColor};}`}
+          {`.sidebar-active-toc-section-link{fill:${sidebarActiveTocSectionLinkColor};}`}
+          {`.sidebar-toc-section-link{fill:${sidebarTocSectionLinkColor};}`}
           {`.sidebar-toc-h1-border-color{fill:${sidebarTocH1BorderColor};}`}
-          {`.main-heading-text{fill:${mainHeadingTextColor};}`}
+          {`.main-heading-link{fill:${mainHeadingLinkColor};}`}
           {`.main-text{fill:${mainTextColor};}`}
           {`.main-header-border-bottom{fill:none;stroke:${mainHeaderBorderBottomColor};stroke-miterlimit:10;}`}
           {`.main-link{fill:${mainLinkColor};}`}
@@ -76,7 +102,7 @@ export default function ThemePreview(): h.JSX.Element {
         d="M 65.268 81.893 L 124.518 81.893 C 124.518 81.893 124.518 81.893 124.518 81.893 L 124.518 99.893 C 124.518 99.893 124.518 99.893 124.518 99.893 L 65.268 99.893 C 60.435 99.893 56.518 95.976 56.518 91.143 L 56.518 90.633 C 56.523 85.805 60.439 81.893 65.268 81.893 Z"
       />
       <rect
-        class="sidebar-active-toc-h2-section-link"
+        class="sidebar-active-toc-section-link"
         x="64.748"
         y="85.853"
         width="47.77"
@@ -84,7 +110,7 @@ export default function ThemePreview(): h.JSX.Element {
         rx="5.13"
       />
       <rect
-        class="sidebar-toc-h2-link"
+        class="sidebar-toc-section-link"
         x="64.438"
         y="105.573"
         width="48.08"
@@ -92,7 +118,7 @@ export default function ThemePreview(): h.JSX.Element {
         rx="5"
       />
       <rect
-        class="sidebar-toc-h2-link"
+        class="sidebar-toc-section-link"
         x="64.438"
         y="124.573"
         width="48.08"
@@ -108,7 +134,7 @@ export default function ThemePreview(): h.JSX.Element {
         transform="matrix(-1, 0, 0, -1, 0, 0)"
       />
       <rect
-        class="main-heading-text"
+        class="main-heading-link"
         x="141.588"
         y="43.623"
         width="106.93"
@@ -199,7 +225,7 @@ export default function ThemePreview(): h.JSX.Element {
         style=""
       />
       <rect
-        class="sidebar-toc-h2-link"
+        class="sidebar-toc-section-link"
         x="64.888"
         y="166.803"
         width="48.08"
@@ -207,7 +233,7 @@ export default function ThemePreview(): h.JSX.Element {
         rx="5"
       />
       <rect
-        class="sidebar-toc-h2-link"
+        class="sidebar-toc-section-link"
         x="64.888"
         y="183.803"
         width="48.08"
@@ -215,7 +241,7 @@ export default function ThemePreview(): h.JSX.Element {
         rx="5.13"
       />
       <path
-        class="sidebar-toc-h2-link"
+        class="sidebar-toc-section-link"
         d="M 65.248 203.3 C 66.2 202.04 67.796 201.283 69.504 201.283 L 107.283 201.283 C 108.94 201.285 110.459 202.119 111.424 203.317"
         style=""
       />
