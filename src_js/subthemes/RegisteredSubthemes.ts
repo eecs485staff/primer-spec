@@ -11,8 +11,12 @@ export interface RegisteredSubthemes {
 }
 
 export default {
-  default: createSubtheme('default', default_theme),
-  bella: createSubtheme('bella', bella_theme),
-  modern: createSubtheme('modern', modern_theme),
-  'xcode-civic': createSubtheme('xcode-civic', xcode_civic_theme),
+  default: createSubtheme('default', 'Primer', default_theme),
+  bella: createSubtheme('bella', 'Bella', bella_theme),
+  modern: createSubtheme('modern', 'Modern', modern_theme),
+  'xcode-civic': createSubtheme(
+    'xcode-civic',
+    'Xcode Civic',
+    xcode_civic_theme,
+  ),
 } as RegisteredSubthemes;

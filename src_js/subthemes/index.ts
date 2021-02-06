@@ -78,7 +78,7 @@ export function getStoredSubthemeMode(): SubthemeModeSelectorType {
   return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
 }
 
-function normalizeSubthemeMode(
+export function normalizeSubthemeMode(
   mode: SubthemeModeSelectorType,
 ): SubthemeModeType {
   if (mode !== 'system') {

@@ -11,6 +11,8 @@ export default function ThemePreview(props: PropsType): h.JSX.Element {
   const { theme_definition } = props.subtheme;
   const { mode } = props;
 
+  const svgClassName = `primer-spec-theme-preview-${props.subtheme.name}-${props.mode}`;
+
   const mainBgColor = theme_definition[mode]['--main-bg-color'] || 'white';
   const sidebarBgColor =
     theme_definition[mode]['--sidebar-bg-color'] || 'white';
@@ -44,42 +46,50 @@ export default function ThemePreview(props: PropsType): h.JSX.Element {
 
   return (
     <svg
+      class={svgClassName}
       viewBox="30.774 27.546 298.133 175.743"
       xmlns="http://www.w3.org/2000/svg"
+      clip-path={`url(#${svgClassName}-clip)`}
     >
       <defs>
         <style>
-          {`.main-bg{fill:${mainBgColor};}`}
-          {`.sidebar-bg{fill:${sidebarBgColor};stroke:${sidebarBgColor};}`}
-          {`.sidebar-heading{fill:${sidebarHeadingTextColor};}`}
-          {`.sidebar-toc-h1-link{fill:${sidebarTocH1LinkColor};}`}
-          {`.sidebar-active-toc-section-bg{fill:${sidebarActiveTocSectionBgColor};}`}
-          {`.sidebar-active-toc-section-link{fill:${sidebarActiveTocSectionLinkColor};}`}
-          {`.sidebar-toc-section-link{fill:${sidebarTocSectionLinkColor};}`}
-          {`.sidebar-toc-h1-border-color{fill:${sidebarTocH1BorderColor};}`}
-          {`.main-heading-link{fill:${mainHeadingLinkColor};}`}
-          {`.main-text{fill:${mainTextColor};}`}
-          {`.main-header-border-bottom{fill:none;stroke:${mainHeaderBorderBottomColor};stroke-miterlimit:10;}`}
-          {`.main-link{fill:${mainLinkColor};}`}
-          {`.main-table-pre{fill:${mainTablePreBgColor};stroke:${mainTablePreBorderColor};stroke-width:0.2}`}
-          {`.sidebar-border{fill:none;stroke:${sidebarBorderColor};stroke-miterlimit:10;}`}
-          {`.cls-2{fill:#555;}.cls-3{fill:#dbdbdb;}.cls-4{fill:#eaecef;}.cls-5{fill:none;stroke:#eaecef;stroke-miterlimit:10;}.cls-6{fill:#f6f8fa;}`}
+          {`.${svgClassName} .main-bg{fill:${mainBgColor};}`}
+          {`.${svgClassName} .sidebar-bg{fill:${sidebarBgColor};stroke:${sidebarBgColor};}`}
+          {`.${svgClassName} .sidebar-heading{fill:${sidebarHeadingTextColor};}`}
+          {`.${svgClassName} .sidebar-toc-h1-link{fill:${sidebarTocH1LinkColor};}`}
+          {`.${svgClassName} .sidebar-active-toc-section-bg{fill:${sidebarActiveTocSectionBgColor};}`}
+          {`.${svgClassName} .sidebar-active-toc-section-link{fill:${sidebarActiveTocSectionLinkColor};}`}
+          {`.${svgClassName} .sidebar-toc-section-link{fill:${sidebarTocSectionLinkColor};}`}
+          {`.${svgClassName} .sidebar-toc-h1-border-color{fill:${sidebarTocH1BorderColor};}`}
+          {`.${svgClassName} .main-heading-link{fill:${mainHeadingLinkColor};}`}
+          {`.${svgClassName} .main-text{fill:${mainTextColor};}`}
+          {`.${svgClassName} .main-header-border-bottom{fill:none;stroke:${mainHeaderBorderBottomColor};stroke-miterlimit:10;}`}
+          {`.${svgClassName} .main-link{fill:${mainLinkColor};}`}
+          {`.${svgClassName} .main-table-pre{fill:${mainTablePreBgColor};stroke:${mainTablePreBorderColor};stroke-width:0.2}`}
+          {`.${svgClassName} .sidebar-border{fill:none;stroke:${sidebarBorderColor};stroke-miterlimit:10;}`}
         </style>
+        {/*
+         ** The following HACK hides overflow from the top-left corner of the
+         ** SVG and creates a rounded corner. Unfortunately, it doesn't affect
+         ** the top right corner, but that can be solved some other time.
+         **/}
+        <clipPath id={`${svgClassName}-clip`}>
+          <rect x="0" y="0" width="200%" height="200%" rx="8" />
+        </clipPath>
       </defs>
-
       <rect
         class="main-bg"
         x="30.588"
         y="27.623"
         width="298"
         height="175.694"
-        rx="17.09"
-        style=""
       />
-      <path
+      <rect
         class="sidebar-bg"
-        d="M 124.588 203.303 L 48.218 203.303 C 38.481 203.303 30.588 195.363 30.588 185.567 L 30.588 45.372 C 30.593 35.54 38.515 27.573 48.288 27.567 L 124.588 27.567 Z"
-        style=""
+        x="30.79"
+        y="27.669"
+        width="93.85"
+        height="175.646"
       />
       <rect
         class="sidebar-heading"

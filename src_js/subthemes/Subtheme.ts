@@ -1,5 +1,6 @@
 export default interface Subtheme {
   readonly name: string;
+  readonly label: string;
   readonly theme_definition: SubthemeDefinitionType;
   apply(mode: SubthemeModeType): void;
   reset(mode: SubthemeModeType): void;
