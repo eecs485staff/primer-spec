@@ -71,9 +71,21 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
           onSubmit={(e) => e.preventDefault()}
         >
           {Object.values(Subthemes).map((subtheme) => (
-            <label class="primer-spec-settings-theme-preview-box">
+            <label
+              class={`primer-spec-settings-theme-preview-box ${
+                props.currentSubthemeName === subtheme.name
+                  ? 'primer-spec-settings-theme-preview-selected'
+                  : ''
+              }`}
+            >
               <ThemePreview subtheme={subtheme} mode={normalizedMode} />
-              <div class="primer-spec-settings-theme-preview-title">
+              <div
+                class={`primer-spec-settings-theme-preview-title ${
+                  props.currentSubthemeName === subtheme.name
+                    ? 'primer-spec-settings-theme-preview-selected'
+                    : ''
+                }`}
+              >
                 <input
                   type="radio"
                   value={subtheme.name}

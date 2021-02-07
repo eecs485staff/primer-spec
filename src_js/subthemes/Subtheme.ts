@@ -43,6 +43,9 @@ export const SUBTHEME_VARS = [
   '--main-blockquote-text-color',
   '--main-blockquote-text-border',
   '--main-header-border-bottom-color',
+
+  '--main-box-info-bg-color',
+  '--main-box-info-border-color',
 ];
 
 export interface SubthemeVarsType {
