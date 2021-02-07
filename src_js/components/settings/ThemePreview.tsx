@@ -44,6 +44,8 @@ export default function ThemePreview(props: PropsType): h.JSX.Element {
 
   const mainTablePreBorderColor = mode === 'light' ? 'none' : 'rgb(60, 62, 66)';
 
+  // The following SVG was designed by @bellakiminsun for Primer Spec. It was
+  // modified so that the theme colors could be dynamically rendered by JS.
   return (
     <svg
       class={svgClassName}
