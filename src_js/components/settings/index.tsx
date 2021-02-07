@@ -6,6 +6,7 @@ import {
   useAfterPrint,
   useBeforePrint,
   usePrintInProgress,
+  usePrefersDarkMode,
 } from '../../utils/hooks';
 import ThemePreview from './ThemePreview';
 
@@ -27,6 +28,9 @@ const SUBTHEME_MODE_INFO = [
 
 export default function Settings(props: PropsType): h.JSX.Element | null {
   const is_print_in_progress = usePrintInProgress();
+  // Refresh the component if dark mode changes (because we also want to
+  // refresh the theme previews).
+  usePrefersDarkMode();
 
   // If a print is in progress, temporarily reset the theme to default light.
   const beforePrint = useCallback(useBeforePrint, []);
