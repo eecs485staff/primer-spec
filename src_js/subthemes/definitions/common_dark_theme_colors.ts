@@ -18,4 +18,7 @@ export default {
   '--main-blockquote-text-color': '#8b949e',
   '--main-blockquote-text-border': '#3b434b',
   '--main-header-border-bottom-color': BORDER_LINE_COLOR,
+
+  '--main-box-info-border-color': 'rgba(56, 139, 253, 0.4)',
+  '--main-box-info-bg-color': 'rgba(56, 139, 253, 0.1)',
 };

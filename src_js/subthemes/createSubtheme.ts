@@ -47,10 +47,13 @@ function reset(
  */
 export default function createSubtheme(
   name: string,
+  label: string,
   theme_definition: SubthemeDefinitionType,
 ): Subtheme {
   return {
     name,
+    label,
+    theme_definition,
     apply: (mode: SubthemeModeType) => apply(theme_definition, mode),
     reset: (mode: SubthemeModeType) => reset(theme_definition, mode),
   };

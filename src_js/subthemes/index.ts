@@ -1,10 +1,11 @@
 import Subthemes from './RegisteredSubthemes';
-import { SubthemeModeType } from './Subtheme';
+import RegisteredSubthemeType, { SubthemeModeType } from './Subtheme';
 import Storage from '../utils/Storage';
 import Config from '../Config';
 
 // Expose Subthemes publicly
 export { Subthemes };
+export type { RegisteredSubthemeType };
 
 /**
  * Updates the appearance of the page based on the Subtheme details to be
@@ -77,7 +78,7 @@ export function getStoredSubthemeMode(): SubthemeModeSelectorType {
   return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
 }
 
-function normalizeSubthemeMode(
+export function normalizeSubthemeMode(
   mode: SubthemeModeSelectorType,
 ): SubthemeModeType {
   if (mode !== 'system') {
