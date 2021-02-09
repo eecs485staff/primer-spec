@@ -1,5 +1,6 @@
 import { RefObject, h } from 'preact';
 import { useCallback, useEffect, useRef } from 'preact/hooks';
+import clsx from 'clsx';
 import Config from '../Config';
 import { usePrintInProgress } from '../utils/hooks';
 import Storage from '../utils/Storage';
@@ -27,11 +28,11 @@ export default function MainContent(props: PropsType): h.JSX.Element {
     <main
       ref={main_el_ref}
       id={Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}
-      class={`container-lg px-3 my-5 markdown-body ${
-        props.sidebarShown && !props.isSmallScreen && !is_print_in_progress
-          ? 'primer-spec-content-margin-extra'
-          : ''
-      } ${props.isSmallScreen ? 'primer-spec-content-mobile' : ''}`}
+      class={clsx('container-lg', 'px-3', 'my-5', 'markdown-body', {
+        'primer-spec-content-margin-extra':
+          props.sidebarShown && !props.isSmallScreen && !is_print_in_progress,
+        'primer-spec-content-mobile': props.isSmallScreen,
+      })}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: props.innerHTML }}
     />

@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useCallback, useEffect } from 'preact/hooks';
+import clsx from 'clsx';
 import Config from '../../Config';
 import { Subthemes, updateTheme, normalizeSubthemeMode } from '../../subthemes';
 import {
@@ -58,11 +59,18 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
   return (
     <div class="primer-spec-settings-container position-fixed top-0 left-0 width-full height-full">
       <div
-        class={`primer-spec-settings container-lg markdown-body px-3 my-5 ${
-          props.sidebarShown && !props.isSmallScreen
-            ? 'primer-spec-content-margin-extra'
-            : ''
-        } ${props.isSmallScreen ? 'primer-spec-content-mobile' : ''}`}
+        class={clsx(
+          'primer-spec-settings',
+          'container-lg',
+          'markdown-body',
+          'px-3',
+          'my-5',
+          {
+            'primer-spec-content-margin-extra':
+              props.sidebarShown && !props.isSmallScreen,
+            'primer-spec-content-mobile': props.isSmallScreen,
+          },
+        )}
       >
         <h1 class="primer-spec-toc-ignore">{'Spec Theme Settings'}</h1>
         <h2>Colors</h2>
@@ -72,19 +80,17 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
         >
           {Object.values(Subthemes).map((subtheme) => (
             <label
-              class={`primer-spec-settings-theme-preview-box ${
-                props.currentSubthemeName === subtheme.name
-                  ? 'primer-spec-settings-theme-preview-selected'
-                  : ''
-              }`}
+              class={clsx('primer-spec-settings-theme-preview-box', {
+                'primer-spec-settings-theme-preview-selected':
+                  props.currentSubthemeName === subtheme.name,
+              })}
             >
               <ThemePreview subtheme={subtheme} mode={normalizedMode} />
               <div
-                class={`primer-spec-settings-theme-preview-title ${
-                  props.currentSubthemeName === subtheme.name
-                    ? 'primer-spec-settings-theme-preview-selected'
-                    : ''
-                }`}
+                class={clsx('primer-spec-settings-theme-preview-title', {
+                  'primer-spec-settings-theme-preview-selected':
+                    props.currentSubthemeName === subtheme.name,
+                })}
               >
                 <input
                   type="radio"

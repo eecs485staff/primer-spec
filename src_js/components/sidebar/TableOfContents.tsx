@@ -1,5 +1,6 @@
 import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import clsx from 'clsx';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {
@@ -121,9 +122,12 @@ function generateTocNodesHelper(section: HeadingsSectionType) {
   return (
     <li>
       <div
-        class={`primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()} ${
-          section.active ? 'primer-spec-toc-active' : ''
-        }`}
+        class={clsx(
+          `primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()}`,
+          {
+            'primer-spec-toc-active': section.active,
+          },
+        )}
       >
         <a href={getAnchorLink(heading)}>{headingLabel}</a>
       </div>
