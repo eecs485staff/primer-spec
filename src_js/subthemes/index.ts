@@ -1,5 +1,5 @@
 import Subthemes from './RegisteredSubthemes';
-import RegisteredSubthemeType, { SubthemeModeType } from './Subtheme';
+import RegisteredSubthemeType from './Subtheme';
 import Storage from '../utils/Storage';
 import Config from '../Config';
 
@@ -22,7 +22,7 @@ export type { RegisteredSubthemeType };
  *                      `onUpdate`.)
  */
 export function updateTheme(
-  { name, mode }: Partial<SubthemeType> = {},
+  { name, mode }: Partial<SubthemeSelectionType> = {},
   persistUpdate = true,
 ): void {
   const {
@@ -102,7 +102,7 @@ export function normalizeSubthemeMode(
  * retrieval.
  * @param subtheme the name to be stored in local storage
  */
-function storeSubtheme({ name, mode }: SubthemeType) {
+function storeSubtheme({ name, mode }: SubthemeSelectionType) {
   Storage.set(Config.SUBTHEME_NAME_STORAGE_KEY, name);
   Storage.set(Config.SUBTHEME_MODE_STORAGE_KEY, mode);
 }

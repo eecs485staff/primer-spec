@@ -21,7 +21,10 @@ type PropsType = {
   onSubthemeModeChange: (newSubthemeMode: SubthemeModeSelectorType) => void;
 };
 
-const SUBTHEME_MODE_INFO = [
+const SUBTHEME_MODE_INFO: Array<{
+  name: SubthemeModeSelectorType;
+  label: string;
+}> = [
   { name: 'light', label: 'Light' },
   { name: 'dark', label: 'Dark' },
   { name: 'system', label: 'Sync with OS setting' },
