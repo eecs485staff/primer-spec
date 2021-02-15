@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "anchor-js": "^4.3.0",
+    "clsx": "^1.1.1",
     "preact": "^10.5.7"
   },
   "devDependencies": {

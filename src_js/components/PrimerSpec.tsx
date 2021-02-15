@@ -45,7 +45,7 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     setSidebarShown(!sidebar_shown);
   };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
-  const setTheme = (themeDelta: Partial<SubthemeType>) => {
+  const setTheme = (themeDelta: Partial<SubthemeSelectionType>) => {
     updateTheme(themeDelta);
     setSubthemeName(getStoredSubthemeName());
     setSubthemeMode(getStoredSubthemeMode());

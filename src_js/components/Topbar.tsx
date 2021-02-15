@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
+import clsx from 'clsx';
 import IconType from './common/IconType';
 import InlineButton from './common/InlineButton';
 
@@ -62,9 +63,19 @@ export default function Topbar(props: PropsType): h.JSX.Element {
   return (
     <header
       ref={topbarRef}
-      class={`primer-spec-topbar position-fixed width-full top-0 left-0 py-2 no-print ${
-        props.isSmallScreen ? 'primer-spec-topbar-mobile' : ''
-      } ${props.settingsShown ? 'primer-spec-topbar-settings-shown' : ''}`}
+      class={clsx(
+        'primer-spec-topbar',
+        'position-fixed',
+        'width-full',
+        'top-0',
+        'left-0',
+        'py-2',
+        'no-print',
+        {
+          'primer-spec-topbar-mobile': props.isSmallScreen,
+          'primer-spec-topbar-settings-shown': props.settingsShown,
+        },
+      )}
     >
       {sidebar_toggle}
       {settings_toggle}
