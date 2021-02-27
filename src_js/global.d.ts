@@ -11,8 +11,9 @@ declare var PrimerSpecConfig: {
 };
 
 // Other global types
-declare type SubthemeModeSelectorType = 'light' | 'dark' | 'system';
-declare type SubthemeType = {
+declare type SubthemeModeType = 'light' | 'dark';
+declare type SubthemeModeSelectorType = SubthemeModeType | 'system';
+declare type SubthemeSelectionType = {
   name: string;
   mode: SubthemeModeSelectorType;
 };

@@ -1,8 +1,4 @@
-import Subtheme, {
-  SUBTHEME_VARS,
-  SubthemeDefinitionType,
-  SubthemeModeType,
-} from './Subtheme';
+import Subtheme, { SUBTHEME_VARS, SubthemeDefinitionType } from './Subtheme';
 import RougeThemes from './rouge_themes';
 
 function apply(
@@ -13,7 +9,7 @@ function apply(
 
   const bodyEl = document.body;
   for (const [theme_var, value] of Object.entries(theme_vars)) {
-    bodyEl.style.setProperty(theme_var, value);
+    bodyEl.style.setProperty(theme_var, value || null);
   }
 
   let rouge_theme_name = theme_vars['rouge_theme'];
@@ -47,10 +43,13 @@ function reset(
  */
 export default function createSubtheme(
   name: string,
+  label: string,
   theme_definition: SubthemeDefinitionType,
 ): Subtheme {
   return {
     name,
+    label,
+    theme_definition,
     apply: (mode: SubthemeModeType) => apply(theme_definition, mode),
     reset: (mode: SubthemeModeType) => reset(theme_definition, mode),
   };

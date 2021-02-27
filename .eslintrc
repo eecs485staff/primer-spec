@@ -27,7 +27,8 @@
   "globals": {
     // These are globally-available types (not even variables)
     "NodeListOf": false,
-    "SubthemeType": false,
+    "SubthemeSelectionType": false,
+    "SubthemeModeType": false,
     "SubthemeModeSelectorType": false
   }
 }

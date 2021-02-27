@@ -1,10 +1,11 @@
 import Subthemes from './RegisteredSubthemes';
-import { SubthemeModeType } from './Subtheme';
+import RegisteredSubthemeType from './Subtheme';
 import Storage from '../utils/Storage';
 import Config from '../Config';
 
 // Expose Subthemes publicly
 export { Subthemes };
+export type { RegisteredSubthemeType };
 
 /**
  * Updates the appearance of the page based on the Subtheme details to be
@@ -21,7 +22,7 @@ export { Subthemes };
  *                      `onUpdate`.)
  */
 export function updateTheme(
-  { name, mode }: Partial<SubthemeType> = {},
+  { name, mode }: Partial<SubthemeSelectionType> = {},
   persistUpdate = true,
 ): void {
   const {
@@ -77,7 +78,7 @@ export function getStoredSubthemeMode(): SubthemeModeSelectorType {
   return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
 }
 
-function normalizeSubthemeMode(
+export function normalizeSubthemeMode(
   mode: SubthemeModeSelectorType,
 ): SubthemeModeType {
   if (mode !== 'system') {
@@ -101,7 +102,7 @@ function normalizeSubthemeMode(
  * retrieval.
  * @param subtheme the name to be stored in local storage
  */
-function storeSubtheme({ name, mode }: SubthemeType) {
+function storeSubtheme({ name, mode }: SubthemeSelectionType) {
   Storage.set(Config.SUBTHEME_NAME_STORAGE_KEY, name);
   Storage.set(Config.SUBTHEME_MODE_STORAGE_KEY, mode);
 }
