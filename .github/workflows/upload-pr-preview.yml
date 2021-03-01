@@ -1,0 +1,51 @@
+name: upload-pr-preview
+
+on:
+  pull_request:
+
+jobs:
+  upload-pr-preview:
+    name: upload-pr-preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📁 Checkout code
+        uses: actions/checkout@v2
+
+      - name: ♼ Restore npm cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: 💎 Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+          bundler-cache: true
+
+      - name: ⬢ Setup Node
+        uses: actions/setup-node@v1
+
+      - name: ⚙️ Install dependencies
+        run: |
+          ./script/bootstrap
+
+      - name: 🛠 Build CI-site-preview build
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          ./script/ci-site-preview-build "https://preview.seshrs.ml" "/previews/$REPO/$PR_NUMBER"
+
+      # Upload the site to Primer Spec Preview and comment on the PR.
+      # The Primer Spec Preview secret is stored as an encrypted repo or
+      # organization secret named `PRIMER_SPEC_PREVIEW_SECRET`.
+      # Docs: https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization
+      # Docs: https://github.com/seshrs/upload-to-primer-spec-preview
+      - name: 🚀 Upload to Primer Spec Preview
+        uses: seshrs/upload-to-primer-spec-preview@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRIMER_SPEC_PREVIEW_SECRET: ${{ secrets.PRIMER_SPEC_PREVIEW_SECRET }}
