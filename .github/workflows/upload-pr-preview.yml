@@ -32,6 +32,11 @@ jobs:
         run: |
           ./script/bootstrap
 
+      # Fix issue from jekyll/jekyll#2938
+      - name: Fix Jekyll config for CI environment
+        run: |
+          echo "exclude: [vendor]" >> _config.yml
+
       - name: 🛠 Build CI-site-preview build
         env:
           PR_NUMBER: ${{ github.event.number }}
