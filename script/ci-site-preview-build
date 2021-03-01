@@ -1,6 +1,8 @@
 #!/bin/sh
 # Build a preview of the theme, only to be used in conjunction with
 # Primer Spec Preview.
+# NOTE: This file makes changes to _config.yml. Be careful when committing your
+#       changes!
 
 set -e
 
@@ -10,6 +12,9 @@ if [ "$#" != 2 ]; then
 fi
 URL="$1"
 BASE_URL="$2"
+
+# Fix issue from jekyll/jekyll#2938
+echo "exclude: [vendor]" >> _config.yml
 
 # Update _config.yml URL
 echo "url: $URL" >> _config.yml
