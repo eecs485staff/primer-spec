@@ -4,11 +4,17 @@
 
 set -e
 
-if [ "$#" != 1 ]; then
-  echo "Usage: $0 BASE_URL"
+if [ "$#" != 2 ]; then
+  echo "Usage: $0 URL BASE_URL"
   exit 1
 fi
-BASE_URL="$1"
+URL="$1"
+BASE_URL="$2"
 
-npx webpack --env.base_url="$BASE_URL"
+# Update _config.yml URL
+echo "url: $URL" >> _config.yml
+echo "baseurl: $BASE_URL" >> _config.yml
+
+# BUILD!
+npx webpack --env.base_url="$URL$BASE_URL"
 JEKYLL_ENV=site-preview bundle exec jekyll build
