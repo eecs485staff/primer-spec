@@ -2,7 +2,8 @@ name: upload-develop-preview
 
 on:
   push:
-    - develop
+    branches:
+      - develop
   schedule:
     # Also run on the first day of each month
     - cron: '0 0 1 * *'
