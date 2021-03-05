@@ -3,8 +3,8 @@
 # Primer Spec
 <!-- prettier-ignore-end -->
 
-[![Build Status](https://travis-ci.com/eecs485staff/primer-spec.svg?branch=master)](https://travis-ci.com/eecs485staff/primer-spec)
-[![Nightly Preview](https://img.shields.io/badge/nightly-preview-blue.svg)](https://preview.seshrs.ml/previews/eecs485staff/primer-spec-nightly)
+[![cibuild](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml/badge.svg?branch=develop)](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml)
+[![Nightly Preview](https://img.shields.io/badge/develop-preview-blue.svg)](https://preview.seshrs.ml/previews/eecs485staff/primer-spec/develop-preview/)
 
 _Primer Spec is a Jekyll theme that makes long informative web pages easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage)._
 
@@ -75,10 +75,10 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
 
 The Primer Spec theme is currently used by the following courses at the University of Michigan:
 
-- [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts). Example [EECS 183 Project 2: Birthdays](https://eecs183.github.io/p2-birthdays/).
 - [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 4: Web](https://eecs280staff.github.io/p4-web/).
 - [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java). Example [EECS 285 Project 3: Wheel of Fortune](https://eecs285.github.io/p3-wheel/).
 - [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
+- [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts).
 - [EECS 370](https://www.eecs.umich.edu/courses/eecs370/) (Introduction to Computer Organization).
 - [EECS 441](https://eecs441.eecs.umich.edu/) (Mobile App Development for Entrepreneurs).
 - EECS 482 (Introduction to Operating Systems).
