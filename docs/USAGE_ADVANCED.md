@@ -201,7 +201,7 @@ correct contents for `_config.yml`.
 
 ## Site configuration options
 
-The following configuration options can be specified in the [`_config.yml`](https://jekyllrb.com/docs/configuration/) file of your site, under the `primerSpec` key. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
+The following site-configuration options can be specified in the [`_config.yml`](https://jekyllrb.com/docs/configuration/) file of your site under the `primerSpec` key. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your `_config.yml` to look like this:
 
 ```yml
 # REQUIRED configuration options, as specified in the Primer Spec README

@@ -101,9 +101,9 @@ The `script` directory contains various utility scripts for use during developme
 Since the `develop` branch is ahead of the `master` branch [for months at a time](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
 
 - The `master` branch hosts the latest stable version, and is deployed via GitHub Pages to https://eecs485staff.github.io/primer-spec/. This site also hosts the CSS and JS assets used by most external Primer Spec pages.
-- The `develop` branch has all the latest changes and is deployed to a private server at https://preview.seshrs.ml/previews/eecs485staff/primer-spec-nightly. (This link is also available from the project README page.) It’s automatically updated everyday which is why it’s called a “nightly” build.
+- The `develop` branch has all the latest changes and is deployed to a private server at https://preview.seshrs.ml/previews/eecs485staff/primer-spec/develop-preview/. (This link is also available from the project README page.) It’s automatically updated on every push to the `develop` branch and is rebuilt at least once a month.
 
-Every open PR is also deployed to the private server via [Primer Spec Preview](https://github.com/seshrs/primer-spec-preview) to dynamically interact with proposed changes. The link is made available under the “Checks” section.
+Every open PR is also deployed to the private server via [Primer Spec Preview](https://github.com/seshrs/primer-spec-preview) to dynamically interact with proposed changes. The link is made available in a PR comment.
 
 ## Dev setup
 
@@ -113,7 +113,7 @@ Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environme
 
 For everyday development, use `script/server`, which builds and serves the site at https://localhost:4000. Open the VSCode workspace `primer-spec.code-workspace` and install the recommended extensions for easy ESLint and Prettier formatting.
 
-For every Pull Review and commit to `develop`/`master`, TravisCI runs `script/cibuild` to sanity-check that Jekyll can build the website, and also runs linters and any Jest tests. Testing is currently manual — **efforts to improve our automated testing of Primer Spec would be appreciated**.
+For every Pull Review and commit to `develop`/`master`, GitHub Actions runs `script/cibuild` to sanity-check that Jekyll can build the website, and also runs linters and any Jest tests. Testing is currently manual — **efforts to improve our automated testing of Primer Spec would be appreciated**.
 
 ## Versioning & backwards compatibility
 
