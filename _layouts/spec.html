@@ -15,9 +15,8 @@ version_string: v1.5
 
         {%- if jekyll.environment == "dev" %}
             {% assign base_url = "http://localhost:4000" %}
-        {% elsif jekyll.environment == "site-preview" %}
-            {% assign url_size = site.url | size | minus: 1 %}    
-            {% assign base_url = site.url | slice: 0, url_size %}
+        {% elsif jekyll.environment == "site-preview" %}   
+            {% assign base_url = site.url | append: site.baseurl %}
         {% else %}
             {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
         {% endif %}

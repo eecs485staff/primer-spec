@@ -1,0 +1,46 @@
+name: cibuild
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  cibuild:
+    name: cibuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📁 Checkout code
+        uses: actions/checkout@v2
+
+      - name: ♼ Restore npm cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: 💎 Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+          bundler-cache: true
+
+      - name: ⬢ Setup Node
+        uses: actions/setup-node@v1
+
+      - name: ⚙️ Install dependencies
+        run: |
+          ./script/bootstrap
+
+      # Fix issue from jekyll/jekyll#2938
+      - name: Fix Jekyll config for CI environment
+        run: |
+          echo "exclude: [vendor]" >> _config.yml
+
+      - name: 🛠 Run CI tests
+        run: |
+          ./script/cibuild

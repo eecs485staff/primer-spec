@@ -1,6 +1,6 @@
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
-# Contributing to The Primer Spec Theme
+# Contributing to the Primer Spec Theme
 <!-- prettier-ignore-end -->
 
 _This document was adapted in part from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer)._
@@ -72,7 +72,9 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
 
 1. Ensure that you have a version of Ruby later than 2.4.0. If you're on a Mac, you may need to run `brew install ruby` first.
 
-2. Run `script/bootstrap`.
+2. Ensure that you have [NodeJS](https://nodejs.org/en/download/package-manager/) installed.
+
+3. Run `script/bootstrap`.
 
    ```console
    $ ruby --version
@@ -82,7 +84,7 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
    $ ./script/bootstrap
    ```
 
-3. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
+4. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
 ### Run tests
 
