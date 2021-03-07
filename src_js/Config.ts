@@ -27,6 +27,7 @@ export default {
   DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
+  INIT_SITEMAP_ENABLED: !!window.PrimerSpecConfig.sitemapEnabled,
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',

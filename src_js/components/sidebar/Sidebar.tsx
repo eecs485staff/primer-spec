@@ -21,6 +21,7 @@ type SidebarProps = {
   sidebarShown: boolean;
   settingsShown: boolean;
   activeSectionOffsetY: number;
+  sitemapEnabled: boolean;
   onToggleSidebar: () => void;
   onToggleSettings: () => void;
 };
@@ -34,7 +35,9 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
   const is_print_in_progress = usePrintInProgress();
   const sidebar_ref = useRef<HTMLElement>(null);
 
-  const sitemapUrls = useMemo(() => getSitemapUrls(), []);
+  const sitemapUrls = useMemo(() => getSitemapUrls(props.sitemapEnabled), [
+    props.sitemapEnabled,
+  ]);
 
   const saveScrollPositionThenToggleSidebar = useCallback(() => {
     // Before closing the sidebar, persist the scroll position within the

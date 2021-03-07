@@ -5,7 +5,13 @@ export type SitemapType = {
   siteUrls: Array<SitemapPageInfoType>;
 };
 
-export default function getSitemapUrls(): null | SitemapType {
+export default function getSitemapUrls(
+  sitemapEnabled: boolean,
+): null | SitemapType {
+  if (!sitemapEnabled) {
+    return null;
+  }
+
   // Remove assets pages
   const siteUrls = Config.SITEMAP_URLS.filter(
     (pageInfo) => !pageInfo.path.startsWith('assets'),

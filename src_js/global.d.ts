@@ -7,6 +7,7 @@ declare var PrimerSpecConfig: {
   defaultSubthemeMode?: string;
   sitemapUrls?: Array<SitemapPageInfoType>;
   sitemapLabel?: string;
+  sitemapEnabled?: boolean;
   sitemapSiteTitle?: string;
 };
 
