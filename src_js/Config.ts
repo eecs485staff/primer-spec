@@ -10,6 +10,7 @@ const INIT_SUBTHEME_NAME =
 const INIT_SUBTHEME_MODE = (Storage.get(SUBTHEME_MODE_STORAGE_KEY) ||
   window.PrimerSpecConfig.defaultSubthemeMode ||
   'system') as SubthemeModeSelectorType;
+const INIT_SITEMAP_ENABLED = getInitSitemapEnabled();
 
 /**
  * Exposes config variables defined in the webpack config (as a plugin)
@@ -27,7 +28,7 @@ export default {
   DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,
   INIT_SUBTHEME_NAME,
   INIT_SUBTHEME_MODE,
-  INIT_SITEMAP_ENABLED: !!window.PrimerSpecConfig.sitemapEnabled,
+  INIT_SITEMAP_ENABLED,
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
@@ -57,4 +58,12 @@ function getHideSidebarOnLoad() {
   }
 
   return hideSidebar;
+}
+
+function getInitSitemapEnabled() {
+  const searchParams = new URLSearchParams(document.location.search);
+  const sitemapEnabledFromUrl = searchParams.get('enableSitemap');
+  return sitemapEnabledFromUrl != null
+    ? sitemapEnabledFromUrl === '1'
+    : !!window.PrimerSpecConfig.sitemapEnabled;
 }
