@@ -22,6 +22,7 @@ export default {
   BASE_URL: process.env.BASE_URL,
   VERSION_RAW: process.env.VERSION_RAW,
   VERSION_MINOR_STR: process.env.VERSION_MINOR_STR,
+  BUILD_MODE: process.env.BUILD_MODE,
 
   // From window.PrimerSpecConfig
   HIDE_SIDEBAR_ON_LOAD: getHideSidebarOnLoad(),
@@ -61,9 +62,13 @@ function getHideSidebarOnLoad() {
 }
 
 function getInitSitemapEnabled() {
-  const searchParams = new URLSearchParams(document.location.search);
-  const sitemapEnabledFromUrl = searchParams.get('enableSitemap');
-  return sitemapEnabledFromUrl != null
-    ? sitemapEnabledFromUrl === '1'
-    : !!window.PrimerSpecConfig.sitemapEnabled;
+  if (process.env.BUILD_MODE === 'development') {
+    const searchParams = new URLSearchParams(document.location.search);
+    const sitemapEnabledFromUrl = searchParams.get('enable_sitemap');
+    if (sitemapEnabledFromUrl != null) {
+      return sitemapEnabledFromUrl === '1';
+    }
+  }
+
+  return !!window.PrimerSpecConfig.sitemapEnabled;
 }
