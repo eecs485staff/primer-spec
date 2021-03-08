@@ -46,7 +46,7 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
   );
 
   return (
-    <nav class="primer-spec-toc">
+    <nav class="primer-spec-toc" aria-label="Page contents">
       <div
         role="presentation"
         onClick={() => {

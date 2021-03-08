@@ -16,3 +16,8 @@ description: Primer Spec is a Jekyll theme for GitHub Pages
 
 kramdown:
   input: GFM
+
+primerSpec:
+  # sitemap: true
+  # sitemap:
+  #   label: Demo pages

@@ -3,20 +3,30 @@ import IconType from './IconType';
 
 export type PropsType = {
   icon: IconType;
-  onClick: () => void;
+  href?: string;
+  floatRight?: boolean;
+  onClick?: () => void;
   ariaLabel?: string;
 };
 
 export default function InlineButton(props: PropsType): h.JSX.Element {
   return (
-    <span class="primer-spec-hoverable">
+    <span
+      class={`primer-spec-hoverable ${
+        props.floatRight ? 'primer-spec-hoverable-float-right' : ''
+      }`}
+    >
       <a
-        href="#primer-spec-top"
+        href={props.href ?? '#primer-spec-top'}
         class="primer-spec-hoverable no-print"
-        onClick={(event) => {
-          event.preventDefault();
-          props.onClick();
-        }}
+        onClick={
+          props.onClick
+            ? (event) => {
+                event.preventDefault();
+                props.onClick && props.onClick();
+              }
+            : undefined
+        }
         aria-label={props.ariaLabel}
       >
         <i class={props.icon} />

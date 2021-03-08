@@ -38,6 +38,9 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
   );
   const [subtheme_name, setSubthemeName] = useState(Config.INIT_SUBTHEME_NAME);
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
+  const [sitemap_enabled, setSitemapEnabled] = useState(
+    Config.INIT_SITEMAP_ENABLED,
+  );
 
   // Define derived methods to manipulate state
   const toggleSidebarShown = () => {
@@ -80,6 +83,15 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     });
   }, [afterPrint]);
 
+  // Expose Debug methods
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.Debug = Object.freeze({
+      toggleSitemap: () => setSitemapEnabled(!sitemap_enabled),
+    });
+  }, [sitemap_enabled]);
+
   const sidebar = Config.DISABLE_SIDEBAR ? null : (
     <Sidebar
       contentNodeSelector={`#${Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}`}
@@ -87,6 +99,7 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
       sidebarShown={sidebar_shown}
       settingsShown={settings_shown}
       activeSectionOffsetY={active_section_offset_y}
+      sitemapEnabled={sitemap_enabled}
       onToggleSidebar={toggleSidebarShown}
       onToggleSettings={toggleSettingsShown}
     />

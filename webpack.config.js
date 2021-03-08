@@ -44,8 +44,12 @@ function getBaseURL(env) {
   return base_url;
 }
 
+function getBuildMode(env) {
+  return env && env.production ? 'production' : 'development';
+}
+
 module.exports = (env) => ({
-  mode: env && env.production ? 'production' : 'development',
+  mode: getBuildMode(env),
   context: path.resolve(__dirname, 'src_js/'),
   entry: './main.tsx',
   output: {
@@ -82,6 +86,7 @@ module.exports = (env) => ({
       'process.env.BASE_URL': JSON.stringify(getBaseURL(env)),
       'process.env.VERSION_RAW': JSON.stringify(VERSION_RAW),
       'process.env.VERSION_MINOR_STR': JSON.stringify(VERSION_MINOR_STR),
+      'process.env.BUILD_MODE': JSON.stringify(getBuildMode(env)),
     }),
   ],
   // Minimize output
