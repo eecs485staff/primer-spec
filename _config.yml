@@ -19,5 +19,5 @@ kramdown:
 
 primerSpec:
   # sitemap: true
-  sitemap:
-    label: Demo pages
+  # sitemap:
+  #   label: Demo pages
