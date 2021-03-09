@@ -44,8 +44,18 @@ export const SUBTHEME_VARS = [
   '--main-blockquote-text-border',
   '--main-header-border-bottom-color',
 
-  '--main-box-info-bg-color',
-  '--main-box-info-border-color',
+  '--primer-spec-box-info-bg-color',
+  '--primer-spec-box-info-text-color',
+  '--primer-spec-box-info-border-color',
+  '--primer-spec-box-warn-bg-color',
+  '--primer-spec-box-warn-text-color',
+  '--primer-spec-box-warn-border-color',
+  '--primer-spec-box-danger-bg-color',
+  '--primer-spec-box-danger-text-color',
+  '--primer-spec-box-danger-border-color',
+  '--primer-spec-box-success-bg-color',
+  '--primer-spec-box-success-text-color',
+  '--primer-spec-box-success-border-color',
 ] as const;
 
 // As described in: https://stackoverflow.com/a/45257357/5868796

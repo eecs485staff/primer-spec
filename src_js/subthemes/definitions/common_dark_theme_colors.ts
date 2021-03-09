@@ -19,6 +19,16 @@ export default {
   '--main-blockquote-text-border': '#3b434b',
   '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
-  '--main-box-info-border-color': 'rgba(56, 139, 253, 0.4)',
-  '--main-box-info-bg-color': 'rgba(56, 139, 253, 0.1)',
+  '--primer-spec-box-info-bg-color': 'rgba(56, 139, 253, 0.1)',
+  '--primer-spec-box-info-text-color': '#79c0ff',
+  '--primer-spec-box-info-border-color': 'rgba(56, 139, 253, 0.4)',
+  '--primer-spec-box-warning-bg-color': 'rgba(187, 128, 9, 0.1)',
+  '--primer-spec-box-warning-text-color': '#e3b341',
+  '--primer-spec-box-warning-border-color': 'rgba(187, 128, 9, 0.4)',
+  '--primer-spec-box-danger-bg-color': 'rgba(248, 81, 73, 0.1)',
+  '--primer-spec-box-danger-text-color': '#ff7b72',
+  '--primer-spec-box-danger-border-color': 'rgba(248, 81, 73, 0.4)',
+  '--primer-spec-box-success-bg-color': 'rgba(46, 160, 67, 0.1)',
+  '--primer-spec-box-success-text-color': '#56d364',
+  '--primer-spec-box-success-border-color': 'rgba(46, 160, 67, 0.4)',
 };

@@ -18,6 +18,9 @@ $Z_INDEX_SETTINGS: 2;
 $Z_INDEX_TOPBAR: 3;
 $Z_INDEX_SIDEBAR: 4;
 
+$INFO_BG_COLOR: #dbedff;
+$INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
+
 // For students printing out the spec, don't print the sidebar and icons.
 @media print {
   .no-print,
@@ -351,8 +354,11 @@ div[class^='primer-spec-toc-'],
     }
 
     &-selected {
-      border-color: var(--main-box-info-border-color, rgba(3, 102, 214, 0.2));
-      background-color: var(--main-box-info-bg-color, #f1f8ff);
+      border-color: var(
+        --primer-spec-box-info-border-color,
+        $INFO_BORDER_COLOR
+      );
+      background-color: var(--primer-spec-box-info-bg-color, $INFO_BG_COLOR);
     }
   }
 
@@ -478,4 +484,78 @@ li.task-list-item {
 }
 li.task-list-item .task-list-item-checkbox {
   margin: 0 0.2em 0.25em -1.6em;
+}
+
+/*
+ * ALERT BOXES
+ */
+
+@mixin note-box-props {
+  position: relative;
+  padding: 20px 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+@mixin note-box-icon-props {
+  padding-right: 8px;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+
+.markdown-body .primer-spec {
+  &-info {
+    @include note-box-props();
+    background-color: var(--primer-spec-box-info-bg-color, #dbedff);
+    border-color: var(
+      --primer-spec-box-info-border-color,
+      rgba(4, 66, 137, 0.2)
+    );
+    color: var(--primer-spec-box-info-text-color, inherit);
+  }
+  &-warning {
+    @include note-box-props();
+    background-color: var(--primer-spec-box-warning-bg-color, #fffbdd);
+    border-color: var(
+      --primer-spec-box-warning-border-color,
+      rgba(176, 136, 0, 0.2)
+    );
+    color: var(--primer-spec-box-warning-text-color, inherit);
+  }
+  &-danger {
+    @include note-box-props();
+    background-color: var(--primer-spec-box-danger-bg-color, #ffe3e6);
+    border-color: var(
+      --primer-spec-box-danger-border-color,
+      rgba(158, 28, 35, 0.2)
+    );
+    color: var(--primer-spec-box-danger-text-color, inherit);
+  }
+  &-success {
+    @include note-box-props();
+    background-color: var(--primer-spec-box-success-bg-color, #dcffe4);
+    border-color: var(
+      --primer-spec-box-success-border-color,
+      rgba(23, 111, 44, 0.2)
+    );
+    color: var(--primer-spec-box-success-text-color, inherit);
+  }
+
+  &-icon-info::before {
+    @include note-box-icon-props();
+    content: '\f05a'; // info-circle
+  }
+  &-icon-warning::before {
+    @include note-box-icon-props();
+    content: '\f071'; // exclamation-triangle
+  }
+  &-icon-danger::before {
+    @include note-box-icon-props();
+    content: '\f06a'; // exclamation-circle
+  }
+  &-icon-success::before {
+    @include note-box-icon-props();
+    content: '\f00c'; // check
+  }
 }
