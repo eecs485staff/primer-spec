@@ -13,6 +13,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
+- [Note Boxes](#note-boxes)
 - [Page configuration options](#page-configuration-options)
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
@@ -145,6 +146,19 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 
 <p>Spam spam spam.</p>
 ```
+
+## Note Boxes
+
+Use Note Box components to highlight information in your specs. Here's an example:
+
+```markdown
+<p class="primer-spec-info primer-spec-info-icon" markdown="1">
+  This is an example note box.
+  If you use this in a `markdown` file, *markdown* works inside the box too!
+</p>
+```
+
+See the [Note Boxes demo](https://eecs485staff.github.io/demo/note-boxes.html) for examples of how to customize Note Boxes for your spec!
 
 ## Page configuration options
 
