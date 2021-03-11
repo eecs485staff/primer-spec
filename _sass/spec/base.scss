@@ -355,10 +355,13 @@ div[class^='primer-spec-toc-'],
 
     &-selected {
       border-color: var(
-        --primer-spec-box-info-border-color,
+        --primer-spec-callout-info-border-color,
         $INFO_BORDER_COLOR
       );
-      background-color: var(--primer-spec-box-info-bg-color, $INFO_BG_COLOR);
+      background-color: var(
+        --primer-spec-callout-info-bg-color,
+        $INFO_BG_COLOR
+      );
     }
   }
 
@@ -504,42 +507,42 @@ li.task-list-item .task-list-item-checkbox {
   font-weight: 900;
 }
 
-.markdown-body .primer-spec {
+.markdown-body .primer-spec-callout {
   &-info {
     @include note-box-props();
-    background-color: var(--primer-spec-box-info-bg-color, #dbedff);
+    background-color: var(--primer-spec-callout-info-bg-color, #dbedff);
     border-color: var(
-      --primer-spec-box-info-border-color,
+      --primer-spec-callout-info-border-color,
       rgba(4, 66, 137, 0.2)
     );
-    color: var(--primer-spec-box-info-text-color, inherit);
+    color: var(--primer-spec-callout-info-text-color, inherit);
   }
   &-warning {
     @include note-box-props();
-    background-color: var(--primer-spec-box-warning-bg-color, #fffbdd);
+    background-color: var(--primer-spec-callout-warning-bg-color, #fffbdd);
     border-color: var(
-      --primer-spec-box-warning-border-color,
+      --primer-spec-callout-warning-border-color,
       rgba(176, 136, 0, 0.2)
     );
-    color: var(--primer-spec-box-warning-text-color, inherit);
+    color: var(--primer-spec-callout-warning-text-color, inherit);
   }
   &-danger {
     @include note-box-props();
-    background-color: var(--primer-spec-box-danger-bg-color, #ffe3e6);
+    background-color: var(--primer-spec-callout-danger-bg-color, #ffe3e6);
     border-color: var(
-      --primer-spec-box-danger-border-color,
+      --primer-spec-callout-danger-border-color,
       rgba(158, 28, 35, 0.2)
     );
-    color: var(--primer-spec-box-danger-text-color, inherit);
+    color: var(--primer-spec-callout-danger-text-color, inherit);
   }
   &-success {
     @include note-box-props();
-    background-color: var(--primer-spec-box-success-bg-color, #dcffe4);
+    background-color: var(--primer-spec-callout-success-bg-color, #dcffe4);
     border-color: var(
-      --primer-spec-box-success-border-color,
+      --primer-spec-callout-success-border-color,
       rgba(23, 111, 44, 0.2)
     );
-    color: var(--primer-spec-box-success-text-color, inherit);
+    color: var(--primer-spec-callout-success-text-color, inherit);
   }
 
   &-icon-info::before {

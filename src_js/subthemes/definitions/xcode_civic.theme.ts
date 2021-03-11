@@ -41,10 +41,10 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--tt-border-radius': '3px',
     '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
-    '--primer-spec-box-info-text-color': 'black',
-    '--primer-spec-box-warning-text-color': 'black',
-    '--primer-spec-box-danger-text-color': 'black',
-    '--primer-spec-box-success-text-color': 'black',
+    '--primer-spec-callout-info-text-color': 'black',
+    '--primer-spec-callout-warning-text-color': 'black',
+    '--primer-spec-callout-danger-text-color': 'black',
+    '--primer-spec-callout-success-text-color': 'black',
 
     rouge_theme: 'default',
   },
