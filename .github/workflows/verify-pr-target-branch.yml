@@ -1,0 +1,42 @@
+name: verify-pr-target-branch
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  verify-pr-target-branch:
+    name: verify-pr-target-branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get target branch
+        id: get-pr-target-branch
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const pr = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            return pr.head.label;
+          result-encoding: string
+
+      - name: Update PR if wrong branch
+        if: ${{ steps.get-pr-target-branch.outputs.result != 'develop' }}
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thanks for opening this pull request! 🙏<br><br>I've changed this PR's base branch to `develop`. A maintainer will review your PR soon!",
+            })
+            await github.pulls.update({
+              pull_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: 'develop',
+            })
