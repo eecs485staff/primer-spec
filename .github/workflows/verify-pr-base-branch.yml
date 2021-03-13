@@ -1,15 +1,15 @@
-name: verify-pr-target-branch
+name: verify-pr-base-branch
 
 on:
   pull_request:
 
 jobs:
-  verify-pr-target-branch:
-    name: verify-pr-target-branch
+  verify-pr-base-branch:
+    name: verify-pr-base-branch
     runs-on: ubuntu-latest
     steps:
-      - name: Get target branch
-        id: get-pr-target-branch
+      - name: Get base branch
+        id: get-pr-base-branch
         uses: actions/github-script@v3
         with:
           script: |
@@ -18,12 +18,11 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number,
             });
-            console.log('@@@ debugging, got pr', pr);
-            return pr.head.label;
+            return pr.data.base.ref;
           result-encoding: string
 
-      - name: Update PR if wrong branch
-        if: ${{ steps.get-pr-target-branch.outputs.result != 'develop' }}
+      - name: Update PR if wrong base branch
+        if: ${{ steps.get-pr-base-branch.outputs.result != 'develop' }}
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
