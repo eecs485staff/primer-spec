@@ -258,6 +258,10 @@ const default_rouge_style: RougeVarsType = {
     // Name::Tag
     color: '#000080',
   },
+  nx: {
+    // Name::Other
+    color: '#000000',
+  },
   vc: {
     // Name::Variable::Class
     color: '#008080',
