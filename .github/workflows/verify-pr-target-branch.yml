@@ -18,6 +18,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number,
             });
+            console.log('@@@ debugging, got pr', pr);
             return pr.head.label;
           result-encoding: string
 
