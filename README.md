@@ -68,6 +68,7 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
 - [Hide sections from the sidebar](docs/USAGE_ADVANCED.md#hiding-sections-from-the-sidebar)
 - [Configure Primer Spec](docs/USAGE_ADVANCED.md#page-configuration-options)
   - [Render math expressions with LaTeX](docs/USAGE_ADVANCED.md#latex-boolean)
+  - [Add Callouts for important information](docs/USAGE_ADVANCED.md#callouts)
   - [Disable the sidebar](docs/USAGE_ADVANCED.md#dissablesidebar-boolean)
   - [Render a sitemap](docs/USAGE_ADVANCED.md#sitemap-boolean--label-string)
   - (And more!)
