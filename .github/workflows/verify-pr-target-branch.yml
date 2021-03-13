@@ -2,7 +2,6 @@ name: verify-pr-target-branch
 
 on:
   pull_request:
-    types: [opened]
 
 jobs:
   verify-pr-target-branch:
