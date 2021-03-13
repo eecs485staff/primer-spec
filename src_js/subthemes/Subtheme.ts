@@ -137,6 +137,7 @@ export const ROUGE_CLASS_NAMES = [
   'nl', // Name::Label
   'nn', // Name::Namespace
   'nt', // Name::Tag
+  'nx', // Name::Other
   'vc', // Name::Variable::Class
   'vg', // Name::Variable::Global
   'vi', // Name::Variable::Instance
