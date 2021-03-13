@@ -27,15 +27,15 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            await github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "Thanks for opening this pull request! 🙏<br><br>I've changed this PR's base branch to `develop`. A maintainer will review your PR soon!",
-            })
             await github.pulls.update({
               pull_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               base: 'develop',
-            })
+            });
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thanks for opening this pull request! 🙏<br><br>I've changed this PR's base branch to `develop`. A maintainer will review your PR soon!",
+            });
