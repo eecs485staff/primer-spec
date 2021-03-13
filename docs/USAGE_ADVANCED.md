@@ -227,7 +227,7 @@ The following site-configuration options can be specified in the [`_config.yml`]
 
 ```yml
 # REQUIRED configuration options, as specified in the Primer Spec README
-remote_theme: eecs485staff/primer-spec
+remote_theme: eecs485staff/primer-spec@master
 plugins:
   - jekyll-remote-theme
   - jekyll-optional-front-matter
@@ -264,7 +264,8 @@ If set to `true`, a sitemap will be auto-generated and displayed in the Sidebar 
 To customize the label, specify it under a `label` field. Your `_config.yml` would look like this:
 
 ```yml
-# REQUIRED configuration options
+# REQUIRED configuration options, as specified in the Primer Spec README
+remote_theme: eecs485staff/primer-spec@master
 # ...
 
 # OPTIONAL site configuration options
