@@ -490,75 +490,83 @@ li.task-list-item .task-list-item-checkbox {
 }
 
 /*
- * NOTE BOXES
+ * CALLOUTS
  */
 
-@mixin note-box-props {
-  position: relative;
-  padding: 20px 16px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 6px;
-}
+$CALLOUT_VARIANTS: (
+  'info': (
+    'bg': #dbedff,
+    'border': rgba(4, 66, 137, 0.2),
+    'color': inherit,
+    'icon': '\f05a',
+    // info-circle
+  ),
+  'warning': (
+    'bg': #fffbdd,
+    'border': rgba(176, 136, 0, 0.2),
+    'color': inherit,
+    'icon': '\f071',
+    // exclamation-triangle
+  ),
+  'danger': (
+    'bg': #ffe3e6,
+    'border': rgba(158, 28, 35, 0.2),
+    'color': inherit,
+    'icon': '\f06a',
+    // exclamation-circle
+  ),
+  'success': (
+    'bg': #dcffe4,
+    'border': rgba(23, 111, 44, 0.2),
+    'color': inherit,
+    'icon': '\f00c',
+    // check
+  ),
+);
 
-@mixin note-box-icon-props {
-  padding-right: 8px;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-}
+.markdown-body {
+  .primer-spec-callout {
+    position: relative;
+    padding: 20px 16px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
 
-.markdown-body .primer-spec-callout {
-  &-info {
-    @include note-box-props();
-    background-color: var(--primer-spec-callout-info-bg-color, #dbedff);
-    border-color: var(
-      --primer-spec-callout-info-border-color,
-      rgba(4, 66, 137, 0.2)
-    );
-    color: var(--primer-spec-callout-info-text-color, inherit);
-  }
-  &-warning {
-    @include note-box-props();
-    background-color: var(--primer-spec-callout-warning-bg-color, #fffbdd);
-    border-color: var(
-      --primer-spec-callout-warning-border-color,
-      rgba(176, 136, 0, 0.2)
-    );
-    color: var(--primer-spec-callout-warning-text-color, inherit);
-  }
-  &-danger {
-    @include note-box-props();
-    background-color: var(--primer-spec-callout-danger-bg-color, #ffe3e6);
-    border-color: var(
-      --primer-spec-callout-danger-border-color,
-      rgba(158, 28, 35, 0.2)
-    );
-    color: var(--primer-spec-callout-danger-text-color, inherit);
-  }
-  &-success {
-    @include note-box-props();
-    background-color: var(--primer-spec-callout-success-bg-color, #dcffe4);
-    border-color: var(
-      --primer-spec-callout-success-border-color,
-      rgba(23, 111, 44, 0.2)
-    );
-    color: var(--primer-spec-callout-success-text-color, inherit);
+    @each $variant, $props in $CALLOUT_VARIANTS {
+      &.#{$variant} {
+        background-color: var(
+          --primer-spec-callout-#{$variant}-bg-color,
+          map-get($props, 'bg')
+        );
+        border-color: var(
+          --primer-spec-callout-#{$variant}-border-color,
+          map-get($props, 'border')
+        );
+        color: var(
+          --primer-spec-callout-#{$variant}-text-color,
+          map-get($props, 'color')
+        );
+      }
+    }
   }
 
-  &-icon-info::before {
-    @include note-box-icon-props();
-    content: '\f05a'; // info-circle
+  // We want to style div callouts like p elements.
+  div.primer-spec-callout {
+    margin-top: 0px;
+    margin-bottom: 16px;
+    padding-bottom: 4px;
   }
-  &-icon-warning::before {
-    @include note-box-icon-props();
-    content: '\f071'; // exclamation-triangle
-  }
-  &-icon-danger::before {
-    @include note-box-icon-props();
-    content: '\f06a'; // exclamation-circle
-  }
-  &-icon-success::before {
-    @include note-box-icon-props();
-    content: '\f00c'; // check
+
+  // Style the icons
+  @each $variant, $props in $CALLOUT_VARIANTS {
+    p.primer-spec-callout.icon-#{$variant},
+    div.primer-spec-callout.icon-#{$variant} > p:first-child {
+      &::before {
+        padding-right: 8px;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        content: map-get($props, 'icon');
+      }
+    }
   }
 }
