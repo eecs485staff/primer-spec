@@ -9,17 +9,29 @@ layout: spec
 
 Use Callouts when you want to elevate information and draw attention to it. Use these components sparingly!
 
-<p class="primer-spec-callout-success primer-spec-callout-icon-success" markdown="1">
+<p class="primer-spec-callout success icon-success" markdown="1">
 All of these callouts work great in dark mode too!
 </p>
+
+<div class="primer-spec-callout info icon-info" markdown="1">
+You can include code blocks in your callouts too!
+
+```c++
+int main() {
+  std::cout << "Primer Spec!" << std::endl;
+  return 0;
+}
+```
+
+</div>
 
 ## Usage
 
 ```markdown
-<p class="primer-spec-callout-[variant]" markdown="1">
+<div class="primer-spec-callout [variant]" markdown="1">
   This is an example note box.
   If you use this in a `markdown` file, *markdown* works inside the box too!
-</p>
+</div>
 ```
 
 Primer Spec offers four variants of callouts:
@@ -33,65 +45,65 @@ See below for examples of each of these callouts.
 
 ### `info`
 
-<p class="primer-spec-callout-info" markdown="1">
+<div class="primer-spec-callout info" markdown="1">
 _**Pro tip:** Use this for additional information, context or hints._
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>info</code> source</summary>
   
   ```markdown
-<p class="primer-spec-callout-info" markdown="1">
+<div class="primer-spec-callout info" markdown="1">
   _**Pro tip:** Use this for additional information, context or hints._
-</p>
+</div>
   ```
 </details>
 
 ### `warning`
 
-<p class="primer-spec-callout-warning" markdown="1">
+<div class="primer-spec-callout warning" markdown="1">
 _**Pro tip:** Use this to alert readers or when extra care/attention is needed._
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>warning</code> source</summary>
   
   ```markdown
-<p class="primer-spec-callout-warning" markdown="1">
+<div class="primer-spec-callout warning" markdown="1">
   _**Pro tip:** Use this to alert readers or when extra care/attention is needed._
-</p>
+</div>
   ```
 </details>
 
 ### `danger`
 
-<p class="primer-spec-callout-danger" markdown="1">
+<div class="primer-spec-callout danger" markdown="1">
 _**Pro tip:** Use this to caution readers about dangerous outcomes (or when something won't work as expected)._
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>danger</code> source</summary>
   
   ```markdown
-<p class="primer-spec-callout-danger" markdown="1">
+<div class="primer-spec-callout danger" markdown="1">
   _**Pro tip:** Use this to caution readers about dangerous outcomes (or when something won't work as expected)._
-</p>
+</div>
   ```
 </details>
 
 ### `success`
 
-<p class="primer-spec-callout-success" markdown="1">
+<div class="primer-spec-callout success" markdown="1">
 _**Pro tip:** Use this to celebrate an achievement!_
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>success</code> source</summary>
   
   ```markdown
-<p class="primer-spec-callout-success" markdown="1">
+<div class="primer-spec-callout success" markdown="1">
   _**Pro tip:** Use this to celebrate an achievement!_
-</p>
+</div>
   ```
 </details>
 
@@ -103,64 +115,64 @@ See below for recommended exmaples.
 
 ### `info` icon
 
-<p class="primer-spec-callout-info primer-spec-callout-icon-info" markdown="1">
+<div class="primer-spec-callout info icon-info" markdown="1">
 A callout with an "info" icon.
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>info</code> icon source</summary>
   
   ```markdown
-<p class="primer-spec-callout-info primer-spec-callout-icon-info" markdown="1">
+<div class="primer-spec-callout info icon-info" markdown="1">
   A callout with an "info" icon.
-</p>
+</div>
   ```
 </details>
 
 ### `warning` icon
 
-<p class="primer-spec-callout-warning primer-spec-callout-icon-warning" markdown="1">
+<div class="primer-spec-callout warning icon-warning" markdown="1">
 A callout with an excalamation-triangle icon.
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>warning</code> icon source</summary>
   
   ```markdown
-<p class="primer-spec-callout-warning primer-spec-callout-icon-warning" markdown="1">
+<div class="primer-spec-callout warning icon-warning" markdown="1">
   A callout with an excalamation-triangle icon.
-</p>
+</div>
   ```
 </details>
 
 ### `danger` icon
 
-<p class="primer-spec-callout-danger primer-spec-callout-icon-danger" markdown="1">
+<div class="primer-spec-callout danger icon-danger" markdown="1">
 A callout with an excalamation-circle icon.
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>danger</code> icon source</summary>
   
   ```markdown
-<p class="primer-spec-callout-danger primer-spec-callout-icon-danger" markdown="1">
+<div class="primer-spec-callout danger icon-danger" markdown="1">
   A callout with an excalamation-circle icon.
-</p>
+</div>
   ```
 </details>
 
 ### `success` icon
 
-<p class="primer-spec-callout-success primer-spec-callout-icon-success" markdown="1">
+<div class="primer-spec-callout success icon-success" markdown="1">
 A callout with a check-mark icon.
-</p>
+</div>
 
 <details markdown="1">
   <summary><code>success</code> icon source</summary>
   
   ```markdown
-<p class="primer-spec-callout-success primer-spec-callout-icon-success" markdown="1">
+<div class="primer-spec-callout success icon-success" markdown="1">
   A callout with a check-mark icon.
-</p>
+</div>
   ```
 </details>

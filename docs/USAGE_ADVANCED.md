@@ -152,7 +152,7 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 Use Callouts to highlight information in your specs. Here's an example:
 
 ```markdown
-<p class="primer-spec-callout-info primer-spec-callout-info-icon" markdown="1">
+<div class="primer-spec-callout info icon-info" markdown="1">
   This is an example callout.
   If you use this in a `markdown` file, *markdown* works inside the box too!
 </p>
