@@ -1,44 +1,8 @@
-import { RefObject, h } from 'preact';
-import { useCallback, useEffect, useRef } from 'preact/hooks';
-import clsx from 'clsx';
-import Config from '../Config';
-import { usePrintInProgress } from '../utils/hooks';
-import Storage, { StorageChangeCallbackType } from '../utils/Storage';
+import { RefObject } from 'preact';
+import Storage, { StorageChangeCallbackType } from '../../utils/Storage';
 
-type PropsType = {
-  innerHTML: string;
-  isSmallScreen: boolean;
-  sidebarShown: boolean;
-};
-
-const TASK_LIST_STORAGE_PREFIX = 'primer_spec_task_list';
-const TASK_LIST_STORAGE_COUNT_KEY = `${TASK_LIST_STORAGE_PREFIX}_count`;
-
-export default function MainContent(props: PropsType): h.JSX.Element {
-  const is_print_in_progress = usePrintInProgress();
-  const main_el_ref = useRef<HTMLElement>(null);
-
-  const taskListCheckboxEffect = useCallback(useTaskListCheckboxes, [
-    props.innerHTML,
-  ]);
-  useEffect(() => {
-    return taskListCheckboxEffect(main_el_ref);
-  }, [taskListCheckboxEffect]);
-
-  return (
-    <main
-      ref={main_el_ref}
-      id={Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}
-      class={clsx('container-lg', 'px-3', 'my-5', 'markdown-body', {
-        'primer-spec-content-margin-extra':
-          props.sidebarShown && !props.isSmallScreen && !is_print_in_progress,
-        'primer-spec-content-mobile': props.isSmallScreen,
-      })}
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: props.innerHTML }}
-    />
-  );
-}
+export const TASK_LIST_STORAGE_PREFIX = 'primer_spec_task_list';
+export const TASK_LIST_STORAGE_COUNT_KEY = `${TASK_LIST_STORAGE_PREFIX}_count`;
 
 /**
  * A custom hook that enables task-list checkboxes and persists the checkbox
@@ -46,7 +10,9 @@ export default function MainContent(props: PropsType): h.JSX.Element {
  * to remove the event listeners.
  * @param mainElRef A ref to the `<main>` element from MainContent
  */
-function useTaskListCheckboxes(mainElRef: RefObject<HTMLElement>) {
+export default function useTaskListCheckboxes(
+  mainElRef: RefObject<HTMLElement>,
+): () => void {
   if (!mainElRef.current) {
     throw new Error(
       'Primer Spec: Main Content: Expected main content ref to be initialized.',
