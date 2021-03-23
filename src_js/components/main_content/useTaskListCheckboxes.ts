@@ -1,43 +1,8 @@
-import { RefObject, h } from 'preact';
-import { useCallback, useEffect, useRef } from 'preact/hooks';
-import clsx from 'clsx';
-import Config from '../Config';
-import { usePrintInProgress } from '../utils/hooks';
-import Storage from '../utils/Storage';
+import { RefObject } from 'preact';
+import Storage, { StorageChangeCallbackType } from '../../utils/Storage';
 
-type PropsType = {
-  innerHTML: string;
-  isSmallScreen: boolean;
-  sidebarShown: boolean;
-};
-
-const TASK_LIST_STORAGE_PREFIX = 'primer_spec_task_list';
-
-export default function MainContent(props: PropsType): h.JSX.Element {
-  const is_print_in_progress = usePrintInProgress();
-  const main_el_ref = useRef<HTMLElement>(null);
-
-  const taskListCheckboxEffect = useCallback(useTaskListCheckboxes, [
-    props.innerHTML,
-  ]);
-  useEffect(() => {
-    return taskListCheckboxEffect(main_el_ref);
-  }, [taskListCheckboxEffect]);
-
-  return (
-    <main
-      ref={main_el_ref}
-      id={Config.PRIMER_SPEC_CONTENT_PREACT_NODE_ID}
-      class={clsx('container-lg', 'px-3', 'my-5', 'markdown-body', {
-        'primer-spec-content-margin-extra':
-          props.sidebarShown && !props.isSmallScreen && !is_print_in_progress,
-        'primer-spec-content-mobile': props.isSmallScreen,
-      })}
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: props.innerHTML }}
-    />
-  );
-}
+export const TASK_LIST_STORAGE_PREFIX = 'primer_spec_task_list';
+export const TASK_LIST_STORAGE_COUNT_KEY = `${TASK_LIST_STORAGE_PREFIX}_count`;
 
 /**
  * A custom hook that enables task-list checkboxes and persists the checkbox
@@ -45,7 +10,9 @@ export default function MainContent(props: PropsType): h.JSX.Element {
  * to remove the event listeners.
  * @param mainElRef A ref to the `<main>` element from MainContent
  */
-function useTaskListCheckboxes(mainElRef: RefObject<HTMLElement>) {
+export default function useTaskListCheckboxes(
+  mainElRef: RefObject<HTMLElement>,
+): () => void {
   if (!mainElRef.current) {
     throw new Error(
       'Primer Spec: Main Content: Expected main content ref to be initialized.',
@@ -85,9 +52,27 @@ function useTaskListCheckboxes(mainElRef: RefObject<HTMLElement>) {
     storeNumCheckboxes(task_checkboxes.length);
   }
 
+  // Listen for changes to the *number of checkboxes* in local storage (from
+  // another tab). If this changes, that usually means that the other tab has a
+  // newer (and changed) version of the page compared to the current tab.
+  // Since it's *very* likely that the current page is out-of-date, let us not
+  // sync any future changes to checkboxes from this tab.
+  let should_sync_checkbox_state = true;
+  const count_change_callback = () => {
+    should_sync_checkbox_state = false;
+  };
+  Storage.addListenerForPage(
+    TASK_LIST_STORAGE_COUNT_KEY,
+    count_change_callback,
+  );
+
   // Keep track of the listeners so that we can unregister them if the
   // innerHTML prop to MainContent ever changes.
-  const listeners: Array<() => void> = [];
+  const change_listeners: Array<() => void> = [];
+  // Also add listeners for storage change events (in case the checkbox is
+  // changed on another tab, we change it here too).
+  const storage_change_listeners: Array<StorageChangeCallbackType> = [];
+
   task_checkboxes.forEach((checkbox, i) => {
     checkbox.disabled = false;
     if (should_use_default_values) {
@@ -96,31 +81,46 @@ function useTaskListCheckboxes(mainElRef: RefObject<HTMLElement>) {
       checkbox.checked = getCheckboxState(i);
     }
 
+    // Listen for clicks on the checkbox on the page.
     const checkbox_change_listener = () => {
-      // Persist preference
-      setCheckboxState(i, checkbox.checked);
+      if (should_sync_checkbox_state) {
+        // Persist preference
+        setCheckboxState(i, checkbox.checked);
+      }
     };
-    listeners.push(checkbox_change_listener);
-
+    change_listeners.push(checkbox_change_listener);
     checkbox.addEventListener('change', checkbox_change_listener);
+
+    // Listen for changes to checkbox state on other tabs.
+    const storage_change_listener: StorageChangeCallbackType = () => {
+      if (should_sync_checkbox_state) {
+        checkbox.checked = getCheckboxState(i);
+      }
+    };
+    storage_change_listeners.push(storage_change_listener);
+    addListenerForCheckboxStorage(i, storage_change_listener);
   });
 
   return () => {
     task_checkboxes.forEach((checkbox, i) => {
-      checkbox.removeEventListener('change', listeners[i]);
+      checkbox.removeEventListener('change', change_listeners[i]);
+      removeListenerForCheckboxStorage(i, storage_change_listeners[i]);
     });
+    Storage.removeListenerForPage(
+      TASK_LIST_STORAGE_COUNT_KEY,
+      count_change_callback,
+    );
   };
 }
 
 function getNumCheckboxesFromStorage() {
-  const raw_count =
-    Storage.getForPage(`${TASK_LIST_STORAGE_PREFIX}_count`) || '';
+  const raw_count = Storage.getForPage(TASK_LIST_STORAGE_COUNT_KEY) || '';
   const count = parseInt(raw_count, 10);
   return count || 0;
 }
 
 function storeNumCheckboxes(num_checkboxes: number) {
-  Storage.setForPage(`${TASK_LIST_STORAGE_PREFIX}_count`, `${num_checkboxes}`);
+  Storage.setForPage(TASK_LIST_STORAGE_COUNT_KEY, `${num_checkboxes}`);
 }
 
 function getCheckboxState(index: number) {
@@ -130,4 +130,21 @@ function getCheckboxState(index: number) {
 
 function setCheckboxState(index: number, state: boolean) {
   Storage.setForPage(`${TASK_LIST_STORAGE_PREFIX}_${index}`, `${state}`);
+}
+
+function addListenerForCheckboxStorage(
+  index: number,
+  callback: StorageChangeCallbackType,
+) {
+  Storage.addListenerForPage(`${TASK_LIST_STORAGE_PREFIX}_${index}`, callback);
+}
+
+function removeListenerForCheckboxStorage(
+  index: number,
+  callback: StorageChangeCallbackType,
+) {
+  Storage.removeListenerForPage(
+    `${TASK_LIST_STORAGE_PREFIX}_${index}`,
+    callback,
+  );
 }

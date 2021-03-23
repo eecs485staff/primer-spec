@@ -13,7 +13,7 @@ import {
 import getChromeVersion from '../utils/getChromeVersion';
 import { useAfterPrint, useBeforePrint } from '../utils/hooks';
 import Config from '../Config';
-import MainContent from './MainContent';
+import MainContent from './main_content/MainContent';
 import Settings from './settings';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './Topbar';
