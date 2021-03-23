@@ -11,11 +11,11 @@ import {
   updateTheme,
 } from '../subthemes';
 import getChromeVersion from '../utils/getChromeVersion';
-import { useAfterPrint, useBeforePrint } from '../utils/hooks';
+import { useAfterPrint, useBeforePrint } from '../utils/hooks/print';
 import Config from '../Config';
-import MainContent from './main_content/MainContent';
+import MainContent from './main_content';
 import Settings from './settings';
-import Sidebar from './sidebar/Sidebar';
+import Sidebar from './sidebar';
 import Topbar from './Topbar';
 import isSmallScreen from '../utils/isSmallScreen';
 import Storage from '../utils/Storage';

@@ -7,8 +7,8 @@ import {
   useAfterPrint,
   useBeforePrint,
   usePrintInProgress,
-  usePrefersDarkMode,
-} from '../../utils/hooks';
+} from '../../utils/hooks/print';
+import usePrefersDarkMode from '../../utils/hooks/usePrefersDarkMode';
 import ThemePreview from './ThemePreview';
 
 type PropsType = {
