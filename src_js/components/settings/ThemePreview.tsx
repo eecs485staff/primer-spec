@@ -51,11 +51,10 @@ export default function ThemePreview(props: PropsType): h.JSX.Element {
       class={svgClassName}
       viewBox="30.774 27.546 298.133 175.743"
       xmlns="http://www.w3.org/2000/svg"
-      clip-path={`url(#${svgClassName}-clip)`}
+      style={`background-color: ${mainBgColor};`}
     >
       <defs>
         <style>
-          {`.${svgClassName} .main-bg{fill:${mainBgColor};}`}
           {`.${svgClassName} .sidebar-bg{fill:${sidebarBgColor};stroke:${sidebarBgColor};}`}
           {`.${svgClassName} .sidebar-heading{fill:${sidebarHeadingTextColor};}`}
           {`.${svgClassName} .sidebar-toc-h1-link{fill:${sidebarTocH1LinkColor};}`}
@@ -70,22 +69,7 @@ export default function ThemePreview(props: PropsType): h.JSX.Element {
           {`.${svgClassName} .main-table-pre{fill:${mainTablePreBgColor};stroke:${mainTablePreBorderColor};stroke-width:0.2}`}
           {`.${svgClassName} .sidebar-border{fill:none;stroke:${sidebarBorderColor};stroke-miterlimit:10;}`}
         </style>
-        {/*
-         ** The following HACK hides overflow from the top-left corner of the
-         ** SVG and creates a rounded corner. Unfortunately, it doesn't affect
-         ** the top right corner, but that can be solved some other time.
-         **/}
-        <clipPath id={`${svgClassName}-clip`}>
-          <rect x="0" y="0" width="200%" height="200%" rx="8" />
-        </clipPath>
       </defs>
-      <rect
-        class="main-bg"
-        x="30.588"
-        y="27.623"
-        width="298"
-        height="175.694"
-      />
       <rect
         class="sidebar-bg"
         x="30.79"

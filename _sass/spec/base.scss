@@ -336,10 +336,15 @@ div[class^='primer-spec-toc-'],
       margin-left: 5px;
       min-width: 150px;
       max-width: 300px;
-      border-top: var(--main-table-pre-border, 1px solid #eaecef);
-      border-left: var(--main-table-pre-border, 1px solid #eaecef);
-      border-right: var(--main-table-pre-border, 1px solid #eaecef);
+      border: var(--main-table-pre-border, 1px solid #eaecef);
       border-radius: 9px;
+
+      svg {
+        // Round the top corners of the SVG so that it conforms within the
+        // rounded corners of the outer box.
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+      }
     }
 
     &-title {
