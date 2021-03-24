@@ -1,3 +1,10 @@
+/**
+ * Generate a sitemap-label that describes a page with path `pathName`. The
+ * extracted name is simply the name of the file in title-case and
+ * word-boundaries replaced with spaces.
+ * @param pathName path to a file whose sitemap-label needs to be generated
+ * @example '../dir1/dir2/my-page.html' --> 'My Page'
+ */
 export default function getSitemapName(pathName: string): string {
   pathName = getFilenameFromPath(pathName);
   const dotIndex = pathName.lastIndexOf('.');

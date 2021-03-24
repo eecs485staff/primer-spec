@@ -18,8 +18,7 @@ export type { RegisteredSubthemeType };
  * @param newSubtheme   The subtheme details to be updated. This defaults to
  *                      the subtheme from Storage.
  * @param persistUpdate Defaults to true. If set to false, the updated theme
- *                      is not persisted to Storage (and will not invoke
- *                      `onUpdate`.)
+ *                      is not persisted to Storage.
  */
 export function updateTheme(
   { name, mode }: Partial<SubthemeSelectionType> = {},
@@ -42,12 +41,12 @@ export function updateTheme(
     storeSubtheme({ name: normalized_name, mode: currently_selected_mode });
   }
 
-  // If stores are not updated, the "current" subthemes from the store may be
-  // stale. Hence, skip this optimization.
   if (
-    persistUpdate &&
     normalized_name === stored_subtheme_name &&
-    normalized_mode === stored_subtheme_mode
+    normalized_mode === stored_subtheme_mode &&
+    // If stores are not updated, the "current" subthemes from the store may be
+    // stale. Hence, skip this optimization.
+    persistUpdate
   ) {
     return;
   }

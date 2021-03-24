@@ -1,23 +1,18 @@
 import { Fragment, h } from 'preact';
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 import {
   getStoredSubthemeMode,
   getStoredSubthemeName,
   updateTheme,
 } from '../subthemes';
 import getChromeVersion from '../utils/getChromeVersion';
-import { useAfterPrint, useBeforePrint } from '../utils/hooks';
+import { useAfterPrint, useBeforePrint } from '../utils/hooks/print';
+import useSmallScreen from '../utils/hooks/useSmallScreen';
 import Config from '../Config';
-import MainContent from './main_content/MainContent';
+import MainContent from './main_content';
 import Settings from './settings';
-import Sidebar from './sidebar/Sidebar';
+import Sidebar from './sidebar';
 import Topbar from './Topbar';
-import isSmallScreen from '../utils/isSmallScreen';
 import Storage from '../utils/Storage';
 
 type PropsType = { contentHTML: string };
@@ -28,7 +23,7 @@ type PropsType = { contentHTML: string };
  */
 export default function PrimerSpec(props: PropsType): h.JSX.Element {
   // Initialize all shared state
-  const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
+  const is_small_screen = useSmallScreen();
   const [sidebar_shown, setSidebarShown] = useState(
     !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
   );
@@ -53,21 +48,6 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     setSubthemeName(getStoredSubthemeName());
     setSubthemeMode(getStoredSubthemeMode());
   };
-
-  // Listen for changes to the window size.
-  useLayoutEffect(() => {
-    const window_resize_listener = () => {
-      const is_window_now_a_small_screen = isSmallScreen();
-      if (is_window_now_a_small_screen !== is_small_screen) {
-        setIsSmallScreen(is_window_now_a_small_screen);
-      }
-    };
-
-    window.addEventListener('resize', window_resize_listener);
-    return () => {
-      window.removeEventListener('resize', window_resize_listener);
-    };
-  }, [is_small_screen]);
 
   // Listen for print events
   const beforePrint = useCallback(useBeforePrint, []);

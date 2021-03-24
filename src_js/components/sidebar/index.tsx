@@ -9,7 +9,7 @@ import {
 import IconType from '../common/IconType';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
-import { usePrintInProgress } from '../../utils/hooks';
+import { usePrintInProgress } from '../../utils/hooks/print';
 import Storage from '../../utils/Storage';
 import SidebarContent from './SidebarContent';
 import getSitemapUrls from './getSitemapUrls';

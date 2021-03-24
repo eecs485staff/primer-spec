@@ -5,6 +5,14 @@ export type SitemapType = {
   siteUrls: Array<SitemapPageInfoType>;
 };
 
+/**
+ * Parse raw sitemap information from `Config.ts` and return a data structure
+ * that is easier to render.
+ *
+ * NOTE: The result of this method is not memoized.
+ * @param sitemapEnabled boolean indicating whether to use sitemap URLs from
+ *                       `Config.ts`
+ */
 export default function getSitemapUrls(
   sitemapEnabled: boolean,
 ): null | SitemapType {
