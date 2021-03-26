@@ -31,7 +31,7 @@ function freezeAssetsForVersion(version_str) {
     },
     {
       // (3) Copy over the generated CSS/JS assets
-      title: `Copy _site/${version_str} --> assets/${version_str}`,
+      title: `Copy _site/assets/${version_str} --> assets/${version_str}`,
       task: async () => {
         const generated_assets_path = path.resolve(
           ROOT_PATH,
