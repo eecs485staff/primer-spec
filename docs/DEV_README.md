@@ -90,7 +90,7 @@ The [`demo`](https://github.com/eecs485staff/primer-spec/tree/develop/demo) dire
 
 The `script` directory contains various utility scripts for use during development. Most importantly:
 
-- `bootstrap` initializes your dev environment. It also installs the Git pre-commit hook from `.githooks/pre-commit`, which ensures that the JavaScript bundle is rebuilt and included with every commit.
+- `bootstrap` initializes your dev environment. It also installs the Git pre-commit hook from `.githooks/pre-commit`, which ensures that the assets directory is not accidentally modified.
 - `server` starts the Jekyll server at http://localhost:4000 and rebuilds whenever files change (with some exceptions).
 - `cibuild` is what’s run by the Travis CI for every Pull Request. It can also be run locally.
 - `version` bumps or freezes the Primer Spec version. (Link to contributing section)
@@ -109,7 +109,7 @@ Every open PR is also deployed to the private server via [Primer Spec Preview](h
 
 See the [CONTRIBUTING docs](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bootstrap-your-local-environment) for actual setup instructions.
 
-Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which builds and includes the latest JavaScript bundle for each commit. (We use pre-committed JavaScript bundles since these are deployed and used by external websites.)
+Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which ensures that the assets directory is not accidentally modified by commits. (We update the pre-committed JavaScript bundles just before deploying the `master` branch for use by external websites.)
 
 For everyday development, use `script/server`, which builds and serves the site at https://localhost:4000. Open the VSCode workspace `primer-spec.code-workspace` and install the recommended extensions for easy ESLint and Prettier formatting.
 
