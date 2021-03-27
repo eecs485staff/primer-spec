@@ -19,7 +19,6 @@ const INIT_SITEMAP_ENABLED = getInitSitemapEnabled();
  */
 export default {
   // From webpack config
-  BASE_URL: process.env.BASE_URL,
   VERSION_RAW: process.env.VERSION_RAW,
   VERSION_MINOR_STR: process.env.VERSION_MINOR_STR,
   BUILD_MODE: process.env.BUILD_MODE,

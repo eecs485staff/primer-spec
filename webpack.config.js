@@ -15,8 +15,6 @@ const path = require('path');
 const semver = require('semver');
 const webpack = require('webpack');
 
-const DEV_URL = 'http://localhost:4000';
-const PROD_URL = 'https://eecs485staff.github.io/primer-spec';
 const VERSION_RAW = fs.readFileSync(
   path.resolve(__dirname, 'VERSION'),
   'utf-8',
@@ -27,22 +25,6 @@ const VERSION_RAW = fs.readFileSync(
 // will still render correctly).
 const semver_version = semver.coerce(VERSION_RAW);
 const VERSION_MINOR_STR = `v${semver_version.major}.${semver_version.minor}`;
-
-function getBaseURL(env) {
-  let base_url;
-  if (env && env.production) {
-    base_url = PROD_URL;
-  } else if (env && env.base_url && typeof env.base_url === 'string') {
-    base_url = env.base_url;
-    if (base_url.endsWith('/')) {
-      base_url = base_url.slice(0, -1);
-    }
-  } else {
-    base_url = DEV_URL;
-  }
-  console.log(`Using base URL: ${base_url}`);
-  return base_url;
-}
 
 function getBuildMode(env) {
   return env && env.production ? 'production' : 'development';
@@ -83,12 +65,13 @@ module.exports = (env) => ({
   plugins: [
     // These variables become available in any file
     new webpack.DefinePlugin({
-      'process.env.BASE_URL': JSON.stringify(getBaseURL(env)),
       'process.env.VERSION_RAW': JSON.stringify(VERSION_RAW),
       'process.env.VERSION_MINOR_STR': JSON.stringify(VERSION_MINOR_STR),
       'process.env.BUILD_MODE': JSON.stringify(getBuildMode(env)),
     }),
   ],
+  // Generate sourcemaps
+  devtool: 'source-map',
   // Minimize output
   stats: 'minimal',
   devServer: {
