@@ -1,4 +1,6 @@
 #!/bin/sh
+# Set env variable STAGE_STATIC_ASSETS to commit files in frozen versions or
+# JS files in current version.
 
 set -Eueo pipefail
 
@@ -8,7 +10,16 @@ GITHOOKS_DIR=`pwd -P`
 popd
 PROJECT_ROOT=`dirname $GITHOOKS_DIR`
 
-set -x
+MINOR_VERSION=$(cat $PROJECT_ROOT/VERSION | grep -o "\d\.\d")
 
-npx webpack --env.production
-git add $PROJECT_ROOT/assets/**/js/primer_spec_plugin.min.js
+if [[ -z "${STAGE_STATIC_ASSETS:-}" ]]; then
+  echo "[pre-commit]: Unstaging assets directory"
+  
+  # Unstage any changes to assets directory, but exclude the current version.
+  dirs_to_reset=$(ls -d $PROJECT_ROOT/assets/* | grep --invert-match "$MINOR_VERSION" | tr '\n' ' ')
+  git reset -q $dirs_to_reset
+
+  # Also unstage any changes to the js directory of the current version.
+  # (We don't want to reset changes to the css directory.)
+  git reset -q assets/v$MINOR_VERSION/js
+fi

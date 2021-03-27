@@ -119,7 +119,10 @@ The latest stable version of the theme is available on the `master` branch. (Thi
 
 The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `master`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `master` to keep them in sync.
 
-To publish a new release:
+To publish a new release, first prepare the `master` branch and sync with `develop` by initiating the `release` GitHub Actions workflow from the [Actions tab](https://github.com/eecs485staff/primer-spec/actions/workflows/release.yml).
+
+<details markdown="1">
+  <summary>If the GH Actions workflow fails, expand this section for detailed steps.</summary>
 
 1. Pull the latest versions of both branches.
 
@@ -148,12 +151,15 @@ $ git commit -S -m "Freeze version v1.2"
 ```
 
 4. Push your changes to GitHub with `git push`.
+</details>
 
-5. Draft a new "release". Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
+Finally, tag the release:
 
-6. Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
+1. Visit the [releases page](https://github.com/eecs485staff/primer-spec/releases). Note the most recent release's version number (for example, `1.0.0+fa19`).
 
-7. Click the "Draft a new release" button. Specify the version number. Title and description are optional. _(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)_
+2. Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
+
+3. Click the "Draft a new release" button. Specify the version number. Title and description are optional. _(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)_
 
 ### Bumping the version in Pull Requests
 
