@@ -1,9 +1,7 @@
 /**
  * webpack.config.js
  *
- * This config accepts an 'env' parameter, which can take on values 'prod' or
- * 'dev'. (Defaults to 'dev'.)
- * Specify the one you want by running `npx webpack --env <prod|dev>`.
+ * To build in 'production' mode, run `npx webpack --env.production`.
  * Alternatively, use 'script/build` for development, and 'script/cibuild' for
  * production.
  *
