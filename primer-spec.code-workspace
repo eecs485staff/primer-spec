@@ -11,13 +11,33 @@
     "search.exclude": {
       "_site": true
     },
-    "html.validate.scripts": false
+    "html.validate.scripts": false,
+    "colorize.languages": [
+      "css",
+      "sass",
+      "scss",
+      "less",
+      "typescript",
+      "javascript"
+    ],
+    "colorInfo.languages": [
+      {
+        "selector": "javascript",
+        "colors": "css"
+      },
+      {
+        "selector": "typescript",
+        "colors": "css"
+      }
+    ]
   },
   "extensions": {
     "recommendations": [
       "esbenp.prettier-vscode",
       "dbaeumer.vscode-eslint",
-      "sissel.shopify-liquid"
+      "sissel.shopify-liquid",
+      "kamikillerto.vscode-colorize",
+      "bierner.color-info"
     ]
   }
 }
