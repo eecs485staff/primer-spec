@@ -109,7 +109,7 @@ Additionally, you may choose to set the following optional variables:
 
 ```yml
 favicon: [Path/URL to 32x32 favicon]
-google_analytics: [Your Google Analytics tracking ID]
+google_analytics: [Your Google Analytics tracking ID / measurement ID]
 ```
 
 ## Hiding sections from the sidebar
