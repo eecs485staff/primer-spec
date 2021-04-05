@@ -564,8 +564,8 @@ $CALLOUT_VARIANTS: (
 
   // Style the icons
   @each $variant, $props in $CALLOUT_VARIANTS {
-    p.primer-spec-callout.icon-#{$variant},
-    div.primer-spec-callout.icon-#{$variant} > p:first-child {
+    p.primer-spec-callout.#{$variant},
+    div.primer-spec-callout.#{$variant} > p:first-child {
       &::before {
         padding-right: 8px;
         font-family: 'Font Awesome 5 Free';
