@@ -529,29 +529,27 @@ $CALLOUT_VARIANTS: (
   ),
 );
 
-.markdown-body {
-  .primer-spec-callout {
-    position: relative;
-    padding: 20px 16px;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 6px;
+.primer-spec-callout {
+  position: relative;
+  padding: 20px 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
 
-    @each $variant, $props in $CALLOUT_VARIANTS {
-      &.#{$variant} {
-        background-color: var(
-          --primer-spec-callout-#{$variant}-bg-color,
-          map-get($props, 'bg')
-        );
-        border-color: var(
-          --primer-spec-callout-#{$variant}-border-color,
-          map-get($props, 'border')
-        );
-        color: var(
-          --primer-spec-callout-#{$variant}-text-color,
-          map-get($props, 'color')
-        );
-      }
+  @each $variant, $props in $CALLOUT_VARIANTS {
+    &.#{$variant} {
+      background-color: var(
+        --primer-spec-callout-#{$variant}-bg-color,
+        map-get($props, 'bg')
+      );
+      border-color: var(
+        --primer-spec-callout-#{$variant}-border-color,
+        map-get($props, 'border')
+      );
+      color: var(
+        --primer-spec-callout-#{$variant}-text-color,
+        map-get($props, 'color')
+      );
     }
   }
 
