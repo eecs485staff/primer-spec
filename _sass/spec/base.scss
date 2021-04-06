@@ -552,24 +552,24 @@ $CALLOUT_VARIANTS: (
       );
     }
   }
+}
 
-  // We want to style div callouts like p elements.
-  div.primer-spec-callout {
-    margin-top: 0px;
-    margin-bottom: 16px;
-    padding-bottom: 4px;
-  }
+// We want to style div callouts like p elements.
+div.primer-spec-callout {
+  margin-top: 0px;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+}
 
-  // Style the icons
-  @each $variant, $props in $CALLOUT_VARIANTS {
-    p.primer-spec-callout.#{$variant},
-    div.primer-spec-callout.#{$variant} > p:first-child {
-      &::before {
-        padding-right: 8px;
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        content: map-get($props, 'icon');
-      }
+// Style the icons
+@each $variant, $props in $CALLOUT_VARIANTS {
+  p.primer-spec-callout.#{$variant},
+  div.primer-spec-callout.#{$variant} > p:first-child {
+    &::before {
+      padding-right: 8px;
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      content: map-get($props, 'icon');
     }
   }
 }
