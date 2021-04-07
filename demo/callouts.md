@@ -9,11 +9,11 @@ layout: spec
 
 Use Callouts when you want to elevate information and draw attention to it. Use these components sparingly!
 
-<p class="primer-spec-callout success icon-success" markdown="1">
+<p class="primer-spec-callout success" markdown="1">
 All of these callouts work great in dark mode too!
 </p>
 
-<div class="primer-spec-callout info icon-info" markdown="1">
+<div class="primer-spec-callout info" markdown="1">
 You can include code blocks in your callouts too!
 
 ```c++
@@ -103,76 +103,6 @@ _**Pro tip:** Use this to celebrate an achievement!_
   ```markdown
 <div class="primer-spec-callout success" markdown="1">
   _**Pro tip:** Use this to celebrate an achievement!_
-</div>
-  ```
-</details>
-
-## Usage with icons
-
-You can also include an icon with each callout. You can use any icon with any callout-variant, but we stronly recommend using the icons with the variant in their names.
-
-See below for recommended exmaples.
-
-### `info` icon
-
-<div class="primer-spec-callout info icon-info" markdown="1">
-A callout with an "info" icon.
-</div>
-
-<details markdown="1">
-  <summary><code>info</code> icon source</summary>
-  
-  ```markdown
-<div class="primer-spec-callout info icon-info" markdown="1">
-  A callout with an "info" icon.
-</div>
-  ```
-</details>
-
-### `warning` icon
-
-<div class="primer-spec-callout warning icon-warning" markdown="1">
-A callout with an excalamation-triangle icon.
-</div>
-
-<details markdown="1">
-  <summary><code>warning</code> icon source</summary>
-  
-  ```markdown
-<div class="primer-spec-callout warning icon-warning" markdown="1">
-  A callout with an excalamation-triangle icon.
-</div>
-  ```
-</details>
-
-### `danger` icon
-
-<div class="primer-spec-callout danger icon-danger" markdown="1">
-A callout with an excalamation-circle icon.
-</div>
-
-<details markdown="1">
-  <summary><code>danger</code> icon source</summary>
-  
-  ```markdown
-<div class="primer-spec-callout danger icon-danger" markdown="1">
-  A callout with an excalamation-circle icon.
-</div>
-  ```
-</details>
-
-### `success` icon
-
-<div class="primer-spec-callout success icon-success" markdown="1">
-A callout with a check-mark icon.
-</div>
-
-<details markdown="1">
-  <summary><code>success</code> icon source</summary>
-  
-  ```markdown
-<div class="primer-spec-callout success icon-success" markdown="1">
-  A callout with a check-mark icon.
 </div>
   ```
 </details>
