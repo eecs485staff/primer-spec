@@ -46,7 +46,7 @@ jobs:
         env:
           REPO: ${{ github.repository }}
         run: |
-          sed -i "\$ s/\$/ (<code>develop</code> preview build: $(date '+%Y-%m-%d'))/" VERSION
+          sed -i "\$ s/\$/ (<code>develop<\/code> preview build: $(date '+%Y-%m-%d'))/" VERSION
           ./script/ci-site-preview-build "https://preview.seshrs.ml" "/previews/$REPO/develop-preview"
 
       # Upload the site to Primer Spec Preview and comment on the PR.
