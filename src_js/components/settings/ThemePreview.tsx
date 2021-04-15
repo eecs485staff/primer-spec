@@ -52,6 +52,7 @@ export default function ThemePreview(props: PropsType): h.JSX.Element {
       viewBox="30.774 27.546 298.133 175.743"
       xmlns="http://www.w3.org/2000/svg"
       style={`background-color: ${mainBgColor};`}
+      role="img"
     >
       <defs>
         <style>
