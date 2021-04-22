@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'develop'
+          fetch-depth: 0
 
       - name: 👤 Setup Git Identity
         uses: fregante/setup-git-user@v1
@@ -35,8 +36,7 @@ jobs:
 
       - name: Checkout master
         run: |
-          git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +refs/heads/master*:refs/remotes/origin/master* +refs/tags/master*:refs/tags/master*
-          git checkout --progress --force -B master refs/remotes/origin/master
+          git checkout master
 
       - name: 𖢞 Merge to master
         run: |
