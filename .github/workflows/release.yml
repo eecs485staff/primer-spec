@@ -25,7 +25,7 @@ jobs:
       - name: 🛠 Build latest JS
         run: npx webpack --env.production
 
-      - name: ➕ Freeze version
+      - name: ❄️ Freeze version
         run: script/version freeze
 
       - name: 💾 Commit updated JS to develop
@@ -35,7 +35,8 @@ jobs:
 
       - name: 𖢞 Merge to master
         run: |
-          git checkout master
+          git fetch --no-tags --depth=1 origin master
+          git checkout -b master
           git pull
           git merge develop
 
