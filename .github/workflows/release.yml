@@ -35,8 +35,8 @@ jobs:
 
       - name: 𖢞 Merge to master
         run: |
-          git fetch --no-tags --depth=1 origin master
-          git checkout master
+          git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +refs/heads/master*:refs/remotes/origin/master* +refs/tags/master*:refs/tags/master*
+          git checkout --progress --force -B refs/remotes/origin/master
           git pull
           git merge develop
 
