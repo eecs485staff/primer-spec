@@ -36,7 +36,7 @@ jobs:
       - name: 𖢞 Merge to master
         run: |
           git fetch --no-tags --depth=1 origin master
-          git checkout -b master
+          git checkout master
           git pull
           git merge develop
 
