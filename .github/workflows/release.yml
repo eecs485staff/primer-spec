@@ -13,6 +13,9 @@ jobs:
         with:
           ref: 'develop'
 
+      - name: 👤 Setup Git Identity
+        uses: fregante/setup-git-user@v1
+
       - name: ⬢ Setup Node
         uses: actions/setup-node@v1
 
