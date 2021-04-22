@@ -103,7 +103,9 @@ When you style the various header levels, remember that you'll be writing JavaSc
 #### CSS is hard. Help please?
 Yeah, it has a bit of a learning curve. Google, StackOverflow and MDN are your best friends. Experiment with different CSS style attributes to see what works best.
 
+<p class="primer-spec-info" markdown="1">
 _**Pro tip:** Use `div` (unstylyed containers) and classes liberally. They make it easy to apply styles to collections of elements._
+</p>
 
 _**Pro tip:** Use your browser's "developer tools" to modify CSS styles on your page to dynamically see the effects of your changes._
 

@@ -1,5 +1,6 @@
 import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import clsx from 'clsx';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 
 export type PropsType = {
@@ -20,8 +21,20 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
 
   // When the user scrolls, rerender the component.
   useEffect(() => {
-    const scrollHandler = () => setWindowScrollDistance(window.scrollY);
-    window.addEventListener('scroll', scrollHandler);
+    // Throttle scroll events using rAF.
+    // Based on: https://css-tricks.com/debouncing-throttling-explained-examples/
+    let ticking = false;
+    const scrollHandler = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setWindowScrollDistance(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
@@ -33,7 +46,7 @@ export default function TableOfContents(props: PropsType): h.JSX.Element {
   );
 
   return (
-    <nav class="primer-spec-toc">
+    <nav class="primer-spec-toc" aria-label="Page contents">
       <div
         role="presentation"
         onClick={() => {
@@ -109,9 +122,12 @@ function generateTocNodesHelper(section: HeadingsSectionType) {
   return (
     <li>
       <div
-        class={`primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()} ${
-          section.active ? 'primer-spec-toc-active' : ''
-        }`}
+        class={clsx(
+          `primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()}`,
+          {
+            'primer-spec-toc-active': section.active,
+          },
+        )}
       >
         <a href={getAnchorLink(heading)}>{headingLabel}</a>
       </div>

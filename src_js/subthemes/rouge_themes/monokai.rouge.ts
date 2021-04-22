@@ -11,10 +11,10 @@ const bright_pink = '#f92672';
 const carmine = '#960050';
 const dark = '#49483e';
 // const dark_graphite = '#272822';
-const dark_grey = '#888888';
+const dark_grey = '#999999';
 // const dark_red = '#aa0000';
-const dimgrey = '#75715e';
-const emperor = '#555555';
+const dimgrey = '#868064';
+// const emperor = '#555555';
 const grey = '#999999';
 const light_grey = '#aaaaaa';
 const light_violet = '#ae81ff';
@@ -32,7 +32,7 @@ const monokai_rouge_style: RougeVarsType = {
   },
   cp: {
     // Comment::Preproc
-    color: dimgrey,
+    color: light_grey,
   },
   c1: {
     // Comment::Single
@@ -61,7 +61,8 @@ const monokai_rouge_style: RougeVarsType = {
   },
   ge: {
     // Generic::Emph
-    color: dark,
+    color: light_grey,
+    'font-style': 'italic',
   },
   gr: {
     // Generic::Error
@@ -81,10 +82,11 @@ const monokai_rouge_style: RougeVarsType = {
   },
   gp: {
     // Generic::Prompt
-    color: emperor,
+    color: dark_grey,
   },
   gs: {
     // Generic::Strong
+    'font-weight': 'bold',
   },
   gu: {
     // Generic::Subheading
@@ -102,6 +104,7 @@ const monokai_rouge_style: RougeVarsType = {
   kd: {
     // Keyword::Declaration
     color: soft_cyan,
+    'font-style': 'italic',
   },
   kn: {
     // Keyword::Namespace
@@ -118,6 +121,7 @@ const monokai_rouge_style: RougeVarsType = {
   kt: {
     // Keyword::Type
     color: soft_cyan,
+    'font-style': 'italic',
   },
   kv: {
     // Keyword
@@ -258,6 +262,10 @@ const monokai_rouge_style: RougeVarsType = {
     // Name::Tag
     color: bright_pink,
   },
+  nx: {
+    // Name::Other
+    color: white,
+  },
   vc: {
     // Name::Variable::Class
     color: white,
@@ -281,7 +289,7 @@ const monokai_rouge_style: RougeVarsType = {
   },
   o: {
     // Operator
-    color: bright_pink,
+    color: white,
   },
   w: {
     // Text::Whitespace

@@ -1,10 +1,11 @@
 import Subthemes from './RegisteredSubthemes';
-import { SubthemeModeType } from './Subtheme';
+import RegisteredSubthemeType from './Subtheme';
 import Storage from '../utils/Storage';
 import Config from '../Config';
 
 // Expose Subthemes publicly
 export { Subthemes };
+export type { RegisteredSubthemeType };
 
 /**
  * Updates the appearance of the page based on the Subtheme details to be
@@ -17,11 +18,10 @@ export { Subthemes };
  * @param newSubtheme   The subtheme details to be updated. This defaults to
  *                      the subtheme from Storage.
  * @param persistUpdate Defaults to true. If set to false, the updated theme
- *                      is not persisted to Storage (and will not invoke
- *                      `onUpdate`.)
+ *                      is not persisted to Storage.
  */
 export function updateTheme(
-  { name, mode }: Partial<SubthemeType> = {},
+  { name, mode }: Partial<SubthemeSelectionType> = {},
   persistUpdate = true,
 ): void {
   const {
@@ -41,12 +41,12 @@ export function updateTheme(
     storeSubtheme({ name: normalized_name, mode: currently_selected_mode });
   }
 
-  // If stores are not updated, the "current" subthemes from the store may be
-  // stale. Hence, skip this optimization.
   if (
-    persistUpdate &&
     normalized_name === stored_subtheme_name &&
-    normalized_mode === stored_subtheme_mode
+    normalized_mode === stored_subtheme_mode &&
+    // If stores are not updated, the "current" subthemes from the store may be
+    // stale. Hence, skip this optimization.
+    persistUpdate
   ) {
     return;
   }
@@ -77,7 +77,7 @@ export function getStoredSubthemeMode(): SubthemeModeSelectorType {
   return verifySubthemeMode(stored_subtheme_mode ?? Config.INIT_SUBTHEME_MODE);
 }
 
-function normalizeSubthemeMode(
+export function normalizeSubthemeMode(
   mode: SubthemeModeSelectorType,
 ): SubthemeModeType {
   if (mode !== 'system') {
@@ -101,7 +101,7 @@ function normalizeSubthemeMode(
  * retrieval.
  * @param subtheme the name to be stored in local storage
  */
-function storeSubtheme({ name, mode }: SubthemeType) {
+function storeSubtheme({ name, mode }: SubthemeSelectionType) {
   Storage.set(Config.SUBTHEME_NAME_STORAGE_KEY, name);
   Storage.set(Config.SUBTHEME_MODE_STORAGE_KEY, mode);
 }

@@ -9,10 +9,15 @@ plugins:
   - jekyll-remote-theme
 
 # theme: jekyll-theme-primer-spec
-remote_theme: eecs485staff/primer-spec
+remote_theme: eecs485staff/primer-spec@master
 
 title: Jekyll Theme Primer Spec
 description: Primer Spec is a Jekyll theme for GitHub Pages
 
 kramdown:
   input: GFM
+
+primerSpec:
+  # sitemap: true
+  # sitemap:
+  #   label: Demo pages

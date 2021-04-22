@@ -38,7 +38,7 @@ This document aims to help potential contributors (and curious developers) under
 
 Primer Spec is a _remote_ Jekyll theme. The [README](https://github.com/eecs485staff/primer-spec/#primer-spec) describes how users can integrate Primer Spec as a remote theme with their Jekyll website.
 
-Primer Spec makes the `spec` layout available to website pages. You can find the layout template at [`_layouts/spec.html`](https://github.com/eecs485staff/primer-spec/blob/develop/_layouts/spec.html) — it generates scaffolding around the content, including required stylesheets and scripts. The `spec` layout also accepts a number of [page-specific](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#page-configuration-options) or [site-wide configuration options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#site-configuration-options), usually to make these available to the JavaScript that powers Primer Spec.
+Primer Spec makes the `spec` layout available to website pages. You can find the layout template at [`_layouts/spec.html`](https://github.com/eecs485staff/primer-spec/blob/develop/_layouts/spec.html) — it generates scaffolding around the content, including required stylesheets and scripts. The `spec` layout also accepts a number of [page-specific](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#page-configuration-options) or [site-wide configuration options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#site-configuration-options), usually to make these available to the JavaScript that powers Primer Spec. To render a [Sitemap](./USAGE_ADVANCED.md#sitemap-boolean--label-string), the `spec` layout exposes a list of all available Jekyll pages to the JavaScript as well.
 
 Fun fact: The content on the page is actually _always hidden_ when the page loads! The JavaScript uses this hidden content later while rendering the page.
 
@@ -90,7 +90,7 @@ The [`demo`](https://github.com/eecs485staff/primer-spec/tree/develop/demo) dire
 
 The `script` directory contains various utility scripts for use during development. Most importantly:
 
-- `bootstrap` initializes your dev environment. It also installs the Git pre-commit hook from `.githooks/pre-commit`, which ensures that the JavaScript bundle is rebuilt and included with every commit.
+- `bootstrap` initializes your dev environment. It also installs the Git pre-commit hook from `.githooks/pre-commit`, which ensures that the assets directory is not accidentally modified.
 - `server` starts the Jekyll server at http://localhost:4000 and rebuilds whenever files change (with some exceptions).
 - `cibuild` is what’s run by the Travis CI for every Pull Request. It can also be run locally.
 - `version` bumps or freezes the Primer Spec version. (Link to contributing section)
@@ -101,19 +101,19 @@ The `script` directory contains various utility scripts for use during developme
 Since the `develop` branch is ahead of the `master` branch [for months at a time](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
 
 - The `master` branch hosts the latest stable version, and is deployed via GitHub Pages to https://eecs485staff.github.io/primer-spec/. This site also hosts the CSS and JS assets used by most external Primer Spec pages.
-- The `develop` branch has all the latest changes and is deployed to a private server at https://preview.seshrs.ml/previews/eecs485staff/primer-spec-nightly. (This link is also available from the project README page.) It’s automatically updated everyday which is why it’s called a “nightly” build.
+- The `develop` branch has all the latest changes and is deployed to a private server at https://preview.seshrs.ml/previews/eecs485staff/primer-spec/develop-preview/. (This link is also available from the project README page.) It’s automatically updated on every push to the `develop` branch and is rebuilt at least once a month.
 
-Every open PR is also deployed to the private server via [Primer Spec Preview](https://github.com/seshrs/primer-spec-preview) to dynamically interact with proposed changes. The link is made available under the “Checks” section.
+Every open PR is also deployed to the private server via [Primer Spec Preview](https://github.com/seshrs/primer-spec-preview) to dynamically interact with proposed changes. The link is made available in a PR comment.
 
 ## Dev setup
 
 See the [CONTRIBUTING docs](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bootstrap-your-local-environment) for actual setup instructions.
 
-Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which builds and includes the latest JavaScript bundle for each commit. (We use pre-committed JavaScript bundles since these are deployed and used by external websites.)
+Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which ensures that the assets directory is not accidentally modified by commits. (We update the pre-committed JavaScript bundles just before deploying the `master` branch for use by external websites.)
 
 For everyday development, use `script/server`, which builds and serves the site at https://localhost:4000. Open the VSCode workspace `primer-spec.code-workspace` and install the recommended extensions for easy ESLint and Prettier formatting.
 
-For every Pull Review and commit to `develop`/`master`, TravisCI runs `script/cibuild` to sanity-check that Jekyll can build the website, and also runs linters and any Jest tests. Testing is currently manual — **efforts to improve our automated testing of Primer Spec would be appreciated**.
+For every Pull Review and commit to `develop`/`master`, GitHub Actions runs `script/cibuild` to sanity-check that Jekyll can build the website, and also runs linters and any Jest tests. Testing is currently manual — **efforts to improve our automated testing of Primer Spec would be appreciated**.
 
 ## Versioning & backwards compatibility
 
@@ -121,8 +121,8 @@ Starting with [version v1.2](https://github.com/eecs485staff/primer-spec/release
 
 When an external site is built, the `spec` layout is used so that the HTML never changes. However, the pages use JS and CSS assets that are hosted on https://eecs485staff.github.io/primer-spec. Hence, to guarantee backwards-compatibility:
 
-- The CSS files must not change for a given minor version.
-- Changes to the JS file must not depend on changes to the CSS or HTML.
+- The CSS files must not change drastically for a given minor version.
+- Changes to the JS/CSS files must not depend on changes to the HTML templates.
 - The URL for those assets must remain stable and unchanged.
 
 To facilitate the above requirements, the `assets` directory is versioned. Before adding `minor` or `major` changes, the previous version's assets _must_ be archived by using [`script/version bump`](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bumping-the-version-in-pull-requests).

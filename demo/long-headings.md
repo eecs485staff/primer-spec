@@ -1,10 +1,12 @@
 ---
 layout: spec
+title: Long Headings (Demo)
 ---
 
+<!-- prettier-ignore-start -->
 # Long Headings
-
 {: .primer-spec-toc-ignore }
+<!-- prettier-ignore-end -->
 
 This page demonstrates Primer Spec's handling of long headings in the Sidebar. We achieve this by using the CSS property `overflow: auto` on potentially long elements that should not affect the width of its container
 

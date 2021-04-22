@@ -18,6 +18,9 @@ $Z_INDEX_SETTINGS: 2;
 $Z_INDEX_TOPBAR: 3;
 $Z_INDEX_SIDEBAR: 4;
 
+$INFO_BG_COLOR: #dbedff;
+$INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
+
 // For students printing out the spec, don't print the sidebar and icons.
 @media print {
   .no-print,
@@ -42,6 +45,8 @@ $Z_INDEX_SIDEBAR: 4;
   // the content. (By default, the element has a transparent background.)
   background-color: var(--sidebar-bg-color);
 
+  color: var(--sidebar-toc-section-link-color);
+
   // These are headers within the sidebar
   h1,
   h2,
@@ -53,6 +58,52 @@ $Z_INDEX_SIDEBAR: 4;
     :link,
     :visited {
       color: var(--sidebar-heading-link-color);
+    }
+  }
+
+  .left-space-fix {
+    // We want the background-border to extend a bit to the left. We
+    // achieve this by moving the entire element to the left, and then
+    // adding padding to keep the content's position unchanged.
+    margin-left: -0.5em;
+    padding-left: 0.5em;
+  }
+
+  details {
+    & > summary {
+      // Match the H1 styles
+      font-size: 1.2em;
+      margin-top: 0.7em;
+      font-weight: bold;
+      color: var(--sidebar-toc-h1-link-color);
+      &.primer-spec-toc-active {
+        color: var(
+          --sidebar-active-toc-h1-section-link-color,
+          var(--sidebar-active-toc-section-link-color)
+        );
+      }
+    }
+
+    details > summary {
+      // Match the H2 styles
+      font-size: 1.2em;
+      margin-top: 0.5em;
+      font-weight: 500;
+      color: var(--sidebar-toc-h2-link-color);
+      &.primer-spec-toc-active {
+        color: var(
+          --sidebar-active-toc-h2-section-link-color,
+          var(--sidebar-active-toc-section-link-color)
+        );
+      }
+    }
+
+    hr {
+      border-color: var(--sidebar-toc-h1-border-color);
+    }
+
+    .external-icon {
+      font-size: 80%;
     }
   }
 }
@@ -126,6 +177,17 @@ $Z_INDEX_SIDEBAR: 4;
     overflow-x: auto;
     // But don't show vertical scrollbars, they look jarring.
     overflow-y: hidden;
+  }
+  &-sitemap-item {
+    // Needs to be `padding`. `margin` cuts off background color of child
+    // elements!
+    padding-left: 1em;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &:not(.primer-spec-toc-active) {
+      color: var(--sidebar-toc-h1-link-color) !important;
+    }
   }
 
   &-h1 {
@@ -210,10 +272,11 @@ $Z_INDEX_SIDEBAR: 4;
     &:visited,
     :link,
     :visited {
-      color: var(--sidebar-active-toc-section-link-color);
+      color: var(--sidebar-active-toc-section-link-color) !important;
     }
   }
   &-item:not(.primer-spec-toc-active) {
+    color: var(--sidebar-toc-section-link-color);
     &:link,
     &:visited,
     :link,
@@ -245,8 +308,8 @@ div[class^='primer-spec-toc-'],
 }
 
 .primer-spec-settings {
-  width: 100%;
   height: 100%;
+  overflow: auto;
 
   .primer-spec-brand a {
     color: rgb(170, 167, 167);
@@ -256,6 +319,59 @@ div[class^='primer-spec-toc-'],
   &-container {
     background-color: var(--main-bg-color);
     z-index: $Z_INDEX_SETTINGS;
+  }
+
+  &-theme-preview {
+    &-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    &-box {
+      cursor: pointer;
+      flex: 0 1 23%;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      margin-left: 5px;
+      min-width: 150px;
+      max-width: 300px;
+      border: var(--main-table-pre-border, 1px solid #eaecef);
+      border-radius: 9px;
+
+      svg {
+        // Round the top corners of the SVG so that it conforms within the
+        // rounded corners of the outer box.
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+      }
+    }
+
+    &-title {
+      margin-top: -6px;
+      padding: 9px 12px;
+      background-color: var(--main-table-pre-bg-color, #f6f8fa);
+      color: var(--main-table-pre-text-color, black);
+      border-top: var(--main-table-pre-border, 1px solid #eaecef);
+      border-bottom: var(--main-table-pre-border, 1px solid #eaecef);
+      border-bottom-left-radius: 9px;
+      border-bottom-right-radius: 9px;
+    }
+
+    &-selected {
+      border-color: var(
+        --primer-spec-callout-info-border-color,
+        $INFO_BORDER_COLOR
+      );
+      background-color: var(
+        --primer-spec-callout-info-bg-color,
+        $INFO_BG_COLOR
+      );
+    }
+  }
+
+  &-theme-mode-label {
+    display: block;
   }
 }
 
@@ -293,7 +409,7 @@ h6 {
     text-decoration: none;
   }
 
-  #primer-spec-toc-contents > & {
+  #primer-spec-toc-contents > &.primer-spec-hoverable-float-right {
     float: right;
     margin-right: 0.5em;
   }
@@ -376,4 +492,84 @@ li.task-list-item {
 }
 li.task-list-item .task-list-item-checkbox {
   margin: 0 0.2em 0.25em -1.6em;
+}
+
+/*
+ * CALLOUTS
+ */
+
+$CALLOUT_VARIANTS: (
+  'info': (
+    'bg': #dbedff,
+    'border': rgba(4, 66, 137, 0.2),
+    'color': inherit,
+    'icon': '\f05a',
+    // info-circle
+  ),
+  'warning': (
+    'bg': #fffbdd,
+    'border': rgba(176, 136, 0, 0.2),
+    'color': inherit,
+    'icon': '\f071',
+    // exclamation-triangle
+  ),
+  'danger': (
+    'bg': #ffe3e6,
+    'border': rgba(158, 28, 35, 0.2),
+    'color': inherit,
+    'icon': '\f06a',
+    // exclamation-circle
+  ),
+  'success': (
+    'bg': #dcffe4,
+    'border': rgba(23, 111, 44, 0.2),
+    'color': inherit,
+    'icon': '\f00c',
+    // check
+  ),
+);
+
+.primer-spec-callout {
+  position: relative;
+  padding: 20px 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+
+  @each $variant, $props in $CALLOUT_VARIANTS {
+    &.#{$variant} {
+      background-color: var(
+        --primer-spec-callout-#{$variant}-bg-color,
+        map-get($props, 'bg')
+      );
+      border-color: var(
+        --primer-spec-callout-#{$variant}-border-color,
+        map-get($props, 'border')
+      );
+      color: var(
+        --primer-spec-callout-#{$variant}-text-color,
+        map-get($props, 'color')
+      );
+    }
+  }
+}
+
+// We want to style div callouts like p elements.
+div.primer-spec-callout {
+  margin-top: 0px;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+}
+
+// Style the icons
+@each $variant, $props in $CALLOUT_VARIANTS {
+  p.primer-spec-callout.#{$variant},
+  div.primer-spec-callout.#{$variant} > p:first-child {
+    &::before {
+      padding-right: 8px;
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      content: map-get($props, 'icon');
+    }
+  }
 }

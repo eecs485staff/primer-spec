@@ -13,13 +13,16 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
+- [Callouts](#callouts)
 - [Page configuration options](#page-configuration-options)
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
+    - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+    - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
 
@@ -144,6 +147,19 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 <p>Spam spam spam.</p>
 ```
 
+## Callouts
+
+Use Callouts to highlight information in your specs. Here's an example:
+
+```markdown
+<div class="primer-spec-callout info" markdown="1">
+  This is an example callout.
+  If you use this in a `markdown` file, *markdown* works inside the box too!
+</p>
+```
+
+See the [Callouts demo](https://eecs485staff.github.io/demo/callouts.html) for examples of how to customize Callouts for your spec.
+
 ## Page configuration options
 
 The following configuration options can be specified in the ["front-matter"](https://jekyllrb.com/docs/front-matter/) of your page, in the same place that you specify the page's layout. For instance, to disable the Primer Spec sidebar and render LaTeX expressions, modify your page to look like this:
@@ -166,13 +182,13 @@ Primer Spec supports the following page configuration options:
 
 Disable the the sidebar completely. (The Table of Contents will also not be generated.) Defaults to `false`.
 
-Example page: http://eecs485staff.github.io/primer-spec/disable-sidebar.html
+Example page: http://eecs485staff.github.io/primer-spec/demo/disable-sidebar.html
 
 #### `hideSidebarOnLoad`: Boolean
 
 Prevent the sidebar (with table of contents) from appearing when a user loads the page. Defaults to `false`.
 
-Example page: http://eecs485staff.github.io/primer-spec/hide-sidebar-on-load.html
+Example page: http://eecs485staff.github.io/primer-spec/demo/hide-sidebar-on-load.html
 
 #### `latex`: Boolean
 
@@ -199,13 +215,19 @@ _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
 
+#### `excludeFromSitemap`: Boolean
+
+Prevent the page from being displayed as part of the [Sitemap](#sitemap-boolean--label-string) in the Sidebar. This option does not have any effect if the [`sitemap` site-wide configuration option](#sitemap-boolean--label-string) is not set.
+
+_NOTE:_ If the site-wide option `sitemap` is enabled, then a Sitemap will _not_ be rendered on the page.
+
 ## Site configuration options
 
-The following configuration options can be specified in the [`_config.yml`](https://jekyllrb.com/docs/configuration/) file of your site, under the `primerSpec` key. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your page to look like this:
+The following site-configuration options can be specified in the [`_config.yml`](https://jekyllrb.com/docs/configuration/) file of your site under the `primerSpec` key. For instance, to always hide the Primer Spec sidebar when users visit your page, modify your `_config.yml` to look like this:
 
 ```yml
 # REQUIRED configuration options, as specified in the Primer Spec README
-remote_theme: eecs485staff/primer-spec
+remote_theme: eecs485staff/primer-spec@master
 plugins:
   - jekyll-remote-theme
   - jekyll-optional-front-matter
@@ -234,6 +256,28 @@ Specify the default subtheme name. This subtheme will be applied for first-time 
 #### `defaultSubthemeMode`: String
 
 Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
+
+#### `sitemap`: Boolean | {label: String}
+
+If set to `true`, a sitemap will be auto-generated and displayed in the Sidebar of every Primer Spec page with the label _"Supplemental Pages"_.
+
+To customize the label, specify it under a `label` field. Your `_config.yml` would look like this:
+
+```yml
+# REQUIRED configuration options, as specified in the Primer Spec README
+remote_theme: eecs485staff/primer-spec@master
+# ...
+
+# OPTIONAL site configuration options
+primerSpec:
+  sitemap:
+    label: My custom sitemap label
+  # ... (other site configuration options)
+```
+
+To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludeFromSitemap-boolean) in the front-matter of your page.
+
+_NOTE:_ A sitemap will only be rendered if your site has multiple pages.
 
 ## Pinning to a specific version
 

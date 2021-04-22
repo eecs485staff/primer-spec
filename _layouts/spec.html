@@ -1,5 +1,5 @@
 ---
-version_string: v1.4
+version_string: v1.5
 ---
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
@@ -15,9 +15,8 @@ version_string: v1.4
 
         {%- if jekyll.environment == "dev" %}
             {% assign base_url = "http://localhost:4000" %}
-        {% elsif jekyll.environment == "site-preview" %}
-            {% assign url_size = site.url | size | minus: 1 %}    
-            {% assign base_url = site.url | slice: 0, url_size %}
+        {% elsif jekyll.environment == "site-preview" %}   
+            {% assign base_url = site.url | append: site.baseurl %}
         {% else %}
             {% assign base_url = "https://eecs485staff.github.io/primer-spec" %}
         {% endif %}
@@ -34,6 +33,40 @@ version_string: v1.4
                 disableSidebar: {{ page.disableSidebar | default: false }},
                 defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
                 defaultSubthemeMode: '{{ site.primerSpec.defaultSubthemeMode | default: "system" }}',
+                sitemapEnabled: {% if site.primerSpec.sitemap %}true{% else %}false{% endif %},
+                sitemapUrls: [
+                    {%- comment -%}
+                    If the current page is excluded from the sitemap, don't show a
+                    sitemap on this page.
+                    {%- endcomment -%}
+                    {%- if page.excludeFromSitemap -%}
+                    {%- elsif site.primerSpec.sitemap or jekyll.environment == "dev" or jekyll.environment == "site-preview" %}
+                    {%- comment -%}
+                    In general, `sitemapUrls` should be empty if the site-configuration
+                    option is not enabled. However, for dev and site-preview builds,
+                    we include the full list of sitemap URLs anyway so that the sitemap
+                    view can be enabled on-demand.
+                    {%- endcomment -%}
+                    {%- for sitePage in site.pages -%}
+                    {%- if sitePage.excludeFromSitemap -%}
+                    {%- continue -%}
+                    {%- else -%}
+                    {
+                        url: '{{ sitePage.url | relative_url }}',
+                        path: '{{ sitePage.path }}',
+                        {%- if sitePage.title -%}
+                        title: '{{ sitePage.title }}',
+                        {%- endif -%}
+                        {% if sitePage.path == page.path -%}
+                        current: true,
+                        {%- endif %}
+                    },
+                    {%- endif -%}
+                    {%- endfor -%}
+                    {%- endif -%}
+                ],
+                sitemapLabel: '{{ site.primerSpec.sitemap.label | default: "" }}',
+                sitemapSiteTitle: '{{ site.title | default: "" }}',
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>

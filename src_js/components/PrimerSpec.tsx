@@ -1,18 +1,18 @@
 import { Fragment, h } from 'preact';
-import { useEffect, useLayoutEffect, useState } from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 import {
   getStoredSubthemeMode,
   getStoredSubthemeName,
   updateTheme,
 } from '../subthemes';
 import getChromeVersion from '../utils/getChromeVersion';
-import { useAfterPrint, useBeforePrint } from '../utils/hooks';
+import { useAfterPrint, useBeforePrint } from '../utils/hooks/print';
+import useSmallScreen from '../utils/hooks/useSmallScreen';
 import Config from '../Config';
-import MainContent from './MainContent';
-import Settings from './Settings';
-import Sidebar from './sidebar/Sidebar';
+import MainContent from './main_content';
+import Settings from './settings';
+import Sidebar from './sidebar';
 import Topbar from './Topbar';
-import isSmallScreen from '../utils/isSmallScreen';
 import Storage from '../utils/Storage';
 
 type PropsType = { contentHTML: string };
@@ -23,7 +23,7 @@ type PropsType = { contentHTML: string };
  */
 export default function PrimerSpec(props: PropsType): h.JSX.Element {
   // Initialize all shared state
-  const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
+  const is_small_screen = useSmallScreen();
   const [sidebar_shown, setSidebarShown] = useState(
     !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
   );
@@ -33,6 +33,9 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
   );
   const [subtheme_name, setSubthemeName] = useState(Config.INIT_SUBTHEME_NAME);
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
+  const [sitemap_enabled, setSitemapEnabled] = useState(
+    Config.INIT_SITEMAP_ENABLED,
+  );
 
   // Define derived methods to manipulate state
   const toggleSidebarShown = () => {
@@ -40,40 +43,34 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     setSidebarShown(!sidebar_shown);
   };
   const toggleSettingsShown = () => setSettingsShown(!settings_shown);
-  const setTheme = (themeDelta: Partial<SubthemeType>) => {
+  const setTheme = (themeDelta: Partial<SubthemeSelectionType>) => {
     updateTheme(themeDelta);
     setSubthemeName(getStoredSubthemeName());
     setSubthemeMode(getStoredSubthemeMode());
   };
 
-  // Listen for changes to the window size.
-  useLayoutEffect(() => {
-    const window_resize_listener = () => {
-      const is_window_now_a_small_screen = isSmallScreen();
-      if (is_window_now_a_small_screen !== is_small_screen) {
-        setIsSmallScreen(is_window_now_a_small_screen);
-      }
-    };
-
-    window.addEventListener('resize', window_resize_listener);
-    return () => {
-      window.removeEventListener('resize', window_resize_listener);
-    };
-  }, [is_small_screen]);
-
   // Listen for print events
-  useEffect(
-    useBeforePrint(() => {
+  const beforePrint = useCallback(useBeforePrint, []);
+  const afterPrint = useCallback(useAfterPrint, []);
+  useEffect(() => {
+    return beforePrint(() => {
       toggleItalicsInChrome(false);
-    }),
-    [],
-  );
-  useEffect(
-    useAfterPrint(() => {
+    });
+  }, [beforePrint]);
+  useEffect(() => {
+    return afterPrint(() => {
       toggleItalicsInChrome(true);
-    }),
-    [],
-  );
+    });
+  }, [afterPrint]);
+
+  // Expose Debug methods
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.Debug = Object.freeze({
+      toggleSitemap: () => setSitemapEnabled(!sitemap_enabled),
+    });
+  }, [sitemap_enabled]);
 
   const sidebar = Config.DISABLE_SIDEBAR ? null : (
     <Sidebar
@@ -82,6 +79,7 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
       sidebarShown={sidebar_shown}
       settingsShown={settings_shown}
       activeSectionOffsetY={active_section_offset_y}
+      sitemapEnabled={sitemap_enabled}
       onToggleSidebar={toggleSidebarShown}
       onToggleSettings={toggleSettingsShown}
     />

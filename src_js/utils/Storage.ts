@@ -1,3 +1,18 @@
+export type StorageChangeCallbackType = (
+  newValue?: string | null,
+  oldValue?: string | null,
+) => void;
+
+const listener_callbacks: {
+  [key: string]: Array<StorageChangeCallbackType>;
+} = {};
+window.addEventListener('storage', (e: StorageEvent) => {
+  if (!e.key) return;
+  const callbacks = listener_callbacks[e.key];
+  if (!callbacks) return;
+  callbacks.forEach((callback) => callback(e.newValue, e.oldValue));
+});
+
 const local_storage_available = isStorageAvailable('localStorage');
 
 export default {
@@ -39,6 +54,60 @@ export default {
    */
   setForPage(key: string, value: string): void {
     return this.set(mangleKeyWithPagePath(key), value);
+  },
+
+  /**
+   * Register a `callback` that will be invoked when `key` changes in local
+   * storage (in a different document context). This can help sync app state
+   * across tabs.
+   *
+   * Use this to listen to listen for changes to items persisted using
+   * `Storage.set()`.
+   * Unregister the callback using `Storage.removeListener()`.
+   */
+  addListener(key: string, callback: StorageChangeCallbackType): void {
+    if (!listener_callbacks[key]) {
+      listener_callbacks[key] = [];
+    }
+    listener_callbacks[key].push(callback);
+  },
+
+  /**
+   * Unregister the callback registered using `Storage.addListener()`.
+   */
+  removeListener(
+    key: string,
+    callbackToRemove: StorageChangeCallbackType,
+  ): void {
+    const callbacks = listener_callbacks[key];
+    if (!callbacks) return;
+    listener_callbacks[key] = callbacks.filter(
+      (callback) => callback !== callbackToRemove,
+    );
+  },
+
+  /**
+   * Register a `callback` that will be invoked when `key` changes in local
+   * storage for the given page path (but in a different document context).
+   * This can help sync app state across tabs.
+   *
+   * Use this to listen to listen for changes to items persisted using
+   * `Storage.setForPage()`.
+   * Unregister the callback using `Storage.removeListenerForPage()`.
+   */
+  addListenerForPage(key: string, callback: StorageChangeCallbackType): void {
+    this.addListener(mangleKeyWithPagePath(key), callback);
+  },
+
+  /**
+   * Unregister the callback registered using
+   * `Storage.removeListenerForPage()`.
+   */
+  removeListenerForPage(
+    key: string,
+    callbackToRemove: StorageChangeCallbackType,
+  ): void {
+    this.removeListener(mangleKeyWithPagePath(key), callbackToRemove);
   },
 };
 

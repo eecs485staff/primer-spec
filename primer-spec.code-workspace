@@ -10,9 +10,34 @@
     "editor.tabSize": 2,
     "search.exclude": {
       "_site": true
-    }
+    },
+    "html.validate.scripts": false,
+    "colorize.languages": [
+      "css",
+      "sass",
+      "scss",
+      "less",
+      "typescript",
+      "javascript"
+    ],
+    "colorInfo.languages": [
+      {
+        "selector": "javascript",
+        "colors": "css"
+      },
+      {
+        "selector": "typescript",
+        "colors": "css"
+      }
+    ]
   },
   "extensions": {
-    "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "sissel.shopify-liquid",
+      "kamikillerto.vscode-colorize",
+      "bierner.color-info"
+    ]
   }
 }

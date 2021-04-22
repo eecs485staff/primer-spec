@@ -14,6 +14,7 @@
     "prettier"
   ],
   "rules": {
+    "no-undef": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -26,7 +27,8 @@
   "globals": {
     // These are globally-available types (not even variables)
     "NodeListOf": false,
-    "SubthemeType": false,
+    "SubthemeSelectionType": false,
+    "SubthemeModeType": false,
     "SubthemeModeSelectorType": false
   }
 }

@@ -5,11 +5,23 @@ declare var PrimerSpecConfig: {
   disableSidebar?: boolean;
   defaultSubthemeName?: string;
   defaultSubthemeMode?: string;
+  sitemapUrls?: Array<SitemapPageInfoType>;
+  sitemapLabel?: string;
+  sitemapEnabled?: boolean;
+  sitemapSiteTitle?: string;
 };
 
 // Other global types
-declare type SubthemeModeSelectorType = 'light' | 'dark' | 'system';
-declare type SubthemeType = {
+declare type SubthemeModeType = 'light' | 'dark';
+declare type SubthemeModeSelectorType = SubthemeModeType | 'system';
+declare type SubthemeSelectionType = {
   name: string;
   mode: SubthemeModeSelectorType;
+};
+
+declare type SitemapPageInfoType = {
+  url: string;
+  path: string;
+  title?: string;
+  current?: boolean;
 };

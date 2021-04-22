@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '~> 0.50'
   s.add_development_dependency 'w3c_validators'
 
-  s.required_ruby_version = '> 2.4', '~> 3.0'
+  s.required_ruby_version = '> 2.4'
 end
