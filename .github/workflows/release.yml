@@ -23,11 +23,11 @@ jobs:
       - name: ⚙️ Install dependencies
         run: npm install --no-save
 
-      - name: 🛠 Build latest JS
-        run: npx webpack --env.production
-
       - name: ❄️ Freeze version
         run: script/version freeze
+
+      - name: 🛠 Build latest JS
+        run: npx webpack --env.production
 
       - name: 💾 Commit updated JS to develop
         run: |
