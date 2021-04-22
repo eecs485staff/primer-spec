@@ -32,11 +32,27 @@ jobs:
         run: |
           git add VERSION assets
           STAGE_STATIC_ASSETS=true git commit -m "Freeze version v$(cat VERSION)"
-          git push
 
-      - name: 𖢞 Merge and push master
+      - name: 𖢞 Merge to master
         run: |
           git checkout master
           git pull
           git merge develop
-          git push
+
+      - name: Push to master
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
+
+      - name: Merge back to develop
+        run: |
+          git checkout develop
+          git pull
+          git merge master
+
+      - name: Push to develop
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: develop
