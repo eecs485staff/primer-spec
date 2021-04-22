@@ -33,11 +33,13 @@ jobs:
           git add VERSION assets
           STAGE_STATIC_ASSETS=true git commit -m "Freeze version v$(cat VERSION)"
 
-      - name: 𖢞 Merge to master
+      - name: Checkout master
         run: |
           git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +refs/heads/master*:refs/remotes/origin/master* +refs/tags/master*:refs/tags/master*
-          git checkout --progress --force -B refs/remotes/origin/master
-          git pull
+          git checkout --progress --force -B master refs/remotes/origin/master
+
+      - name: 𖢞 Merge to master
+        run: |
           git merge develop
 
       - name: Push to master
@@ -49,7 +51,6 @@ jobs:
       - name: Merge back to develop
         run: |
           git checkout develop
-          git pull
           git merge master
 
       - name: Push to develop
