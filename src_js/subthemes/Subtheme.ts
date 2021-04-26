@@ -44,6 +44,9 @@ export const SUBTHEME_VARS = [
   '--main-blockquote-text-border',
   '--main-header-border-bottom-color',
 
+  '--primer-spec-callout-neutral-bg-color',
+  '--primer-spec-callout-neutral-text-color',
+  '--primer-spec-callout-neutral-border-color',
   '--primer-spec-callout-info-bg-color',
   '--primer-spec-callout-info-text-color',
   '--primer-spec-callout-info-border-color',

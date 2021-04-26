@@ -499,6 +499,12 @@ li.task-list-item .task-list-item-checkbox {
  */
 
 $CALLOUT_VARIANTS: (
+  'neutral': (
+    'bg': #f6f8fa,
+    'border': #e1e4e8,
+    'color': inherit,
+    'icon': '',
+  ),
   'info': (
     'bg': #dbedff,
     'border': rgba(4, 66, 137, 0.2),
@@ -529,6 +535,21 @@ $CALLOUT_VARIANTS: (
   ),
 );
 
+@mixin calloutVariantProps($variant, $props) {
+  background-color: var(
+    --primer-spec-callout-#{$variant}-bg-color,
+    map-get($props, 'bg')
+  );
+  border-color: var(
+    --primer-spec-callout-#{$variant}-border-color,
+    map-get($props, 'border')
+  );
+  color: var(
+    --primer-spec-callout-#{$variant}-text-color,
+    map-get($props, 'color')
+  );
+}
+
 .primer-spec-callout {
   position: relative;
   padding: 20px 16px;
@@ -536,20 +557,15 @@ $CALLOUT_VARIANTS: (
   border-width: 1px;
   border-radius: 6px;
 
+  // By default, use the neutral callout styles
+  @include calloutVariantProps(
+    'neutral',
+    map-get($CALLOUT_VARIANTS, 'neutral')
+  );
+
   @each $variant, $props in $CALLOUT_VARIANTS {
     &.#{$variant} {
-      background-color: var(
-        --primer-spec-callout-#{$variant}-bg-color,
-        map-get($props, 'bg')
-      );
-      border-color: var(
-        --primer-spec-callout-#{$variant}-border-color,
-        map-get($props, 'border')
-      );
-      color: var(
-        --primer-spec-callout-#{$variant}-text-color,
-        map-get($props, 'color')
-      );
+      @include calloutVariantProps($variant, $props);
     }
   }
 }
