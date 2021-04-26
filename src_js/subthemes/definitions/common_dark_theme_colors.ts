@@ -19,7 +19,7 @@ export default {
   '--main-blockquote-text-border': '#3b434b',
   '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
-  '--primer-spec-callout-neutral-bg-color': 'rgb(22, 27, 34)',
+  '--primer-spec-callout-neutral-bg-color': 'rgba(22, 27, 34, 0.8)',
   '--primer-spec-callout-neutral-text-color': MAIN_TEXT_COLOR,
   '--primer-spec-callout-neutral-border-color': 'rgb(48, 54, 61)',
   '--primer-spec-callout-info-bg-color': 'rgba(56, 139, 253, 0.1)',
