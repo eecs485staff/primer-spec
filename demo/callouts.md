@@ -34,14 +34,31 @@ int main() {
 </div>
 ```
 
-Primer Spec offers four variants of callouts:
+Primer Spec offers five variants of callouts:
 
+- `neutral`
 - `info`
 - `warning`
 - `danger`
 - `sucess`
 
 See below for examples of each of these callouts.
+
+### `neutral`
+
+<div class="primer-spec-callout" markdown="1">
+_**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but offers stronger emphasis than main body text._
+</div>
+
+<details markdown="1">
+  <summary><code>neutral</code> source</summary>
+  
+  ```markdown
+<div class="primer-spec-callout" markdown="1">
+  _**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but offers stronger emphasis than main body text._
+</div>
+  ```
+</details>
 
 ### `info`
 
