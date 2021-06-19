@@ -29,7 +29,8 @@ export default function MainContent(props: PropsType): h.JSX.Element {
       class={clsx('container-lg', 'px-3', 'my-5', 'markdown-body', {
         'primer-spec-content-margin-extra':
           props.sidebarShown && !props.isSmallScreen && !is_print_in_progress,
-        'primer-spec-content-mobile': props.isSmallScreen,
+        'primer-spec-content-mobile':
+          props.isSmallScreen && !is_print_in_progress,
       })}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: props.innerHTML }}
