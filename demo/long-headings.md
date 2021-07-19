@@ -24,7 +24,7 @@ I copied the words from [Wikipedia](https://en.wikipedia.org/wiki/Longest_word_i
 
 I copied this from [Wikipedia](https://en.wikipedia.org/wiki/Longest_word_in_English#Notable_long_words), and it looks like the editors added "soft hyphens" (U+00AD) to the string to allow it to break neatly in the Sidebar.
 
-## `https://preview.seshrs.ml/preview/MyFancyOrganizationName/MySuperFancyRepoWhoseNameHasFortyEightCharacters`
+## `https://preview.sesh.rs/preview/MyFancyOrganizationName/MySuperFancyRepoWhoseNameHasFortyEightCharacters`
 
 Here's a long heading in an inline code block. And yes, that repo name actually _does_ have 48 characters!
 

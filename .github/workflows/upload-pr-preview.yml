@@ -43,7 +43,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           sed -i "\$ s/\$/ (PR preview build: $(date '+%Y-%m-%d'))/" VERSION
-          ./script/ci-site-preview-build "https://preview.seshrs.ml" "/previews/$REPO/$PR_NUMBER"
+          ./script/ci-site-preview-build "https://preview.sesh.rs" "/previews/$REPO/$PR_NUMBER"
 
       # Upload the site to Primer Spec Preview and comment on the PR.
       # The Primer Spec Preview secret is stored as an encrypted repo or

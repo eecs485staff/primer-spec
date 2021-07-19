@@ -101,7 +101,7 @@ The `script` directory contains various utility scripts for use during developme
 Since the `develop` branch is ahead of the `master` branch [for months at a time](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
 
 - The `master` branch hosts the latest stable version, and is deployed via GitHub Pages to https://eecs485staff.github.io/primer-spec/. This site also hosts the CSS and JS assets used by most external Primer Spec pages.
-- The `develop` branch has all the latest changes and is deployed to a private server at https://preview.seshrs.ml/previews/eecs485staff/primer-spec/develop-preview/. (This link is also available from the project README page.) It’s automatically updated on every push to the `develop` branch and is rebuilt at least once a month.
+- The `develop` branch has all the latest changes and is deployed to a private server at https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/. (This link is also available from the project README page.) It’s automatically updated on every push to the `develop` branch and is rebuilt at least once a month.
 
 Every open PR is also deployed to the private server via [Primer Spec Preview](https://github.com/seshrs/primer-spec-preview) to dynamically interact with proposed changes. The link is made available in a PR comment.
 
