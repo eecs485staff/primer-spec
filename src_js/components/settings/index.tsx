@@ -83,6 +83,7 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
         >
           {Object.values(Subthemes).map((subtheme) => (
             <label
+              key={subtheme.name}
               class={clsx('primer-spec-settings-theme-preview-box', {
                 'primer-spec-settings-theme-preview-selected':
                   props.currentSubthemeName === subtheme.name,
@@ -114,7 +115,10 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
         <h2>Color mode</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           {SUBTHEME_MODE_INFO.map((modeInfo) => (
-            <label class="primer-spec-settings-theme-mode-label">
+            <label
+              key={modeInfo.name}
+              class="primer-spec-settings-theme-mode-label"
+            >
               <input
                 type="radio"
                 value={modeInfo.name}
