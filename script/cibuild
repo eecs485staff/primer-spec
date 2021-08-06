@@ -22,24 +22,3 @@ echo "Prettier check passed."
 # Run JS tests
 npm run lint
 npx jest
-
-# Sanity check that JavaScript was built properly and committed.
-# Run this only on Travis
-if [ ! "${TRAVIS-}" ]; then
-  echo "Skipping sanity check on JS bundle. This check only runs on Travis CI."
-  exit
-fi
-
-rm -rf tmp/
-mkdir -p tmp/
-git clean -xdf src_js/ assets/
-git checkout -- assets/js/primer_spec_plugin.min.js
-cp assets/js/primer_spec_plugin.min.js tmp/primer_spec_plugin_committed.js
-if ! diff -q tmp/primer_spec_plugin_committed.js assets/js/primer_spec_plugin.min.js; then
-  echo "Error: assets/js/primer_spec_plugin.min.js is out of sync with src_js/"
-  echo "Run 'script/cibuild', and then commit the file."
-  rm -rf tmp/
-  exit 1
-fi
-rm -rf tmp/
-echo "Sanity-checked JavaScript is in sync."
