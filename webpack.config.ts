@@ -77,6 +77,9 @@ export default function (env: NodeJS.ProcessEnv): Configuration {
         'process.env.BUILD_MODE': JSON.stringify(getBuildMode(env)),
       }),
     ],
+    optimization: {
+      usedExports: true,
+    },
     // Generate sourcemaps
     devtool: 'source-map',
     // Minimize output
