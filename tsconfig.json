@@ -13,5 +13,23 @@
     "jsx": "react",
     "jsxFactory": "h"
   },
-  "include": ["src_js"]
+  "include": ["src_js"],
+
+  // Most ts-node options can be specified here using their programmatic names.
+  "ts-node": {
+    // It is faster to skip typechecking.
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      // compilerOptions specified here will override those declared above,
+      // but *only* in ts-node.
+      "lib": ["esnext"],
+      "module": "commonjs",
+      "target": "esnext",
+
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    }
+  }
 }
