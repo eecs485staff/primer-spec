@@ -158,7 +158,7 @@ Use Callouts to highlight information in your specs. Here's an example:
 </p>
 ```
 
-See the [Callouts demo](https://eecs485staff.github.io/demo/callouts.html) for examples of how to customize Callouts for your spec.
+See the [Callouts demo](https://eecs485staff.github.io/primer-spec/demo/callouts.html) for examples of how to customize Callouts for your spec.
 
 ## Page configuration options
 
@@ -227,7 +227,7 @@ The following site-configuration options can be specified in the [`_config.yml`]
 
 ```yml
 # REQUIRED configuration options, as specified in the Primer Spec README
-remote_theme: eecs485staff/primer-spec@master
+remote_theme: eecs485staff/primer-spec
 plugins:
   - jekyll-remote-theme
   - jekyll-optional-front-matter
@@ -259,13 +259,15 @@ Specify the default subtheme mode. This subtheme will be applied for first-time 
 
 #### `sitemap`: Boolean | {label: String}
 
+_[EECS 280's Project 1](https://eecs280staff.github.io/p1-stats/) has a great example of a sitemap!_
+
 If set to `true`, a sitemap will be auto-generated and displayed in the Sidebar of every Primer Spec page with the label _"Supplemental Pages"_.
 
 To customize the label, specify it under a `label` field. Your `_config.yml` would look like this:
 
 ```yml
 # REQUIRED configuration options, as specified in the Primer Spec README
-remote_theme: eecs485staff/primer-spec@master
+remote_theme: eecs485staff/primer-spec
 # ...
 
 # OPTIONAL site configuration options
