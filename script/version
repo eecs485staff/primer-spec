@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # The following is necessary to resolve symbolic links
 pushd $(dirname $0)
