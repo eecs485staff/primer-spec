@@ -43,7 +43,7 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
 3. If it doesn't already exist, create a file `_config.yml` in your site's root directory. Add this content to the file:
 
    ```yml
-   remote_theme: eecs485staff/primer-spec@master
+   remote_theme: eecs485staff/primer-spec
    plugins:
      - jekyll-remote-theme
      - jekyll-optional-front-matter

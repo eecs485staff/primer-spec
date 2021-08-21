@@ -4,7 +4,8 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - master # NOTE: Remove this line when master branch is removed.
+      - main
       - develop
 
 jobs:

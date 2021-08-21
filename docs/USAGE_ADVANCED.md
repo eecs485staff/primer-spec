@@ -283,7 +283,7 @@ _NOTE:_ A sitemap will only be rendered if your site has multiple pages.
 
 ## Pinning to a specific version
 
-We take care to release new versions of Primer Spec on the `master` branch only between semesters at the University of Michigan. However, if your site needs an even stronger guarantee of stability, you can pin your site to a specific _minor_ version of Primer Spec.
+We take care to release new versions of Primer Spec on the `main` branch only between semesters at the University of Michigan. However, if your site needs an even stronger guarantee of stability, you can pin your site to a specific _minor_ version of Primer Spec.
 
 1. Visit the [Primer Spec Releases](https://github.com/eecs485staff/primer-spec/releases) page. Find the version to which you'd like to pin your site, and note down its title. (For instance, `v1.3.1+fa20`.)
 2. Update your site's `_config.yml` with the version tag from step (1). Specifically, update this line:
