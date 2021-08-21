@@ -37,6 +37,23 @@ jobs:
           git add VERSION assets
           STAGE_STATIC_ASSETS=true git commit -m "Freeze version v$(cat VERSION)"
 
+      - name: Checkout main
+        run: |
+          git checkout main
+
+      - name: 𖢞 Merge to main
+        run: |
+          git merge develop
+
+      - name: Push to main
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      # NOTE: Temporarily keep master and main in sync, until master has been
+      # removed.
+
       - name: Checkout master
         run: |
           git checkout master
@@ -51,10 +68,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
 
+      # NOTE: End of temporary sync section to be deleted in future.
+
       - name: Merge back to develop
         run: |
           git checkout develop
-          git merge master
+          git merge main
 
       - name: Push to develop
         uses: ad-m/github-push-action@master

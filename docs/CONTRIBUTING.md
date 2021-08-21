@@ -108,18 +108,18 @@ This theme is used by [several courses at the University of Michigan](../README.
 
 Some notes about maintaining this project:
 
-1. [Create a new release by syncing `develop` and `master`](#releasing-for-the-next-semester)
+1. [Create a new release by syncing `develop` and `main`](#releasing-for-the-next-semester)
 2. [Bump the version if required in Pull Requests](#bumping-the-version-in-pull-requests)
 
 ### Releasing for the next semester
 
 _Also known as a "release freeze"._
 
-The latest stable version of the theme is available on the `master` branch. (This is the default branch selected by the [Jekyll Remote Theme](https://github.com/benbalter/jekyll-remote-theme), the plugin that allows this theme to be used on course websites.) This branch is not changed during semesters at the University of Michigan while courses are in-session. This is to ensure that all project specs throughout the semester have a consistent appearance.
+The latest stable version of the theme is available on the `main` branch. (This is the default branch selected by the [Jekyll Remote Theme](https://github.com/benbalter/jekyll-remote-theme), the plugin that allows this theme to be used on course websites.) This branch is not changed during semesters at the University of Michigan while courses are in-session. This is to ensure that all project specs throughout the semester have a consistent appearance.
 
-The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `master`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `master` to keep them in sync.
+The `develop` branch is the default branch for the GitHub repository, and hosts the latest accepted code changes to the theme. This branch is usually ahead of `main`. Between semesters at the University of Michigan, changes from the `develop` branch are merged with `main` to keep them in sync.
 
-To publish a new release, first prepare the `master` branch and sync with `develop` by initiating the `release` GitHub Actions workflow from the [Actions tab](https://github.com/eecs485staff/primer-spec/actions/workflows/release.yml).
+To publish a new release, first prepare the `main` branch and sync with `develop` by initiating the `release` GitHub Actions workflow from the [Actions tab](https://github.com/eecs485staff/primer-spec/actions/workflows/release.yml).
 
 <details markdown="1">
   <summary>If the GH Actions workflow fails, expand this section for detailed steps.</summary>
@@ -131,14 +131,14 @@ $ pwd
 /users/seshrs/primer-spec
 $ git checkout develop
 $ git pull
-$ git checkout master
+$ git checkout main
 $ git pull
 ```
 
-2. Merge `develop` into `master`. (If you like [signing your commits](https://help.github.com/en/articles/signing-commits), don't forget to add the `-S` flag.)
+2. Merge `develop` into `main`. (If you like [signing your commits](https://help.github.com/en/articles/signing-commits), don't forget to add the `-S` flag.)
 
 ```console
-$ git checkout master
+$ git checkout main
 $ git merge -S develop
 ```
 
@@ -159,7 +159,7 @@ Finally, tag the release:
 
 2. Also specify the upcoming semester after the `+` symbol — this is metadata and is not parsed as part of the version number. (For more about versioning, see [Semver](https://semver.org/).)
 
-3. Click the "Draft a new release" button. Specify the version number. Title and description are optional. _(Switch the "target branch" to `master`. That said, the two branches should be in sync at the time of release so this should not really matter.)_
+3. Click the "Draft a new release" button. Specify the version number. Title and description are optional. _(Switch the "target branch" to `main`. That said, the two branches should be in sync at the time of release so this should not really matter.)_
 
 ### Bumping the version in Pull Requests
 
