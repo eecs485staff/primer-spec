@@ -23,6 +23,7 @@
   "dependencies": {
     "anchor-js": "^4.3.1",
     "clsx": "^1.1.1",
+    "jsx-dom": "*",
     "preact": "^10.5.14"
   },
   "devDependencies": {
