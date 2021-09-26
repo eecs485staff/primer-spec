@@ -589,3 +589,60 @@ div.primer-spec-callout {
     }
   }
 }
+
+/*
+ * GISTS
+ */
+.markdown-body .primer-spec-gist {
+  // font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+  //   Liberation Mono, monospace;
+  font-size: 0.85em;
+  color: var(--gist-default-color);
+
+  &-body {
+    tab-size: 4;
+  }
+
+  table.highlight {
+    margin: 0px;
+    padding-top: 3px;
+    border-radius: 6px;
+    background-color: var(--gist-bg-color);
+
+    tr {
+      color: inherit;
+      background-color: inherit;
+    }
+
+    td {
+      line-height: 20px;
+      padding: 0px 10px;
+      border: 0px;
+    }
+
+    td.primer-spec-gist-line-number {
+      width: 1%;
+      min-width: 50px;
+      color: var(--gist-line-number-color);
+      text-align: right;
+      white-space: nowrap;
+      vertical-align: top;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      &::before {
+        content: attr(data-line-number);
+      }
+    }
+
+    td.primer-spec-gist-line-code {
+      position: relative;
+      vertical-align: top;
+      overflow: visible;
+      word-wrap: normal;
+      white-space: pre;
+    }
+  }
+}
