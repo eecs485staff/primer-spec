@@ -59,6 +59,12 @@ export const SUBTHEME_VARS = [
   '--primer-spec-callout-success-bg-color',
   '--primer-spec-callout-success-text-color',
   '--primer-spec-callout-success-border-color',
+
+  '--gist-default-color',
+  '--gist-bg-color',
+  '--gist-border-color',
+  '--gist-header-bg-color',
+  '--gist-line-number-color',
 ] as const;
 
 // As described in: https://stackoverflow.com/a/45257357/5868796

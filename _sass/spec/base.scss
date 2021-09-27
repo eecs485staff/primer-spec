@@ -599,6 +599,16 @@ div.primer-spec-callout {
   font-size: 0.85em;
   color: var(--gist-default-color);
 
+  .Box,
+  .Box-header,
+  .Box-body {
+    border-color: var(--gist-border-color);
+  }
+
+  &-header {
+    background-color: var(--gist-header-bg-color);
+  }
+
   &-body {
     tab-size: 4;
   }
@@ -606,18 +616,22 @@ div.primer-spec-callout {
   table.highlight {
     margin: 0px;
     padding-top: 3px;
-    border-radius: 6px;
+    border: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-color: var(--gist-border-color);
     background-color: var(--gist-bg-color);
 
     tr {
-      color: inherit;
-      background-color: inherit;
+      color: var(--gist-default-color);
+      background-color: var(--gist-bg-color);
+      border: 0px;
     }
 
     td {
+      border: 0px;
       line-height: 20px;
       padding: 0px 10px;
-      border: 0px;
     }
 
     td.primer-spec-gist-line-number {

@@ -1,7 +1,8 @@
 const MAIN_TEXT_COLOR = '#c9d1d9';
 const CODE_COLOR = 'white';
 const CODE_BG_COLOR = '#161b22';
-const CODE_BORDER = '1px solid rgb(60, 62, 66)';
+const CODE_BORDER_COLOR = 'rgb(60, 62, 66)';
+const CODE_BORDER = `1px solid ${CODE_BORDER_COLOR}`;
 const BORDER_LINE_COLOR = '#21262d';
 
 export default {
@@ -34,4 +35,10 @@ export default {
   '--primer-spec-callout-success-bg-color': 'rgba(46, 160, 67, 0.1)',
   '--primer-spec-callout-success-text-color': '#56d364',
   '--primer-spec-callout-success-border-color': 'rgba(46, 160, 67, 0.4)',
+
+  '--gist-default-color': MAIN_TEXT_COLOR,
+  '--gist-border-color': CODE_BORDER_COLOR,
+  '--gist-header-bg-color': CODE_BG_COLOR,
+  '--gist-bg-color': 'rgb(13, 17, 23)',
+  '--gist-line-number-color': '#484f58',
 };
