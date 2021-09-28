@@ -677,7 +677,8 @@ div.primer-spec-callout {
   }
 }
 
-.tooltipped:hover {
+.tooltipped:hover,
+.tooltipped:focus {
   &::before {
     color: var(--tooltip-background-color);
     border-top-color: var(--tooltip-background-color);

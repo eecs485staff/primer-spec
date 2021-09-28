@@ -3,6 +3,8 @@ import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 
+const GIST_CODE_LINE_CLASS = 'primer-spec-gist-line-code';
+
 /**
  * A custom hook that converts code blocks with class `primer-spec-gist`.
  * Gists are a special type of codeblock that show line numbers, and can
@@ -103,15 +105,36 @@ function createGist(
   highlightRanges: Set<number>,
 ): HTMLElement {
   const gist = (
-    <div class="Box mt-3 text-mono">
+    <div id={gistId} class="Box mt-3 text-mono">
       <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-gist-header">
         <span class="flex-auto">{title}</span>
         <span class="flex-auto flex-grow-0">
           <button
             type="button"
             class="btn-octicon no-print tooltipped tooltipped-n"
-            onClick={(event) => {
-              event.preventDefault();
+            onClick={async (e) => {
+              const gist = document.getElementById(gistId);
+              if (gist) {
+                // (1) Copy the lines to the clipboard
+                const lines = gist.querySelectorAll(`.${GIST_CODE_LINE_CLASS}`);
+                const text = [...lines]
+                  .map((line) => (line as HTMLElement).innerText)
+                  .join('\n');
+                await navigator.clipboard.writeText(text);
+
+                // (2) Fetch the copy-button
+                let btn = e.target as HTMLElement | null;
+                if (btn?.tagName === 'I') {
+                  btn = btn.parentElement;
+                }
+                // (3) Temporarily change the label of the button
+                const originalLabel = btn?.getAttribute('aria-label');
+                btn?.setAttribute('aria-label', 'Copied!');
+                setTimeout(() => {
+                  btn?.setAttribute('aria-label', originalLabel || '');
+                  btn?.blur();
+                }, 2000);
+              }
             }}
             aria-label="Copy"
           >
@@ -163,7 +186,7 @@ function createGistLine(
       <td
         id={LC_ID}
         class={clsx(
-          'primer-spec-gist-line-code',
+          GIST_CODE_LINE_CLASS,
           shouldHighlight && 'primer-spec-gist-highlighted',
         )}
         // eslint-disable-next-line react/no-danger
