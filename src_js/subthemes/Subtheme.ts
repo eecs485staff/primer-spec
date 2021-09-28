@@ -65,6 +65,8 @@ export const SUBTHEME_VARS = [
   '--gist-border-color',
   '--gist-header-bg-color',
   '--gist-line-number-color',
+  '--gist-highlight-bg-color',
+  '--gist-highlight-shadow-color',
 ] as const;
 
 // As described in: https://stackoverflow.com/a/45257357/5868796

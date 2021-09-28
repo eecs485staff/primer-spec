@@ -41,4 +41,6 @@ export default {
   '--gist-header-bg-color': CODE_BG_COLOR,
   '--gist-bg-color': 'rgb(13, 17, 23)',
   '--gist-line-number-color': '#484f58',
+  '--gist-highlight-bg-color': 'rgba(187, 128, 9, 0.15)',
+  '--gist-highlight-shadow-color': 'rgba(187, 128, 9, 0.4)',
 };

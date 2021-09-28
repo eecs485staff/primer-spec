@@ -1,6 +1,7 @@
 /** @jsx JSXDom.h */
 import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
+import clsx from 'clsx';
 
 /**
  * A custom hook that converts code blocks with class `primer-spec-gist`.
@@ -78,7 +79,12 @@ export default function useCodeBlockGists(
       title = getGistLanguage(gistSrc);
     }
 
-    const gist = createGist(lines, title);
+    const highlightRanges = parseGistHighlightRanges(
+      gistSrc.getAttribute('data-highlight'),
+      lines.length,
+    );
+
+    const gist = createGist(lines, title, highlightRanges);
 
     // Clear the old code block and replace with the gist
     gistSrc.textContent = '';
@@ -88,7 +94,11 @@ export default function useCodeBlockGists(
   return () => {};
 }
 
-function createGist(lines: Array<string>, title: string | null): HTMLElement {
+function createGist(
+  lines: Array<string>,
+  title: string | null,
+  highlightRanges: Set<number>,
+): HTMLElement {
   const gist = (
     <div class="Box mt-3 text-mono">
       <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-gist-header">
@@ -98,7 +108,11 @@ function createGist(lines: Array<string>, title: string | null): HTMLElement {
         <table class="highlight">
           <tbody>
             {lines.map((line, lineNumber) =>
-              createGistLine(line, lineNumber + 1),
+              createGistLine(
+                line,
+                lineNumber + 1,
+                highlightRanges.has(lineNumber),
+              ),
             )}
           </tbody>
         </table>
@@ -108,7 +122,11 @@ function createGist(lines: Array<string>, title: string | null): HTMLElement {
   return gist as HTMLElement;
 }
 
-function createGistLine(line: string, lineNumber: number): HTMLElement {
+function createGistLine(
+  line: string,
+  lineNumber: number,
+  shouldHighlight: boolean,
+): HTMLElement {
   const gistLine = (
     <tr>
       <td
@@ -118,7 +136,10 @@ function createGistLine(line: string, lineNumber: number): HTMLElement {
       />
       <td
         id={`LC${lineNumber}`}
-        class="primer-spec-gist-line-code"
+        class={clsx(
+          'primer-spec-gist-line-code',
+          shouldHighlight && 'primer-spec-gist-highlighted',
+        )}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: line }}
       />

@@ -613,9 +613,13 @@ div.primer-spec-callout {
     tab-size: 4;
   }
 
+  &-highlighted {
+    background-color: var(--gist-highlight-bg-color);
+    box-shadow: inset 2px 0 0 var(--gist-highlight-shadow-color);
+  }
+
   table.highlight {
     margin: 0px;
-    padding-top: 3px;
     border: 0px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -631,7 +635,8 @@ div.primer-spec-callout {
     td {
       border: 0px;
       line-height: 20px;
-      padding: 0px 10px;
+      padding: 2px 10px 0px;
+      vertical-align: bottom;
     }
 
     td.primer-spec-gist-line-number {
