@@ -3,6 +3,12 @@ import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 
+// We perform special handling for gists in the `console` language: If a user
+// clicks the line number, the entire line will be highlighted EXCLUDING the
+// prompt (`$`) at the beginning, if it exists.
+// See the special handling in `createGistLine()`.
+const LANGUAGE_CONSOLE = 'console';
+
 const GIST_CODE_LINE_CLASS = 'primer-spec-gist-line-code';
 
 /**
@@ -77,18 +83,15 @@ export default function useCodeBlockGists(
 
     const gistId = `gist-${i}`;
 
-    let title = gistSrc.getAttribute('data-filename');
-    if (!title) {
-      // Attempt to use the gist's source language
-      title = getGistLanguage(gistSrc);
-    }
+    const language = getGistLanguage(gistSrc);
+    const title = gistSrc.getAttribute('data-filename') ?? language;
 
     const highlightRanges = parseGistHighlightRanges(
       gistSrc.getAttribute('data-highlight'),
       lines.length,
     );
 
-    const gist = createGist(gistId, lines, title, highlightRanges);
+    const gist = createGist(gistId, lines, title, language, highlightRanges);
 
     // Clear the old code block and replace with the gist
     gistSrc.textContent = '';
@@ -102,6 +105,7 @@ function createGist(
   gistId: string,
   lines: Array<string>,
   title: string | null,
+  language: string | null,
   highlightRanges: Set<number>,
 ): HTMLElement {
   const gist = (
@@ -148,6 +152,7 @@ function createGist(
             {lines.map((line, lineNumber) =>
               createGistLine(
                 gistId,
+                language,
                 line,
                 lineNumber + 1,
                 highlightRanges.has(lineNumber),
@@ -163,6 +168,7 @@ function createGist(
 
 function createGistLine(
   gistId: string,
+  language: string | null,
   line: string,
   lineNumber: number,
   shouldHighlight: boolean,
@@ -193,8 +199,48 @@ function createGistLine(
         dangerouslySetInnerHTML={{ __html: line }}
       />
     </tr>
-  );
-  return gistLine as HTMLElement;
+  ) as HTMLElement;
+
+  // SPECIAL HANDLING for `console` gists: When a user clicks the line number
+  // to select the entire line, attempt to exclude the leading prompt
+  // symbol (`$`).
+  if (language === LANGUAGE_CONSOLE) {
+    const codeLine = gistLine.querySelector(
+      `.${GIST_CODE_LINE_CLASS}`,
+    ) as HTMLElement;
+    const firstChild = codeLine.firstChild as HTMLElement | null;
+    if (firstChild?.tagName === 'SPAN' && firstChild.classList.contains('gp')) {
+      // This prompt needs to be excluded from selection.
+      // (1) Remove the original LC_ID
+      codeLine.id = '';
+      // (2) Find children to exclude from selection. Do this by searching for
+      //     the first child that is not of class `gp` (Generic::Prompt) or
+      //     `w` (Whitespace)
+      const children = [...codeLine.childNodes];
+      const childrenToExcludeFromSelection = [];
+      let i = 0;
+      for (; i < children.length; ++i) {
+        const child = children[i] as HTMLElement;
+        if (
+          'classList' in child &&
+          (child.classList.contains('gp') || child.classList.contains('w'))
+        ) {
+          childrenToExcludeFromSelection.push(child);
+        } else {
+          break;
+        }
+      }
+      const childrenToIncludeInSelection = children.slice(i);
+      // (3) Wrap remaining children in a new <span> with id=LC_ID.
+      codeLine.innerHTML = '';
+      codeLine.appendChild(<span>{childrenToExcludeFromSelection}</span>);
+      codeLine.appendChild(
+        <span id={LC_ID}>{childrenToIncludeInSelection}</span>,
+      );
+    }
+  }
+
+  return gistLine;
 }
 
 function getGistLanguage(gistSrc: Element): string | null {

@@ -2,10 +2,10 @@ import useCodeBlockGists, {
   parseGistHighlightRanges,
 } from '../useCodeBlockGists';
 
-const PYTHON_GIST = `<div class="language-console primer-spec-gist highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 <span class="nt">--version</span>  <span class="c"># NOTE: Your Python version may be different.</span>
+const CONSOLE_GIST = `<div class="language-console primer-spec-gist highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 <span class="nt">--version</span>  <span class="c"># NOTE: Your Python version may be different.</span>
 <span class="go">Python 3.7.4
 </span></code></pre></div></div>`;
-const PYTHON_GIST_NUM_LINES = 2;
+const CONSOLE_GIST_NUM_LINES = 2;
 
 const PLAINTEXT_GIST = `<div class="language-plaintext primer-spec-gist highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pwd
 /users/seshrs
@@ -24,7 +24,7 @@ describe('useCodeBlockGists', () => {
   });
 
   test('code block gists should be transformed into tables', () => {
-    document.body.innerHTML = `${PYTHON_GIST}${PLAINTEXT_GIST}${REGULAR_CODE_BLOCK}`;
+    document.body.innerHTML = `${CONSOLE_GIST}${PLAINTEXT_GIST}${REGULAR_CODE_BLOCK}`;
 
     useCodeBlockGists({ current: document.body });
 
@@ -32,7 +32,7 @@ describe('useCodeBlockGists', () => {
     expect(gists.length).toBe(2);
 
     expect(gists[0].childNodes[0].childNodes.length).toBe(
-      PYTHON_GIST_NUM_LINES,
+      CONSOLE_GIST_NUM_LINES,
     );
     expect(gists[1].childNodes[0].childNodes.length).toBe(
       PLAINTEX_GIST_NUM_LINES,
@@ -40,7 +40,7 @@ describe('useCodeBlockGists', () => {
   });
 
   test('gist tables should contain line numbers', () => {
-    document.body.innerHTML = `${PYTHON_GIST}`;
+    document.body.innerHTML = `${CONSOLE_GIST}`;
 
     useCodeBlockGists({ current: document.body });
 
@@ -48,8 +48,8 @@ describe('useCodeBlockGists', () => {
     expect(gists.length).toBe(1);
 
     const tbody = gists[0].childNodes[0] as HTMLElement;
-    expect(tbody.childElementCount).toBe(PYTHON_GIST_NUM_LINES);
-    expect(PYTHON_GIST_NUM_LINES).toBe(2);
+    expect(tbody.childElementCount).toBe(CONSOLE_GIST_NUM_LINES);
+    expect(CONSOLE_GIST_NUM_LINES).toBe(2);
 
     let row, lineNum;
 
@@ -68,6 +68,44 @@ describe('useCodeBlockGists', () => {
     expect(lineNum.getAttribute('data-line-number')).toBe('2');
     expect((row.childNodes[1] as HTMLElement).innerHTML).toBe(
       '<span class="go">Python 3.7.4</span>',
+    );
+  });
+
+  test('clicking a line number selects the line', () => {
+    document.body.innerHTML = `${PLAINTEXT_GIST}${CONSOLE_GIST}`;
+
+    useCodeBlockGists({ current: document.body });
+
+    const gists = document.querySelectorAll('.Box');
+    expect(gists.length).toBe(2);
+    expect(gists[0].id).toBe('gist-0');
+    expect(gists[1].id).toBe('gist-1');
+
+    // Click line 3 of the plaintext gist
+    const line3 = document.getElementById('gist-0-L3');
+    expect(line3).toBeDefined();
+    line3?.click();
+    expect(document.getSelection()?.toString()).toBe(
+      '$ wget https://eecs485staff.github.io/primer-spec/demo/starter_files.tar.gz',
+    );
+  });
+
+  test('special console handling: clicking a line number selects the line without the prompt', () => {
+    document.body.innerHTML = `${PLAINTEXT_GIST}${CONSOLE_GIST}`;
+
+    useCodeBlockGists({ current: document.body });
+
+    const gists = document.querySelectorAll('.Box');
+    expect(gists.length).toBe(2);
+    expect(gists[0].id).toBe('gist-0');
+    expect(gists[1].id).toBe('gist-1');
+
+    // Click line 1 of the console gist
+    const line1 = document.getElementById('gist-1-L1');
+    expect(line1).toBeDefined();
+    line1?.click();
+    expect(document.getSelection()?.toString()).toBe(
+      'python3 --version  # NOTE: Your Python version may be different.',
     );
   });
 });

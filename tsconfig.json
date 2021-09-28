@@ -12,7 +12,8 @@
     "jsxFactory": "h",
     // Allow processing & inferring types from .js files.
     // (Needed for ts-jest to run code from NPM module JSX-DOM.)
-    "allowJs": true
+    "allowJs": true,
+    "esModuleInterop": true
   },
   "include": ["src_js"],
 
