@@ -111,7 +111,9 @@ function createGist(
   const gist = (
     <div id={gistId} class="Box mt-3 text-mono">
       <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-gist-header">
-        <span class="flex-auto">{title}</span>
+        <span class="flex-auto">
+          <a href={`#${gistId}`}>{title}</a>
+        </span>
         <span class="flex-auto flex-grow-0">
           <button
             type="button"
