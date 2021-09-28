@@ -607,6 +607,14 @@ div.primer-spec-callout {
 
   &-header {
     background-color: var(--gist-header-bg-color);
+
+    .btn-octicon {
+      color: var(--gist-default-color);
+      &:hover {
+        color: var(--gist-button-hover-color);
+        text-decoration: none;
+      }
+    }
   }
 
   &-body {
@@ -666,5 +674,17 @@ div.primer-spec-callout {
       word-wrap: normal;
       white-space: pre;
     }
+  }
+}
+
+.tooltipped:hover {
+  &::before {
+    color: var(--tooltip-background-color);
+    border-top-color: var(--tooltip-background-color);
+  }
+  &::after {
+    color: var(--tooltip-color);
+    background-color: var(--tooltip-background-color);
+    border-color: var(--tooltip-background-color);
   }
 }

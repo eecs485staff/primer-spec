@@ -30,6 +30,9 @@ const default_theme_vars: SubthemeDefinitionType = {
     '--hoverable-link-hover-color': '#9dd2fb', // lighten(--main-link-color, 30%)
 
     '--main-bg-color': DEFAULT_DARK_BG_COLOR,
+
+    '--gist-button-hover-color': DEFAULT_DARK_LINK_COLOR,
+
     ...common_dark_theme_colors,
 
     rouge_theme: 'monokai',

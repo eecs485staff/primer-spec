@@ -55,6 +55,9 @@ const bella_theme_vars: SubthemeDefinitionType = {
     '--hoverable-link-hover-color': '#fdf6f7', // lighten($BELLA_DARK_MAIN_LINK_COLOR, 30%)
 
     '--main-bg-color': 'rgb(28, 28, 30)',
+
+    '--gist-button-hover-color': BELLA_DARK_MAIN_LINK_COLOR,
+
     ...common_dark_theme_colors,
 
     rouge_theme: 'monokai',

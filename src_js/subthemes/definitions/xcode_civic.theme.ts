@@ -82,6 +82,8 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--main-blockquote-text-color': '#999999',
     '--main-header-border-bottom-color': BORDER_LINE_COLOR,
 
+    '--gist-button-hover-color': XCODE_DARK_MAIN_LINK_COLOR,
+
     rouge_theme: 'monokai',
   },
 };

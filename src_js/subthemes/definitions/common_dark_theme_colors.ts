@@ -43,4 +43,7 @@ export default {
   '--gist-line-number-color': '#484f58',
   '--gist-highlight-bg-color': 'rgba(187, 128, 9, 0.15)',
   '--gist-highlight-shadow-color': 'rgba(187, 128, 9, 0.4)',
+
+  '--tooltip-background-color': 'rgb(110, 118, 129)',
+  '--tooltip-color': 'white',
 };
