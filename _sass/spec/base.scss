@@ -654,6 +654,9 @@ div.primer-spec-callout {
       &::before {
         content: attr(data-line-number);
       }
+      &:hover {
+        color: var(--gist-default-color);
+      }
     }
 
     td.primer-spec-gist-line-code {

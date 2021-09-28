@@ -38,7 +38,7 @@ export default function useCodeBlockGists(
   // whitespace within the line.
 
   const gistsSrc = mainElRef.current.querySelectorAll('div.primer-spec-gist');
-  gistsSrc.forEach((gistSrc) => {
+  gistsSrc.forEach((gistSrc, i) => {
     const codeEl = gistSrc.firstChild?.firstChild?.firstChild;
     if (codeEl == null) {
       console.warn(
@@ -73,6 +73,8 @@ export default function useCodeBlockGists(
       lines.pop();
     }
 
+    const gistId = `gist-${i}`;
+
     let title = gistSrc.getAttribute('data-filename');
     if (!title) {
       // Attempt to use the gist's source language
@@ -84,7 +86,7 @@ export default function useCodeBlockGists(
       lines.length,
     );
 
-    const gist = createGist(lines, title, highlightRanges);
+    const gist = createGist(gistId, lines, title, highlightRanges);
 
     // Clear the old code block and replace with the gist
     gistSrc.textContent = '';
@@ -95,6 +97,7 @@ export default function useCodeBlockGists(
 }
 
 function createGist(
+  gistId: string,
   lines: Array<string>,
   title: string | null,
   highlightRanges: Set<number>,
@@ -109,6 +112,7 @@ function createGist(
           <tbody>
             {lines.map((line, lineNumber) =>
               createGistLine(
+                gistId,
                 line,
                 lineNumber + 1,
                 highlightRanges.has(lineNumber),
@@ -123,19 +127,29 @@ function createGist(
 }
 
 function createGistLine(
+  gistId: string,
   line: string,
   lineNumber: number,
   shouldHighlight: boolean,
 ): HTMLElement {
+  const L_ID = `${gistId}-L${lineNumber}`;
+  const LC_ID = `${gistId}-LC${lineNumber}`;
   const gistLine = (
     <tr>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <td
-        id={`L${lineNumber}`}
+        id={L_ID}
         class="primer-spec-gist-line-number"
         data-line-number={lineNumber}
+        onClick={() => {
+          const line = document.getElementById(LC_ID);
+          if (line) {
+            window?.getSelection()?.selectAllChildren(line);
+          }
+        }}
       />
       <td
-        id={`LC${lineNumber}`}
+        id={LC_ID}
         class={clsx(
           'primer-spec-gist-line-code',
           shouldHighlight && 'primer-spec-gist-highlighted',
