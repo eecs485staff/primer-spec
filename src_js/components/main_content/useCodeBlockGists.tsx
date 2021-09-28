@@ -155,7 +155,7 @@ function createGist(
                 language,
                 line,
                 lineNumber + 1,
-                highlightRanges.has(lineNumber),
+                highlightRanges.has(lineNumber + 1),
               ),
             )}
           </tbody>
