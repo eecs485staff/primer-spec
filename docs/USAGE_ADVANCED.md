@@ -14,6 +14,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Callouts](#callouts)
+- [Gists (Enhanced code blocks)](#gists-enhanced-code-blocks)
 - [Page configuration options](#page-configuration-options)
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
@@ -159,6 +160,24 @@ Use Callouts to highlight information in your specs. Here's an example:
 ```
 
 See the [Callouts demo](https://eecs485staff.github.io/primer-spec/demo/callouts.html) for examples of how to customize Callouts for your spec.
+
+## Gists (Enhanced code blocks)
+
+Upgrade your code bloccks into Gists! Gists let viewers copy code easily, while also letting you highlight important lines in the code. To upgrade to a gist, simply add the class `primer-spec-gist` to your code block.
+
+Here's a Markdown example:
+
+<!-- prettier-ignore-start -->
+````markdown
+```python
+import os
+print("Hello world")
+```
+{: .primer-spec-gist }
+````
+<!-- prettier-ignore-end -->
+
+Gists accept other configuration options. Check out the [Gists demo](https://eecs485staff.github.io/primer-spec/demo/gists.html) for examples of how to customize Gists for your spec.
 
 ## Page configuration options
 
