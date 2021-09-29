@@ -157,7 +157,6 @@ function createGist(
           <tbody
             onMouseOver={(e) => {
               if (mouseDownStartLine != null && e.target != null) {
-                console.log('@@@ onMouseOver, e.target', e.target);
                 const elementId = (e.target as HTMLElement).id;
                 const match = elementId.match(/^gist-\d-LC?(\d+)$/);
                 if (match && match[1] != null) {
@@ -208,7 +207,6 @@ function createGistLine(
         onMouseDown={() => {
           mouseDownStartLine = lineNumber;
           selectLines(gistId, mouseDownStartLine, mouseDownStartLine);
-          console.log('@@@ mouseDownStartLine', mouseDownStartLine);
         }}
       />
       <td

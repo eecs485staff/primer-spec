@@ -71,42 +71,53 @@ describe('useCodeBlockGists', () => {
     );
   });
 
-  test('clicking a line number selects the line', () => {
-    document.body.innerHTML = `${PLAINTEXT_GIST}${CONSOLE_GIST}`;
+  describe('code selection by clicking line numbers', () => {
+    function triggerMouseEvent(node: HTMLElement | null, eventType: string) {
+      if (!node) {
+        throw new Error('node cannot be null');
+      }
+      const mouseEvent = document.createEvent('MouseEvents');
+      mouseEvent.initEvent(eventType, true, true);
+      node.dispatchEvent(mouseEvent);
+    }
 
-    useCodeBlockGists({ current: document.body });
+    test('clicking a line number selects the line', () => {
+      document.body.innerHTML = `${PLAINTEXT_GIST}${CONSOLE_GIST}`;
 
-    const gists = document.querySelectorAll('.Box');
-    expect(gists.length).toBe(2);
-    expect(gists[0].id).toBe('gist-0');
-    expect(gists[1].id).toBe('gist-1');
+      useCodeBlockGists({ current: document.body });
 
-    // Click line 3 of the plaintext gist
-    const line3 = document.getElementById('gist-0-L3');
-    expect(line3).toBeDefined();
-    line3?.click();
-    expect(document.getSelection()?.toString()).toBe(
-      '$ wget https://eecs485staff.github.io/primer-spec/demo/starter_files.tar.gz',
-    );
-  });
+      const gists = document.querySelectorAll('.Box');
+      expect(gists.length).toBe(2);
+      expect(gists[0].id).toBe('gist-0');
+      expect(gists[1].id).toBe('gist-1');
 
-  test('special console handling: clicking a line number selects the line without the prompt', () => {
-    document.body.innerHTML = `${PLAINTEXT_GIST}${CONSOLE_GIST}`;
+      // Click line 3 of the plaintext gist
+      const line3 = document.getElementById('gist-0-L3');
+      expect(line3).toBeDefined();
+      triggerMouseEvent(line3, 'mousedown');
+      expect(document.getSelection()?.toString()).toBe(
+        '$ wget https://eecs485staff.github.io/primer-spec/demo/starter_files.tar.gz',
+      );
+    });
 
-    useCodeBlockGists({ current: document.body });
+    test('special console handling: clicking a line number selects the line without the prompt', () => {
+      document.body.innerHTML = `${PLAINTEXT_GIST}${CONSOLE_GIST}`;
 
-    const gists = document.querySelectorAll('.Box');
-    expect(gists.length).toBe(2);
-    expect(gists[0].id).toBe('gist-0');
-    expect(gists[1].id).toBe('gist-1');
+      useCodeBlockGists({ current: document.body });
 
-    // Click line 1 of the console gist
-    const line1 = document.getElementById('gist-1-L1');
-    expect(line1).toBeDefined();
-    line1?.click();
-    expect(document.getSelection()?.toString()).toBe(
-      'python3 --version  # NOTE: Your Python version may be different.',
-    );
+      const gists = document.querySelectorAll('.Box');
+      expect(gists.length).toBe(2);
+      expect(gists[0].id).toBe('gist-0');
+      expect(gists[1].id).toBe('gist-1');
+
+      // Click line 1 of the console gist
+      const line1 = document.getElementById('gist-1-L1');
+      expect(line1).toBeDefined();
+      triggerMouseEvent(line1, 'mousedown');
+      expect(document.getSelection()?.toString()).toBe(
+        'python3 --version  # NOTE: Your Python version may be different.',
+      );
+    });
   });
 });
 
