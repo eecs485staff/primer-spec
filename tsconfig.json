@@ -13,7 +13,8 @@
     // Allow processing & inferring types from .js files.
     // (Needed for ts-jest to run code from NPM module JSX-DOM.)
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src_js"],
 

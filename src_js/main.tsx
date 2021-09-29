@@ -1,4 +1,4 @@
-import * as AnchorJS from 'anchor-js';
+import AnchorJS from 'anchor-js';
 import { h, render } from 'preact';
 import PrimerSpec from './components/PrimerSpec';
 import Config from './Config';
