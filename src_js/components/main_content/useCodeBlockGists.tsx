@@ -3,13 +3,16 @@ import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 
+const GIST_CODE_LINE_CLASS = 'primer-spec-gist-line-code';
 // We perform special handling for gists in the `console` language: If a user
 // clicks the line number, the entire line will be highlighted EXCLUDING the
 // prompt (`$`) at the beginning, if it exists.
 // See the special handling in `createGistLine()`.
 const LANGUAGE_CONSOLE = 'console';
 
-const GIST_CODE_LINE_CLASS = 'primer-spec-gist-line-code';
+// We use this to keep track of click-then-drag on line numbers to select
+// multiple lines simultaneously.
+let mouseDownStartLine: number | null = null;
 
 /**
  * A custom hook that converts code blocks with class `primer-spec-gist`.
@@ -150,7 +153,25 @@ function createGist(
       </div>
       <div class="Box-body p-0 primer-spec-gist-body">
         <table class="highlight">
-          <tbody>
+          {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+          <tbody
+            onMouseOver={(e) => {
+              if (mouseDownStartLine != null && e.target != null) {
+                console.log('@@@ onMouseOver, e.target', e.target);
+                const elementId = (e.target as HTMLElement).id;
+                const match = elementId.match(/^gist-\d-LC?(\d+)$/);
+                if (match && match[1] != null) {
+                  selectLines(gistId, mouseDownStartLine, +match[1]);
+                }
+              }
+            }}
+            onMouseLeave={() => {
+              mouseDownStartLine = null;
+            }}
+            onMouseUp={() => {
+              mouseDownStartLine = null;
+            }}
+          >
             {lines.map((line, lineNumber) =>
               createGistLine(
                 gistId,
@@ -184,11 +205,10 @@ function createGistLine(
         id={L_ID}
         class="primer-spec-gist-line-number"
         data-line-number={lineNumber}
-        onClick={() => {
-          const line = document.getElementById(LC_ID);
-          if (line) {
-            window?.getSelection()?.selectAllChildren(line);
-          }
+        onMouseDown={() => {
+          mouseDownStartLine = lineNumber;
+          selectLines(gistId, mouseDownStartLine, mouseDownStartLine);
+          console.log('@@@ mouseDownStartLine', mouseDownStartLine);
         }}
       />
       <td
@@ -306,4 +326,29 @@ function isNumWithinInclusiveRange(
   upper: number,
 ): boolean {
   return num != null && !Number.isNaN(num) && num >= lower && num <= upper;
+}
+
+function selectLines(gistId: string, startLineIn: number, endLineIn: number) {
+  let startLine = startLineIn;
+  let endLine = endLineIn;
+  if (startLine > endLine) {
+    // The range is inverted (for example, start selecting from line 4 to
+    // line 2).
+    startLine = endLineIn;
+    endLine = startLineIn;
+  }
+  const startNode = document.getElementById(`${gistId}-LC${startLine}`);
+  const endNode = document.getElementById(`${gistId}-LC${endLine}`);
+  if (!startNode || !endNode) {
+    console.error(
+      'Primer Spec Gist: selectLines: start or end nodes are null. Please report this issue on https://github.com/eecs485staff/primer-spec/issues. Thanks!',
+    );
+    return;
+  }
+
+  const range = document.createRange();
+  range.setStart(startNode, 0);
+  range.setEnd(endNode, endNode.childNodes.length);
+  document.getSelection()?.removeAllRanges();
+  document.getSelection()?.addRange(range);
 }

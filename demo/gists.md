@@ -22,6 +22,7 @@ print("Hello world!")
 
 - [ ] **_Line numbers_** 🚀
 - [ ] Clicking a line number **_selects the line_**. It's easy to copy a single line!
+  - [ ] You can even click-and-drag to select multiple lines simultaneously!
 - [ ] **_Copy the entire block_** with a single button.
 - [ ] Instructors can **_highlight_** specific lines!
 
