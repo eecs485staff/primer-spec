@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Config from '../../Config';
 import { usePrintInProgress } from '../../utils/hooks/print';
 import useTaskListCheckboxes from './useTaskListCheckboxes';
-import useCodeBlockGists from './useCodeBlockGists';
+import useEnhancedCodeBlocks from './useEnhancedCodeBlocks';
 
 type PropsType = {
   innerHTML: string;
@@ -23,10 +23,12 @@ export default function MainContent(props: PropsType): h.JSX.Element {
     return taskListCheckboxEffect(main_el_ref);
   }, [taskListCheckboxEffect]);
 
-  const codeBlockGistEffect = useCallback(useCodeBlockGists, [props.innerHTML]);
+  const enhancedCodeBlocksEffect = useCallback(useEnhancedCodeBlocks, [
+    props.innerHTML,
+  ]);
   useEffect(() => {
-    return codeBlockGistEffect(main_el_ref);
-  }, [codeBlockGistEffect]);
+    return enhancedCodeBlocksEffect(main_el_ref);
+  }, [enhancedCodeBlocksEffect]);
 
   return (
     <main

@@ -20,7 +20,7 @@ let mouseDownStartLine: number | null = null;
  * optionally highlight lines and show a filename.
  * @param mainElRef A ref to the `<main>` element from MainContent
  */
-export default function useCodeBlockGists(
+export default function useEnhancedCodeBlocks(
   mainElRef: RefObject<HTMLElement>,
 ): () => void {
   if (!mainElRef.current) {
@@ -31,7 +31,7 @@ export default function useCodeBlockGists(
 
   // The original structure of a codeblock:
   // <div
-  //   class="primer-spec-gist highlighter-rouge language-[lang]"
+  //   class="highlighter-rouge language-[lang]"
   //   data-filename="[filename]"         {/* OPTIONAL */}
   //   data-highlight="[highlight-range]" {/* OPTIONAL */}
   // >
@@ -48,7 +48,7 @@ export default function useCodeBlockGists(
   // use newlines in `contents` to demarcate lines, and we need to preserve
   // whitespace within the line.
 
-  const gistsSrc = mainElRef.current.querySelectorAll('div.primer-spec-gist');
+  const gistsSrc = mainElRef.current.querySelectorAll('div.highlighter-rouge');
   gistsSrc.forEach((gistSrc, i) => {
     const codeEl = gistSrc.firstChild?.firstChild?.firstChild;
     if (codeEl == null) {
@@ -89,7 +89,7 @@ export default function useCodeBlockGists(
     const language = getGistLanguage(gistSrc);
     const title = gistSrc.getAttribute('data-filename') ?? language;
 
-    const highlightRanges = parseGistHighlightRanges(
+    const highlightRanges = parseCodeHighlightRanges(
       gistSrc.getAttribute('data-highlight'),
       lines.length,
     );
@@ -99,6 +99,8 @@ export default function useCodeBlockGists(
     // Clear the old code block and replace with the gist
     gistSrc.textContent = '';
     gistSrc.appendChild(gist);
+    // Add the class "primer-spec-gist" to the container for easier lookup
+    gistSrc.classList.add('primer-spec-gist');
   });
 
   return () => {};
@@ -283,7 +285,7 @@ function getGistLanguage(gistSrc: Element): string | null {
  * @param rawHighlightRanges A comma-separated string representing ranges
  * @param maxLineNumber The maximum valid line number
  */
-export function parseGistHighlightRanges(
+export function parseCodeHighlightRanges(
   rawHighlightRanges: string | null,
   maxLineNumber: number,
 ): Set<number> {
