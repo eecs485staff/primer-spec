@@ -56,7 +56,7 @@ const bella_theme_vars: SubthemeDefinitionType = {
 
     '--main-bg-color': 'rgb(28, 28, 30)',
 
-    '--gist-button-hover-color': BELLA_DARK_MAIN_LINK_COLOR,
+    '--code-block-button-hover-color': BELLA_DARK_MAIN_LINK_COLOR,
 
     ...common_dark_theme_colors,
 

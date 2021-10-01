@@ -3,11 +3,11 @@ import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 
-const GIST_CODE_LINE_CLASS = 'primer-spec-gist-line-code';
-// We perform special handling for gists in the `console` language: If a user
+const CODEBLOCK_LINE_CLASS = 'primer-spec-code-block-line-code';
+// We perform special handling for blocks in the `console` language: If a user
 // clicks the line number, the entire line will be highlighted EXCLUDING the
 // prompt (`$`) at the beginning, if it exists.
-// See the special handling in `createGistLine()`.
+// See the special handling in `createCodeBlockLine()`.
 const LANGUAGE_CONSOLE = 'console';
 
 // We use this to keep track of click-then-drag on line numbers to select
@@ -15,9 +15,9 @@ const LANGUAGE_CONSOLE = 'console';
 let mouseDownStartLine: number | null = null;
 
 /**
- * A custom hook that converts code blocks with class `primer-spec-gist`.
- * Gists are a special type of codeblock that show line numbers, and can
- * optionally highlight lines and show a filename.
+ * A custom hook that enhances code blocks that are longer than two lines.
+ * These enhancecd code blocks show line numbers, and can optionally highlight
+ * lines.
  * @param mainElRef A ref to the `<main>` element from MainContent
  */
 export default function useEnhancedCodeBlocks(
@@ -48,34 +48,36 @@ export default function useEnhancedCodeBlocks(
   // use newlines in `contents` to demarcate lines, and we need to preserve
   // whitespace within the line.
 
-  const gistsSrc = mainElRef.current.querySelectorAll('div.highlighter-rouge');
-  gistsSrc.forEach((gistSrc, i) => {
-    const codeEl = gistSrc.firstChild?.firstChild?.firstChild;
+  const codeblockContainers = mainElRef.current.querySelectorAll(
+    'div.highlighter-rouge',
+  );
+  codeblockContainers.forEach((codeblockContainer, i) => {
+    const codeEl = codeblockContainer.firstChild?.firstChild?.firstChild;
     if (codeEl == null) {
       console.warn(
-        'useCodeBlockGists: Primer Spec Gist has malformed structure. See Primer Spec Docs for expected structure. (TODO: Link to docs)',
-        'gistSrc',
-        gistSrc,
+        'useEnhancedCodeBlocks: Code Block has malformed structure. See Primer Spec Docs for expected structure. (TODO: Link to docs)',
+        'codeblockContainer',
+        codeblockContainer,
       );
       return;
     }
 
-    const gistContents = (codeEl as HTMLElement).innerHTML;
-    if (gistContents == null) {
+    const codeblockContents = (codeEl as HTMLElement).innerHTML;
+    if (codeblockContents == null) {
       console.warn(
-        'useCodeBlockGists: Unexpectedly empty Primer Spec Gist',
-        'gistSrc',
-        gistSrc,
+        'useEnhancedCodeBlocks: Unexpectedly empty Code Block',
+        'codeblockContainer',
+        codeblockContainer,
       );
       return;
     }
 
-    const lines = gistContents.split('\n');
+    const lines = codeblockContents.split('\n');
     if (lines.length === 0) {
       console.warn(
-        'useCodeBlockGists: Primer Spec Gist appears to have no lines!',
-        'gistSrc',
-        gistSrc,
+        'useEnhancedCodeBlocks: Code Block appears to have no lines!',
+        'codeblockContainer',
+        codeblockContainer,
       );
       return;
     }
@@ -84,50 +86,58 @@ export default function useEnhancedCodeBlocks(
       lines.pop();
     }
 
-    const gistId = `gist-${i}`;
+    const codeblockId = `primer-spec-code-block-${i}`;
 
-    const language = getGistLanguage(gistSrc);
-    const title = gistSrc.getAttribute('data-filename') ?? language;
+    const language = getCodeBlockLanguage(codeblockContainer);
+    const title = codeblockContainer.getAttribute('data-filename') ?? language;
 
     const highlightRanges = parseCodeHighlightRanges(
-      gistSrc.getAttribute('data-highlight'),
+      codeblockContainer.getAttribute('data-highlight'),
       lines.length,
     );
 
-    const gist = createGist(gistId, lines, title, language, highlightRanges);
+    const enhancedCodeBlock = createEnhancedCodeBlock(
+      codeblockId,
+      lines,
+      title,
+      language,
+      highlightRanges,
+    );
 
-    // Clear the old code block and replace with the gist
-    gistSrc.textContent = '';
-    gistSrc.appendChild(gist);
-    // Add the class "primer-spec-gist" to the container for easier lookup
-    gistSrc.classList.add('primer-spec-gist');
+    // Clear the old code block and replace with the enhanced block
+    codeblockContainer.textContent = '';
+    codeblockContainer.appendChild(enhancedCodeBlock);
+    // Add a class to the container for easier lookup and styling.
+    codeblockContainer.classList.add('primer-spec-code-block');
   });
 
   return () => {};
 }
 
-function createGist(
-  gistId: string,
+function createEnhancedCodeBlock(
+  codeblockId: string,
   lines: Array<string>,
   title: string | null,
   language: string | null,
   highlightRanges: Set<number>,
 ): HTMLElement {
-  const gist = (
-    <div id={gistId} class="Box mt-3 text-mono">
-      <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-gist-header">
+  const enhancedCodeBlock = (
+    <div id={codeblockId} class="Box mt-3 text-mono">
+      <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-code-block-header">
         <span class="flex-auto">
-          <a href={`#${gistId}`}>{title}</a>
+          <a href={`#${codeblockId}`}>{title}</a>
         </span>
         <span class="flex-auto flex-grow-0">
           <button
             type="button"
             class="btn-octicon no-print tooltipped tooltipped-n"
             onClick={async (e) => {
-              const gist = document.getElementById(gistId);
-              if (gist) {
+              const codeblock = document.getElementById(codeblockId);
+              if (codeblock) {
                 // (1) Copy the lines to the clipboard
-                const lines = gist.querySelectorAll(`.${GIST_CODE_LINE_CLASS}`);
+                const lines = codeblock.querySelectorAll(
+                  `.${CODEBLOCK_LINE_CLASS}`,
+                );
                 const text = [...lines]
                   .map((line) => (line as HTMLElement).innerText)
                   .join('\n');
@@ -153,16 +163,23 @@ function createGist(
           </button>
         </span>
       </div>
-      <div class="Box-body p-0 primer-spec-gist-body">
+      <div class="Box-body p-0 primer-spec-code-block-body">
         <table class="highlight">
           {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
           <tbody
             onMouseOver={(e) => {
               if (mouseDownStartLine != null && e.target != null) {
-                const elementId = (e.target as HTMLElement).id;
-                const match = elementId.match(/^gist-\d-LC?(\d+)$/);
-                if (match && match[1] != null) {
-                  selectLines(gistId, mouseDownStartLine, +match[1]);
+                let el = e.target as HTMLElement | null;
+                while (el && el.tagName !== 'TABLE') {
+                  const match = el.id.match(
+                    /^primer-spec-code-block-(?:\d+)-L(?:C|R)?(\d+)$/,
+                  );
+                  if (match && match[1] != null) {
+                    selectLines(codeblockId, mouseDownStartLine, +match[1]);
+                    break;
+                  } else {
+                    el = el.parentNode as HTMLElement;
+                  }
                 }
               }
             }}
@@ -174,8 +191,8 @@ function createGist(
             }}
           >
             {lines.map((line, lineNumber) =>
-              createGistLine(
-                gistId,
+              createCodeBlockLine(
+                codeblockId,
                 language,
                 line,
                 lineNumber + 1,
@@ -187,35 +204,36 @@ function createGist(
       </div>
     </div>
   );
-  return gist as HTMLElement;
+  return enhancedCodeBlock as HTMLElement;
 }
 
-function createGistLine(
-  gistId: string,
+function createCodeBlockLine(
+  codeblockId: string,
   language: string | null,
   line: string,
   lineNumber: number,
   shouldHighlight: boolean,
 ): HTMLElement {
-  const L_ID = `${gistId}-L${lineNumber}`;
-  const LC_ID = `${gistId}-LC${lineNumber}`;
-  const gistLine = (
-    <tr>
+  const L_ID = `${codeblockId}-L${lineNumber}`;
+  const LC_ID = `${codeblockId}-LC${lineNumber}`;
+  const LR_ID = `${codeblockId}-LR${lineNumber}`;
+  const codeblockLine = (
+    <tr id={LR_ID}>
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <td
         id={L_ID}
-        class="primer-spec-gist-line-number"
+        class="primer-spec-code-block-line-number"
         data-line-number={lineNumber}
         onMouseDown={() => {
           mouseDownStartLine = lineNumber;
-          selectLines(gistId, mouseDownStartLine, mouseDownStartLine);
+          selectLines(codeblockId, mouseDownStartLine, mouseDownStartLine);
         }}
       />
       <td
         id={LC_ID}
         class={clsx(
-          GIST_CODE_LINE_CLASS,
-          shouldHighlight && 'primer-spec-gist-highlighted',
+          CODEBLOCK_LINE_CLASS,
+          shouldHighlight && 'primer-spec-code-block-highlighted',
         )}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: line }}
@@ -223,12 +241,12 @@ function createGistLine(
     </tr>
   ) as HTMLElement;
 
-  // SPECIAL HANDLING for `console` gists: When a user clicks the line number
+  // SPECIAL HANDLING for `console` blocks: When a user clicks the line number
   // to select the entire line, attempt to exclude the leading prompt
   // symbol (`$`).
   if (language === LANGUAGE_CONSOLE) {
-    const codeLine = gistLine.querySelector(
-      `.${GIST_CODE_LINE_CLASS}`,
+    const codeLine = codeblockLine.querySelector(
+      `.${CODEBLOCK_LINE_CLASS}`,
     ) as HTMLElement;
     const firstChild = codeLine.firstChild as HTMLElement | null;
     if (firstChild?.tagName === 'SPAN' && firstChild.classList.contains('gp')) {
@@ -262,11 +280,11 @@ function createGistLine(
     }
   }
 
-  return gistLine;
+  return codeblockLine;
 }
 
-function getGistLanguage(gistSrc: Element): string | null {
-  for (const className of gistSrc.classList) {
+function getCodeBlockLanguage(codeblockSrc: Element): string | null {
+  for (const className of codeblockSrc.classList) {
     if (className.startsWith('language-')) {
       return className.replace('language-', '');
     }
@@ -328,7 +346,11 @@ function isNumWithinInclusiveRange(
   return num != null && !Number.isNaN(num) && num >= lower && num <= upper;
 }
 
-function selectLines(gistId: string, startLineIn: number, endLineIn: number) {
+function selectLines(
+  codeblockId: string,
+  startLineIn: number,
+  endLineIn: number,
+) {
   let startLine = startLineIn;
   let endLine = endLineIn;
   if (startLine > endLine) {
@@ -337,11 +359,11 @@ function selectLines(gistId: string, startLineIn: number, endLineIn: number) {
     startLine = endLineIn;
     endLine = startLineIn;
   }
-  const startNode = document.getElementById(`${gistId}-LC${startLine}`);
-  const endNode = document.getElementById(`${gistId}-LC${endLine}`);
+  const startNode = document.getElementById(`${codeblockId}-LC${startLine}`);
+  const endNode = document.getElementById(`${codeblockId}-LC${endLine}`);
   if (!startNode || !endNode) {
     console.error(
-      'Primer Spec Gist: selectLines: start or end nodes are null. Please report this issue on https://github.com/eecs485staff/primer-spec/issues. Thanks!',
+      'Primer Spec Code Block: selectLines: start or end nodes are null. Please report this issue on https://github.com/eecs485staff/primer-spec/issues. Thanks!',
     );
     return;
   }

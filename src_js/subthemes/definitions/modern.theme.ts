@@ -57,7 +57,7 @@ const modern_theme_vars: SubthemeDefinitionType = {
 
     '--main-bg-color': 'rgb(28, 28, 30)',
 
-    '--gist-button-hover-color': MODERN_MAIN_LINK_COLOR,
+    '--code-block-button-hover-color': MODERN_MAIN_LINK_COLOR,
 
     ...common_dark_theme_colors,
 

@@ -32,7 +32,6 @@ Ready to see some examples?
 
 ## Basic example
 
-<!-- prettier-ignore-start -->
 ```
 Shall I compare thee to a summer’s day?
 Thou art more lovely and more temperate:
@@ -49,8 +48,6 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
-{: .primer-spec-gist }
-<!-- prettier-ignore-end -->
 
 Try clicking the line numbers to select individual lines!
 
@@ -74,7 +71,6 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
-{: .primer-spec-gist }
   ````
 </details>
 
@@ -97,7 +93,7 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
-{: .primer-spec-gist data-filename="Shakespeare's Sonnet 18: Shall I Compare Thee To A Summer’s Day?" }
+{: data-filename="Shakespeare's Sonnet 18: Shall I Compare Thee To A Summer’s Day?" }
 <!-- prettier-ignore-end -->
 
 Notice that the filename (which can also be considered as a _title_) is displayed at the top of the Gist. Specify a filename with the `data-filename` attribute. For example:
@@ -126,7 +122,7 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
-{: .primer-spec-gist data-filename="Shakespeare's Sonnet 18: Shall I Compare Thee To A Summer’s Day?" }
+{: data-filename="Shakespeare's Sonnet 18: Shall I Compare Thee To A Summer’s Day?" }
   ````
 </details>
 
@@ -149,7 +145,7 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
-{: .primer-spec-gist data-highlight="5-8,13" }
+{: data-highlight="5-8,13" }
 <!-- prettier-ignore-end -->
 
 In the above Gist, the second [quatrain](https://en.wikipedia.org/wiki/Quatrain) of the sonnet has been highlighted, along with the first line of the [volta](<https://en.wikipedia.org/wiki/Volta_(literature)>).
@@ -182,7 +178,7 @@ When in eternal lines to time thou growest:
 So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
-{: .primer-spec-gist data-highlight="5-8,13" }
+{: data-highlight="5-8,13" }
   ````
 
 </details>
@@ -210,7 +206,7 @@ x = {
 # use . and a space to separate objects, and a space, a = and a space to separate keys from their values:
 print(json.dumps(x, indent=4, separators=(". ", " = ")))
 ```
-{: .primer-spec-gist data-filename="json_separators.py" }
+{: data-filename="json_separators.py" }
 <!-- prettier-ignore-end -->
 
 <!-- prettier-ignore-start -->
@@ -240,7 +236,7 @@ x = {
 print(json.dumps(x, indent=4, separators=(". ", " = ")))
 ```
 
-{: .primer-spec-gist data-filename="json_separators.py" }
+{: data-filename="json_separators.py" }
 ````
 </details>
 <!-- prettier-ignore-end -->
@@ -261,7 +257,7 @@ insta485/static/
     └── logo.png
 $ touch insta485/model.py
 ```
-{: .primer-spec-gist data-highlight="1,3,9" }
+{: data-highlight="1,3,9" }
 <!-- prettier-ignore-end -->
 
 Notice how selecting a line ONLY selects the command after the prompt symbol (`$`). This makes it easy to copy console commands!
@@ -281,6 +277,6 @@ insta485/static/
     └── logo.png
 $ touch insta485/model.py
 ```
-{: .primer-spec-gist data-highlight="1,3,9" }
+{: data-highlight="1,3,9" }
   ````
 </details>

@@ -591,28 +591,28 @@ div.primer-spec-callout {
 }
 
 /*
- * GISTS
+ * ENHANCED CODE BLOCKS
  */
-.markdown-body .primer-spec-gist {
+.markdown-body .primer-spec-code-block {
   // font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
   //   Liberation Mono, monospace;
   margin-bottom: 16px;
   font-size: 0.85em;
-  color: var(--gist-default-color);
+  color: var(--code-block-default-color);
 
   .Box,
   .Box-header,
   .Box-body {
-    border-color: var(--gist-border-color);
+    border-color: var(--code-block-border-color);
   }
 
   &-header {
-    background-color: var(--gist-header-bg-color);
+    background-color: var(--code-block-header-bg-color);
 
     .btn-octicon {
-      color: var(--gist-default-color);
+      color: var(--code-block-default-color);
       &:hover {
-        color: var(--gist-button-hover-color);
+        color: var(--code-block-button-hover-color);
         text-decoration: none;
       }
     }
@@ -623,8 +623,8 @@ div.primer-spec-callout {
   }
 
   &-highlighted {
-    background-color: var(--gist-highlight-bg-color);
-    box-shadow: inset 2px 0 0 var(--gist-highlight-shadow-color);
+    background-color: var(--code-block-highlight-bg-color);
+    box-shadow: inset 2px 0 0 var(--code-block-highlight-shadow-color);
   }
 
   table.highlight {
@@ -632,12 +632,12 @@ div.primer-spec-callout {
     border: 0px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-color: var(--gist-border-color);
-    background-color: var(--gist-bg-color);
+    border-color: var(--code-block-border-color);
+    background-color: var(--code-block-bg-color);
 
     tr {
-      color: var(--gist-default-color);
-      background-color: var(--gist-bg-color);
+      color: var(--code-block-default-color);
+      background-color: var(--code-block-bg-color);
       border: 0px;
     }
 
@@ -648,10 +648,10 @@ div.primer-spec-callout {
       vertical-align: bottom;
     }
 
-    td.primer-spec-gist-line-number {
+    td.primer-spec-code-block-line-number {
       width: 1%;
       min-width: 50px;
-      color: var(--gist-line-number-color);
+      color: var(--code-block-line-number-color);
       text-align: right;
       white-space: nowrap;
       vertical-align: top;
@@ -664,11 +664,11 @@ div.primer-spec-callout {
         content: attr(data-line-number);
       }
       &:hover {
-        color: var(--gist-default-color);
+        color: var(--code-block-default-color);
       }
     }
 
-    td.primer-spec-gist-line-code {
+    td.primer-spec-code-block-line-code {
       position: relative;
       vertical-align: top;
       overflow: visible;
