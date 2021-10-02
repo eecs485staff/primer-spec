@@ -21,7 +21,7 @@ describe('useEnhancedCodeBlocks', () => {
     useEnhancedCodeBlocks({ current: document.body });
 
     const codeContainers = document.querySelectorAll(
-      'div.primer-spec-gist.highlighter-rouge',
+      'div.primer-spec-code-block.highlighter-rouge',
     );
     expect(codeContainers.length).toBe(2);
 
@@ -87,11 +87,11 @@ describe('useEnhancedCodeBlocks', () => {
 
       const codeblocks = document.querySelectorAll('.Box');
       expect(codeblocks.length).toBe(2);
-      expect(codeblocks[0].id).toBe('gist-0');
-      expect(codeblocks[1].id).toBe('gist-1');
+      expect(codeblocks[0].id).toBe('primer-spec-code-block-0');
+      expect(codeblocks[1].id).toBe('primer-spec-code-block-1');
 
-      // Click line 3 of the plaintext gist
-      const line3 = document.getElementById('gist-0-L3');
+      // Click line 3 of the plaintext code block
+      const line3 = document.getElementById('primer-spec-code-block-0-L3');
       expect(line3).toBeDefined();
       triggerMouseEvent(line3, 'mousedown');
       expect(document.getSelection()?.toString()).toBe(
@@ -106,11 +106,11 @@ describe('useEnhancedCodeBlocks', () => {
 
       const codeblocks = document.querySelectorAll('.Box');
       expect(codeblocks.length).toBe(2);
-      expect(codeblocks[0].id).toBe('gist-0');
-      expect(codeblocks[1].id).toBe('gist-1');
+      expect(codeblocks[0].id).toBe('primer-spec-code-block-0');
+      expect(codeblocks[1].id).toBe('primer-spec-code-block-1');
 
-      // Click line 1 of the console gist
-      const line1 = document.getElementById('gist-1-L1');
+      // Click line 1 of the console code block
+      const line1 = document.getElementById('primer-spec-code-block-1-L1');
       expect(line1).toBeDefined();
       triggerMouseEvent(line1, 'mousedown');
       expect(document.getSelection()?.toString()).toBe(
