@@ -157,7 +157,7 @@ function createEnhancedCodeBlock(
             )}
           </tbody>
         </table>
-        {genCopyButton(codeblockId)}
+        {lines.length > 1 ? genCopyButton(codeblockId) : null}
       </div>
     </div>
   );
