@@ -181,7 +181,8 @@ function createCodeBlockLine(
         id={L_ID}
         class="primer-spec-code-block-line-number"
         data-line-number={lineNumber}
-        onMouseDown={() => {
+        onMouseDown={(e) => {
+          e.preventDefault();
           mouseDownStartLine = lineNumber;
           selectLines(codeblockId, mouseDownStartLine, mouseDownStartLine);
         }}
