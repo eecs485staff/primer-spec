@@ -31,8 +31,6 @@ const default_theme_vars: SubthemeDefinitionType = {
 
     '--main-bg-color': DEFAULT_DARK_BG_COLOR,
 
-    '--code-block-button-hover-color': DEFAULT_DARK_LINK_COLOR,
-
     ...common_dark_theme_colors,
 
     rouge_theme: 'monokai',

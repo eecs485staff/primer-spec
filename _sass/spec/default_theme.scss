@@ -31,7 +31,13 @@
   --code-block-line-number-color: #6e7781;
   --code-block-highlight-bg-color: #fff8c5;
   --code-block-highlight-shadow-color: rgba(212, 167, 44, 0.4);
-  --code-block-button-hover-color: #0366d6;
+  --code-block-button-color: #24292f;
+  --code-block-button-bg-color: #f6f8fa;
+  --code-block-button-border-color: rgba(27, 31, 36, 0.15);
+  --code-block-button-shadow: 0 1px 0 rgba(27, 31, 36, 0.04);
+  --code-block-button-shadow-inset: 0 1px 0 rgba(255, 255, 255, 0.25);
+  --code-block-button-hover-bg-color: #f3f4f6;
+  --code-block-button-hover-border-color: var(--code-block-button-border-color);
 
   --tooltip-background-color: #1b1f23;
   --tooltip-color: white;

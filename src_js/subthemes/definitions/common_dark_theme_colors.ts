@@ -43,6 +43,13 @@ export default {
   '--code-block-line-number-color': '#484f58',
   '--code-block-highlight-bg-color': 'rgba(187, 128, 9, 0.15)',
   '--code-block-highlight-shadow-color': 'rgba(187, 128, 9, 0.4)',
+  '--code-block-button-color': MAIN_TEXT_COLOR,
+  '--code-block-button-bg-color': BORDER_LINE_COLOR,
+  '--code-block-button-border-color': 'rgba(240, 246, 252, 0.1)',
+  '--code-block-button-shadow': '0 0 transparent',
+  '--code-block-button-shadow-inset-color': '0 0 transparent',
+  '--code-block-button-hover-bg-color': 'rgb(48, 54, 61)',
+  '--code-block-button-hover-border-color': 'rgb(140, 148, 158)',
 
   '--tooltip-background-color': 'rgb(110, 118, 129)',
   '--tooltip-color': 'white',

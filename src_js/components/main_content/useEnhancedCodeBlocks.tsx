@@ -32,7 +32,6 @@ export default function useEnhancedCodeBlocks(
   // The original structure of a codeblock:
   // <div
   //   class="highlighter-rouge language-[lang]"
-  //   data-filename="[filename]"         {/* OPTIONAL */}
   //   data-highlight="[highlight-range]" {/* OPTIONAL */}
   // >
   //   <div class="highlight">
@@ -89,7 +88,6 @@ export default function useEnhancedCodeBlocks(
     const codeblockId = `primer-spec-code-block-${i}`;
 
     const language = getCodeBlockLanguage(codeblockContainer);
-    const title = codeblockContainer.getAttribute('data-filename') ?? language;
 
     const highlightRanges = parseCodeHighlightRanges(
       codeblockContainer.getAttribute('data-highlight'),
@@ -99,7 +97,6 @@ export default function useEnhancedCodeBlocks(
     const enhancedCodeBlock = createEnhancedCodeBlock(
       codeblockId,
       lines,
-      title,
       language,
       highlightRanges,
     );
@@ -117,52 +114,11 @@ export default function useEnhancedCodeBlocks(
 function createEnhancedCodeBlock(
   codeblockId: string,
   lines: Array<string>,
-  title: string | null,
   language: string | null,
   highlightRanges: Set<number>,
 ): HTMLElement {
   const enhancedCodeBlock = (
     <div id={codeblockId} class="Box mt-3 text-mono">
-      <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-code-block-header">
-        <span class="flex-auto">
-          <a href={`#${codeblockId}`}>{title}</a>
-        </span>
-        <span class="flex-auto flex-grow-0">
-          <button
-            type="button"
-            class="btn-octicon no-print tooltipped tooltipped-n"
-            onClick={async (e) => {
-              const codeblock = document.getElementById(codeblockId);
-              if (codeblock) {
-                // (1) Copy the lines to the clipboard
-                const lines = codeblock.querySelectorAll(
-                  `.${CODEBLOCK_LINE_CLASS}`,
-                );
-                const text = [...lines]
-                  .map((line) => (line as HTMLElement).innerText)
-                  .join('\n');
-                await navigator.clipboard.writeText(text);
-
-                // (2) Fetch the copy-button
-                let btn = e.target as HTMLElement | null;
-                if (btn?.tagName === 'I') {
-                  btn = btn.parentElement;
-                }
-                // (3) Temporarily change the label of the button
-                const originalLabel = btn?.getAttribute('aria-label');
-                btn?.setAttribute('aria-label', 'Copied!');
-                setTimeout(() => {
-                  btn?.setAttribute('aria-label', originalLabel || '');
-                  btn?.blur();
-                }, 2000);
-              }
-            }}
-            aria-label="Copy"
-          >
-            <i class="far fa-copy" />
-          </button>
-        </span>
-      </div>
       <div class="Box-body p-0 primer-spec-code-block-body">
         <table class="highlight">
           {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
@@ -201,6 +157,7 @@ function createEnhancedCodeBlock(
             )}
           </tbody>
         </table>
+        {genCopyButton(codeblockId)}
       </div>
     </div>
   );
@@ -281,6 +238,62 @@ function createCodeBlockLine(
   }
 
   return codeblockLine;
+}
+
+function genCopyButton(codeblockId: string) {
+  return (
+    <div class="primer-spec-zeroclipboard-container position-absolute top-0 right-0">
+      <button
+        type="button"
+        class="btn-octicon no-print m-2 p-2 tooltipped tooltipped-no-delay tooltipped-n"
+        tabIndex={0}
+        aria-label="Copy"
+        onClick={async (e) => {
+          const codeblock = document.getElementById(codeblockId);
+          if (codeblock) {
+            // (1) Copy the lines to the clipboard
+            const lines = codeblock.querySelectorAll(
+              `.${CODEBLOCK_LINE_CLASS}`,
+            );
+            const text = [...lines]
+              .map((line) => (line as HTMLElement).innerText)
+              .join('\n');
+            await navigator.clipboard.writeText(text);
+
+            // (2) Fetch the copy-button
+            let btn = e.target as HTMLElement | null;
+            if (btn?.tagName === 'I') {
+              btn = btn.parentElement;
+            }
+            if (!btn) {
+              return;
+            }
+
+            // (3) Temporarily change the label and icon of the button
+            const originalLabel = btn.getAttribute('aria-label');
+            btn.setAttribute('aria-label', 'Copied!');
+            const originalIcon = btn.firstChild;
+            if (!originalIcon) {
+              return;
+            }
+            btn.innerText = '';
+            btn.appendChild(<i class="fas fa-check" />);
+            setTimeout(() => {
+              if (!btn) {
+                return;
+              }
+              btn.setAttribute('aria-label', originalLabel || '');
+              btn.blur();
+              btn.innerText = '';
+              btn.appendChild(originalIcon);
+            }, 2000);
+          }
+        }}
+      >
+        <i class="far fa-copy" />
+      </button>
+    </div>
+  );
 }
 
 function getCodeBlockLanguage(codeblockSrc: Element): string | null {
