@@ -29,6 +29,25 @@ export default function useEnhancedCodeBlocks(
     );
   }
 
+  // First enhance codeblocks formatted by Jekyll + Rouge
+  const numCodeBlocks = enhanceBlocks(
+    mainElRef.current.querySelectorAll('div.highlighter-rouge'),
+    getRawContentsFromJekyllRougeCodeblock,
+    0,
+  );
+  // Then attempt to enhance ordinary <pre> blocks.
+  enhanceBlocks(
+    mainElRef.current.querySelectorAll('pre'),
+    (codeblock: HTMLElement) => codeblock.innerHTML.trim(),
+    numCodeBlocks,
+  );
+
+  return () => {};
+}
+
+function getRawContentsFromJekyllRougeCodeblock(
+  codeblock: HTMLElement,
+): string | null {
   // The original structure of a codeblock:
   // <div
   //   class="highlighter-rouge language-[lang]"
@@ -46,77 +65,93 @@ export default function useEnhancedCodeBlocks(
   // Notice that `contents` is wrapped in a pre-formatted block. Hence, we will
   // use newlines in `contents` to demarcate lines, and we need to preserve
   // whitespace within the line.
-
-  const codeblockContainers = mainElRef.current.querySelectorAll(
-    'div.highlighter-rouge',
-  );
-  codeblockContainers.forEach((codeblockContainer, i) => {
-    const codeEl = codeblockContainer.firstChild?.firstChild?.firstChild;
-    if (codeEl == null) {
-      console.warn(
-        'useEnhancedCodeBlocks: Code Block has malformed structure. See Primer Spec Docs for expected structure. (TODO: Link to docs)',
-        'codeblockContainer',
-        codeblockContainer,
-      );
-      return;
-    }
-
-    const codeblockContents = (codeEl as HTMLElement).innerHTML;
-    if (codeblockContents == null) {
-      console.warn(
-        'useEnhancedCodeBlocks: Unexpectedly empty Code Block',
-        'codeblockContainer',
-        codeblockContainer,
-      );
-      return;
-    }
-
-    const lines = codeblockContents.split('\n');
-    if (lines.length === 0) {
-      console.warn(
-        'useEnhancedCodeBlocks: Code Block appears to have no lines!',
-        'codeblockContainer',
-        codeblockContainer,
-      );
-      return;
-    }
-    const lastLine = lines[lines.length - 1];
-    if (lastLine === '' || lastLine === '</span>') {
-      lines.pop();
-    }
-
-    const codeblockId = `primer-spec-code-block-${i}`;
-
-    const language = getCodeBlockLanguage(codeblockContainer);
-
-    const highlightRanges = parseCodeHighlightRanges(
-      codeblockContainer.getAttribute('data-highlight'),
-      lines.length,
+  const codeEl = codeblock.firstChild?.firstChild?.firstChild;
+  if (codeEl == null) {
+    console.warn(
+      'useEnhancedCodeBlocks: Code Block has malformed structure. See Primer Spec Docs for expected structure. https://github.com/eecs485staff/primer-spec/blob/main/docs/USAGE_ADVANCED.md#enhanced-code-blocks',
+      'codeblock',
+      codeblock,
     );
+    return null;
+  }
+
+  return (codeEl as HTMLElement).innerHTML;
+}
+
+/**
+ * @param codeblocks Output from `.querySelectorAll()`
+ * @param getContents A method that extracts a string with the codeblock contents given a codeblock element
+ * @param startId The ID to use for the first enhanced code block
+ */
+function enhanceBlocks(
+  codeblocks: NodeListOf<HTMLElement>,
+  getContents: (node: HTMLElement) => string | null,
+  startId = 0,
+): number {
+  let nextCodeBlockId = startId;
+
+  codeblocks.forEach((codeblock) => {
+    const codeblockNumericId = nextCodeBlockId++;
+
+    const codeblockParent = codeblock.parentElement;
+    if (!codeblockParent) {
+      console.warn('useEnhanccedCodeBlocks: Codeblock missing parent');
+      return;
+    }
+
+    const codeblockContents = getContents(codeblock);
+    if (codeblockContents == null) {
+      return;
+    }
 
     const enhancedCodeBlock = createEnhancedCodeBlock(
-      codeblockId,
-      lines,
-      language,
-      highlightRanges,
+      codeblockNumericId,
+      codeblockContents,
+      getCodeBlockLanguage(codeblock),
+      codeblock.getAttribute('data-highlight'),
     );
+    if (!enhancedCodeBlock) {
+      console.warn(
+        'useEnhancedCodeBlocks: Code Block was not created successfully.',
+        'codeblockId',
+        codeblockNumericId,
+      );
+      return;
+    }
 
     // Clear the old code block and replace with the enhanced block
-    codeblockContainer.textContent = '';
-    codeblockContainer.appendChild(enhancedCodeBlock);
-    // Add a class to the container for easier lookup and styling.
-    codeblockContainer.classList.add('primer-spec-code-block');
+    codeblockParent.replaceChild(
+      <div class="primer-spec-code-block">{enhancedCodeBlock}</div>,
+      codeblock,
+    );
   });
 
-  return () => {};
+  return nextCodeBlockId;
 }
 
 function createEnhancedCodeBlock(
-  codeblockId: string,
-  lines: Array<string>,
+  codeblockNumericId: number,
+  rawContent: string,
   language: string | null,
-  highlightRanges: Set<number>,
-): HTMLElement {
+  rawHighlightRanges: string | null,
+): HTMLElement | null {
+  const lines = rawContent.split('\n');
+  if (lines.length === 0) {
+    console.warn('useEnhancedCodeBlocks: Code Block appears to have no lines!');
+    return null;
+  }
+  const lastLine = lines[lines.length - 1];
+  if (lastLine === '' || lastLine === '</span>') {
+    lines.pop();
+  }
+
+  const highlightRanges = parseCodeHighlightRanges(
+    rawHighlightRanges,
+    lines.length,
+  );
+
+  const codeblockId = `primer-spec-code-block-${codeblockNumericId}`;
+
   const enhancedCodeBlock = (
     <div id={codeblockId} class="Box mt-3 text-mono">
       <div class="Box-body p-0 primer-spec-code-block-body">
@@ -297,6 +332,14 @@ function genCopyButton(codeblockId: string) {
   );
 }
 
+/***********/
+/** UTILS **/
+/***********/
+
+/**
+ * Given an element, return the codeblock's language (if present) if the
+ * element's `classList` contains a class of the form `language-[language]`.
+ */
 function getCodeBlockLanguage(codeblockSrc: Element): string | null {
   for (const className of codeblockSrc.classList) {
     if (className.startsWith('language-')) {
@@ -307,7 +350,7 @@ function getCodeBlockLanguage(codeblockSrc: Element): string | null {
 }
 
 /**
- * Parses a string reprenting a list of line numbers, some of which may be
+ * Parse a string reprenting a list of line numbers, some of which may be
  * ranges. The parsed output is a Set of line numbers that are included in the
  * range.
  *
@@ -352,6 +395,10 @@ export function parseCodeHighlightRanges(
   return highlightedLines;
 }
 
+/**
+ * Return a boolean indicating whether `num` is in the range [`lower`, `upper`]
+ * (inclusive).
+ */
 function isNumWithinInclusiveRange(
   num: number | null,
   lower: number,
@@ -360,18 +407,22 @@ function isNumWithinInclusiveRange(
   return num != null && !Number.isNaN(num) && num >= lower && num <= upper;
 }
 
+/**
+ * Using the Selection API, select all content between `startLine_` and
+ * `endLine_` for the codeblock identified by `codeblockId`.
+ */
 function selectLines(
   codeblockId: string,
-  startLineIn: number,
-  endLineIn: number,
+  startLine_: number,
+  endLine_: number,
 ) {
-  let startLine = startLineIn;
-  let endLine = endLineIn;
+  let startLine = startLine_;
+  let endLine = endLine_;
   if (startLine > endLine) {
     // The range is inverted (for example, start selecting from line 4 to
     // line 2).
-    startLine = endLineIn;
-    endLine = startLineIn;
+    startLine = endLine_;
+    endLine = startLine_;
   }
   const startNode = document.getElementById(`${codeblockId}-LC${startLine}`);
   const endNode = document.getElementById(`${codeblockId}-LC${endLine}`);

@@ -21,7 +21,7 @@ describe('useEnhancedCodeBlocks', () => {
     useEnhancedCodeBlocks({ current: document.body });
 
     const codeContainers = document.querySelectorAll(
-      'div.primer-spec-code-block.highlighter-rouge',
+      'div.primer-spec-code-block',
     );
     expect(codeContainers.length).toBe(2);
 
