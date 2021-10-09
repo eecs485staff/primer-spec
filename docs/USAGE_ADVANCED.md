@@ -14,6 +14,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Callouts](#callouts)
+- [Enhanced code blocks](#enhanced-code-blocks)
 - [Page configuration options](#page-configuration-options)
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
@@ -159,6 +160,26 @@ Use Callouts to highlight information in your specs. Here's an example:
 ```
 
 See the [Callouts demo](https://eecs485staff.github.io/primer-spec/demo/callouts.html) for examples of how to customize Callouts for your spec.
+
+## Enhanced code blocks
+
+Primer Spec automatically upgrades your code blocks! These enhanced code blocks let viewers copy code easily, while also letting you highlight important lines in the code.
+
+To highlight lines in a codeblock, specify them in a `data-highlight` attribute like this::
+
+<!-- prettier-ignore-start -->
+````markdown
+```python
+import os
+print("Hello world")
+print("spam and eggs")
+print("Ni! Ni! Ni!")
+```
+{: data-highlight="1,3" }
+````
+<!-- prettier-ignore-end -->
+
+Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/gists.html) for more examples of how to customize Enhanced code blocks for your spec.
 
 ## Page configuration options
 
