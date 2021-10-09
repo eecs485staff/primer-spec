@@ -18,7 +18,7 @@ print("Hello world!")
 ```
 ````
 
-Primer Spec **_enhancss_** plain old code blocks with the following features with gists on this page:
+Primer Spec **_enhances_** plain old code blocks with the following features:
 
 - [ ] **_Line numbers_** 🚀
 - [ ] Clicking a line number **_selects the line_**. It's easy to copy a single line!
@@ -127,7 +127,8 @@ So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
 {: data-highlight="5-8,13" }
-  ````
+````
+{: data-highlight="17"}
 
 </details>
 
