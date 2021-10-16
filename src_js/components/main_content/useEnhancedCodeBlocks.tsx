@@ -4,6 +4,9 @@ import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 
 const CODEBLOCK_LINE_CLASS = 'primer-spec-code-block-line-code';
+// We use the following class to ensure that we don't double-process code
+// blocks.
+const CODEBLOCK_PROCESSED_CLASS = 'primer-spec-code-block-processed';
 // We perform special handling for blocks in the `console` language: If a user
 // clicks the line number, the entire line will be highlighted EXCLUDING the
 // prompt (`$`) at the beginning, if it exists.
@@ -52,6 +55,7 @@ function getRawContentsFromJekyllRougeCodeblock(
   // <div
   //   class="highlighter-rouge language-[lang]"
   //   data-highlight="[highlight-range]" {/* OPTIONAL */}
+  //   data-variant="legacy"              {/* OPTIONAL */}
   // >
   //   <div class="highlight">
   //     <pre class="highlight">
@@ -90,41 +94,47 @@ function enhanceBlocks(
 ): number {
   let nextCodeBlockId = startId;
 
-  codeblocks.forEach((codeblock) => {
-    const codeblockNumericId = nextCodeBlockId++;
+  [...codeblocks]
+    .filter(
+      (codeblock: HTMLElement) =>
+        codeblock.querySelector(`.${CODEBLOCK_PROCESSED_CLASS}`) == null &&
+        codeblock.closest(`.${CODEBLOCK_PROCESSED_CLASS}`) == null,
+    )
+    .forEach((codeblock) => {
+      if (codeblock.dataset['variant'] === 'legacy') {
+        // We deccided not to enhance this block. Mark it as processed.
+        codeblock.classList.add(CODEBLOCK_PROCESSED_CLASS);
+        return;
+      }
+      const codeblockNumericId = nextCodeBlockId++;
 
-    const codeblockParent = codeblock.parentElement;
-    if (!codeblockParent) {
-      console.warn('useEnhanccedCodeBlocks: Codeblock missing parent');
-      return;
-    }
+      const codeblockParent = codeblock.parentElement;
+      if (!codeblockParent) {
+        console.warn('useEnhanccedCodeBlocks: Codeblock missing parent');
+        return;
+      }
 
-    const codeblockContents = getContents(codeblock);
-    if (codeblockContents == null) {
-      return;
-    }
+      const codeblockContents = getContents(codeblock);
+      if (codeblockContents == null) {
+        return;
+      }
 
-    const enhancedCodeBlock = createEnhancedCodeBlock(
-      codeblockNumericId,
-      codeblockContents,
-      getCodeBlockLanguage(codeblock),
-      codeblock.getAttribute('data-highlight'),
-    );
-    if (!enhancedCodeBlock) {
-      console.warn(
-        'useEnhancedCodeBlocks: Code Block was not created successfully.',
-        'codeblockId',
+      const enhancedCodeBlock = createEnhancedCodeBlock(
         codeblockNumericId,
+        codeblockContents,
+        getCodeBlockLanguage(codeblock),
+        codeblock.dataset['highlight'] || null,
       );
-      return;
-    }
+      if (!enhancedCodeBlock) {
+        return;
+      }
 
-    // Clear the old code block and replace with the enhanced block
-    codeblockParent.replaceChild(
-      <div class="primer-spec-code-block">{enhancedCodeBlock}</div>,
-      codeblock,
-    );
-  });
+      // Clear the old code block and replace with the enhanced block
+      codeblockParent.replaceChild(
+        <div class="primer-spec-code-block">{enhancedCodeBlock}</div>,
+        codeblock,
+      );
+    });
 
   return nextCodeBlockId;
 }
