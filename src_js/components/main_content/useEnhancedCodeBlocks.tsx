@@ -2,6 +2,7 @@
 import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
+import Config from '../../Config';
 
 const CODEBLOCK_LINE_CLASS = 'primer-spec-code-block-line-code';
 // We use the following class to ensure that we don't double-process code
@@ -55,7 +56,7 @@ function getRawContentsFromJekyllRougeCodeblock(
   // <div
   //   class="highlighter-rouge language-[lang]"
   //   data-highlight="[highlight-range]" {/* OPTIONAL */}
-  //   data-variant="legacy"              {/* OPTIONAL */}
+  //   data-variant="[legacy|enhanced]"   {/* OPTIONAL */}
   // >
   //   <div class="highlight">
   //     <pre class="highlight">
@@ -101,8 +102,8 @@ function enhanceBlocks(
         codeblock.closest(`.${CODEBLOCK_PROCESSED_CLASS}`) == null,
     )
     .forEach((codeblock) => {
-      if (codeblock.dataset['variant'] === 'legacy') {
-        // We deccided not to enhance this block. Mark it as processed.
+      if (shouldRetainLegacyCodeBlock(codeblock)) {
+        // We decided not to enhance this block. Mark it as processed.
         codeblock.classList.add(CODEBLOCK_PROCESSED_CLASS);
         return;
       }
@@ -137,6 +138,13 @@ function enhanceBlocks(
     });
 
   return nextCodeBlockId;
+}
+
+function shouldRetainLegacyCodeBlock(codeblock: HTMLElement): boolean {
+  if (codeblock.dataset['variant'] != null) {
+    return codeblock.dataset['variant'] === 'legacy';
+  }
+  return Config.USE_LEGACY_CODE_BLOCKS;
 }
 
 function createEnhancedCodeBlock(

@@ -9,6 +9,7 @@ declare var PrimerSpecConfig: {
   sitemapLabel?: string;
   sitemapEnabled?: boolean;
   sitemapSiteTitle?: string;
+  useLegacyCodeBlocks?: boolean;
 };
 
 // Other global types
