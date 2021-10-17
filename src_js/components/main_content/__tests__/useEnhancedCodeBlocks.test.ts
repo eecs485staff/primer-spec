@@ -2,6 +2,10 @@ import useEnhancedCodeBlocks, {
   parseCodeHighlightRanges,
 } from '../useEnhancedCodeBlocks';
 
+jest.mock('../../../Config', () => ({
+  USE_LEGACY_CODE_BLOCKS: false,
+}));
+
 const CONSOLE_BLOCK = `<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 <span class="nt">--version</span>  <span class="c"># NOTE: Your Python version may be different.</span>
 <span class="go">Python 3.7.4
 </span></code></pre></div></div>`;

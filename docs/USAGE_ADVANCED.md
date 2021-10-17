@@ -19,10 +19,12 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
+    - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean)
     - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+    - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean-1)
     - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
@@ -179,6 +181,17 @@ print("Ni! Ni! Ni!")
 ````
 <!-- prettier-ignore-end -->
 
+If you'd like to revert back to the original "legacy" style of code blocks, simply add the attribute `data-variant="legacy"`:
+
+<!-- prettier-ignore-start -->
+````markdown
+```console
+$ echo "Eggs & Spam"
+```
+{: data-variant="legacy" }
+````
+<!-- prettier-ignore-end -->
+
 Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/gists.html) for more examples of how to customize Enhanced code blocks for your spec.
 
 ## Page configuration options
@@ -203,7 +216,7 @@ Primer Spec supports the following page configuration options:
 
 Disable the the sidebar completely. (The Table of Contents will also not be generated.) Defaults to `false`.
 
-Example page: http://eecs485staff.github.io/primer-spec/demo/disable-sidebar.html
+Example page: http://eecs485staff.github.io/primer-spec/demo/page-configuration-options.html
 
 #### `hideSidebarOnLoad`: Boolean
 
@@ -235,6 +248,12 @@ For a full list of supported LaTeX commands, see the [MathJax docs](https://docs
 _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
+
+#### `useLegacyCodeBlocks`: Boolean
+
+Opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+
+This setting can be overriden per-block.
 
 #### `excludeFromSitemap`: Boolean
 
@@ -277,6 +296,12 @@ Specify the default subtheme name. This subtheme will be applied for first-time 
 #### `defaultSubthemeMode`: String
 
 Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
+
+#### `useLegacyCodeBlocks`: Boolean
+
+Opt out of ["enhancing" code blocks](#enhanced-code-blocks) on all pages in the entire site. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+
+This setting can be overriden per-page or per-block.
 
 #### `sitemap`: Boolean | {label: String}
 

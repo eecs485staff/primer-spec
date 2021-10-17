@@ -67,6 +67,19 @@ version_string: v1.6
                 ],
                 sitemapLabel: '{{ site.primerSpec.sitemap.label | default: "" }}',
                 sitemapSiteTitle: '{{ site.title | default: "" }}',
+                {%- comment -%}
+                The issue with the "default" filter is that it executes on ANY
+                falsy value. However, if the page-configuration option is
+                `false`, we DON'T want it to be overridden by the
+                site-configuration option. Hence, we need to explicitly compare
+                with `nil` before deciding to use the site-configuration
+                option.
+                {%- endcomment -%}
+                {% assign useLegacyCodeBlocks = page.useLegacyCodeBlocks %}
+                {%- if useLegacyCodeBlocks == nil -%}
+                {%- assign useLegacyCodeBlocks = site.primerSpec.useLegacyCodeBlocks -%}
+                {%- endif -%}
+                useLegacyCodeBlocks: {{ useLegacyCodeBlocks | default: false }},
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>

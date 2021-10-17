@@ -26,6 +26,8 @@ Primer Spec **_enhances_** plain old code blocks with the following features:
 - [ ] **_Copy the entire block_** with a single button.
 - [ ] Instructors can **_highlight_** specific lines!
 
+If you want, you can opt out of enhancing code blocks too. See [Legacy Style (Opt Out)](#legacy-style-opt-out).
+
 Ready to see some examples?
 
 # Examples
@@ -226,3 +228,54 @@ $ touch insta485/model.py
 {: data-highlight="1,3,9" }
   ````
 </details>
+
+# Legacy Style (Opt Out)
+
+Here's what the "legacy" style code block looks like:
+
+<!-- prettier-ignore-start -->
+```console
+$ echo "Spam & Eggs"
+```
+{: data-variant="legacy" }
+<!-- prettier-ignore-end -->
+
+In my opinion, the legacy style works best with single-line code blocks.
+
+If you'd like to revert to using the "legacy" style, decide whether you'd like to revert a single code block or all code blocks in the page or in the site.
+
+## Single code block
+
+Add the attribute `{: data-variant="legacy" }` to the code block. For instance:
+
+<!-- prettier-ignore-start -->
+````markdown
+```console
+# This is a LEGACY code block
+$ echo "Spam & Eggs"
+```
+{: data-variant="legacy" }
+````
+<!-- prettier-ignore-end -->
+
+If you have set the [page](#entire-page) or [site-wide](#entire-site) configuration options to use legacy code blocks, you can override the setting for a single code block as follows:
+
+<!-- prettier-ignore-start -->
+````markdown
+```console
+# This is an ENHANCED code block
+$ echo "Spam & Eggs"
+```
+{: data-variant="enhanced" }
+````
+<!-- prettier-ignore-end -->
+
+## Entire page
+
+Add the page configuration option `useLegacyCodeBlocks: true` to the top of the page. To learn more about page configuration options, see [USAGE_ADVANCED.md#page-configuration-options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#page-configuration-options).
+
+If you have set the [site-wide](#entire-site) configuration option to use legacy code blocks, you can override the setting for a single page by settings `useLegacyCodeBlocks: false` at the top of the page.
+
+## Entire site
+
+Add the site-wide configuration option `useLegacyCodeBlocks: true` under the `primerSpec` settings in `_config.yml`. To learn more about site configuration options, see [USAGE_ADVANCED.md#site-configuration-options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#site-configuration-options).
