@@ -272,10 +272,10 @@ $ echo "Spam & Eggs"
 
 ## Entire page
 
-Add the page configuration option `useLegacyCodeBlocks: true` to the top of the page. To learn more about page configuration options, see [USAGE_ADVANCED.md#page-configuration-options](../docs/USAGE_ADVANCED.md#page-configuration-options).
+Add the page configuration option `useLegacyCodeBlocks: true` to the top of the page. To learn more about page configuration options, see [USAGE_ADVANCED.md#page-configuration-options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#page-configuration-options).
 
 If you have set the [site-wide](#entire-site) configuration option to use legacy code blocks, you can override the setting for a single page by settings `useLegacyCodeBlocks: false` at the top of the page.
 
 ## Entire site
 
-Add the site-wide configuration option `useLegacyCodeBlocks: true` under the `primerSpec` settings in `_config.yml`. To learn more about site configuration options, see [USAGE_ADVANCED.md#site-configuration-options](../docs/USAGE_ADVANCED.md#site-configuration-options).
+Add the site-wide configuration option `useLegacyCodeBlocks: true` under the `primerSpec` settings in `_config.yml`. To learn more about site configuration options, see [USAGE_ADVANCED.md#site-configuration-options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#site-configuration-options).
