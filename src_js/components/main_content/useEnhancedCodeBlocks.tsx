@@ -57,6 +57,7 @@ function getRawContentsFromJekyllRougeCodeblock(
   //   class="highlighter-rouge language-[lang]"
   //   data-highlight="[highlight-range]" {/* OPTIONAL */}
   //   data-variant="[legacy|enhanced]"   {/* OPTIONAL */}
+  //   data-title="[title]"               {/* OPTIONAL */}
   // >
   //   <div class="highlight">
   //     <pre class="highlight">
@@ -125,6 +126,7 @@ function enhanceBlocks(
         codeblockContents,
         getCodeBlockLanguage(codeblock),
         codeblock.dataset['highlight'] || null,
+        codeblock.dataset['title'] || null,
       );
       if (!enhancedCodeBlock) {
         return;
@@ -152,6 +154,7 @@ function createEnhancedCodeBlock(
   rawContent: string,
   language: string | null,
   rawHighlightRanges: string | null,
+  title?: string | null,
 ): HTMLElement | null {
   const lines = rawContent.split('\n');
   if (lines.length === 0) {
@@ -170,9 +173,18 @@ function createEnhancedCodeBlock(
 
   const codeblockId = `primer-spec-code-block-${codeblockNumericId}`;
 
+  const header = genCodeBlockHeader(title);
   const enhancedCodeBlock = (
     <div id={codeblockId} class="Box mt-3 text-mono">
-      <div class="Box-body p-0 primer-spec-code-block-body">
+      {header}
+      <div
+        class={clsx(
+          'Box-body',
+          'p-0',
+          'primer-spec-code-block-body',
+          header && 'primer-spec-code-block-header-present',
+        )}
+      >
         <table class="highlight">
           {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
           <tbody
@@ -346,6 +358,17 @@ function genCopyButton(codeblockId: string) {
       >
         <i class="far fa-copy" />
       </button>
+    </div>
+  );
+}
+
+function genCodeBlockHeader(title?: string | null) {
+  if (title == null) {
+    return null;
+  }
+  return (
+    <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-code-block-header">
+      <span class="flex-auto">{title}</span>
     </div>
   );
 }

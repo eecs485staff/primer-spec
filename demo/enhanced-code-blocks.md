@@ -24,7 +24,8 @@ Primer Spec **_enhances_** plain old code blocks with the following features:
 - [ ] Clicking a line number **_selects the line_**. It's easy to copy a single line!
   - [ ] You can even click-and-drag to select multiple lines simultaneously!
 - [ ] **_Copy the entire block_** with a single button.
-- [ ] Instructors can **_highlight_** specific lines!
+- [ ] Instructors can [**_highlight_** specific lines](#highlighted-lines)
+- [ ] Instructors can name their code blocks by [adding a title](#title-code-block-header).
 
 If you want, you can opt out of enhancing code blocks too. See [Legacy Style (Opt Out)](#legacy-style-opt-out).
 
@@ -228,6 +229,132 @@ $ touch insta485/model.py
 {: data-highlight="1,3,9" }
   ````
 </details>
+
+## Title (code block header)
+
+You can optionally specify a "title" for the code block — perhaps it could be a filename — to be displayed above the code block. Specify it by adding the `data-title` attribute. Here's an example:
+
+<!-- prettier-ignore-start -->
+```python
+import numpy as np
+
+def pagerank(M, num_iterations=100, d=0.85):
+    N = M.shape[1]
+    v = np.random.rand(N, 1)
+    v = v / np.linalg.norm(v, 1)
+    iteration = 0
+    while iteration < num_iterations:
+        iteration += 1
+        v = d * np.matmul(M, v) + (1 - d) / N
+    return v
+```
+{: data-title="Simplified PageRank implementation" }
+<!-- prettier-ignore-end -->
+
+<!-- prettier-ignore-start -->
+<details markdown="1">
+  <summary>Source code for this code block with title</summary>
+  
+  ````markdown
+```python
+import numpy as np
+
+def pagerank(M, num_iterations=100, d=0.85):
+    N = M.shape[1]
+    v = np.random.rand(N, 1)
+    v = v / np.linalg.norm(v, 1)
+    iteration = 0
+    while iteration < num_iterations:
+        iteration += 1
+        v = d * np.matmul(M, v) + (1 - d) / N
+    return v
+```
+{: data-title="Simplified PageRank implementation" }
+  ````
+  {: data-highlight="14" }
+</details>
+<!-- prettier-ignore-end -->
+
+Here's an example of a code block specifying a title *and* [highlighted ranges](#highlighted-lines).
+
+<!-- prettier-ignore-start -->
+```plaintext
+# From https://slate.com/technology/2019/10/consequential-computer-code-software-history.html
+POODOO    INHINT
+    CA  Q
+    TS  ALMCADR
+
+    TC  BANKCALL
+    CADR  VAC5STOR  # STORE ERASABLES FOR DEBUGGING PURPOSES.
+
+    INDEX  ALMCADR
+    CAF  0
+ABORT2    TC  BORTENT
+
+OCT77770  OCT  77770    # DONT MOVE
+    CA  V37FLBIT  # IS AVERAGE G ON
+    MASK  FLAGWRD7
+    CCS  A
+    TC  WHIMPER -1  # YES.  DONT DO POODOO.  DO BAILOUT.
+
+    TC  DOWNFLAG
+    ADRES  STATEFLG
+
+    TC  DOWNFLAG
+    ADRES  REINTFLG
+
+    TC  DOWNFLAG
+    ADRES  NODOFLAG
+
+    TC  BANKCALL
+    CADR  MR.KLEAN
+    TC  WHIMPER
+```
+{: data-title="Apollo 11 memory management" data-highlight="7,13,14,17" }
+<!-- prettier-ignore-end -->
+
+<!-- prettier-ignore-start -->
+<details markdown="1">
+  <summary>Source code for this code block with title</summary>
+  
+  ````markdown
+```plaintext
+# From https://slate.com/technology/2019/10/consequential-computer-code-software-history.html
+POODOO    INHINT
+    CA  Q
+    TS  ALMCADR
+
+    TC  BANKCALL
+    CADR  VAC5STOR  # STORE ERASABLES FOR DEBUGGING PURPOSES.
+
+    INDEX  ALMCADR
+    CAF  0
+ABORT2    TC  BORTENT
+
+OCT77770  OCT  77770    # DONT MOVE
+    CA  V37FLBIT  # IS AVERAGE G ON
+    MASK  FLAGWRD7
+    CCS  A
+    TC  WHIMPER -1  # YES.  DONT DO POODOO.  DO BAILOUT.
+
+    TC  DOWNFLAG
+    ADRES  STATEFLG
+
+    TC  DOWNFLAG
+    ADRES  REINTFLG
+
+    TC  DOWNFLAG
+    ADRES  NODOFLAG
+
+    TC  BANKCALL
+    CADR  MR.KLEAN
+    TC  WHIMPER
+```
+{: data-title="Apollo 11 memory management" data-highlight="7,13,14,17" }
+````
+  {: data-highlight="33" }
+</details>
+<!-- prettier-ignore-end -->
 
 # Legacy Style (Opt Out)
 
