@@ -594,7 +594,6 @@ div.primer-spec-callout {
  * ENHANCED CODE BLOCKS
  */
 .markdown-body .primer-spec-code-block {
-  position: relative;
   margin-bottom: 16px;
   font-size: 0.85em;
   color: var(--code-block-default-color);
@@ -605,8 +604,18 @@ div.primer-spec-callout {
     border-color: var(--code-block-border-color);
   }
 
+  &-header {
+    background-color: var(--code-block-header-bg-color);
+  }
+
   &-body {
+    position: relative;
     tab-size: 4;
+
+    &.primer-spec-code-block-header-present table.highlight {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
   }
 
   &-highlighted {

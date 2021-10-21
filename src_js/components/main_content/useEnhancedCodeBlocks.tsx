@@ -2,12 +2,17 @@
 import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
+import AnchorJS from 'anchor-js';
 import Config from '../../Config';
+import slugify from '@sindresorhus/slugify';
 
 const CODEBLOCK_LINE_CLASS = 'primer-spec-code-block-line-code';
 // We use the following class to ensure that we don't double-process code
 // blocks.
 const CODEBLOCK_PROCESSED_CLASS = 'primer-spec-code-block-processed';
+// Since we want to linkify code block titles, this is the class used to
+// identify them to AnchorJS.
+const CODEBLOCK_TITLE_CLASS = 'primer-spec-code-block-title';
 // We perform special handling for blocks in the `console` language: If a user
 // clicks the line number, the entire line will be highlighted EXCLUDING the
 // prompt (`$`) at the beginning, if it exists.
@@ -57,6 +62,7 @@ function getRawContentsFromJekyllRougeCodeblock(
   //   class="highlighter-rouge language-[lang]"
   //   data-highlight="[highlight-range]" {/* OPTIONAL */}
   //   data-variant="[legacy|enhanced]"   {/* OPTIONAL */}
+  //   data-title="[title]"               {/* OPTIONAL */}
   // >
   //   <div class="highlight">
   //     <pre class="highlight">
@@ -120,11 +126,16 @@ function enhanceBlocks(
         return;
       }
 
+      const title = codeblock.dataset['title'] || null;
+      const anchorId = title ? slugify(title) : null;
+
       const enhancedCodeBlock = createEnhancedCodeBlock(
         codeblockNumericId,
         codeblockContents,
         getCodeBlockLanguage(codeblock),
         codeblock.dataset['highlight'] || null,
+        title,
+        anchorId,
       );
       if (!enhancedCodeBlock) {
         return;
@@ -132,10 +143,15 @@ function enhanceBlocks(
 
       // Clear the old code block and replace with the enhanced block
       codeblockParent.replaceChild(
-        <div class="primer-spec-code-block">{enhancedCodeBlock}</div>,
+        <div id={anchorId ?? undefined} class="primer-spec-code-block">
+          {enhancedCodeBlock}
+        </div>,
         codeblock,
       );
     });
+
+  // We need to add anchors to Code Block titles if applicable
+  new AnchorJS().add(`.${CODEBLOCK_TITLE_CLASS}`);
 
   return nextCodeBlockId;
 }
@@ -152,6 +168,8 @@ function createEnhancedCodeBlock(
   rawContent: string,
   language: string | null,
   rawHighlightRanges: string | null,
+  title?: string | null,
+  anchorId?: string | null,
 ): HTMLElement | null {
   const lines = rawContent.split('\n');
   if (lines.length === 0) {
@@ -170,9 +188,18 @@ function createEnhancedCodeBlock(
 
   const codeblockId = `primer-spec-code-block-${codeblockNumericId}`;
 
+  const header = genCodeBlockHeader(title, anchorId);
   const enhancedCodeBlock = (
     <div id={codeblockId} class="Box mt-3 text-mono">
-      <div class="Box-body p-0 primer-spec-code-block-body">
+      {header}
+      <div
+        class={clsx(
+          'Box-body',
+          'p-0',
+          'primer-spec-code-block-body',
+          header && 'primer-spec-code-block-header-present',
+        )}
+      >
         <table class="highlight">
           {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
           <tbody
@@ -346,6 +373,22 @@ function genCopyButton(codeblockId: string) {
       >
         <i class="far fa-copy" />
       </button>
+    </div>
+  );
+}
+
+function genCodeBlockHeader(title?: string | null, anchorId?: string | null) {
+  if (title == null) {
+    return null;
+  }
+  return (
+    <div class="Box-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center primer-spec-code-block-header">
+      <span
+        class={clsx('flex-auto', CODEBLOCK_TITLE_CLASS)}
+        data-anchor-id={anchorId}
+      >
+        {title}
+      </span>
     </div>
   );
 }
