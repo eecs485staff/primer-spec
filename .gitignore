@@ -6,6 +6,7 @@ Gemfile.lock
 *.gem
 assets/**/*.html
 assets/**/*.md
+report.html
 
 .DS_Store
 .jekyll-cache
