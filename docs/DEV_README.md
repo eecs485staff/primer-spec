@@ -76,6 +76,8 @@ Don’t forget to open the [VSCode Workspace](https://code.visualstudio.com/docs
 
 [Jest](https://jestjs.io/) is also available for writing unit and integration tests.
 
+To analyze JS dependencies and investigate how much each dependency and file contributes to the final JS bundle size, run `script/server`, then visit http://localhost:4000/report.html.
+
 ## Demo pages
 
 To test Primer Spec functionality, the repository features several different demo pages. (This repository is itself a Jekyll site!)
