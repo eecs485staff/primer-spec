@@ -37,6 +37,8 @@ export const SUBTHEME_VARS = [
   '--tt-border-radius',
   '--main-bg-color',
   '--main-text-color',
+  '--main-table-bg-color',
+  '--main-table-bg-contrast-color',
   '--main-table-pre-bg-color',
   '--main-table-pre-text-color',
   '--main-table-pre-border',
