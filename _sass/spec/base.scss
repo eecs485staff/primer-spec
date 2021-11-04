@@ -464,13 +464,16 @@ body,
   }
 
   table tr {
+    // Reuse styles for [legacy] code blocks
     @include theme-colors(main-table-pre, #f6f8fa);
+    // But override the background color alone
+    background-color: var(--main-table-bg-color, white);
   }
 
-  // In the original Primer theme, every other row is colored contrastively.
-  // In dark themes, it doesn't look great.
+  // Contrastive coloring for alternate table rows
   table tr:nth-child(2n) {
-    background-color: var(--main-table-pre-bg-color, #f6f8fa);
+    // But override the background color alone
+    background-color: var(--main-table-bg-contrast-color, #f6f8fa);
   }
 
   blockquote {

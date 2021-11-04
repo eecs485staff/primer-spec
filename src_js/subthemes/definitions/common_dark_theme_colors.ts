@@ -7,6 +7,8 @@ const BORDER_LINE_COLOR = '#21262d';
 export default {
   '--sidebar-border-color': BORDER_LINE_COLOR,
   '--main-text-color': MAIN_TEXT_COLOR,
+  '--main-table-bg-color': '#0d1117',
+  '--main-table-bg-contrast-color': '#262d36',
   '--main-table-pre-bg-color': CODE_BG_COLOR,
   '--main-table-pre-text-color': CODE_COLOR,
   '--main-table-pre-border': CODE_BORDER,
