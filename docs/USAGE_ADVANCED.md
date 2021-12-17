@@ -192,7 +192,7 @@ $ echo "Eggs & Spam"
 ````
 <!-- prettier-ignore-end -->
 
-Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/gists.html) for more examples of how to customize Enhanced code blocks for your spec.
+Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html) for more examples of how to customize Enhanced code blocks for your spec.
 
 ## Page configuration options
 
