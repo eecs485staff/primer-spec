@@ -142,12 +142,19 @@ $ git checkout main
 $ git merge -S develop
 ```
 
-3. Freeze the version (remove the `.d` at the end of the version string) by running:
+3. Build the latest JS source
+
+```console
+$ script/cibuild
+$ git add assets
+```
+
+4. Freeze the version (remove the `.d` at the end of the version string) by running:
 
 ```console
 $ script/version freeze
 $ git add VERSION
-$ git commit -S -m "Freeze version v1.2"
+$ STAGE_STATIC_ASSETS=true git commit -S -m "Freeze version v1.2"
 ```
 
 4. Push your changes to GitHub with `git push`.
