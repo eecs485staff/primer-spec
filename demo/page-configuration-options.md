@@ -19,7 +19,7 @@ This configuration option is useful for small pages, or for pages with few headi
 
 ### `useLegacyCodeBlocks: true`
 
-This boolean indicates whether code blocks should _not_ be enhanced on the page. (By default, [code blocks are enhanced](./enhanced-code-blocks.md) by Primer Spec.)
+This boolean indicates whether code blocks should _not_ be enhanced on the page. (By default, [code blocks are enhanced](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html) by Primer Spec.)
 
 Here's a code block. Notice how it uses the "legacy" formatting.
 
@@ -28,7 +28,7 @@ import os
 print("Spam & Eggs")
 ```
 
-It's possible to [override this setting](./enhanced-code-blocks.md#single-code-block) at the codeblock level — simply add the `data-variant="enhanced"` attribute to the code block. Here's an example:
+It's possible to [override this setting](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html#single-code-block) at the codeblock level — simply add the `data-variant="enhanced"` attribute to the code block. Here's an example:
 
 <!-- prettier-ignore-start -->
 ```python
