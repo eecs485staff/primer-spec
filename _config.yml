@@ -18,6 +18,7 @@ kramdown:
   input: GFM
 
 primerSpec:
-  # sitemap: true
-  # sitemap:
-  #   label: Demo pages
+# sitemap: true
+# sitemap:
+#   label: Demo pages
+# useLegacyCodeBlocks: true

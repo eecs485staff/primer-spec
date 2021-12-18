@@ -56,6 +56,7 @@ const modern_theme_vars: SubthemeDefinitionType = {
     '--hoverable-link-hover-color': '#fdf3f3', // lighten($MODERN_MAIN_LINK_COLOR, 30%)
 
     '--main-bg-color': 'rgb(28, 28, 30)',
+
     ...common_dark_theme_colors,
 
     rouge_theme: 'monokai',

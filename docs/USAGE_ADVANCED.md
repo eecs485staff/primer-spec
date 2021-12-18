@@ -14,14 +14,17 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
 - [Callouts](#callouts)
+- [Enhanced code blocks](#enhanced-code-blocks)
 - [Page configuration options](#page-configuration-options)
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
+    - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean)
     - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
+    - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean-1)
     - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
@@ -160,6 +163,37 @@ Use Callouts to highlight information in your specs. Here's an example:
 
 See the [Callouts demo](https://eecs485staff.github.io/primer-spec/demo/callouts.html) for examples of how to customize Callouts for your spec.
 
+## Enhanced code blocks
+
+Primer Spec automatically upgrades your code blocks! These enhanced code blocks let viewers copy code easily, while also letting you highlight important lines in the code.
+
+To highlight lines in a codeblock, specify them in a `data-highlight` attribute like this::
+
+<!-- prettier-ignore-start -->
+````markdown
+```python
+import os
+print("Hello world")
+print("spam and eggs")
+print("Ni! Ni! Ni!")
+```
+{: data-highlight="1,3" }
+````
+<!-- prettier-ignore-end -->
+
+If you'd like to revert back to the original "legacy" style of code blocks, simply add the attribute `data-variant="legacy"`:
+
+<!-- prettier-ignore-start -->
+````markdown
+```console
+$ echo "Eggs & Spam"
+```
+{: data-variant="legacy" }
+````
+<!-- prettier-ignore-end -->
+
+Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html) for more examples of how to customize Enhanced code blocks for your spec.
+
 ## Page configuration options
 
 The following configuration options can be specified in the ["front-matter"](https://jekyllrb.com/docs/front-matter/) of your page, in the same place that you specify the page's layout. For instance, to disable the Primer Spec sidebar and render LaTeX expressions, modify your page to look like this:
@@ -182,7 +216,7 @@ Primer Spec supports the following page configuration options:
 
 Disable the the sidebar completely. (The Table of Contents will also not be generated.) Defaults to `false`.
 
-Example page: http://eecs485staff.github.io/primer-spec/demo/disable-sidebar.html
+Example page: http://eecs485staff.github.io/primer-spec/demo/page-configuration-options.html
 
 #### `hideSidebarOnLoad`: Boolean
 
@@ -214,6 +248,12 @@ For a full list of supported LaTeX commands, see the [MathJax docs](https://docs
 _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
+
+#### `useLegacyCodeBlocks`: Boolean
+
+Opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+
+This setting can be overriden per-block.
 
 #### `excludeFromSitemap`: Boolean
 
@@ -257,6 +297,12 @@ Specify the default subtheme name. This subtheme will be applied for first-time 
 
 Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
 
+#### `useLegacyCodeBlocks`: Boolean
+
+Opt out of ["enhancing" code blocks](#enhanced-code-blocks) on all pages in the entire site. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+
+This setting can be overriden per-page or per-block.
+
 #### `sitemap`: Boolean | {label: String}
 
 _[EECS 280's Project 1](https://eecs280staff.github.io/p1-stats/) has a great example of a sitemap!_
@@ -283,7 +329,7 @@ _NOTE:_ A sitemap will only be rendered if your site has multiple pages.
 
 ## Pinning to a specific version
 
-We take care to release new versions of Primer Spec on the `master` branch only between semesters at the University of Michigan. However, if your site needs an even stronger guarantee of stability, you can pin your site to a specific _minor_ version of Primer Spec.
+We take care to release new versions of Primer Spec on the `main` branch only between semesters at the University of Michigan. However, if your site needs an even stronger guarantee of stability, you can pin your site to a specific _minor_ version of Primer Spec.
 
 1. Visit the [Primer Spec Releases](https://github.com/eecs485staff/primer-spec/releases) page. Find the version to which you'd like to pin your site, and note down its title. (For instance, `v1.3.1+fa20`.)
 2. Update your site's `_config.yml` with the version tag from step (1). Specifically, update this line:

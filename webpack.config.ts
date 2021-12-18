@@ -13,6 +13,7 @@ import * as path from 'path';
 import * as semver from 'semver';
 import * as webpack from 'webpack';
 import * as webpackDevServer from 'webpack-dev-server';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 interface Configuration extends webpack.Configuration {
   devServer?: webpackDevServer.Configuration;
@@ -75,6 +76,11 @@ export default function (env: NodeJS.ProcessEnv): Configuration {
         'process.env.VERSION_RAW': JSON.stringify(VERSION_RAW),
         'process.env.VERSION_MINOR_STR': JSON.stringify(VERSION_MINOR_STR),
         'process.env.BUILD_MODE': JSON.stringify(getBuildMode(env)),
+      }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+        reportFilename: '../../../report.html',
       }),
     ],
     optimization: {

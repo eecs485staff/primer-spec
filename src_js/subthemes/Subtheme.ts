@@ -61,6 +61,24 @@ export const SUBTHEME_VARS = [
   '--primer-spec-callout-success-bg-color',
   '--primer-spec-callout-success-text-color',
   '--primer-spec-callout-success-border-color',
+
+  '--code-block-default-color',
+  '--code-block-border-color',
+  '--code-block-header-bg-color',
+  '--code-block-bg-color',
+  '--code-block-line-number-color',
+  '--code-block-highlight-bg-color',
+  '--code-block-highlight-shadow-color',
+  '--code-block-button-color',
+  '--code-block-button-bg-color',
+  '--code-block-button-border-color',
+  '--code-block-button-shadow',
+  '--code-block-button-shadow-inset-color',
+  '--code-block-button-hover-bg-color',
+  '--code-block-button-hover-border-color',
+
+  '--tooltip-background-color',
+  '--tooltip-color',
 ] as const;
 
 // As described in: https://stackoverflow.com/a/45257357/5868796

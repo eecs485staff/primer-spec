@@ -21,8 +21,10 @@
     "./src_js/main.tsx"
   ],
   "dependencies": {
+    "@sindresorhus/slugify": "^2.1.0",
     "anchor-js": "^4.3.1",
     "clsx": "^1.1.1",
+    "jsx-dom": "*",
     "preact": "^10.5.14"
   },
   "devDependencies": {
@@ -57,6 +59,7 @@
     "ts-node": "^10.1.0",
     "typescript": "^3.9.7",
     "webpack": "^5.49.0",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
     "yargs": "^17.1.0"

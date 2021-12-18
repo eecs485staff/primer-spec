@@ -1,7 +1,8 @@
 const MAIN_TEXT_COLOR = '#c9d1d9';
 const CODE_COLOR = 'white';
 const CODE_BG_COLOR = '#161b22';
-const CODE_BORDER = '1px solid rgb(60, 62, 66)';
+const CODE_BORDER_COLOR = 'rgb(60, 62, 66)';
+const CODE_BORDER = `1px solid ${CODE_BORDER_COLOR}`;
 const BORDER_LINE_COLOR = '#21262d';
 
 export default {
@@ -36,4 +37,22 @@ export default {
   '--primer-spec-callout-success-bg-color': 'rgba(46, 160, 67, 0.1)',
   '--primer-spec-callout-success-text-color': '#56d364',
   '--primer-spec-callout-success-border-color': 'rgba(46, 160, 67, 0.4)',
+
+  '--code-block-default-color': MAIN_TEXT_COLOR,
+  '--code-block-border-color': CODE_BORDER_COLOR,
+  '--code-block-header-bg-color': CODE_BG_COLOR,
+  '--code-block-bg-color': 'rgb(13, 17, 23)',
+  '--code-block-line-number-color': '#484f58',
+  '--code-block-highlight-bg-color': 'rgba(187, 128, 9, 0.15)',
+  '--code-block-highlight-shadow-color': 'rgba(187, 128, 9, 0.4)',
+  '--code-block-button-color': MAIN_TEXT_COLOR,
+  '--code-block-button-bg-color': BORDER_LINE_COLOR,
+  '--code-block-button-border-color': 'rgba(240, 246, 252, 0.1)',
+  '--code-block-button-shadow': '0 0 transparent',
+  '--code-block-button-shadow-inset-color': '0 0 transparent',
+  '--code-block-button-hover-bg-color': 'rgb(48, 54, 61)',
+  '--code-block-button-hover-border-color': 'rgb(140, 148, 158)',
+
+  '--tooltip-background-color': 'rgb(110, 118, 129)',
+  '--tooltip-color': 'white',
 };

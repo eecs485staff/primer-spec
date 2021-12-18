@@ -76,6 +76,8 @@ Don’t forget to open the [VSCode Workspace](https://code.visualstudio.com/docs
 
 [Jest](https://jestjs.io/) is also available for writing unit and integration tests.
 
+To analyze JS dependencies and investigate how much each dependency and file contributes to the final JS bundle size, run `script/server`, then visit http://localhost:4000/report.html.
+
 ## Demo pages
 
 To test Primer Spec functionality, the repository features several different demo pages. (This repository is itself a Jekyll site!)
@@ -98,9 +100,9 @@ The `script` directory contains various utility scripts for use during developme
 
 ## Stable and Nightly builds
 
-Since the `develop` branch is ahead of the `master` branch [for months at a time](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
+Since the `develop` branch is ahead of the `main` branch [for months at a time](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
 
-- The `master` branch hosts the latest stable version, and is deployed via GitHub Pages to https://eecs485staff.github.io/primer-spec/. This site also hosts the CSS and JS assets used by most external Primer Spec pages.
+- The `main` branch hosts the latest stable version, and is deployed via GitHub Pages to https://eecs485staff.github.io/primer-spec/. This site also hosts the CSS and JS assets used by most external Primer Spec pages.
 - The `develop` branch has all the latest changes and is deployed to a private server at https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/. (This link is also available from the project README page.) It’s automatically updated on every push to the `develop` branch and is rebuilt at least once a month.
 
 Every open PR is also deployed to the private server via [Primer Spec Preview](https://github.com/seshrs/primer-spec-preview) to dynamically interact with proposed changes. The link is made available in a PR comment.
@@ -109,11 +111,11 @@ Every open PR is also deployed to the private server via [Primer Spec Preview](h
 
 See the [CONTRIBUTING docs](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bootstrap-your-local-environment) for actual setup instructions.
 
-Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which ensures that the assets directory is not accidentally modified by commits. (We update the pre-committed JavaScript bundles just before deploying the `master` branch for use by external websites.)
+Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which ensures that the assets directory is not accidentally modified by commits. (We update the pre-committed JavaScript bundles just before deploying the `main` branch for use by external websites.)
 
 For everyday development, use `script/server`, which builds and serves the site at https://localhost:4000. Open the VSCode workspace `primer-spec.code-workspace` and install the recommended extensions for easy ESLint and Prettier formatting.
 
-For every Pull Review and commit to `develop`/`master`, GitHub Actions runs `script/cibuild` to sanity-check that Jekyll can build the website, and also runs linters and any Jest tests. Testing is currently manual — **efforts to improve our automated testing of Primer Spec would be appreciated**.
+For every Pull Review and commit to `develop`/`main`, GitHub Actions runs `script/cibuild` to sanity-check that Jekyll can build the website, and also runs linters and any Jest tests. Testing is currently manual — **efforts to improve our automated testing of Primer Spec would be appreciated**.
 
 ## Versioning & backwards compatibility
 

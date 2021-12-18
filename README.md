@@ -43,7 +43,7 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
 3. If it doesn't already exist, create a file `_config.yml` in your site's root directory. Add this content to the file:
 
    ```yml
-   remote_theme: eecs485staff/primer-spec@master
+   remote_theme: eecs485staff/primer-spec
    plugins:
      - jekyll-remote-theme
      - jekyll-optional-front-matter
@@ -69,6 +69,7 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
 - [Configure Primer Spec](docs/USAGE_ADVANCED.md#page-configuration-options)
   - [Render math expressions with LaTeX](docs/USAGE_ADVANCED.md#latex-boolean)
   - [Add Callouts for important information](docs/USAGE_ADVANCED.md#callouts)
+  - [Highlight lines in code blocks](docs/USAGE_ADVANCED.md#enhanced-code-blocks)
   - [Disable the sidebar](docs/USAGE_ADVANCED.md#dissablesidebar-boolean)
   - [Render a sitemap](docs/USAGE_ADVANCED.md#sitemap-boolean--label-string)
   - (And more!)

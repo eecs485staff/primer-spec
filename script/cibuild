@@ -8,8 +8,15 @@ bundle exec rubocop -D
 bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
 
+# NOTE: The following will be removed after the master branch is removed.
 # On the master branch, check the HTML
 if [ "$(git rev-parse --abbrev-ref HEAD)" = 'master' ]; then
+  bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/"
+fi
+# NOTE: End of section to delete after master is removed.
+
+# On the main branch, check the HTML
+if [ "$(git rev-parse --abbrev-ref HEAD)" = 'main' ]; then
   bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/"
 fi
 

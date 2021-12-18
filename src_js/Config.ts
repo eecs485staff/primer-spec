@@ -32,6 +32,7 @@ export default {
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
+  USE_LEGACY_CODE_BLOCKS: window.PrimerSpecConfig.useLegacyCodeBlocks || false,
 
   // Other constants
   PRIMER_SPEC_APP_NODE_ID: 'primer-spec-app-container',
