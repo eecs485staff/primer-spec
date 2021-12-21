@@ -75,6 +75,7 @@ So long as men can breathe or eyes can see,
 So long lives this and this gives life to thee.
 ```
   ````
+  {: data-title="markdown" }
 </details>
 
 ## Highlighted lines
@@ -131,7 +132,7 @@ So long lives this and this gives life to thee.
 ```
 {: data-highlight="5-8,13" }
 ````
-{: data-highlight="17"}
+{: data-highlight="17" data-title="markdown" }
 
 </details>
 
@@ -187,6 +188,7 @@ x = {
 print(json.dumps(x, indent=4, separators=(". ", " = ")))
 ```
 ````
+{: data-title="markdown" }
 </details>
 <!-- prettier-ignore-end -->
 
@@ -226,7 +228,7 @@ insta485/static/
     └── logo.png
 $ touch insta485/model.py
 ```
-{: data-highlight="1,3,9" }
+{: data-highlight="1,3,9" data-title="markdown" }
   ````
 </details>
 
@@ -271,7 +273,7 @@ def pagerank(M, num_iterations=100, d=0.85):
 ```
 {: data-title="Simplified PageRank implementation" }
   ````
-  {: data-highlight="14" }
+  {: data-highlight="14" data-title="markdown" }
 </details>
 <!-- prettier-ignore-end -->
 
@@ -352,7 +354,7 @@ OCT77770  OCT  77770    # DONT MOVE
 ```
 {: data-title="Apollo 11 memory management" data-highlight="7,13,14,17" }
 ````
-  {: data-highlight="33" }
+  {: data-highlight="33" data-title="markdown" }
 </details>
 <!-- prettier-ignore-end -->
 

@@ -128,7 +128,9 @@ function enhanceBlocks(
       }
 
       const title = codeblock.dataset['title'] || null;
-      const anchorId = title ? slugify(title) : null;
+      const anchorId = title
+        ? createCodeBlockAnchorId(codeblockNumericId, title)
+        : null;
 
       const enhancedCodeBlock = createEnhancedCodeBlock(
         codeblockNumericId,
@@ -500,4 +502,11 @@ function selectLines(
   range.setEnd(endNode, endNode.childNodes.length);
   document.getSelection()?.removeAllRanges();
   document.getSelection()?.addRange(range);
+}
+
+function createCodeBlockAnchorId(
+  codeblockNumericId: number,
+  title: string,
+): string {
+  return `${slugify(title)}-${codeblockNumericId}`;
 }
