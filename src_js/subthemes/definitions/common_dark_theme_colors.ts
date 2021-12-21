@@ -15,6 +15,7 @@ export default {
   '--main-table-pre-border': CODE_BORDER,
   '--tt-bg-color': 'rgba(240, 246, 252, 0.15)',
   '--tt-text-color': MAIN_TEXT_COLOR,
+  '--tt-border': '0px',
   '--tt-border-radius': '6px',
   // Use the sidebar active color for each theme
   '--sidebar-tt-active-bg-color': 'rgba(0, 0, 0, 0)',
