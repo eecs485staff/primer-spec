@@ -76,7 +76,8 @@ function getRawContentsFromJekyllRougeCodeblock(
   // Notice that `contents` is wrapped in a pre-formatted block. Hence, we will
   // use newlines in `contents` to demarcate lines, and we need to preserve
   // whitespace within the line.
-  const codeEl = codeblock.firstChild?.firstChild?.firstChild;
+  const codeEl =
+    codeblock.firstElementChild?.firstElementChild?.firstElementChild;
   if (codeEl == null) {
     console.warn(
       'useEnhancedCodeBlocks: Code Block has malformed structure. See Primer Spec Docs for expected structure. https://github.com/eecs485staff/primer-spec/blob/main/docs/USAGE_ADVANCED.md#enhanced-code-blocks',
