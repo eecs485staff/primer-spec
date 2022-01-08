@@ -41,6 +41,7 @@ export default {
   SUBTHEME_NAME_STORAGE_KEY,
   SUBTHEME_MODE_STORAGE_KEY,
   DEFAULT_ACTIVE_SECTION_OFFSET_Y: 10,
+  DIFF_HTML_STORAGE_TTL: 1000 * 60 * 60 * 24 * 7 * 2, // 2 weeks
 };
 
 function getHideSidebarOnLoad() {
