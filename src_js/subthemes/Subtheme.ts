@@ -79,6 +79,7 @@ export const SUBTHEME_VARS = [
 
   '--tooltip-background-color',
   '--tooltip-color',
+  '--kbd-border-color',
 ] as const;
 
 // As described in: https://stackoverflow.com/a/45257357/5868796
