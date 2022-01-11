@@ -47,7 +47,7 @@ export default function useEnhancedCodeBlocks(
   // Then attempt to enhance ordinary <pre> blocks.
   enhanceBlocks(
     mainElRef.current.querySelectorAll('pre'),
-    (codeblock: HTMLElement) => codeblock.innerHTML.trim(),
+    getRawContentsFromPreCodeblock,
     numCodeBlocks,
   );
 
@@ -88,6 +88,25 @@ function getRawContentsFromJekyllRougeCodeblock(
   }
 
   return (codeEl as HTMLElement).innerHTML;
+}
+
+function getRawContentsFromPreCodeblock(
+  codeblock_: HTMLElement,
+): string | null {
+  let codeblock = codeblock_;
+  // The structure of a <pre> codeblock:
+  // <pre>
+  //   <code> <!-- OPTIONAL -->
+  //     [contents]
+  //   </code>
+  // </pre>
+  if (
+    codeblock.childNodes.length === 1 &&
+    codeblock.firstElementChild?.tagName === 'CODE'
+  ) {
+    codeblock = codeblock.firstElementChild as HTMLElement;
+  }
+  return codeblock.innerHTML.trim();
 }
 
 /**
