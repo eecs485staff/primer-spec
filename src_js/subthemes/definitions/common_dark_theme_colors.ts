@@ -56,4 +56,5 @@ export default {
 
   '--tooltip-background-color': 'rgb(110, 118, 129)',
   '--tooltip-color': 'white',
+  '--kbd-border-color': 'rgba(110, 118, 129, 0.4)',
 };

@@ -482,6 +482,14 @@ body,
     color: var(--main-blockquote-text-color);
     border-left: 0.25em solid var(--main-blockquote-text-border, #dfe2e5);
   }
+
+  kbd {
+    color: var(--tt-text-color, #24292f);
+    background-color: var(--main-table-pre-bg-color, #f6f8fa);
+    border: solid 1px var(--kbd-border-color);
+    border-bottom-color: var(--kbd-border-color);
+    box-shadow: inset 0 -1px 0 var(--kbd-border-color);
+  }
 }
 
 // Hide the main content, we'll use it to hydrate the MainContent component.
