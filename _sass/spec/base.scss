@@ -17,6 +17,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 $Z_INDEX_SETTINGS: 2;
 $Z_INDEX_TOPBAR: 3;
 $Z_INDEX_SIDEBAR: 4;
+$Z_INDEX_BANNER: 5;
 
 $INFO_BG_COLOR: #dbedff;
 $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
@@ -154,10 +155,6 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
     // When the sidebar is not shown, this ensures that the body of the
     // page stays centered like the default theme.
     margin-left: auto;
-  }
-  &-mobile {
-    // On mobile, make space for the topbar.
-    padding-top: $ICON_FONT_SIZE;
   }
 }
 
@@ -706,7 +703,6 @@ div.primer-spec-callout {
     }
 
     td.primer-spec-code-block-line-code {
-      position: relative;
       vertical-align: top;
       overflow: visible;
       word-wrap: normal;
@@ -766,4 +762,19 @@ div.primer-spec-callout {
 }
 .markdown-body img.no-border {
   border: 0px !important;
+}
+
+/**
+  * DIFFS
+  */
+.primer-spec-flash-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 0;
+  z-index: $Z_INDEX_BANNER;
+}
+.flash-close {
+  margin-left: 0px;
 }

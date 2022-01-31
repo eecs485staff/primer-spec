@@ -9,6 +9,7 @@ import getChromeVersion from '../utils/getChromeVersion';
 import { useAfterPrint, useBeforePrint } from '../utils/hooks/print';
 import useSmallScreen from '../utils/hooks/useSmallScreen';
 import Config from '../Config';
+import { DiffBanner } from './diff/DiffBanner';
 import MainContent from './main_content';
 import Settings from './settings';
 import Sidebar from './sidebar';
@@ -28,14 +29,18 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     !Config.HIDE_SIDEBAR_ON_LOAD && !is_small_screen,
   );
   const [settings_shown, setSettingsShown] = useState(false);
-  const [active_section_offset_y, setActiveSectionOffsetY] = useState(
-    Config.DEFAULT_ACTIVE_SECTION_OFFSET_Y,
-  );
+  const [active_section_offsets_y, setActiveSectionOffsetsY] = useState({
+    banner: Config.DEFAULT_ACTIVE_SECTION_OFFSET_Y,
+    topbar: Config.DEFAULT_ACTIVE_SECTION_OFFSET_Y,
+  });
   const [subtheme_name, setSubthemeName] = useState(Config.INIT_SUBTHEME_NAME);
   const [subtheme_mode, setSubthemeMode] = useState(Config.INIT_SUBTHEME_MODE);
   const [sitemap_enabled, setSitemapEnabled] = useState(
     Config.INIT_SITEMAP_ENABLED,
   );
+
+  const totalOffsetY =
+    active_section_offsets_y.banner + active_section_offsets_y.topbar;
 
   // Define derived methods to manipulate state
   const toggleSidebarShown = () => {
@@ -78,7 +83,7 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
       isSmallScreen={is_small_screen}
       sidebarShown={sidebar_shown}
       settingsShown={settings_shown}
-      activeSectionOffsetY={active_section_offset_y}
+      activeSectionOffsetY={totalOffsetY}
       sitemapEnabled={sitemap_enabled}
       onToggleSidebar={toggleSidebarShown}
       onToggleSettings={toggleSettingsShown}
@@ -87,13 +92,27 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
 
   return (
     <Fragment>
+      <DiffBanner
+        specHTML={props.contentHTML}
+        onOffsetChange={(offset) =>
+          setActiveSectionOffsetsY({
+            ...active_section_offsets_y,
+            banner: offset,
+          })
+        }
+      />
       <Topbar
         isSmallScreen={is_small_screen}
         showSidebarToggle={!Config.DISABLE_SIDEBAR}
         showSettingsToggle={true}
         sidebarShown={sidebar_shown}
         settingsShown={settings_shown}
-        onActiveSectionOffsetChange={setActiveSectionOffsetY}
+        onActiveSectionOffsetChange={(offset) =>
+          setActiveSectionOffsetsY({
+            ...active_section_offsets_y,
+            topbar: offset,
+          })
+        }
         onToggleSidebar={toggleSidebarShown}
         onToggleSettings={toggleSettingsShown}
       />
@@ -103,6 +122,7 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
         sidebarShown={sidebar_shown}
         currentSubthemeName={subtheme_name}
         currentSubthemeMode={subtheme_mode}
+        paddingTop={totalOffsetY}
       />
       {sidebar}
       <Settings

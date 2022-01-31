@@ -15,6 +15,7 @@ type PropsType = {
   sidebarShown: boolean;
   currentSubthemeName: string;
   currentSubthemeMode: SubthemeModeSelectorType;
+  paddingTop: number;
 };
 
 export default function MainContent(props: PropsType): h.JSX.Element {
@@ -76,6 +77,7 @@ export default function MainContent(props: PropsType): h.JSX.Element {
           props.isSmallScreen && !is_print_in_progress,
         'subtheme-mode--dark': should_use_dark_mode,
       })}
+      style={`padding-top: ${props.paddingTop}px;`}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: props.innerHTML }}
     />
