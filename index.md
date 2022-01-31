@@ -21,7 +21,17 @@ In Winter 2019, a student wrote on the EECS 485 Piazza:
 
 This makes sense! Let's solve the problem of long specs by adding a sidebar. We'll do this by writing JavaScript code that can be "plugged in" to the project spec webpages. The JavaScript code we write will then generate a sidebar with a list of all the headings in the webpage.
 
-(You're going to write JavaScript code similar to the one that powers the sidebar on this page!)
+(You're going to write JavaScript code similar to the one that powers the sidebar on this page[^project-differences]!)
+
+[^project-differences]: This "project 0" spec was written in 2019, and Primer Spec has evolved *a lot* since then. The JavaScript code powering the sidebar actually looks very different than what the starter files indicate.[^footnote-ception]
+
+[^footnote-ception]: Did you know that you can write *footnotes* in Markdown?! [(Documentation)](https://kramdown.gettalong.org/quickref.html#footnotes)
+
+<!--
+  Markdown supports abbreviations!
+  https://kramdown.gettalong.org/quickref.html#abbreviations
+-->
+*[HTML]: Hyper Text Markup Language
 
 ## Learning Goals
 This project is meant to be open-ended — it's not autograded! At the end of this project, you should feel comfortable doing the following:

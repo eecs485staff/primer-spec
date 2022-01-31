@@ -490,6 +490,20 @@ body,
     border-bottom-color: var(--kbd-border-color);
     box-shadow: inset 0 -1px 0 var(--kbd-border-color);
   }
+
+  // Kramdown footnotes / citations
+  // https://kramdown.gettalong.org/quickref.html#footnotes
+  div.footnotes[role='doc-endnotes'] {
+    border-top: 1px solid var(--main-header-border-bottom-color, #eaecef);
+    font-size: 0.9em;
+  }
+}
+
+// The dotted underline underneath abbreviations are really close to the
+// text by default. On "modern" browsers, we can control the underline offset.
+// Kramdown docs for using abbreviations: https://kramdown.gettalong.org/quickref.html#abbreviations
+abbr {
+  text-underline-offset: 2px;
 }
 
 // Hide the main content, we'll use it to hydrate the MainContent component.
