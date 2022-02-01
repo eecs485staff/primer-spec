@@ -511,7 +511,11 @@ body,
 // text by default. On "modern" browsers, we can control the underline offset.
 // Kramdown docs for using abbreviations: https://kramdown.gettalong.org/quickref.html#abbreviations
 abbr.tooltipped {
-  @extend abbr[title];
+  border-bottom: none;
+  text-decoration: underline;
+  // Safari doesn't support the "text-decoration" shorthand without a vendor
+  // prefix 🤦‍♂️ So we need to specify the decoration style separately.
+  text-decoration-style: dotted;
   text-underline-offset: 1px;
 }
 
