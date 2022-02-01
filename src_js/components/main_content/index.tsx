@@ -5,6 +5,7 @@ import Config from '../../Config';
 import { usePrintInProgress } from '../../utils/hooks/print';
 import useTaskListCheckboxes from './useTaskListCheckboxes';
 import useEnhancedCodeBlocks from './useEnhancedCodeBlocks';
+import useTooltippedAbbreviations from './useTooltippedAbbreviations';
 
 type PropsType = {
   innerHTML: string;
@@ -29,6 +30,14 @@ export default function MainContent(props: PropsType): h.JSX.Element {
   useEffect(() => {
     return enhancedCodeBlocksEffect(main_el_ref);
   }, [enhancedCodeBlocksEffect]);
+
+  const tooltippedAbbreviationsEffect = useCallback(
+    useTooltippedAbbreviations,
+    [props.innerHTML],
+  );
+  useEffect(() => {
+    return tooltippedAbbreviationsEffect(main_el_ref);
+  }, [tooltippedAbbreviationsEffect]);
 
   return (
     <main

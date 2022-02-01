@@ -510,8 +510,9 @@ body,
 // The dotted underline underneath abbreviations are really close to the
 // text by default. On "modern" browsers, we can control the underline offset.
 // Kramdown docs for using abbreviations: https://kramdown.gettalong.org/quickref.html#abbreviations
-abbr {
-  text-underline-offset: 2px;
+abbr.tooltipped {
+  @extend abbr[title];
+  text-underline-offset: 1px;
 }
 
 // Hide the main content, we'll use it to hydrate the MainContent component.
