@@ -185,6 +185,8 @@ function getHeadingLabel(headingNode: HTMLElement): h.JSX.Element {
                 {childNode.innerText}
               </code>,
             );
+          } else if (childNode.tagName === 'ABBR') {
+            labelComponents.push(<Fragment>{childNode.innerText}</Fragment>);
           }
           break;
       }
