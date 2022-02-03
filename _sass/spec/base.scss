@@ -496,6 +496,7 @@ body,
   div.footnotes[role='doc-endnotes'] {
     border-top: 1px solid var(--main-header-border-bottom-color, #eaecef);
     font-size: 0.9em;
+    color: var(--main-blockquote-text-color);
   }
   sup > a {
     &::before {
