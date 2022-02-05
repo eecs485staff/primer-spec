@@ -8,8 +8,9 @@ jest.mock('../../../Config', () => ({
 
 const CONSOLE_BLOCK = `<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 <span class="nt">--version</span>  <span class="c"># NOTE: Your Python version may be different.</span>
 <span class="go">Python 3.7.4
+Copyright (c) 2001-2019 Python Software Foundation.
 </span></code></pre></div></div>`;
-const CONSOLE_BLOCK_NUM_LINES = 2;
+const CONSOLE_BLOCK_NUM_LINES = 3;
 
 const PLAINTEXT_BLOCK = `<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pwd
 /users/seshrs
@@ -52,7 +53,7 @@ describe('useEnhancedCodeBlocks', () => {
 
     const tbody = codeblocks[0].childNodes[0] as HTMLElement;
     expect(tbody.childElementCount).toBe(CONSOLE_BLOCK_NUM_LINES);
-    expect(CONSOLE_BLOCK_NUM_LINES).toBe(2);
+    expect(CONSOLE_BLOCK_NUM_LINES).toBe(3);
 
     let row, lineNum;
 
@@ -71,6 +72,16 @@ describe('useEnhancedCodeBlocks', () => {
     expect(lineNum.getAttribute('data-line-number')).toBe('2');
     expect((row.childNodes[1] as HTMLElement).innerHTML).toBe(
       '<span class="go">Python 3.7.4</span>',
+    );
+
+    // Row 3
+    row = tbody.childNodes[2] as HTMLElement;
+    expect(row.tagName).toBe('TR');
+    expect(row.childElementCount).toBe(2);
+    lineNum = row.childNodes[0] as HTMLElement;
+    expect(lineNum.getAttribute('data-line-number')).toBe('3');
+    expect((row.childNodes[1] as HTMLElement).innerHTML).toBe(
+      '<span class="go">Copyright (c) 2001-2019 Python Software Foundation.</span>',
     );
   });
 
