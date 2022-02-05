@@ -41,22 +41,22 @@ export default function useEnhancedCodeBlocks(
   // First enhance codeblocks formatted by Jekyll + Rouge
   const numCodeBlocks = enhanceBlocks(
     mainElRef.current.querySelectorAll('div.highlighter-rouge'),
-    getRawContentsFromJekyllRougeCodeblock,
+    getCodeElFromJekyllRougeCodeblock,
     0,
   );
   // Then attempt to enhance ordinary <pre> blocks.
   enhanceBlocks(
     mainElRef.current.querySelectorAll('pre'),
-    getRawContentsFromPreCodeblock,
+    getCodeElFromPreCodeblock,
     numCodeBlocks,
   );
 
   return () => {};
 }
 
-function getRawContentsFromJekyllRougeCodeblock(
+function getCodeElFromJekyllRougeCodeblock(
   codeblock: HTMLElement,
-): string | null {
+): HTMLElement | null {
   // The original structure of a codeblock:
   // <div
   //   class="highlighter-rouge language-[lang]"
@@ -87,13 +87,10 @@ function getRawContentsFromJekyllRougeCodeblock(
     return null;
   }
 
-  return (codeEl as HTMLElement).innerHTML;
+  return codeEl as HTMLElement;
 }
 
-function getRawContentsFromPreCodeblock(
-  codeblock_: HTMLElement,
-): string | null {
-  let codeblock = codeblock_;
+function getCodeElFromPreCodeblock(codeblock: HTMLElement): HTMLElement | null {
   // The structure of a <pre> codeblock:
   // <pre>
   //   <code> <!-- OPTIONAL -->
@@ -104,9 +101,9 @@ function getRawContentsFromPreCodeblock(
     codeblock.childNodes.length === 1 &&
     codeblock.firstElementChild?.tagName === 'CODE'
   ) {
-    codeblock = codeblock.firstElementChild as HTMLElement;
+    return codeblock.firstElementChild as HTMLElement;
   }
-  return codeblock.innerHTML.trim();
+  return codeblock;
 }
 
 /**
@@ -116,7 +113,7 @@ function getRawContentsFromPreCodeblock(
  */
 function enhanceBlocks(
   codeblocks: NodeListOf<HTMLElement>,
-  getContents: (node: HTMLElement) => string | null,
+  getCodeEl: (node: HTMLElement) => HTMLElement | null,
   startId = 0,
 ): number {
   let nextCodeBlockId = startId;
@@ -141,10 +138,11 @@ function enhanceBlocks(
         return;
       }
 
-      const codeblockContents = getContents(codeblock);
-      if (codeblockContents == null) {
+      const codeblockContentsEl = getCodeEl(codeblock);
+      if (codeblockContentsEl == null) {
         return;
       }
+      const codeblockContents = getCodeblockContents(codeblockContentsEl);
 
       const title = codeblock.dataset['title'] || null;
       const anchorId = title
@@ -528,4 +526,55 @@ function createCodeBlockAnchorId(
   title: string,
 ): string {
   return `${slugify(title)}-${codeblockNumericId}`;
+}
+
+/**
+ * Given a codeblock / pre element, return a string reprensenting the HTML of
+ * the codeblock.
+ *
+ * One edge case that this method handles: Lines split within a single span.
+ * Consider the following codeblock:
+ * ```html
+ *   <code><span class="c">Line 1</span>
+ *   <span class="c">Line 2</span>
+ *   <span class="c">Line 3
+ *   Line 4</span></code>
+ * ```
+ * Since the rest of the code assumes that "\n" characters separate lines, we
+ * need to ensure that each line starts with its own span if necessary. The
+ * output of this method should be:
+ * ```html
+ *   <code><span class="c">Line 1</span>
+ *   <span class="c">Line 2</span>
+ *   <span class="c">Line 3</span>
+ *   <span class="c">Line 4</span></code>
+ * ```
+ */
+function getCodeblockContents(codeEl: HTMLElement): string {
+  const resultNode = codeEl.cloneNode() as HTMLElement;
+  codeEl.childNodes.forEach((childNode) => {
+    if (childNode.nodeType === Node.ELEMENT_NODE) {
+      if (
+        (childNode as HTMLElement).tagName === 'SPAN' &&
+        childNode.textContent != null
+      ) {
+        const lines = childNode.textContent.split('\n');
+        lines.forEach((line, i) => {
+          // Ignore empty lines within a span, but still insert the \n.
+          if (line) {
+            const lineEl = childNode.cloneNode() as HTMLElement;
+            lineEl.textContent = line;
+            resultNode.appendChild(lineEl);
+          }
+          // Append a new line except after the last line in this span
+          if (i < lines.length - 1) {
+            resultNode.appendChild(document.createTextNode('\n'));
+          }
+        });
+      }
+    } else {
+      resultNode.appendChild(childNode.cloneNode(true));
+    }
+  });
+  return resultNode.innerHTML.trim();
 }
