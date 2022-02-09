@@ -2,17 +2,24 @@
 
 source 'https://rubygems.org'
 
+gem 'jekyll-seo-tag'
 gem 'jekyll-remote-theme'
-
-# Neccessary to prevent Jekyll errors. See https://github.com/github/personal-website/issues/166
-gem 'faraday', '0.17.3'
+gem 'jekyll-github-metadata'
 gem 'webrick'
 
-# Other Jekyll plugins used by default with GitHub Pages
-gem 'jekyll-default-layout'
+# The following plugins are enabled on GitHub Pages without a _config.yml.
 gem 'jekyll-optional-front-matter'
 gem 'jekyll-readme-index'
 gem 'jekyll-relative-links'
+gem 'jekyll-default-layout'
 gem 'kramdown-parser-gfm'
+gem 'jemoji'
 
-gemspec
+# GitHub Pages doesn't support jekyll 4.0 yet
+gem 'jekyll', '<4.0'
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Performance-booster for watching directories on Windows
+gem 'wdm', '~> 0.1.0' if Gem.win_platform?
