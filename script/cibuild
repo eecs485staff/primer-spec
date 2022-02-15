@@ -2,7 +2,7 @@
 
 set -e
 
-npx webpack --env.production
+npx webpack --env production
 bundle exec jekyll build
 bundle exec script/validate-html
 gem build jekyll-theme-primer-spec.gemspec
