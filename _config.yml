@@ -47,3 +47,4 @@ exclude:
   - package-lock.json
   - tsconfig.json
   - VERSION
+  - vendor
