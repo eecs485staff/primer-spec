@@ -18,5 +18,5 @@ echo "url: $URL" >> _config.yml
 echo "baseurl: $BASE_URL" >> _config.yml
 
 # BUILD!
-npx webpack --env.base_url="$URL$BASE_URL"
+npx webpack --env base_url="$URL$BASE_URL"
 JEKYLL_ENV=site-preview bundle exec jekyll build
