@@ -30,7 +30,7 @@ In this guide, I describe what I look for when I add Primer Spec to an existing 
 
 ## Callouts
 
-_Docs: https://eecs485staff.github.io/primer-spec/demo/callouts.html_
+_Docs: [https://eecs485staff.github.io/primer-spec/demo/callouts.html](https://eecs485staff.github.io/primer-spec/demo/callouts.html)_
 
 Look for places where your spec calls out a "pro-tip" or a "hint" — these can be made more prominent by embedding them inside a callout.
 
@@ -48,7 +48,7 @@ You will likely find yourself using the **`info`** callout most often. For aside
 
 ## Codeblocks
 
-_Docs: https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html_
+_Docs: [https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html)_
 
 ### Code block titles
 
@@ -157,11 +157,11 @@ I recommend including project checklists in the beginning or at the end of your 
 - [ ] Upload your code to the autograder.
 ```
 
-For a real-world example, check out EECS 280's coding practices checklist: https://eecs280staff.github.io/p2-cv/#appendix-c-project-2-coding-practices-checklist
+For a real-world example, check out EECS 280's coding practices checklist: [https://eecs280staff.github.io/p2-cv/#appendix-c-project-2-coding-practices-checklist](https://eecs280staff.github.io/p2-cv/#appendix-c-project-2-coding-practices-checklist)
 
 ## Footnotes
 
-_Docs: https://kramdown.gettalong.org/quickref.html#footnotes_
+_Docs: [https://kramdown.gettalong.org/quickref.html#footnotes](https://kramdown.gettalong.org/quickref.html#footnotes)_
 
 I don't personally use footnotes in specs, but I think they have their use-cases. A footnote consists of a usage (which looks like a citation reference number) and footnote text, which is included at the bottom of the page. For instance:
 
