@@ -74,6 +74,8 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
   - [Render a sitemap](docs/USAGE_ADVANCED.md#sitemap-boolean--label-string)
   - (And more!)
 
+You may also want to read the [`MARKDOWN_TIPS`](eecs485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html), which has notes on how you can edit your specs to take best advantage of Primer Spec markdown features.
+
 ## User Showcase
 
 The Primer Spec theme is currently used by the following courses at the University of Michigan:

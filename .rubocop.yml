@@ -1,9 +1,0 @@
-AllCops:
-  NewCops: enable
-  Exclude:
-    - _site/**/*
-    - node_modules/**/*
-    - vendor/**/*
-
-Layout/LineLength:
-  Enabled: false

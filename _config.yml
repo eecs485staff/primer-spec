@@ -1,24 +1,50 @@
-exclude:
-  - node_modules
-  - script
-
-sass:
-  style: :compressed
-
+remote_theme: eecs485staff/primer-spec
 plugins:
   - jekyll-remote-theme
-
-# theme: jekyll-theme-primer-spec
-remote_theme: eecs485staff/primer-spec
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-relative-links
+  - jekyll-default-layout
+  - jemoji
+kramdown:
+  input: GFM
+readme_index:
+  remove_originals: true
+  with_frontmatter: true
 
 title: Jekyll Theme Primer Spec
 description: Primer Spec is a Jekyll theme for GitHub Pages
-
-kramdown:
-  input: GFM
 
 primerSpec:
 # sitemap: true
 # sitemap:
 #   label: Demo pages
 # useLegacyCodeBlocks: true
+
+sass:
+  style: :compressed
+
+exclude:
+  - .bundle
+  - .githooks
+  - .github
+  - .vscode
+  - node_modules
+  - script
+  - src_js
+  - .eslintrc
+  - .prettierignore
+  - .prettierrc
+  - '*.yml'
+  - '*.lock'
+  - '*.config.js'
+  - '*.code-workspace'
+  - '*.ts'
+  - '*.gem'
+  - '*.gemspec'
+  - Gemfile
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - VERSION
+  - vendor

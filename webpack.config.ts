@@ -1,7 +1,7 @@
 /**
  * webpack.config.ts
  *
- * To build in 'production' mode, run `npx webpack --env.production`.
+ * To build in 'production' mode, run `npx webpack --env production`.
  * Alternatively, use 'script/build` for development, and 'script/cibuild' for
  * production.
  *
