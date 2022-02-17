@@ -7,17 +7,19 @@ import useTaskListCheckboxes from './useTaskListCheckboxes';
 import useEnhancedCodeBlocks from './useEnhancedCodeBlocks';
 import useMermaidDiagrams from './useMermaidDiagrams';
 import useTooltippedAbbreviations from './useTooltippedAbbreviations';
-import useSubthemeMode from '../../utils/hooks/useSubthemeMode';
+import usePrefersDarkMode from '../../utils/hooks/usePrefersDarkMode';
 
 type PropsType = {
   innerHTML: string;
   isSmallScreen: boolean;
   sidebarShown: boolean;
+  currentSubthemeName: string;
+  currentSubthemeMode: SubthemeModeSelectorType;
 };
 
 export default function MainContent(props: PropsType): h.JSX.Element {
   const is_print_in_progress = usePrintInProgress();
-  const subtheme_mode = useSubthemeMode();
+  const prefers_dark_mode = usePrefersDarkMode();
   const main_el_ref = useRef<HTMLElement>(null);
 
   const taskListCheckboxEffect = useCallback(useTaskListCheckboxes, [
@@ -34,12 +36,29 @@ export default function MainContent(props: PropsType): h.JSX.Element {
     return enhancedCodeBlocksEffect(main_el_ref);
   }, [enhancedCodeBlocksEffect]);
 
+  let should_use_dark_mode_for_mermaid_diagrams = false;
+  switch (props.currentSubthemeMode) {
+    case 'system':
+      should_use_dark_mode_for_mermaid_diagrams = prefers_dark_mode;
+      break;
+    case 'dark':
+      should_use_dark_mode_for_mermaid_diagrams = true;
+      break;
+    default:
+      should_use_dark_mode_for_mermaid_diagrams = false;
+  }
+  if (props.currentSubthemeName === 'xcode-civic') {
+    should_use_dark_mode_for_mermaid_diagrams = true;
+  }
   const mermaidDiagramsEffect = useCallback(useMermaidDiagrams, [
     props.innerHTML,
   ]);
   useEffect(() => {
-    return mermaidDiagramsEffect(main_el_ref, subtheme_mode === 'dark');
-  }, [mermaidDiagramsEffect, subtheme_mode]);
+    return mermaidDiagramsEffect(
+      main_el_ref,
+      should_use_dark_mode_for_mermaid_diagrams,
+    );
+  }, [mermaidDiagramsEffect, should_use_dark_mode_for_mermaid_diagrams]);
 
   const tooltippedAbbreviationsEffect = useCallback(
     useTooltippedAbbreviations,
