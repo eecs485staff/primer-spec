@@ -1,6 +1,7 @@
 ---
 layout: spec
 latex: true
+mermaid: true
 ---
 
 Project 0: Primer Spec
@@ -44,10 +45,18 @@ If you wish, you can implement the other features of the official Primer Spec, a
 
 This spec will walk you through these parts:
 
-1. [Set up your computer](#setup)
-2. [Add a hard-coded HTML sidebar](#html-sidebar)
-3. [Write JavaScript to generate the sidebar contents](#javascript-content-generator)
-4. [(Optional) Add other features](#optional-other-features)
+```mermaid
+graph TB
+  setup(Set up your computer) --> html(Add a hard-coded HTML sidebar)
+  html --> javascript(Write JavaScript to generate the sidebar contents)
+  setup -.-> javascript
+  javascript --> optional("(Optional) Add other features")
+
+  click setup href "#setup"
+  click html href "#html-sidebar"
+  click javascript href "#javascript-content-generator"
+  click optional href "#optional-other-features"
+```
 
 # Setup
 Follow these steps to get your development environment set up.

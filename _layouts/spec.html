@@ -27,7 +27,13 @@ version_string: v1.7
             The Mermaid definition code needs to be run *before* the
             initializer script runs in the main Primer Spec app.
         {%- endcomment %}
-        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" defer></script>
+        <style>
+            /* Fix for Sequence Diagram participant font */
+            .primer-spec-mermaid-output text.actor {
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji" !important;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" crossorigin="anonymous" defer></script>
         {%- endif %}
 
         <!--
