@@ -7,6 +7,23 @@ import Config from '../Config';
 export { Subthemes };
 export type { RegisteredSubthemeType };
 
+export type ThemeModeListenerType = (mode: SubthemeModeType) => void;
+
+const THEME_MODE_LISTENERS = new Set<ThemeModeListenerType>();
+export function registerThemeModeListener(
+  listener: ThemeModeListenerType,
+): void {
+  THEME_MODE_LISTENERS.add(listener);
+}
+export function unregisterThemeModeListener(
+  listener: ThemeModeListenerType,
+): void {
+  THEME_MODE_LISTENERS.delete(listener);
+}
+export function getCurrentThemeMode(): SubthemeModeType {
+  return normalizeSubthemeMode(getStoredSubthemeMode());
+}
+
 /**
  * Updates the appearance of the page based on the Subtheme details to be
  * changed. If no Subtheme details are specified, the method uses Subtheme info
@@ -56,6 +73,7 @@ export function updateTheme(
 
   old_subtheme.reset(normalizeSubthemeMode(stored_subtheme_mode));
   new_subtheme.apply(normalized_mode);
+  THEME_MODE_LISTENERS.forEach((listener) => listener(normalized_mode));
 }
 
 /**
