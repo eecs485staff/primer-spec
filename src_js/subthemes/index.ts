@@ -7,8 +7,6 @@ import Config from '../Config';
 export { Subthemes };
 export type { RegisteredSubthemeType };
 
-export type ThemeModeListenerType = (mode: SubthemeModeType) => void;
-
 /**
  * Updates the appearance of the page based on the Subtheme details to be
  * changed. If no Subtheme details are specified, the method uses Subtheme info
