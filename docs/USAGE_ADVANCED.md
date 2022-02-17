@@ -255,6 +255,10 @@ graph TD;
   B-->D;
   C-->D;
 ```
+{:
+  data-title="Basic example of a flowcchart"
+  data-description="A links to B and C. B and C link to D."
+}
 ````
 <!-- prettier-ignore-end -->
 

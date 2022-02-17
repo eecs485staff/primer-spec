@@ -3,10 +3,8 @@ layout: spec
 mermaid: true
 ---
 
-<!-- prettier-ignore-start -->
 # Mermaid Diagrams
 {: .primer-spec-toc-ignore }
-<!-- prettier-ignore-end -->
 
 [Mermaid](https://mermaid-js.github.io/mermaid/#/?id=diagram-types) lets you define diagrams (like flow charts and sequence diagrams) with easy-to-learn Markdown-ish syntax.
 
@@ -16,7 +14,6 @@ This page contains some examples of how you can use Mermaid in your specs!
 
 Just add `mermaid: true` to the front-matter of your spec page. For instance:
 
-<!-- prettier-ignore-start -->
 ```plaintext
 ---
 layout: spec
@@ -27,7 +24,23 @@ mermaid: true
 ...
 ```
 {: data-title="my_spec.md" data-highlight="3" }
-<!-- prettier-ignore-end -->
+
+## Accessibility
+
+Primer Spec allows you to specify *titles* and *descriptions* for your diagrams. While they aren't required, we strongly encourage you to specify them since they are the only way a visually-impaired user can understand the content in the diagram.
+
+Specify them by adding `data-title` and `data-decsription` attributes to the diagram. For instance:
+
+````markdown
+```mermaid
+graph TD;
+  A --> B;
+```
+{: data-title="A simple graph" data-description="A links to B." }
+````
+{: data-highlight="5" }
+
+All of the demos on this site have titles and descriptions. We hope you'll include them in your diagrams too!
 
 ## Flowcharts
 
@@ -42,6 +55,10 @@ graph TD;
   B-->D;
   C-->D;
 ```
+{:
+  data-title="Basic example of a flowcchart"
+  data-description="A links to B and C. B and C link to D."
+}
 
 <details markdown="1">
 <summary>Show code</summary>
@@ -54,6 +71,10 @@ graph TD;
   B-->D;
   C-->D;
 ```
+{:
+  data-title="Basic example of a flowcchart"
+  data-description="A links to B and C. B links to D. C links to D."
+}
 ````
 
 </details>
@@ -67,6 +88,10 @@ flowchart TD
   B-->D(fa:fa-spinner);
   B-->E(A fa:fa-camera-retro perhaps?);
 ```
+{:
+  data-title="Diagram with font-awesome icons"
+  data-description="B says, 'Peace gesture for peace'. B links to three boxes: C (which says 'forbidden'), D (which has a spinner icon), and E (which says 'a picture perhaps?')."
+}
 
 <details markdown="1">
 <summary>Show code</summary>
@@ -79,6 +104,10 @@ flowchart TD
   B-->D("fa:fa-spinner ");
   B-->E(A fa:fa-camera-retro perhaps?);
 ```
+{:
+  data-title="Diagram with font-awesome icons"
+  data-description="B says, 'Peace gesture for peace'. B links to three boxes: C (which says 'forbidden'), D (which has a spinner icon), and E (which says 'a picture perhaps?')."
+}
 ````
 
 </details>
@@ -103,6 +132,10 @@ flowchart TB
   three --> two
   two --> c2
 ```
+{:
+  data-title="Diagram with subgraphs"
+  data-description="Three subgraphs, each containing two boxes. Subgraph one has box a1 linked to a2. Subgraph two has box b1 linked to b2. Subgraph 3 has box c1 linked to c2. Subgraph one links to subgraph two. Subgraph three links to subgraph two. Subgraph two links to c2."
+}
 
 <details markdown="1">
 <summary>Show code</summary>
@@ -124,6 +157,10 @@ flowchart TB
   three --> two
   two --> c2
 ```
+{:
+  data-title="Diagram with subgraphs"
+  data-description="Three subgraphs, each containing two boxes. Subgraph one has box a1 linked to a2. Subgraph two has box b1 linked to b2. Subgraph 3 has box c1 linked to c2. Subgraph one links to subgraph two. Subgraph three links to subgraph two. Subgraph two links to c2."
+}
 ````
 
 </details>
@@ -148,6 +185,10 @@ sequenceDiagram
   C->>Barbara: How about you?
   Barbara-->>C: Jolly good!
 ```
+{:
+  data-title="Example of a sequence diagram"
+  data-description="Adi says hello to Chi-Chih. Loop Healthcheck shows that Chi-Chih is fighting against hypochondria. Note right of Chi-Chih says Rational thoughts prevail! Chi-Chih says Great! Chi-Chih says How about you? Barbara says Jolly good!"
+}
 
 <details markdown="1">
 <summary>Show code</summary>
@@ -167,6 +208,10 @@ sequenceDiagram
   C->>Barbara: How about you?
   Barbara-->>C: Jolly good!
 ```
+{:
+  data-title="Example of a sequence diagram"
+  data-description="Adi says hello to Chi-Chih. Loop Healthcheck shows that Chi-Chih is fighting against hypochondria. Note right of Chi-Chih says Rational thoughts prevail! Chi-Chih says Great! Chi-Chih says How about you? Barbara says Jolly good!"
+}
 ````
 
 </details>
@@ -200,6 +245,10 @@ classDiagram
     +run()
   }
 ```
+{:
+  data-title="Example of a class diagram"
+  data-description="Class Animal defines public attributes int age and String gender, and public methods isMammal() and mate(). Classes Duck, Fish and Zebra each inherit from Animal. Class Duck has public attribute String beakColor, and public methods swim() and quack(). Class Fish has private attribute int sizeInFeet, and public method canEat(). Class Zebra has public attribute bool is_wild, and public method run()."
+}
 
 <details markdown="1">
 <summary>Show code</summary>
@@ -228,6 +277,10 @@ classDiagram
     +run()
   }
 ```
+{:
+  data-title="Example of a class diagram"
+  data-description="Class Animal defines public attributes int age and String gender, and public methods isMammal() and mate(). Classes Duck, Fish and Zebra each inherit from Animal. Class Duck has public attribute String beakColor, and public methods swim() and quack(). Class Fish has private attribute int sizeInFeet, and public method canEat(). Class Zebra has public attribute bool is_wild, and public method run()."
+}
 ````
 
 </details>
@@ -248,6 +301,10 @@ stateDiagram
   Moving --> Crash
   Crash --> [*]
 ```
+{:
+  data-title="Example of a state diagram"
+  data-description="From start, move to 'Still' state. From 'Still' state, move to either end or to 'Moving' state. From 'Moving' state, either move back to 'Still' state or to 'Crash' state. From 'Crash' state, move to end."
+}
 
 <details markdown="1">
 <summary>Show code</summary>
@@ -263,6 +320,10 @@ stateDiagram
   Moving --> Crash
   Crash --> [*]
 ```
+{:
+  data-title="Example of a state diagram"
+  data-description="From start, move to 'Still' state. From 'Still' state, move to either end or to 'Moving' state. From 'Moving' state, either move back to 'Still' state or to 'Crash' state. From 'Crash' state, move to end."
+}
 ````
 
 </details>

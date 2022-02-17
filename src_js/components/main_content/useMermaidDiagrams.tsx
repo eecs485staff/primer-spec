@@ -54,12 +54,38 @@ export default function useMermaidDiagrams(
 
     mermaid.mermaidAPI.render(diagramID, content, (diagramHTML: string) => {
       outputDiagram.innerHTML = diagramHTML;
-      // Make the content available to screen readers. It isn't great, but at
-      // least it's better than the default of no labels :(
-      // TODO: Explore how to make the content more accessible / interactive
-      // on screen readers.
-      outputDiagram.querySelector('svg')?.setAttribute('role', 'img');
-      outputDiagram.querySelector('svg')?.setAttribute('aria-label', content);
+
+      const svgEl = outputDiagram.querySelector('svg');
+      if (svgEl == null) {
+        console.warn(
+          "Primer Spec: Mermaid diagram didn't have an SVG. Please report this issue at github.com/eeccs485staff/primer-spec/issues. Thanks!",
+        );
+        return;
+      }
+      // Make diagrams a bit more accessible to screen readers.
+      svgEl.setAttribute('role', 'img');
+      // (1) If the spec author added a title, make it available.
+      if (parent.dataset['title']) {
+        svgEl.insertBefore(
+          <title id={`${diagramID}-title`}>{parent.dataset['title']}</title>,
+          svgEl.firstChild,
+        );
+      }
+      // (2) If the spec author added a description, make it available.
+      //     Otherwise, use the diagram source code. (It isn't great, but it's
+      //     better than nothing.)
+      let description = parent.dataset['description'];
+      if (!description) {
+        description = content;
+      }
+      svgEl.insertBefore(
+        <desc id={`${diagramID}-desc`}>{description}</desc>,
+        svgEl.firstChild,
+      );
+      svgEl.setAttribute(
+        'aria-labelledby',
+        `${diagramID}-title ${diagramID}-desc`,
+      );
     });
   });
 

@@ -57,6 +57,7 @@ graph TB
   click javascript href "#javascript-content-generator"
   click optional href "#optional-other-features"
 ```
+{: data-title="Project 0 Contents" data-description="1. Setup your computer. 2. Add a hard-coded HTML sidebar. 3. Write JavaScript to generate the sidebar contents. 4. (Optional) Add other features." }
 
 # Setup
 Follow these steps to get your development environment set up.
