@@ -44,11 +44,22 @@ export default function useMermaidDiagrams(
 
     parent.style.display = 'none';
 
-    const outputDiagram = <div class="primer-spec-mermaid-output" />;
+    const outputDiagram = (
+      <div
+        class="primer-spec-mermaid-output"
+        aria-label="Mermaid-enhanced diagram"
+      />
+    );
     parent.after(outputDiagram);
 
     mermaid.mermaidAPI.render(diagramID, content, (diagramHTML: string) => {
       outputDiagram.innerHTML = diagramHTML;
+      // Make the content available to screen readers. It isn't great, but at
+      // least it's better than the default of no labels :(
+      // TODO: Explore how to make the content more accessible / interactive
+      // on screen readers.
+      outputDiagram.querySelector('svg')?.setAttribute('role', 'img');
+      outputDiagram.querySelector('svg')?.setAttribute('aria-label', content);
     });
   });
 
