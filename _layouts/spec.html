@@ -22,6 +22,14 @@ version_string: v1.7
         {% endif %}
         <link rel="stylesheet" href="{{ base_url }}/assets/{{ layout.version_string }}/css/primer-spec-base.css">
 
+        {%- if page.mermaid -%}
+        {%- comment -%}
+            The Mermaid definition code needs to be run *before* the
+            initializer script runs in the main Primer Spec app.
+        {%- endcomment %}
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" defer></script>
+        {%- endif %}
+
         <!--
             This page is formatted using Primer Spec.
             Would you like to contribute to the theme?

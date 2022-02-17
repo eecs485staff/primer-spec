@@ -5,7 +5,9 @@ import Config from '../../Config';
 import { usePrintInProgress } from '../../utils/hooks/print';
 import useTaskListCheckboxes from './useTaskListCheckboxes';
 import useEnhancedCodeBlocks from './useEnhancedCodeBlocks';
+import useMermaidDiagrams from './useMermaidDiagrams';
 import useTooltippedAbbreviations from './useTooltippedAbbreviations';
+import useSubthemeMode from '../../utils/hooks/useSubthemeMode';
 
 type PropsType = {
   innerHTML: string;
@@ -15,6 +17,7 @@ type PropsType = {
 
 export default function MainContent(props: PropsType): h.JSX.Element {
   const is_print_in_progress = usePrintInProgress();
+  const subtheme_mode = useSubthemeMode();
   const main_el_ref = useRef<HTMLElement>(null);
 
   const taskListCheckboxEffect = useCallback(useTaskListCheckboxes, [
@@ -30,6 +33,13 @@ export default function MainContent(props: PropsType): h.JSX.Element {
   useEffect(() => {
     return enhancedCodeBlocksEffect(main_el_ref);
   }, [enhancedCodeBlocksEffect]);
+
+  const mermaidDiagramsEffect = useCallback(useMermaidDiagrams, [
+    props.innerHTML,
+  ]);
+  useEffect(() => {
+    return mermaidDiagramsEffect(main_el_ref, subtheme_mode === 'dark');
+  }, [mermaidDiagramsEffect, subtheme_mode]);
 
   const tooltippedAbbreviationsEffect = useCallback(
     useTooltippedAbbreviations,
