@@ -19,6 +19,8 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`disableSidebar`: Boolean](#disablesidebar-boolean)
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
+    - [`mermaid`: Boolean](#mermaid-boolean)
+- [mermaid: true](#mermaid-true)
     - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean)
     - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
@@ -229,6 +231,38 @@ For a full list of supported LaTeX commands, see the [MathJax docs](https://docs
 _NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
+
+#### `mermaid`: Boolean
+
+Render diagrams using [Mermaid syntax and rendering](https://mermaid-js.github.io/mermaid/#/?id=diagram-types). Defaults to `false`.
+
+Here is an example of a MarkDown file with Mermaid diagrams:
+
+<!-- prettier-ignore-start -->
+<!-- omit in toc -->
+````
+---
+layout: spec
+mermaid: true
+---
+
+Use Mermaid to render flow charts, sequence diagrams and more!
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
+{:
+  data-title="Basic example of a flowcchart"
+  data-description="A links to B and C. B and C link to D."
+}
+````
+<!-- prettier-ignore-end -->
+
+Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/mermaid-diagrams.html) for inspiration and for links to Mermaid's syntax documentation.
 
 #### `useLegacyCodeBlocks`: Boolean
 

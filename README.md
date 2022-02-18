@@ -72,6 +72,7 @@ Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite 
   - [Highlight lines in code blocks](docs/USAGE_ADVANCED.md#enhanced-code-blocks)
   - [Disable the sidebar](docs/USAGE_ADVANCED.md#dissablesidebar-boolean)
   - [Render a sitemap](docs/USAGE_ADVANCED.md#sitemap-boolean--label-string)
+  - [Render diagrams with Mermaid!](docs/USAGE_ADVANCED.md#mermaid-diagrams)
   - (And more!)
 
 You may also want to read the [`MARKDOWN_TIPS`](eecs485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html), which has notes on how you can edit your specs to take best advantage of Primer Spec markdown features.

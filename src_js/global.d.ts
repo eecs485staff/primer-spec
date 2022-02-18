@@ -26,3 +26,19 @@ declare type SitemapPageInfoType = {
   title?: string;
   current?: boolean;
 };
+
+// eslint-disable-next-line
+declare var mermaid: {
+  mermaidAPI: {
+    initialize(config: {
+      securityLevel?: 'loose' | 'strict' | 'antiscript' | 'sandbox';
+      startOnLoad: boolean;
+      theme: 'default' | 'neutral' | 'forest' | 'dark';
+    }): void;
+    render(
+      id: string,
+      graphDefinition: string,
+      callback: (svgHtml: string) => void,
+    ): string;
+  };
+};

@@ -180,6 +180,9 @@ function shouldRetainLegacyCodeBlock(codeblock: HTMLElement): boolean {
   if (codeblock.dataset['variant'] != null) {
     return codeblock.dataset['variant'] === 'legacy';
   }
+  if (codeblock.querySelector('.language-mermaid') != null) {
+    return true;
+  }
   return Config.USE_LEGACY_CODE_BLOCKS;
 }
 

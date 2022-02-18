@@ -101,6 +101,8 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
         innerHTML={props.contentHTML}
         isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
+        currentSubthemeName={subtheme_name}
+        currentSubthemeMode={subtheme_mode}
       />
       {sidebar}
       <Settings
