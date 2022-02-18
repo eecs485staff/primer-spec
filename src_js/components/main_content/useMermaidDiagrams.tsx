@@ -63,6 +63,7 @@ export default function useMermaidDiagrams(
         return;
       }
       // Make diagrams a bit more accessible to screen readers.
+      // Based on pattern 11 from: https://www.deque.com/blog/creating-accessible-svgs/
       svgEl.setAttribute('role', 'img');
       // (1) If the spec author added a title, make it available.
       if (parent.dataset['title']) {
