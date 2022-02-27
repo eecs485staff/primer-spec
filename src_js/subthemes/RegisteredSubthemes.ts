@@ -1,5 +1,5 @@
 import createSubtheme from './createSubtheme';
-import Subtheme from './Subtheme';
+import Subtheme, { SubthemeDefinitionType } from './Subtheme';
 
 import default_theme from './definitions/default.theme';
 import bella_theme from './definitions/bella.theme';
@@ -10,7 +10,7 @@ export interface RegisteredSubthemes {
   [name: string]: Subtheme;
 }
 
-export default {
+export const REGISTERED_SUBTHEMES = {
   default: createSubtheme('default', 'Primer', default_theme),
   bella: createSubtheme('bella', 'Bella', bella_theme),
   modern: createSubtheme('modern', 'Modern', modern_theme),
@@ -20,3 +20,17 @@ export default {
     xcode_civic_theme,
   ),
 } as RegisteredSubthemes;
+
+export function registerNewSubtheme(
+  name: string,
+  label: string,
+  definition: SubthemeDefinitionType,
+): void {
+  REGISTERED_SUBTHEMES[name] = createSubtheme(name, label, definition);
+}
+
+window.PrimerSpec = {
+  ...window.PrimerSpec,
+  REGISTERED_SUBTHEMES,
+  registerNewSubtheme,
+};

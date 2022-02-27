@@ -1,4 +1,4 @@
-import Subthemes from './RegisteredSubthemes';
+import { REGISTERED_SUBTHEMES as Subthemes } from './RegisteredSubthemes';
 import RegisteredSubthemeType from './Subtheme';
 import Storage from '../utils/Storage';
 import Config from '../Config';
@@ -57,6 +57,8 @@ export function updateTheme(
   old_subtheme.reset(normalizeSubthemeMode(stored_subtheme_mode));
   new_subtheme.apply(normalized_mode);
 }
+// Make this method accessible to the plugins.
+window.PrimerSpec.updateTheme = updateTheme;
 
 /**
  * Retrieve the previously stored subtheme name from persistent local
