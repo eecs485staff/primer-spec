@@ -18,6 +18,8 @@ import Storage from '../utils/Storage';
 
 type PropsType = { contentHTML: string };
 
+let mainElScrollPosition: null | { top: number; left: number } = null;
+
 /**
  * This component encapsulates the JS controlling Primer Spec, including the
  * Sidebar, the Topbar and the Settings pane.
@@ -38,12 +40,22 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
     Config.INIT_SITEMAP_ENABLED,
   );
 
+  const main_content_visible = !settings_shown;
+
   // Define derived methods to manipulate state
   const toggleSidebarShown = () => {
     Storage.setForPage('sidebar_hidden', sidebar_shown.toString());
     setSidebarShown(!sidebar_shown);
   };
-  const toggleSettingsShown = () => setSettingsShown(!settings_shown);
+  const toggleSettingsShown = () => {
+    // Before toggling the settings, save the current scroll position of the
+    // main content. We'll need it later to restore the scroll position after
+    // the settings pane is closed.
+    if (main_content_visible) {
+      mainElScrollPosition = { top: window.scrollY, left: window.scrollX };
+    }
+    setSettingsShown(!settings_shown);
+  };
   const setTheme = (themeDelta: Partial<SubthemeSelectionType>) => {
     updateTheme(themeDelta);
     setSubthemeName(getStoredSubthemeName());
@@ -122,6 +134,9 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
       />
       <MainContent
         innerHTML={props.contentHTML}
+        visible={main_content_visible}
+        // Only attempt to restore scroll-state if the main content is visible
+        scrollToPosition={main_content_visible ? mainElScrollPosition : null}
         isSmallScreen={is_small_screen}
         sidebarShown={sidebar_shown}
         currentSubthemeName={subtheme_name}
