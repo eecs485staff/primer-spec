@@ -4,6 +4,7 @@ import {
   getStoredSubthemeMode,
   getStoredSubthemeName,
   updateTheme,
+  normalizeSubthemeMode,
 } from '../subthemes';
 import getChromeVersion from '../utils/getChromeVersion';
 import { useAfterPrint, useBeforePrint } from '../utils/hooks/print';
@@ -71,6 +72,28 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
       toggleSitemap: () => setSitemapEnabled(!sitemap_enabled),
     });
   }, [sitemap_enabled]);
+
+  // Lazy-load the conditional plugins. These are purely cosmetic and
+  // don't affect the functionality of the page.
+  useEffect(() => {
+    import('../conditional_plugins/conditional_plugins').then(
+      ({ executePlugins }) => {
+        executePlugins({
+          is_small_screen,
+          sidebar_shown,
+          settings_shown,
+          subtheme_name,
+          subtheme_mode: normalizeSubthemeMode(subtheme_mode),
+        });
+      },
+    );
+  }, [
+    is_small_screen,
+    sidebar_shown,
+    settings_shown,
+    subtheme_name,
+    subtheme_mode,
+  ]);
 
   const sidebar = Config.DISABLE_SIDEBAR ? null : (
     <Sidebar
