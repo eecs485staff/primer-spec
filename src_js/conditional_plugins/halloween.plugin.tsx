@@ -63,6 +63,9 @@ function replaceSidebarToggleWithBook() {
   });
 }
 
+// Acknowledgement: The _design_ inspiration for this easter egg comes from a
+// similar easter egg in WhatsApp Web, where clicking on an expired "view-once"
+// media message shows an animated "🤫" emoji.
 function createGhostEasterEggOnClick(event: MouseEvent | TouchEvent) {
   let startX, startY;
   if (event instanceof TouchEvent) {
