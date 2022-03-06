@@ -752,3 +752,18 @@ div.primer-spec-callout {
     border-color: var(--tooltip-background-color);
   }
 }
+
+/**
+ * IMAGES
+ */
+
+.markdown-body img {
+  border: 1px solid var(--main-image-border-color);
+}
+.markdown-body.subtheme-mode--dark .invert-colors-in-dark-mode {
+  filter: invert(93%) hue-rotate(180deg);
+  border: 1px solid var(--main-image-border-color-inverted);
+}
+.markdown-body img.no-border {
+  border: 0px !important;
+}
