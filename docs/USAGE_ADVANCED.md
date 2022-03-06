@@ -10,6 +10,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 ## Contents
 <!-- prettier-ignore-end -->
 
+- [Advanced Markdown tips](#advanced-markdown-tips)
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
@@ -30,6 +31,10 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
+
+## Advanced Markdown tips
+
+Check out [MARKODWN_TIPS](https://eecsc485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html) for notes on using some of the more advanced features of Markdown with Primer Spec.
 
 ## Previewing locally
 
