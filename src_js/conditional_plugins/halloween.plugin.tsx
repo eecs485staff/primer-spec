@@ -81,7 +81,7 @@ function createGhostEasterEggOnClick(event: MouseEvent | TouchEvent) {
   startY -= ghostSize / 2;
   const easterEggEmoji = (
     <span
-      style={`position: fixed; top: ${startY}px; left: ${startX}px; font-size: ${ghostSize}px; transition: all 1s ease-out; user-select: none;`}
+      style={`position: fixed; top: ${startY}px; left: ${startX}px; z-index: 1000; font-size: ${ghostSize}px; transition: all 1s ease-out; user-select: none;`}
     >
       👻
     </span>
