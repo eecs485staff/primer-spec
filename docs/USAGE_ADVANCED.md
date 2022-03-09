@@ -10,9 +10,11 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 ## Contents
 <!-- prettier-ignore-end -->
 
+- [Advanced Markdown tips](#advanced-markdown-tips)
 - [Previewing locally](#previewing-locally)
 - [Customizing Jekyll](#customizing-jekyll)
 - [Hiding sections from the sidebar](#hiding-sections-from-the-sidebar)
+- [Auto-invert image colors in dark mode](#auto-invert-image-colors-in-dark-mode)
 - [Callouts](#callouts)
 - [Enhanced code blocks](#enhanced-code-blocks)
 - [Page configuration options](#page-configuration-options)
@@ -30,6 +32,10 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
+
+## Advanced Markdown tips
+
+Check out [MARKODWN_TIPS](https://eecsc485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html) for notes on using some of the more advanced features of Markdown with Primer Spec.
 
 ## Previewing locally
 
@@ -132,6 +138,23 @@ In HTML files, this can be achieved by adding a `class` attribute to the heading
 
 <p>Spam spam spam.</p>
 ```
+
+## Auto-invert image colors in dark mode
+
+Primer Spec can invert the colors of images to optimize them in dark mode. All you need to do is add the `invert-colors-in-dark-mode` class to your image!
+
+```markdown
+Markdown syntax:
+![This image shows a screenshot of Primer Spec in the 'Bella' theme.](./screenshot.png){: .invert-colors-in-dark-mode }
+
+Equivalent HTML syntax:
+<img
+  src="./screenshot.png"
+  alt="This image shows a screenshot of Primer Spec in the 'Bella' theme."
+  class="invert-colors-in-dark-mode" />
+```
+
+Check out the [Images demo](https://eecs485staff.github.io/primer-spec/demo/images.html) for further docs.
 
 ## Callouts
 

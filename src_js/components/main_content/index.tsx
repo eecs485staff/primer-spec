@@ -36,29 +36,26 @@ export default function MainContent(props: PropsType): h.JSX.Element {
     return enhancedCodeBlocksEffect(main_el_ref);
   }, [enhancedCodeBlocksEffect]);
 
-  let should_use_dark_mode_for_mermaid_diagrams = false;
+  let should_use_dark_mode = false;
   switch (props.currentSubthemeMode) {
     case 'system':
-      should_use_dark_mode_for_mermaid_diagrams = prefers_dark_mode;
+      should_use_dark_mode = prefers_dark_mode;
       break;
     case 'dark':
-      should_use_dark_mode_for_mermaid_diagrams = true;
+      should_use_dark_mode = true;
       break;
     default:
-      should_use_dark_mode_for_mermaid_diagrams = false;
+      should_use_dark_mode = false;
   }
   if (props.currentSubthemeName === 'xcode-civic') {
-    should_use_dark_mode_for_mermaid_diagrams = true;
+    should_use_dark_mode = true;
   }
   const mermaidDiagramsEffect = useCallback(useMermaidDiagrams, [
     props.innerHTML,
   ]);
   useEffect(() => {
-    return mermaidDiagramsEffect(
-      main_el_ref,
-      should_use_dark_mode_for_mermaid_diagrams,
-    );
-  }, [mermaidDiagramsEffect, should_use_dark_mode_for_mermaid_diagrams]);
+    return mermaidDiagramsEffect(main_el_ref, should_use_dark_mode);
+  }, [mermaidDiagramsEffect, should_use_dark_mode]);
 
   const tooltippedAbbreviationsEffect = useCallback(
     useTooltippedAbbreviations,
@@ -77,6 +74,7 @@ export default function MainContent(props: PropsType): h.JSX.Element {
           props.sidebarShown && !props.isSmallScreen && !is_print_in_progress,
         'primer-spec-content-mobile':
           props.isSmallScreen && !is_print_in_progress,
+        'subtheme-mode--dark': should_use_dark_mode,
       })}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: props.innerHTML }}

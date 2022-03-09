@@ -4,6 +4,7 @@ const CODE_BG_COLOR = '#161b22';
 const CODE_BORDER_COLOR = 'rgb(60, 62, 66)';
 const CODE_BORDER = `1px solid ${CODE_BORDER_COLOR}`;
 const BORDER_LINE_COLOR = '#21262d';
+const BORDER_LINE_COLOR_INVERTED = '#eaecef';
 
 export default {
   '--sidebar-border-color': BORDER_LINE_COLOR,
@@ -22,6 +23,8 @@ export default {
   '--main-blockquote-text-color': '#8b949e',
   '--main-blockquote-text-border': '#3b434b',
   '--main-header-border-bottom-color': BORDER_LINE_COLOR,
+  '--main-image-border-color': BORDER_LINE_COLOR,
+  '--main-image-border-color-inverted': BORDER_LINE_COLOR_INVERTED,
 
   '--primer-spec-callout-neutral-bg-color': 'rgba(22, 27, 34, 0.8)',
   '--primer-spec-callout-neutral-text-color': MAIN_TEXT_COLOR,

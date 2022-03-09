@@ -30,6 +30,9 @@ export const SUBTHEME_VARS = [
   '--main-heading-link-color',
   '--main-link-color',
   '--hoverable-link-hover-color',
+  '--main-header-border-bottom-color',
+  '--main-image-border-color',
+  '--main-image-border-color-inverted',
 
   '--tt-text-color',
   '--tt-bg-color',
