@@ -2,8 +2,8 @@
 [![Nightly Preview](https://img.shields.io/badge/develop-preview-blue.svg)](https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/)
 
 <div align="center">
-	<img src="demo/logo-light.svg#gh-light-mode-only" alt="Primer Spec logo" width="25%" style="border: 2px solid lightgrey; border-radius: 10px" />
-	<img src="demo/logo-dark.svg#gh-dark-mode-only" alt="Primer Spec logo" width="25%" style="border: 2px solid lightgrey; border-radius: 10px" />
+	<img src="demo/logo-light.svg#gh-light-mode-only" alt="Primer Spec logo" width="25%" />
+	<img src="demo/logo-dark.svg#gh-dark-mode-only" alt="Primer Spec logo" width="25%" />
 	<h1>Primer Spec</h1>
 	<p>
 		<b>A website theme for long informative web pages.</b>
