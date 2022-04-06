@@ -10,7 +10,6 @@
 	</p>
 	<br>
 	<br>
-	<br>
 </div>
 
 _Primer Spec is a Jekyll theme that makes long informative web pages (like project specifications!) easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage)._
