@@ -62,7 +62,7 @@ graph TB
 # Setup
 Follow these steps to get your development environment set up.
 
-### Install the dependencies
+### **_Install_** the dependencies
 First make sure that you have Python 3 installed. If you're on MacOS, you may have to `brew install python3` first.
 
 ```console

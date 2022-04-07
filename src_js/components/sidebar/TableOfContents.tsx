@@ -187,6 +187,20 @@ function getHeadingLabel(headingNode: HTMLElement): h.JSX.Element {
             );
           } else if (childNode.tagName === 'ABBR') {
             labelComponents.push(<Fragment>{childNode.innerText}</Fragment>);
+          } else if (
+            childNode.tagName === 'A' &&
+            childNode.classList.contains('anchorjs-link')
+          ) {
+            // Skip the AnchorJS link
+            return;
+          } else {
+            // Retain any other HTML elements
+            labelComponents.push(
+              <span
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{ __html: childNode.outerHTML }}
+              />,
+            );
           }
           break;
       }
