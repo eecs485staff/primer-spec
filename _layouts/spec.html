@@ -89,11 +89,19 @@ version_string: v1.7
                 with `nil` before deciding to use the site-configuration
                 option.
                 {%- endcomment -%}
+                {%- comment -%}
+                `useLegacyCodeBlocks` is DEPRECATED.
+                {%- endcomment -%}
                 {% assign useLegacyCodeBlocks = page.useLegacyCodeBlocks %}
                 {%- if useLegacyCodeBlocks == nil -%}
                 {%- assign useLegacyCodeBlocks = site.primerSpec.useLegacyCodeBlocks -%}
                 {%- endif -%}
                 useLegacyCodeBlocks: {{ useLegacyCodeBlocks | default: false }},
+                {% assign defaultCodeblockVariant = page.defaultCodeblockVariant %}
+                {%- if defaultCodeblockVariant == nil -%}
+                {%- assign defaultCodeblockVariant = site.primerSpec.defaultCodeblockVariant -%}
+                {%- endif -%}
+                defaultCodeblockVariant: "{{ defaultCodeblockVariant | default: 'enhanced' }}"
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>

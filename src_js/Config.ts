@@ -1,4 +1,5 @@
 import Storage from './utils/Storage';
+import { CodeblockVariant } from './components/main_content/types';
 
 const SUBTHEME_NAME_STORAGE_KEY = 'spec_subtheme_name';
 const SUBTHEME_MODE_STORAGE_KEY = 'spec_subtheme_mode';
@@ -32,6 +33,7 @@ export default {
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
+  DEFAULT_CODEBLOCK_VARIANT: getDefaultCodeblockVariant(),
   USE_LEGACY_CODE_BLOCKS: window.PrimerSpecConfig.useLegacyCodeBlocks || false,
 
   // Other constants
@@ -71,4 +73,15 @@ function getInitSitemapEnabled() {
   }
 
   return !!window.PrimerSpecConfig.sitemapEnabled;
+}
+
+function getDefaultCodeblockVariant(): CodeblockVariant {
+  if (window.PrimerSpecConfig.useLegacyCodeBlocks === true) {
+    return CodeblockVariant.LEGACY;
+  }
+  const maybeVariant = window.PrimerSpecConfig.defaultCodeblockVariant?.toLowerCase() as CodeblockVariant | null;
+  if (maybeVariant && Object.values(CodeblockVariant).includes(maybeVariant)) {
+    return maybeVariant;
+  }
+  return CodeblockVariant.ENHANCED;
 }

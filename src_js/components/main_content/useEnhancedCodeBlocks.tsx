@@ -3,8 +3,9 @@ import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 import AnchorJS from 'anchor-js';
-import Config from '../../Config';
 import slugify from '@sindresorhus/slugify';
+import Config from '../../Config';
+import { CodeblockVariant } from './types';
 
 const CODEBLOCK_LINE_CLASS = 'primer-spec-code-block-line-code';
 // We use the following class to ensure that we don't double-process code
@@ -177,13 +178,21 @@ function enhanceBlocks(
 }
 
 function shouldRetainLegacyCodeBlock(codeblock: HTMLElement): boolean {
-  if (codeblock.dataset['variant'] != null) {
-    return codeblock.dataset['variant'] === 'legacy';
-  }
+  // Don't mess with Mermaid blocks, they'll be handled by the Mermaid plugin.
   if (codeblock.querySelector('.language-mermaid') != null) {
     return true;
   }
-  return Config.USE_LEGACY_CODE_BLOCKS;
+  return getCodeblockVariant(codeblock) === CodeblockVariant.LEGACY;
+}
+
+function getCodeblockVariant(codeblock: HTMLElement): CodeblockVariant {
+  const rawVariant = codeblock.dataset[
+    'variant'
+  ]?.toLowerCase() as CodeblockVariant | null;
+  if (rawVariant && Object.values(CodeblockVariant).includes(rawVariant)) {
+    return rawVariant as CodeblockVariant;
+  }
+  return Config.DEFAULT_CODEBLOCK_VARIANT;
 }
 
 function createEnhancedCodeBlock(
