@@ -150,14 +150,16 @@ function enhanceBlocks(
         ? createCodeBlockAnchorId(codeblockNumericId, title)
         : null;
 
-      const enhancedCodeBlock = createEnhancedCodeBlock(
+      const enhancedCodeBlock = createEnhancedCodeBlock({
         codeblockNumericId,
-        codeblockContents,
-        getCodeBlockLanguage(codeblock),
-        codeblock.dataset['highlight'] || null,
+        rawContent: codeblockContents,
+        language: getCodeBlockLanguage(codeblock),
+        rawHighlightRanges: codeblock.dataset['highlight'] || null,
         title,
         anchorId,
-      );
+        showLineNumbers:
+          getCodeblockVariant(codeblock) !== CodeblockVariant.NO_LINE_NUMBERS,
+      });
       if (!enhancedCodeBlock) {
         return;
       }
@@ -195,14 +197,25 @@ function getCodeblockVariant(codeblock: HTMLElement): CodeblockVariant {
   return Config.DEFAULT_CODEBLOCK_VARIANT;
 }
 
-function createEnhancedCodeBlock(
-  codeblockNumericId: number,
-  rawContent: string,
-  language: string | null,
-  rawHighlightRanges: string | null,
-  title?: string | null,
-  anchorId?: string | null,
-): HTMLElement | null {
+function createEnhancedCodeBlock(options: {
+  codeblockNumericId: number;
+  rawContent: string;
+  language: string | null;
+  rawHighlightRanges: string | null;
+  title?: string | null;
+  anchorId?: string | null;
+  showLineNumbers: boolean;
+}): HTMLElement | null {
+  const {
+    codeblockNumericId,
+    rawContent,
+    language,
+    rawHighlightRanges,
+    title,
+    anchorId,
+    showLineNumbers,
+  } = options;
+
   const lines = rawContent.split('\n');
   if (lines.length === 0) {
     console.warn('useEnhancedCodeBlocks: Code Block appears to have no lines!');
@@ -259,13 +272,14 @@ function createEnhancedCodeBlock(
             }}
           >
             {lines.map((line, lineNumber) =>
-              createCodeBlockLine(
+              createCodeBlockLine({
                 codeblockId,
                 language,
                 line,
-                lineNumber + 1,
-                highlightRanges.has(lineNumber + 1),
-              ),
+                lineNumber: lineNumber + 1,
+                shouldHighlight: highlightRanges.has(lineNumber + 1),
+                showLineNumbers,
+              }),
             )}
           </tbody>
         </table>
@@ -276,13 +290,23 @@ function createEnhancedCodeBlock(
   return enhancedCodeBlock as HTMLElement;
 }
 
-function createCodeBlockLine(
-  codeblockId: string,
-  language: string | null,
-  line: string,
-  lineNumber: number,
-  shouldHighlight: boolean,
-): HTMLElement {
+function createCodeBlockLine(options: {
+  codeblockId: string;
+  language: string | null;
+  line: string;
+  lineNumber: number;
+  shouldHighlight: boolean;
+  showLineNumbers: boolean;
+}): HTMLElement {
+  const {
+    codeblockId,
+    language,
+    line,
+    lineNumber,
+    shouldHighlight,
+    showLineNumbers,
+  } = options;
+
   const L_ID = `${codeblockId}-L${lineNumber}`;
   const LC_ID = `${codeblockId}-LC${lineNumber}`;
   const LR_ID = `${codeblockId}-LR${lineNumber}`;
@@ -291,7 +315,10 @@ function createCodeBlockLine(
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <td
         id={L_ID}
-        class="primer-spec-code-block-line-number"
+        class={clsx(
+          'primer-spec-code-block-line-number',
+          showLineNumbers && 'primer-spec-code-block-line-numbers-shown',
+        )}
         data-line-number={lineNumber}
         onMouseDown={(e) => {
           e.preventDefault();

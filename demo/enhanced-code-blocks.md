@@ -358,24 +358,20 @@ OCT77770  OCT  77770    # DONT MOVE
 </details>
 <!-- prettier-ignore-end -->
 
-# Legacy Style (Opt Out)
+# Variants
 
-Here's what the "legacy" style code block looks like:
+The default code block style should work for most use cases. However, you might want to show text/code in a different style, for instance, with no line numbers.
 
-<!-- prettier-ignore-start -->
-```console
-$ echo "Spam & Eggs"
-```
-{: data-variant="legacy" }
-<!-- prettier-ignore-end -->
+Primer Spec supports three different styles (aka 'variants') of code blocks:
+- **`enhanced` (default)**: This is the style you've seen in all of the above demos.
+- [**`no-line-numbers`**](#no-line-numbers): Like `enhanced`, but the line numbers are not shown.
+- [**`legacy`**](#legacy): This is the original style of code blocks from the original [GitHub Primer theme](https://github.com/pages-themes/primer).
 
-In my opinion, the legacy style works best with single-line code blocks.
+## Using variants
 
-If you'd like to revert to using the "legacy" style, decide whether you'd like to revert a single code block or all code blocks in the page or in the site.
+### Single code block
 
-## Single code block
-
-Add the attribute `{: data-variant="legacy" }` to the code block. For instance:
+Add the attribute `{: data-variant="<variant>" }` to the code block. For instance:
 
 <!-- prettier-ignore-start -->
 ````markdown
@@ -399,12 +395,64 @@ $ echo "Spam & Eggs"
 ````
 <!-- prettier-ignore-end -->
 
-## Entire page
+### Entire page
 
 Add the page configuration option `defaultCodeblockVariant: legacy` to the top of the page. To learn more about page configuration options, see [USAGE_ADVANCED.md#page-configuration-options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#page-configuration-options).
 
 If you have set the [site-wide](#entire-site) configuration option to use legacy code blocks, you can override the setting for a single page by settings `defaultCodeblockVariant: enhanced` at the top of the page.
 
-## Entire site
+### Entire site
 
 Add the site-wide configuration option `defaultCodeblockVariant: legacy` under the `primerSpec` settings in `_config.yml`. To learn more about site configuration options, see [USAGE_ADVANCED.md#site-configuration-options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#site-configuration-options).
+
+## Variant Demos
+
+### `no-line-numbers`
+
+Like `enhanced`, but the line numbers are not shown.
+
+<!-- prettier-ignore-start -->
+```plaintext
+On the far-away island of Sala-ma-Sond,
+Yertle the Turtle was king of the pond.
+A nice little pond. It was clean. It was neat.
+The water was warm. There was plenty to eat.
+The turtles had everything turtles might need.
+And they were all happy. Quite happy indeed.
+```
+{: data-variant="no-line-numbers" }
+<!-- prettier-ignore-end -->
+
+<!-- prettier-ignore-start -->
+<details markdown="1">
+  <summary>Source code for this code block with <code>no-line-numbers</code></summary>
+  
+  ````markdown
+```plaintext
+On the far-away island of Sala-ma-Sond,
+Yertle the Turtle was king of the pond.
+A nice little pond. It was clean. It was neat.
+The water was warm. There was plenty to eat.
+The turtles had everything turtles might need.
+And they were all happy. Quite happy indeed.
+```
+{: data-variant="no-line-numbers" }
+````
+  {: data-highlight="9" data-title="markdown" }
+</details>
+<!-- prettier-ignore-end -->
+
+### `legacy`
+
+This is the original style of code blocks from the original [GitHub Primer theme](https://github.com/pages-themes/primer).
+
+<!-- prettier-ignore-start -->
+```console
+$ echo "Spam & Eggs"
+```
+{: data-variant="legacy" }
+<!-- prettier-ignore-end -->
+
+In my opinion, the legacy style works best with single-line code blocks.
+
+If you'd like to revert to using the "legacy" style, decide whether you'd like to revert a single code block or all code blocks in the page or in the site.
