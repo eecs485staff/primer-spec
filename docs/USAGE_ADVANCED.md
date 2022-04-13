@@ -23,12 +23,12 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`latex`: Boolean](#latex-boolean)
     - [`mermaid`: Boolean](#mermaid-boolean)
 - [mermaid: true](#mermaid-true)
-    - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean)
+    - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string)
     - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
-    - [`useLegacyCodeBlocks`: Boolean](#uselegacycodeblocks-boolean-1)
+    - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string-1)
     - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
@@ -287,9 +287,14 @@ graph TD;
 
 Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/mermaid-diagrams.html) for inspiration and for links to Mermaid's syntax documentation.
 
-#### `useLegacyCodeBlocks`: Boolean
+#### `defaultCodeblockVariant`: CodeblockVariant (String)
 
-Opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+Choose the default codeblock variant to use. Valid codeblock variants are:
+
+- `enhanced` (default)
+- `legacy`
+
+Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
 
 This setting can be overriden per-block.
 
@@ -335,11 +340,16 @@ Specify the default subtheme name. This subtheme will be applied for first-time 
 
 Specify the default subtheme mode. This subtheme will be applied for first-time site visitors. Defaults to `system`.
 
-#### `useLegacyCodeBlocks`: Boolean
+#### `defaultCodeblockVariant`: CodeblockVariant (String)
 
-Opt out of ["enhancing" code blocks](#enhanced-code-blocks) on all pages in the entire site. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+Choose the default codeblock variant to use. Valid codeblock variants are:
 
-This setting can be overriden per-page or per-block.
+- `enhanced` (default)
+- `legacy`
+
+Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+
+This setting can be overriden per-block.
 
 #### `sitemap`: Boolean | {label: String}
 

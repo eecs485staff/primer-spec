@@ -686,22 +686,25 @@ div.primer-spec-callout {
     }
 
     td.primer-spec-code-block-line-number {
-      width: 1%;
-      min-width: 50px;
-      color: var(--code-block-line-number-color);
-      text-align: right;
-      white-space: nowrap;
-      vertical-align: top;
       cursor: pointer;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      &::before {
-        content: attr(data-line-number);
-      }
-      &:hover {
-        color: var(--code-block-default-color);
+
+      &.primer-spec-code-block-line-numbers-shown {
+        width: 1%;
+        min-width: 50px;
+        color: var(--code-block-line-number-color);
+        text-align: right;
+        white-space: nowrap;
+        vertical-align: top;
+        &::before {
+          content: attr(data-line-number);
+        }
+        &:hover {
+          color: var(--code-block-default-color);
+        }
       }
     }
 
