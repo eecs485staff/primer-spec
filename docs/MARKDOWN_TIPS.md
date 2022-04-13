@@ -23,6 +23,8 @@ In this guide, I describe what I look for when I add Primer Spec to an existing 
   - [Code block titles](#code-block-titles)
   - [Highlighting lines](#highlighting-lines)
   - [Console blocks (and `pycon`)](#console-blocks-and-pycon)
+- [Images](#images)
+- [Diagrams](#diagrams)
 - [Abbreviations](#abbreviations)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Task Lists (Checklists)](#task-lists-checklists)
@@ -117,6 +119,31 @@ The `console` block also accepts parameters that allow you to customize what cou
 MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=output)
 ```
 ````
+
+## Images
+
+_Docs: [https://eecs485staff.github.io/primer-spec/demo/images.html](https://eecs485staff.github.io/primer-spec/demo/images.html)_
+
+When possible, try to add the class `invert-colors-in-dark-mode` to your image — Primer Spec will automatically convert your image into dark mode!
+
+```markdown
+![This is my light mode image, but it auto-inverts in dark mode.](./my-image.png){: .invert-colors-in-dark-mode }
+
+OR
+
+<img
+  src="./my-image.png"
+  alt="This is my light mode image, but it auto-inverts in dark mode."
+  class="invert-colors-in-dark-mode" />
+```
+
+If you want to create two different versions of your image, use the [color-mode directives](https://eecs485staff.github.io/primer-spec/demo/images.html#option-2-show-images-only-in-certain-theme-mode) to only display images in a certain color-mode.
+
+## Diagrams
+
+Try to use [**Mermaid**](https://eecs485staff.github.io/primer-spec/demo/mermaid.html) for creating diagrams.
+
+If you need a more generic whiteboarding tool, I _strongly_ recommend [**Excalidraw**](https://excalidraw.com). Export the whiteboard as a PNG, then [add the `invert-colors-in-dark-mode` class](#images).
 
 ## Abbreviations
 
