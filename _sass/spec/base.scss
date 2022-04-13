@@ -770,3 +770,24 @@ div.primer-spec-callout {
 .markdown-body img.no-border {
   border: 0px !important;
 }
+
+// Hide dark-mode images in light mode, and vice versa.
+// (This can be used to create the illusion of images that auto-switch between
+// dark and light mode.)
+$color-mode-opposites: (
+  'dark': 'light',
+  'light': 'dark',
+);
+@each $color-mode, $color-mode-to-hide in $color-mode-opposites {
+  :root[data-theme-mode='#{$color-mode}'] .markdown-body {
+    // GitHub only supports this feature with the `gh-` prefix.
+    // The Primer Spec docs recommend using the same directives to match
+    // GitHub, but we also support a couple of other directives in case
+    // website creators forget what the exact prefix was.
+    img[src$='#gh-#{$color-mode-to-hide}-mode-only'],
+    img[src$='#primer-spec-#{$color-mode-to-hide}-mode-only'],
+    img[src$='##{$color-mode-to-hide}-mode-only'] {
+      display: none;
+    }
+  }
+}
