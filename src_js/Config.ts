@@ -34,7 +34,10 @@ export default {
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
   DEFAULT_CODEBLOCK_VARIANT: getDefaultCodeblockVariant(),
-  USE_LEGACY_CODE_BLOCKS: window.PrimerSpecConfig.useLegacyCodeBlocks || false,
+
+  // DEPRECATED in v1.7.0. Use `DEFAULT_CODEBLOCK_VARIANT` instead.
+  USE_LEGACY_CODE_BLOCKS_DEPRECATED_DO_NOT_USE:
+    window.PrimerSpecConfig.useLegacyCodeBlocks || false,
 
   // Other constants
   PRIMER_SPEC_APP_NODE_ID: 'primer-spec-app-container',
@@ -77,6 +80,8 @@ function getInitSitemapEnabled() {
 
 function getDefaultCodeblockVariant(): CodeblockVariant {
   if (window.PrimerSpecConfig.useLegacyCodeBlocks === true) {
+    // Note that `useLegacyCodeBlocks` is deprecated in v1.7.0. This code
+    // just ensures backwards-compatibility.
     return CodeblockVariant.LEGACY;
   }
   const maybeVariant = window.PrimerSpecConfig.defaultCodeblockVariant?.toLowerCase() as CodeblockVariant | null;
