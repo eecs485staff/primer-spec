@@ -5,6 +5,7 @@ disableSidebar: true
 defaultCodeblockVariant: legacy
 # ^ This is equivalent to the following.
 # useLegacyCodeBlocks: true
+# However, `useLegacyCodeBlocks` is deprecated starting from v1.7.0.
 ---
 
 # Page Configuration Options
