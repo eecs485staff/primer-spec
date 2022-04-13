@@ -5,6 +5,11 @@ layout: spec
 # Images
 {: .primer-spec-toc-ignore }
 
+<video controls style="width: 100%; max-width: 640px; max-height: 480px;">
+  <source src="https://eecs485staff.github.io/p3-insta485-clientside/images/demo-likes.mp4#gh-light-mode-only" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
 # Basic syntax
 
 Primer Spec automatically adds a subtle `1px` border to images. In my opinion, the border helps with readability, especially for images whose background colors match the background of the page.
@@ -94,11 +99,11 @@ You can specify that an image is only shown in light mode or dark mode by append
 <tr><th>Context</th><th>URL</th></tr>
 <tr>
   <td>Light mode</td>
-  <td>`![Light mode image](./image.png#gh-light-mode-only)`</td>
+  <td><code>![Light mode image](./image.png#gh-light-mode-only)</code></td>
 </tr>
 <tr>
   <td>Dark mode</td>
-  <td>`![Dark mode image](./image.png#gh-dark-mode-only)`</td>
+  <td><code>![Dark mode image](./image.png#gh-dark-mode-only)</code></td>
 </tr>
 </table>
 
