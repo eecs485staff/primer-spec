@@ -5,11 +5,6 @@ layout: spec
 # Images
 {: .primer-spec-toc-ignore }
 
-<video controls style="width: 100%; max-width: 640px; max-height: 480px;">
-  <source src="https://eecs485staff.github.io/p3-insta485-clientside/images/demo-likes.mp4#gh-light-mode-only" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-
 # Basic syntax
 
 Primer Spec automatically adds a subtle `1px` border to images. In my opinion, the border helps with readability, especially for images whose background colors match the background of the page.
