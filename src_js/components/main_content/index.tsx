@@ -74,7 +74,6 @@ export default function MainContent(props: PropsType): h.JSX.Element {
           props.sidebarShown && !props.isSmallScreen && !is_print_in_progress,
         'primer-spec-content-mobile':
           props.isSmallScreen && !is_print_in_progress,
-        'subtheme-mode--dark': should_use_dark_mode,
       })}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: props.innerHTML }}
