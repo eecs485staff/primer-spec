@@ -141,7 +141,7 @@ If you want to create two different versions of your image, use the [color-mode 
 
 ## Diagrams
 
-Try to use [**Mermaid**](https://eecs485staff.github.io/primer-spec/demo/mermaid.html) for creating diagrams.
+Try to use [**Mermaid**](https://eecs485staff.github.io/primer-spec/demo/mermaid-diagrams.html) for creating diagrams.
 
 If you need a more generic whiteboarding tool, I _strongly_ recommend [**Excalidraw**](https://excalidraw.com). Export the whiteboard as a PNG, then [add the `invert-colors-in-dark-mode` class](#images).
 
