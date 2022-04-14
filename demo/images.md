@@ -141,4 +141,4 @@ While you can use [Mermaid](https://eecs485staff.github.io/primer-spec/demo/merm
 
 After you've created your diagram on Exccalidraw, I recommend exporting it as a PNG *with the scene embedded*. ("Embedding the scene" allows you to reopen the PNG file on Excalidraw in future to make updates!)
 
-Upload the exported PNG image to your Primer Spec website. Then, when you add the image to your page, don't forget to [auto-invert the colors](#auto-invert-colors-in-dark-mode)!
+Upload the exported PNG image to your Primer Spec website. Then, when you add the image to your page, don't forget to [auto-invert the colors](#option-1-recommended-auto-invert-image-colors-in-dark-mode)!
