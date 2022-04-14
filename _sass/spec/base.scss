@@ -789,7 +789,9 @@ $color-mode-opposites: (
     // website creators forget what the exact prefix was.
     img[src$='#gh-#{$color-mode-to-hide}-mode-only'],
     img[src$='#primer-spec-#{$color-mode-to-hide}-mode-only'],
-    img[src$='##{$color-mode-to-hide}-mode-only'],
+    img[src$='##{$color-mode-to-hide}-mode-only'] {
+      display: none;
+    }
     // The :has() selector doesn't work on most browsers yet, but it will
     // some day.
     video:has(source[src$='#gh-#{$color-mode-to-hide}-mode-only']),
