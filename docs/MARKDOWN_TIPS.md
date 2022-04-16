@@ -120,6 +120,20 @@ MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=ou
 ```
 ````
 
+<details markdown="1">
+<summary>Demo of <code>pycon</code> code block</summary>
+
+```console?lang=python&prompt=>>>,...
+>>> from task import MapTask
+>>> task = MapTask(
+...   input_files=["file01", "file02"],
+...   executable="map0.py", output_directory="output")
+>>> task
+MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=output)
+```
+
+</details>
+
 ## Images
 
 _Docs: [https://eecs485staff.github.io/primer-spec/demo/images.html](https://eecs485staff.github.io/primer-spec/demo/images.html)_
