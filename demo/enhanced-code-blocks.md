@@ -198,7 +198,7 @@ Console blocks have special handling. Try clicking the line number next to line 
 
 <!-- prettier-ignore-start -->
 ```console
-$ pwd
+$ pwd # prints the current working directory
 /Users/awdeorio/src/eecs485/p2-insta485-serverside
 $ tree insta485/static/
 insta485/static/

@@ -283,7 +283,7 @@ function createEnhancedCodeBlock(options: {
             )}
           </tbody>
         </table>
-        {lines.length > 1 ? genCopyButton(codeblockId) : null}
+        {lines.length > 1 ? genCopyButton(codeblockId, language) : null}
       </div>
     </div>
   );
@@ -380,25 +380,26 @@ function createCodeBlockLine(options: {
   return codeblockLine;
 }
 
-function genCopyButton(codeblockId: string) {
+function genCopyButton(codeblockId: string, language: string | null) {
   return (
     <div class="primer-spec-zeroclipboard-container position-absolute top-0 right-0">
       <button
         type="button"
         class="btn-octicon no-print m-2 p-2 tooltipped tooltipped-no-delay tooltipped-n"
         tabIndex={0}
-        aria-label="Copy"
+        aria-label={
+          language === LANGUAGE_CONSOLE ? 'Copy all commands' : 'Copy'
+        }
         onClick={async (e) => {
           const codeblock = document.getElementById(codeblockId);
           if (codeblock) {
             // (1) Copy the lines to the clipboard
-            const lines = codeblock.querySelectorAll(
-              `.${CODEBLOCK_LINE_CLASS}`,
+            await copyLines(
+              codeblock,
+              language === LANGUAGE_CONSOLE
+                ? CONSOLE_COPY_LINES_MAP_FN
+                : DEFAULT_COPY_LINES_MAP_FN,
             );
-            const text = [...lines]
-              .map((line) => (line as HTMLElement).innerText)
-              .join('\n');
-            await navigator.clipboard.writeText(text);
 
             // (2) Fetch the copy-button
             let btn = e.target as HTMLElement | null;
@@ -434,6 +435,48 @@ function genCopyButton(codeblockId: string) {
       </button>
     </div>
   );
+}
+
+const DEFAULT_COPY_LINES_MAP_FN = (line: HTMLElement) => line.innerText;
+const CONSOLE_COPY_LINES_MAP_FN = (
+  line: HTMLElement,
+  lineNumber: number,
+  codeblock: HTMLElement,
+) => {
+  // (1) Skip console output lines
+  // (Class name 'go' refers to the Rouge class `Generic::Output`.)
+  const outputText = line.querySelector('.go');
+  if (outputText) {
+    return null;
+  }
+  // (2) If there's a console prompt, skip it
+  const LC_ID = `${codeblock.id}-LC${lineNumber}`;
+  const lineText = line.querySelector(`#${LC_ID}`) as HTMLElement | null;
+  return lineText?.innerText;
+};
+/**
+ * Copy the text of a codeblock into the clipboard. Optionally accepts a custom
+ * map/filter method to extract text from each line.
+ *
+ * @param codeblock The codeblock whose lines need to be copied
+ * @param mapFn (OPTIONAL) A method that extracts text from a given line HTMLElement
+ */
+async function copyLines(
+  codeblock: HTMLElement,
+  mapFn: (
+    line: HTMLElement,
+    lineNumber: number,
+    codeblock: HTMLElement,
+  ) => string | null | void = DEFAULT_COPY_LINES_MAP_FN,
+) {
+  const lines = codeblock.querySelectorAll(
+    `.${CODEBLOCK_LINE_CLASS}`,
+  ) as NodeListOf<HTMLElement>;
+  const linesOfText = [...lines]
+    .map((line, i) => mapFn(line, i + 1, codeblock))
+    .filter(Boolean);
+  const text = linesOfText.join('\n');
+  await navigator.clipboard.writeText(text);
 }
 
 function genCodeBlockHeader(title?: string | null, anchorId?: string | null) {
