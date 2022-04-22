@@ -285,7 +285,7 @@ graph TD;
 ````
 <!-- prettier-ignore-end -->
 
-Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/mermaid-diagrams.html) for inspiration and for links to Mermaid's syntax documentation.
+Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/diagrams.html#mermaid) for inspiration and for links to Mermaid's syntax documentation.
 
 #### `defaultCodeblockVariant`: CodeblockVariant (String)
 

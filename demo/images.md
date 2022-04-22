@@ -135,10 +135,6 @@ Equivalent HTML syntax:
 </pre>
 </details>
 
-# [Excalidraw](https://excalidraw.com)
+# Diagrams
 
-While you can use [Mermaid](https://eecs485staff.github.io/primer-spec/demo/mermaid-diagrams.html) to create diagrams, I recommend using [Excalidraw](https://excalidraw.com) for creating free-form diagrams.
-
-After you've created your diagram on Exccalidraw, I recommend exporting it as a PNG *with the scene embedded*. ("Embedding the scene" allows you to reopen the PNG file on Excalidraw in future to make updates!)
-
-Upload the exported PNG image to your Primer Spec website. Then, when you add the image to your page, don't forget to [auto-invert the colors](#option-1-recommended-auto-invert-image-colors-in-dark-mode)!
+If you wish to upload images that represent flow charts or other diagrams, consider using Excalidraw or Mermaid instead. Check out the [Diagrams demo](./diagrams.html) for more information.

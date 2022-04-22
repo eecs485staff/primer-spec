@@ -155,9 +155,9 @@ If you want to create two different versions of your image, use the [color-mode 
 
 ## Diagrams
 
-Try to use [**Mermaid**](https://eecs485staff.github.io/primer-spec/demo/mermaid-diagrams.html) for creating diagrams.
+Try to use [**Excalidraw or Mermaid**](https://eecs485staff.github.io/primer-spec/demo/diagrams.html) for creating diagrams. I strongly prefer Excalidraw for its versatility, but I think Mermaid works well when creating flow charts.
 
-If you need a more generic whiteboarding tool, I _strongly_ recommend [**Excalidraw**](https://excalidraw.com). Export the whiteboard as a PNG, then [add the `invert-colors-in-dark-mode` class](#images).
+If you end up using Excalidraw, don't forget to use the file extension `.excalidraw.png` or `.excalidraw.svg`. Primer Spec identifies these images and auto-optimizes them for dark mode.
 
 ## Abbreviations
 

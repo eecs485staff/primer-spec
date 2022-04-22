@@ -37,7 +37,8 @@
       "dbaeumer.vscode-eslint",
       "sissel.shopify-liquid",
       "kamikillerto.vscode-colorize",
-      "bierner.color-info"
+      "bierner.color-info",
+      "pomdtr.excalidraw-editor"
     ]
   }
 }
