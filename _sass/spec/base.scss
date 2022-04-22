@@ -769,9 +769,13 @@ div.primer-spec-callout {
 
 // The `invert-colors-in-dark-mode` class technically works on any element,
 // including videos!
-:root[data-theme-mode='dark'] .markdown-body .invert-colors-in-dark-mode {
-  filter: invert(93%) hue-rotate(180deg);
-  border: 1px solid var(--main-image-border-color-inverted);
+:root[data-theme-mode='dark'] .markdown-body {
+  .invert-colors-in-dark-mode,
+  img[src$='.excalidraw.png'],
+  img[src$='.excalidraw.svg'] {
+    filter: invert(93%) hue-rotate(180deg);
+    border: 1px solid var(--main-image-border-color-inverted);
+  }
 }
 
 // Hide dark-mode images in light mode, and vice versa.

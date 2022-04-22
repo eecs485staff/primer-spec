@@ -3,8 +3,31 @@ layout: spec
 mermaid: true
 ---
 
-# Mermaid Diagrams
+# Diagrams
 {: .primer-spec-toc-ignore }
+
+Primer Spec offers first-class support for two diagramming tools:
+
+- [Excalidraw](#excalidraw): Use for free-form whiteboard-style diagrams.
+- [Mermaid](#mermaid): Use for structured flowcharts and sequence diagrams.
+
+# Excalidraw
+
+[Excalidraw](https://excalidraw.com) is my preferred diagramming tool. It's _absurdly_ easy to create beautiful whiteboard-style diagrams! (It's also the preferred diagramming tool by engineers at Meta.)
+
+You can visit their [website](https://excalidraw.com) and export the diagram as a PNG or SVG. Alternatively, you can use their [official VSCode extension](https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor) to create diagrams right in VSCode.
+
+<div class="primer-spec-callout info" markdown="1">
+When you create a PNG image using Excalidraw, don't forget to name your file as `[your-filename].excalidraw.png`. Primer Spec identifies images that are named with `.excalidraw`, and automatically applies dark-mode styles to them!
+</div>
+
+As long as you've "embedded the scene" into the exported image, your Excalidraw diagrams can be edited any time.
+
+Here's a demo diagram I created with filename `excalidraw-demo.excalidraw.png`. Try switching between light and dark-mode to see the image-color change!
+
+![Demo diagram created using Excalidraw. The diagram is titled "Create beautiful free-form diagrams with Excalidraw!" It is easy to use, supports dark mode, and has a vast community-maintained icon library. A diagram with a cloud, with an arrow pointing from the cloud to an email.](./excalidraw-demo.excalidraw.png)
+
+# Mermaid
 
 [Mermaid](https://mermaid-js.github.io/mermaid/#/?id=diagram-types) lets you define diagrams (like flow charts and sequence diagrams) with easy-to-learn Markdown-ish syntax.
 
@@ -27,7 +50,7 @@ mermaid: true
 
 ## Accessibility
 
-Primer Spec allows you to specify *titles* and *descriptions* for your diagrams. While they aren't required, we strongly encourage you to specify them since they are the only way a visually-impaired user can understand the content in the diagram.
+Primer Spec allows you to specify _titles_ and _descriptions_ for your diagrams. While they aren't required, we strongly encourage you to specify them since they are the only way a visually-impaired user can understand the content in the diagram.
 
 Specify them by adding `data-title` and `data-decsription` attributes to the diagram. For instance:
 
