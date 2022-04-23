@@ -370,7 +370,11 @@ function createCodeBlockLine(options: {
       const childrenToIncludeInSelection = children.slice(i);
       // (3) Wrap remaining children in a new <span> with id=LC_ID.
       codeLine.innerHTML = '';
-      codeLine.appendChild(<span>{childrenToExcludeFromSelection}</span>);
+      codeLine.appendChild(
+        <span class="primer-spec-code-block-non-selectable">
+          {childrenToExcludeFromSelection}
+        </span>,
+      );
       codeLine.appendChild(
         <span id={LC_ID}>{childrenToIncludeInSelection}</span>,
       );
