@@ -91,7 +91,6 @@ export default function MainContent({
           sidebarShown && !isSmallScreen && !is_print_in_progress,
         'primer-spec-content-mobile': isSmallScreen && !is_print_in_progress,
         'primer-spec-content-frozen': !visible,
-        'subtheme-mode--dark': should_use_dark_mode,
       })}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: innerHTML }}

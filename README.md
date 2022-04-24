@@ -1,16 +1,16 @@
-[![cibuild](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml/badge.svg?branch=develop)](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml)
-[![Nightly Preview](https://img.shields.io/badge/develop-preview-blue.svg)](https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/)
-
 <div align="center">
 	<img src="demo/logo-light.svg#gh-light-mode-only" alt="Primer Spec logo" width="25%" />
-	<img src="demo/logo-dark.svg#gh-dark-mode-only" alt="Primer Spec logo" width="25%" />
+	<img src="demo/logo-dark.svg#gh-dark-mode-only" alt="Primer Spec logo" width="250em" />
 	<h1>Primer Spec</h1>
 	<p>
 		<b>A website theme for long informative web pages.</b>
 	</p>
-	<br>
-	<br>
 </div>
+
+[![cibuild](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml/badge.svg?branch=develop)](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml)
+[![Nightly Preview](https://img.shields.io/badge/develop-preview-blue.svg)](https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/)
+
+<br>
 
 _Primer Spec is a Jekyll theme that makes long informative web pages (like project specifications!) easier to read. In addition to aesthetic styling, the theme generates a table of contents displayed in a sidebar. You can [preview the theme to see what it looks like](http://eecs485staff.github.io/primer-spec), or even [use it today](#usage)._
 

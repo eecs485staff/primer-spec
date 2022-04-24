@@ -18,6 +18,9 @@ function apply(
   }
 
   RougeThemes[rouge_theme_name].apply();
+
+  // Also reflect the `mode` in the DOM so that CSS can use it.
+  document.documentElement.setAttribute('data-theme-mode', mode);
 }
 
 function reset(

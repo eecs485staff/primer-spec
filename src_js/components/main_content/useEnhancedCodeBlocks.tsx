@@ -3,8 +3,9 @@ import { RefObject } from 'preact';
 import * as JSXDom from 'jsx-dom';
 import clsx from 'clsx';
 import AnchorJS from 'anchor-js';
-import Config from '../../Config';
 import slugify from '@sindresorhus/slugify';
+import Config from '../../Config';
+import { CodeblockVariant } from './types';
 
 const CODEBLOCK_LINE_CLASS = 'primer-spec-code-block-line-code';
 // We use the following class to ensure that we don't double-process code
@@ -149,14 +150,16 @@ function enhanceBlocks(
         ? createCodeBlockAnchorId(codeblockNumericId, title)
         : null;
 
-      const enhancedCodeBlock = createEnhancedCodeBlock(
+      const enhancedCodeBlock = createEnhancedCodeBlock({
         codeblockNumericId,
-        codeblockContents,
-        getCodeBlockLanguage(codeblock),
-        codeblock.dataset['highlight'] || null,
+        rawContent: codeblockContents,
+        language: getCodeBlockLanguage(codeblock),
+        rawHighlightRanges: codeblock.dataset['highlight'] || null,
         title,
         anchorId,
-      );
+        showLineNumbers:
+          getCodeblockVariant(codeblock) !== CodeblockVariant.NO_LINE_NUMBERS,
+      });
       if (!enhancedCodeBlock) {
         return;
       }
@@ -177,23 +180,42 @@ function enhanceBlocks(
 }
 
 function shouldRetainLegacyCodeBlock(codeblock: HTMLElement): boolean {
-  if (codeblock.dataset['variant'] != null) {
-    return codeblock.dataset['variant'] === 'legacy';
-  }
+  // Don't mess with Mermaid blocks, they'll be handled by the Mermaid plugin.
   if (codeblock.querySelector('.language-mermaid') != null) {
     return true;
   }
-  return Config.USE_LEGACY_CODE_BLOCKS;
+  return getCodeblockVariant(codeblock) === CodeblockVariant.LEGACY;
 }
 
-function createEnhancedCodeBlock(
-  codeblockNumericId: number,
-  rawContent: string,
-  language: string | null,
-  rawHighlightRanges: string | null,
-  title?: string | null,
-  anchorId?: string | null,
-): HTMLElement | null {
+function getCodeblockVariant(codeblock: HTMLElement): CodeblockVariant {
+  const rawVariant = codeblock.dataset[
+    'variant'
+  ]?.toLowerCase() as CodeblockVariant | null;
+  if (rawVariant && Object.values(CodeblockVariant).includes(rawVariant)) {
+    return rawVariant as CodeblockVariant;
+  }
+  return Config.DEFAULT_CODEBLOCK_VARIANT;
+}
+
+function createEnhancedCodeBlock(options: {
+  codeblockNumericId: number;
+  rawContent: string;
+  language: string | null;
+  rawHighlightRanges: string | null;
+  title?: string | null;
+  anchorId?: string | null;
+  showLineNumbers: boolean;
+}): HTMLElement | null {
+  const {
+    codeblockNumericId,
+    rawContent,
+    language,
+    rawHighlightRanges,
+    title,
+    anchorId,
+    showLineNumbers,
+  } = options;
+
   const lines = rawContent.split('\n');
   if (lines.length === 0) {
     console.warn('useEnhancedCodeBlocks: Code Block appears to have no lines!');
@@ -250,30 +272,41 @@ function createEnhancedCodeBlock(
             }}
           >
             {lines.map((line, lineNumber) =>
-              createCodeBlockLine(
+              createCodeBlockLine({
                 codeblockId,
                 language,
                 line,
-                lineNumber + 1,
-                highlightRanges.has(lineNumber + 1),
-              ),
+                lineNumber: lineNumber + 1,
+                shouldHighlight: highlightRanges.has(lineNumber + 1),
+                showLineNumbers,
+              }),
             )}
           </tbody>
         </table>
-        {lines.length > 1 ? genCopyButton(codeblockId) : null}
+        {lines.length > 1 ? genCopyButton(codeblockId, language) : null}
       </div>
     </div>
   );
   return enhancedCodeBlock as HTMLElement;
 }
 
-function createCodeBlockLine(
-  codeblockId: string,
-  language: string | null,
-  line: string,
-  lineNumber: number,
-  shouldHighlight: boolean,
-): HTMLElement {
+function createCodeBlockLine(options: {
+  codeblockId: string;
+  language: string | null;
+  line: string;
+  lineNumber: number;
+  shouldHighlight: boolean;
+  showLineNumbers: boolean;
+}): HTMLElement {
+  const {
+    codeblockId,
+    language,
+    line,
+    lineNumber,
+    shouldHighlight,
+    showLineNumbers,
+  } = options;
+
   const L_ID = `${codeblockId}-L${lineNumber}`;
   const LC_ID = `${codeblockId}-LC${lineNumber}`;
   const LR_ID = `${codeblockId}-LR${lineNumber}`;
@@ -282,7 +315,10 @@ function createCodeBlockLine(
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <td
         id={L_ID}
-        class="primer-spec-code-block-line-number"
+        class={clsx(
+          'primer-spec-code-block-line-number',
+          showLineNumbers && 'primer-spec-code-block-line-numbers-shown',
+        )}
         data-line-number={lineNumber}
         onMouseDown={(e) => {
           e.preventDefault();
@@ -344,25 +380,26 @@ function createCodeBlockLine(
   return codeblockLine;
 }
 
-function genCopyButton(codeblockId: string) {
+function genCopyButton(codeblockId: string, language: string | null) {
   return (
     <div class="primer-spec-zeroclipboard-container position-absolute top-0 right-0">
       <button
         type="button"
         class="btn-octicon no-print m-2 p-2 tooltipped tooltipped-no-delay tooltipped-n"
         tabIndex={0}
-        aria-label="Copy"
+        aria-label={
+          language === LANGUAGE_CONSOLE ? 'Copy all commands' : 'Copy'
+        }
         onClick={async (e) => {
           const codeblock = document.getElementById(codeblockId);
           if (codeblock) {
             // (1) Copy the lines to the clipboard
-            const lines = codeblock.querySelectorAll(
-              `.${CODEBLOCK_LINE_CLASS}`,
+            await copyLines(
+              codeblock,
+              language === LANGUAGE_CONSOLE
+                ? CONSOLE_COPY_LINES_MAP_FN
+                : DEFAULT_COPY_LINES_MAP_FN,
             );
-            const text = [...lines]
-              .map((line) => (line as HTMLElement).innerText)
-              .join('\n');
-            await navigator.clipboard.writeText(text);
 
             // (2) Fetch the copy-button
             let btn = e.target as HTMLElement | null;
@@ -398,6 +435,48 @@ function genCopyButton(codeblockId: string) {
       </button>
     </div>
   );
+}
+
+const DEFAULT_COPY_LINES_MAP_FN = (line: HTMLElement) => line.innerText;
+const CONSOLE_COPY_LINES_MAP_FN = (
+  line: HTMLElement,
+  lineNumber: number,
+  codeblock: HTMLElement,
+) => {
+  // (1) Skip console output lines
+  // (Class name 'go' refers to the Rouge class `Generic::Output`.)
+  const outputText = line.querySelector('.go');
+  if (outputText) {
+    return null;
+  }
+  // (2) If there's a console prompt, skip it
+  const LC_ID = `${codeblock.id}-LC${lineNumber}`;
+  const lineText = line.querySelector(`#${LC_ID}`) as HTMLElement | null;
+  return lineText?.innerText;
+};
+/**
+ * Copy the text of a codeblock into the clipboard. Optionally accepts a custom
+ * map/filter method to extract text from each line.
+ *
+ * @param codeblock The codeblock whose lines need to be copied
+ * @param mapFn (OPTIONAL) A method that extracts text from a given line HTMLElement
+ */
+async function copyLines(
+  codeblock: HTMLElement,
+  mapFn: (
+    line: HTMLElement,
+    lineNumber: number,
+    codeblock: HTMLElement,
+  ) => string | null | void = DEFAULT_COPY_LINES_MAP_FN,
+) {
+  const lines = codeblock.querySelectorAll(
+    `.${CODEBLOCK_LINE_CLASS}`,
+  ) as NodeListOf<HTMLElement>;
+  const linesOfText = [...lines]
+    .map((line, i) => mapFn(line, i + 1, codeblock))
+    .filter(Boolean);
+  const text = linesOfText.join('\n');
+  await navigator.clipboard.writeText(text);
 }
 
 function genCodeBlockHeader(title?: string | null, anchorId?: string | null) {

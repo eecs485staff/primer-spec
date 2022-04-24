@@ -19,7 +19,7 @@ primerSpec:
 # sitemap: true
 # sitemap:
 #   label: Demo pages
-# useLegacyCodeBlocks: true
+# defaultCodeblockVariant: no-line-numbers
 
 sass:
   style: :compressed

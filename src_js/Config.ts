@@ -1,4 +1,5 @@
 import Storage from './utils/Storage';
+import { CodeblockVariant } from './components/main_content/types';
 
 const SUBTHEME_NAME_STORAGE_KEY = 'spec_subtheme_name';
 const SUBTHEME_MODE_STORAGE_KEY = 'spec_subtheme_mode';
@@ -32,7 +33,11 @@ export default {
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
-  USE_LEGACY_CODE_BLOCKS: window.PrimerSpecConfig.useLegacyCodeBlocks || false,
+  DEFAULT_CODEBLOCK_VARIANT: getDefaultCodeblockVariant(),
+
+  // DEPRECATED in v1.7.0. Use `DEFAULT_CODEBLOCK_VARIANT` instead.
+  USE_LEGACY_CODE_BLOCKS_DEPRECATED_DO_NOT_USE:
+    window.PrimerSpecConfig.useLegacyCodeBlocks || false,
 
   // Other constants
   PRIMER_SPEC_APP_NODE_ID: 'primer-spec-app-container',
@@ -71,4 +76,17 @@ function getInitSitemapEnabled() {
   }
 
   return !!window.PrimerSpecConfig.sitemapEnabled;
+}
+
+function getDefaultCodeblockVariant(): CodeblockVariant {
+  if (window.PrimerSpecConfig.useLegacyCodeBlocks === true) {
+    // Note that `useLegacyCodeBlocks` is deprecated in v1.7.0. This code
+    // just ensures backwards-compatibility.
+    return CodeblockVariant.LEGACY;
+  }
+  const maybeVariant = window.PrimerSpecConfig.defaultCodeblockVariant?.toLowerCase() as CodeblockVariant | null;
+  if (maybeVariant && Object.values(CodeblockVariant).includes(maybeVariant)) {
+    return maybeVariant;
+  }
+  return CodeblockVariant.ENHANCED;
 }

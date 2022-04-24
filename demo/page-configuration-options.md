@@ -2,7 +2,10 @@
 layout: spec
 
 disableSidebar: true
-useLegacyCodeBlocks: true
+defaultCodeblockVariant: legacy
+# ^ This is equivalent to the following.
+# useLegacyCodeBlocks: true
+# However, `useLegacyCodeBlocks` is deprecated starting from v1.7.0.
 ---
 
 # Page Configuration Options
@@ -17,7 +20,7 @@ This boolean indicates whether the sidebar with Table of Contents should be show
 
 This configuration option is useful for small pages, or for pages with few headings. (On such pages, a Sidebar may not be useful, or might hamper the reading experience.)
 
-### `useLegacyCodeBlocks: true`
+### `defaultCodeblockVariant: legacy`
 
 This boolean indicates whether code blocks should _not_ be enhanced on the page. (By default, [code blocks are enhanced](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html) by Primer Spec.)
 

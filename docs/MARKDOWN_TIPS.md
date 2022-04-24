@@ -23,6 +23,8 @@ In this guide, I describe what I look for when I add Primer Spec to an existing 
   - [Code block titles](#code-block-titles)
   - [Highlighting lines](#highlighting-lines)
   - [Console blocks (and `pycon`)](#console-blocks-and-pycon)
+- [Images](#images)
+- [Diagrams](#diagrams)
 - [Abbreviations](#abbreviations)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Task Lists (Checklists)](#task-lists-checklists)
@@ -117,6 +119,45 @@ The `console` block also accepts parameters that allow you to customize what cou
 MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=output)
 ```
 ````
+
+<details markdown="1">
+<summary>Demo of <code>pycon</code> code block</summary>
+
+```console?lang=python&prompt=>>>,...
+>>> from task import MapTask
+>>> task = MapTask(
+...   input_files=["file01", "file02"],
+...   executable="map0.py", output_directory="output")
+>>> task
+MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=output)
+```
+
+</details>
+
+## Images
+
+_Docs: [https://eecs485staff.github.io/primer-spec/demo/images.html](https://eecs485staff.github.io/primer-spec/demo/images.html)_
+
+When possible, try to add the class `invert-colors-in-dark-mode` to your image — Primer Spec will automatically convert your image into dark mode!
+
+```markdown
+![This is my light mode image, but it auto-inverts in dark mode.](./my-image.png){: .invert-colors-in-dark-mode }
+
+OR
+
+<img
+  src="./my-image.png"
+  alt="This is my light mode image, but it auto-inverts in dark mode."
+  class="invert-colors-in-dark-mode" />
+```
+
+If you want to create two different versions of your image, use the [color-mode directives](https://eecs485staff.github.io/primer-spec/demo/images.html#option-2-show-images-only-in-certain-theme-mode) to only display images in a certain color-mode.
+
+## Diagrams
+
+Try to use [**Excalidraw or Mermaid**](https://eecs485staff.github.io/primer-spec/demo/diagrams.html) for creating diagrams. I strongly prefer Excalidraw for its versatility, but I think Mermaid works well when creating flow charts.
+
+If you end up using Excalidraw, don't forget to use the file extension `.excalidraw.png` or `.excalidraw.svg`. Primer Spec identifies these images and auto-optimizes them for dark mode.
 
 ## Abbreviations
 
