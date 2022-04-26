@@ -213,7 +213,7 @@ function insertShyEmojiImpl(subtheme_name: string) {
     <style id={keyframesCssId}>
       {'@keyframes peak-in-out {'}
       {'  from {'}
-      {`    ${peakFromMargin}: -60px;`}
+      {`    ${peakFromMargin}: -70px;`}
       {'  }'}
       {'  20% {'}
       {`    ${peakFromMargin}: -20px;`}
@@ -222,7 +222,7 @@ function insertShyEmojiImpl(subtheme_name: string) {
       {`    ${peakFromMargin}: -20px;`}
       {'  }'}
       {'  to {'}
-      {`    ${peakFromMargin}: -60px;`}
+      {`    ${peakFromMargin}: -70px;`}
       {'  }'}
       {'}'}
       {'@keyframes fly {'}
@@ -234,7 +234,7 @@ function insertShyEmojiImpl(subtheme_name: string) {
       {'  }'}
       {'  to {'}
       {`    top: ${getRandomInt(-10, 110)}vh;`}
-      {`    ${peakFromMargin}: 100vw;`}
+      {`    ${peakFromMargin}: 110vw;`}
       {'  }'}
       {'}'}
     </style>
@@ -245,7 +245,7 @@ function insertShyEmojiImpl(subtheme_name: string) {
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
     <span
       id={emojiSpanId}
-      style={`position: fixed; top: ${initHeight}%; ${peakFromMargin}: -60px; font-size: 60px; z-index: 1000; user-select: none; cursor: pointer;`}
+      style={`position: fixed; top: ${initHeight}%; ${peakFromMargin}: -70px; font-size: 60px; z-index: 1000; user-select: none; cursor: pointer;`}
       onClick={() => {
         // If the emoji is still in the middle of peaking in, we want the
         // animation to begin from wherever it currently is.
