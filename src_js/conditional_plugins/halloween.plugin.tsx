@@ -160,7 +160,7 @@ function constructHalloweenSubtheme() {
   // Since we want to use a custom font, we need to inject it into the page.
   document.head.appendChild(
     <link
-      href="https://fonts.googleapis.com/css2?family=Creepster&family=Rye&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Architects+Daughter&display=swap"
       rel="stylesheet"
     />,
   );
@@ -180,7 +180,7 @@ function toggleFontIfNeeded(subtheme_name: string) {
   if (subtheme_name === 'spooky' && !existingStyleTag) {
     document.body.appendChild(
       <style id="primer-spec-halloween-font">
-        body, .markdown-body, p {'{'}font-family: 'Rye'; {'}'}
+        body, .markdown-body, p {'{'}font-family: 'Architects Daughter'; {'}'}
         h1, h2, h3, h4, h5, h6 {'{'}font-family: 'Creepster' !important; {'}'}
       </style>,
     );
