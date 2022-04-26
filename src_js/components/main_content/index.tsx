@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useCallback, useEffect, useRef } from 'preact/hooks';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 import clsx from 'clsx';
 import Config from '../../Config';
 import { usePrintInProgress } from '../../utils/hooks/print';
@@ -76,7 +76,7 @@ export default function MainContent({
     return tooltippedAbbreviationsEffect(main_el_ref);
   }, [tooltippedAbbreviationsEffect]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (scrollToPosition != null) {
       window.scrollTo(scrollToPosition);
     }
