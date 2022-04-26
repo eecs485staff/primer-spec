@@ -196,87 +196,92 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function insertShyEmojiIfNeeded(subtheme_name: string) {
-  const emojiSpanId = 'primer-spec-shy-emoji';
-  const keyframesCssId = 'primer-spec-shy-emoji-keyframes';
+/*** SHY EMOJI ***/
+
+const emojiSpanId = 'primer-spec-shy-emoji';
+const keyframesCssId = 'primer-spec-shy-emoji-keyframes';
+
+function insertShyEmojiImpl(subtheme_name: string) {
+  const initHeight = getRandomInt(10, 90);
 
   const spookyEmojis = ['🎃', '👻', '🤫', '🧙', '🧛', '🧟', '👺'];
   const chosenEmoji = spookyEmojis[getRandomInt(0, spookyEmojis.length)];
 
   const peakFromMargin = getRandomInt(0, 2) === 0 ? 'right' : 'left';
 
+  const shyEmojiKeyframes = (
+    <style id={keyframesCssId}>
+      {'@keyframes peak-in-out {'}
+      {'  from {'}
+      {`    ${peakFromMargin}: -60px;`}
+      {'  }'}
+      {'  20% {'}
+      {`    ${peakFromMargin}: -20px;`}
+      {'  }'}
+      {'  80% {'}
+      {`    ${peakFromMargin}: -20px;`}
+      {'  }'}
+      {'  to {'}
+      {`    ${peakFromMargin}: -60px;`}
+      {'  }'}
+      {'}'}
+      {'@keyframes fly {'}
+      {'  25% {'}
+      {`    top: ${getRandomInt(10, 90)}vh;`}
+      {'  }'}
+      {'  60% {'}
+      {`    top: ${getRandomInt(-1, 101)}vh;`}
+      {'  }'}
+      {'  to {'}
+      {`    top: ${getRandomInt(-10, 110)}vh;`}
+      {`    ${peakFromMargin}: 100vw;`}
+      {'  }'}
+      {'}'}
+    </style>
+  );
+  document.body.append(shyEmojiKeyframes);
+
+  const shyEmoji = (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+    <span
+      id={emojiSpanId}
+      style={`position: fixed; top: ${initHeight}%; ${peakFromMargin}: -60px; font-size: 60px; z-index: 1000; user-select: none; cursor: pointer;`}
+      onClick={() => {
+        // If the emoji is still in the middle of peaking in, we want the
+        // animation to begin from wherever it currently is.
+        shyEmoji.style[peakFromMargin] = window.getComputedStyle(shyEmoji)[
+          peakFromMargin
+        ];
+        shyEmoji.style.animationDelay = '0s';
+        shyEmoji.style.animationDuration = '3s';
+        shyEmoji.style.animationName = 'fly';
+      }}
+    >
+      {chosenEmoji}
+    </span>
+  );
+
+  // Peak In and Out
+  shyEmoji.style.animationFillMode = 'forwards';
+  shyEmoji.style.animationDelay = '2s';
+  shyEmoji.style.animationDuration = '25s';
+  shyEmoji.style.animationTimingFunction = 'ease-in-out';
+  shyEmoji.style.animationName = 'peak-in-out';
+  // CLEANUP
+  shyEmoji.onanimationend = () => {
+    shyEmoji.remove();
+    shyEmojiKeyframes.remove();
+    // Rinse and repeat!
+    insertShyEmojiIfNeeded(subtheme_name);
+  };
+
+  document.body.append(shyEmoji);
+}
+
+function insertShyEmojiIfNeeded(subtheme_name: string) {
+  document.getElementById(emojiSpanId)?.remove();
+  document.getElementById(keyframesCssId)?.remove();
   if (subtheme_name === 'spooky') {
-    const initHeight = getRandomInt(10, 90);
-
-    const shyEmojiKeyframes = (
-      <style id={keyframesCssId}>
-        {'@keyframes peak-in-out {'}
-        {'  from {'}
-        {`    ${peakFromMargin}: -60px;`}
-        {'  }'}
-        {'  20% {'}
-        {`    ${peakFromMargin}: -20px;`}
-        {'  }'}
-        {'  80% {'}
-        {`    ${peakFromMargin}: -20px;`}
-        {'  }'}
-        {'  to {'}
-        {`    ${peakFromMargin}: -60px;`}
-        {'  }'}
-        {'}'}
-        {'@keyframes fly {'}
-        {'  25% {'}
-        {`    top: ${getRandomInt(10, 90)}vh;`}
-        {'  }'}
-        {'  60% {'}
-        {`    top: ${getRandomInt(-1, 101)}vh;`}
-        {'  }'}
-        {'  to {'}
-        {`    top: ${getRandomInt(-10, 110)}vh;`}
-        {`    ${peakFromMargin}: 100vw;`}
-        {'  }'}
-        {'}'}
-      </style>
-    );
-    document.body.append(shyEmojiKeyframes);
-
-    const shyEmoji = (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-      <span
-        id={emojiSpanId}
-        style={`position: fixed; top: ${initHeight}%; ${peakFromMargin}: -60px; font-size: 60px; z-index: 1000; user-select: none; cursor: pointer;`}
-        onClick={() => {
-          // If the emoji is still in the middle of peaking in, we want the
-          // animation to begin from wherever it currently is.
-          shyEmoji.style[peakFromMargin] = window.getComputedStyle(shyEmoji)[
-            peakFromMargin
-          ];
-          shyEmoji.style.animationDelay = '0s';
-          shyEmoji.style.animationDuration = '3s';
-          shyEmoji.style.animationName = 'fly';
-        }}
-      >
-        {chosenEmoji}
-      </span>
-    );
-
-    // Peak In and Out
-    shyEmoji.style.animationFillMode = 'forwards';
-    shyEmoji.style.animationDelay = '2s';
-    shyEmoji.style.animationDuration = '25s';
-    shyEmoji.style.animationTimingFunction = 'ease-in-out';
-    shyEmoji.style.animationName = 'peak-in-out';
-    // CLEANUP
-    shyEmoji.onanimationend = () => {
-      shyEmoji.remove();
-      shyEmojiKeyframes.remove();
-      // Rinse and repeat!
-      insertShyEmojiIfNeeded(subtheme_name);
-    };
-
-    document.body.append(shyEmoji);
-  } else {
-    document.getElementById(emojiSpanId)?.remove();
-    document.getElementById(keyframesCssId)?.remove();
+    insertShyEmojiImpl(subtheme_name);
   }
 }
