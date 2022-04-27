@@ -615,7 +615,7 @@ function createCodeBlockAnchorId(
  * the codeblock.
  *
  * One edge case that this method handles: Lines split within a single span.
- * Consider the following codeblock:
+ * Consider the following codeblock (observe lines 3-4):
  * ```html
  *   <code><span class="c">Line 1</span>
  *   <span class="c">Line 2</span>
@@ -658,5 +658,5 @@ function getCodeblockContents(codeEl: HTMLElement): string {
       resultNode.appendChild(childNode.cloneNode(true));
     }
   });
-  return resultNode.innerHTML.trim();
+  return resultNode.innerHTML;
 }
