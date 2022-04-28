@@ -159,6 +159,15 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
     // On mobile, make space for the topbar.
     padding-top: $ICON_FONT_SIZE;
   }
+  &-frozen {
+    // When the settings pane is shown as an overlay, we want to prevent
+    // scrolling on the underlying main content. These styles prevent
+    // scrolling.
+    // (They also reset the scroll position, so JS is responsible for restoring
+    // the original scroll state after the settings pane is closed.)
+    position: fixed;
+    overflow: hidden;
+  }
 }
 
 // These are section headers in the sidebar

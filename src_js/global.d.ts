@@ -43,3 +43,22 @@ declare var mermaid: {
     ): string;
   };
 };
+
+// eslint-disable-next-line
+declare var PrimerSpec: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  REGISTERED_SUBTHEMES?: any;
+  registerNewSubtheme?: (
+    name: string,
+    label: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    subthemeDefinition: any,
+  ) => void;
+  updateTheme?: (
+    updates: {
+      name?: string;
+      mode?: SubthemeModeSelectorType;
+    },
+    persistUpdate?: boolean,
+  ) => void;
+};
