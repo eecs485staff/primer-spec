@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="demo/logo-light.svg#gh-light-mode-only" alt="Primer Spec logo" width="25%" />
+	<img src="demo/logo-light.svg#gh-light-mode-only" alt="Primer Spec logo" width="250em" />
 	<img src="demo/logo-dark.svg#gh-dark-mode-only" alt="Primer Spec logo" width="250em" />
 	<h1>Primer Spec</h1>
 	<p>
