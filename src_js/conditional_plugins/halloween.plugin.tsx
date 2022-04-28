@@ -126,7 +126,14 @@ function insertPumpkinsInThemePreview() {
     .forEach((svg) => {
       if (!svg.querySelector('.spooky-pumpkins')) {
         svg.appendChild(
-          <text class="spooky-pumpkins" x="80" y="140" style="font-size: 72px;">
+          <text
+            class="spooky-pumpkins"
+            x="180"
+            y="130"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            style="font-size: 72px;"
+          >
             🎃🎃🎃
           </text>,
         );
