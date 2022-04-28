@@ -1,11 +1,18 @@
+---
+layout: spec
+title: '[DOCS] Architecture'
+---
+
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 # Primer Spec Dev Onboarding
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 ## Contents
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 - [Purpose](#purpose)
@@ -119,7 +126,7 @@ For every Pull Review and commit to `develop`/`main`, GitHub Actions runs `scrip
 
 ## Versioning & backwards compatibility
 
-Starting with [version v1.2](https://github.com/eecs485staff/primer-spec/releases/tag/v1.2.0%2Bss20), Primer Spec guarantees backwards-compatibility — when an external website is built using a specific version of Primer Spec, pages are guaranteed to appear visually similar as long as the site is not rebuilt. Primer Spec's versioning system is further described in the [CONTRIBUTING docs](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bumping-the-version-in-pull-requests).
+Starting with [version v1.2](https://github.com/eecs485staff/primer-spec/releases/tag/v1.2.0%2Bss20), Primer Spec guarantees backwards-compatibility — when an external website is built using a specific version of Primer Spec, pages are guaranteed to appear visually similar as long as the site is not rebuilt. Primer Spec's versioning system is further described in the [CONTRIBUTING docs](./CONTRIBUTING.html#bumping-the-version-in-pull-requests).
 
 When an external site is built, the `spec` layout is used so that the HTML never changes. However, the pages use JS and CSS assets that are hosted on https://eecs485staff.github.io/primer-spec. Hence, to guarantee backwards-compatibility:
 
@@ -127,4 +134,4 @@ When an external site is built, the `spec` layout is used so that the HTML never
 - Changes to the JS/CSS files must not depend on changes to the HTML templates.
 - The URL for those assets must remain stable and unchanged.
 
-To facilitate the above requirements, the `assets` directory is versioned. Before adding `minor` or `major` changes, the previous version's assets _must_ be archived by using [`script/version bump`](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bumping-the-version-in-pull-requests).
+To facilitate the above requirements, the `assets` directory is versioned. Before adding `minor` or `major` changes, the previous version's assets _must_ be archived by using [`script/version bump`](./CONTRIBUTING.html#bumping-the-version-in-pull-requests).

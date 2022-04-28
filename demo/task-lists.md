@@ -1,9 +1,11 @@
 ---
 layout: spec
-disableSidebar: true
 ---
 
+<!-- prettier-ignore-start -->
 # GFM Task Lists
+{: .primer-spec-toc-ignore }
+<!-- prettier-ignore-end -->
 
 This page demonstrates how Primer Spec persists task-lists.
 

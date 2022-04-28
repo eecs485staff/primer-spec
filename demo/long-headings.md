@@ -1,6 +1,7 @@
 ---
 layout: spec
 title: Long Headings (Demo)
+excludeFromSitemap: true
 ---
 
 <!-- prettier-ignore-start -->

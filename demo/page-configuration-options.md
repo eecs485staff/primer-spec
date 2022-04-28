@@ -1,5 +1,6 @@
 ---
 layout: spec
+excludeFromSitemap: true
 
 disableSidebar: true
 defaultCodeblockVariant: legacy

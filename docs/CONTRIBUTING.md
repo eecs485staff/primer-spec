@@ -1,6 +1,12 @@
+---
+layout: spec
+title: '[DOCS] How to Contribute'
+---
+
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 # Contributing to the Primer Spec Theme
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 _This document was adapted in part from the corresponding documents from the original [Primer theme](https://github.com/pages-themes/primer)._
@@ -8,6 +14,7 @@ _This document was adapted in part from the corresponding documents from the ori
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 ## Contents
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 - [Looking for support?](#looking-for-support)
@@ -28,7 +35,7 @@ _This document was adapted in part from the corresponding documents from the ori
 
 ## Looking for support?
 
-We'd love to help. Check out [the support guidelines](SUPPORT.md).
+We'd love to help. Check out [the support guidelines](./SUPPORT.html).
 
 ## How to report a bug
 

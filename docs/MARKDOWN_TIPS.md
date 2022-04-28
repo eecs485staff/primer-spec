@@ -1,10 +1,12 @@
 ---
 layout: spec
+title: '[DOCS] Markdown Tips'
 ---
 
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 # Markdown Tips
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 _Author: Sesh Sadasivam_
@@ -16,6 +18,7 @@ In this guide, I describe what I look for when I add Primer Spec to an existing 
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 ## Table of Contents
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 - [Callouts](#callouts)

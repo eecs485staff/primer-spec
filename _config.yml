@@ -19,9 +19,8 @@ title: Jekyll Theme Primer Spec
 description: Primer Spec is a Jekyll theme for GitHub Pages
 
 primerSpec:
-# sitemap: true
-# sitemap:
-#   label: Demo pages
+  sitemap:
+    label: Docs & Demos
 # defaultCodeblockVariant: no-line-numbers
 
 sass:

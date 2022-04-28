@@ -70,17 +70,17 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
 
 This repository hosts a Primer Spec site too! The original Markdown content is in [index.md](index.md), and you can preview the page at [https://eecs485staff.github.io/primer-spec/index.html](https://eecs485staff.github.io/primer-spec/).
 
-Also see the [Advanced Usage](docs/USAGE_ADVANCED.md) docs, they describe quite a few tricks including how to:
+Also see the [Advanced Usage](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html) docs, they describe quite a few tricks including how to:
 
-- [Preview locally](docs/USAGE_ADVANCED.md#previewing-locally) (especially if you aren't using GitHub Pages)
-- [Hide sections from the sidebar](docs/USAGE_ADVANCED.md#hiding-sections-from-the-sidebar)
-- [Configure Primer Spec](docs/USAGE_ADVANCED.md#page-configuration-options)
-  - [Render math expressions with LaTeX](docs/USAGE_ADVANCED.md#latex-boolean)
-  - [Add Callouts for important information](docs/USAGE_ADVANCED.md#callouts)
-  - [Highlight lines in code blocks](docs/USAGE_ADVANCED.md#enhanced-code-blocks)
-  - [Disable the sidebar](docs/USAGE_ADVANCED.md#dissablesidebar-boolean)
-  - [Render a sitemap](docs/USAGE_ADVANCED.md#sitemap-boolean--label-string)
-  - [Render diagrams with Mermaid!](docs/USAGE_ADVANCED.md#mermaid-diagrams)
+- [Preview locally](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#previewing-locally) (especially if you aren't using GitHub Pages)
+- [Hide sections from the sidebar](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#hiding-sections-from-the-sidebar)
+- [Configure Primer Spec](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#page-configuration-options)
+  - [Render math expressions with LaTeX](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#latex-boolean)
+  - [Add Callouts for important information](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#callouts)
+  - [Highlight lines in code blocks](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#enhanced-code-blocks)
+  - [Disable the sidebar](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#dissablesidebar-boolean)
+  - [Render a sitemap](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#sitemap-boolean--label-string)
+  - [Render diagrams with Mermaid!](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#mermaid-diagrams)
   - (And more!)
 
 You may also want to read the [`MARKDOWN_TIPS`](eecs485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html), which has notes on how you can edit your specs to take best advantage of Primer Spec markdown features.
@@ -103,9 +103,9 @@ Course staff: If you have questions about how to integrate this theme with your 
 
 ## Contributing
 
-Interested in contributing to Primer Spec? We'd love your help. Primer Spec is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for further instructions on how to contribute. Also see [the Dev Onboarding file](docs/DEV_README.md) for notes on how the theme works.
+Interested in contributing to Primer Spec? We'd love your help. Primer Spec is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html) for further instructions on how to contribute. Also see [the Dev Onboarding file](https://eecs485staff.github.io/primer-spec/docs/DEV_README.html) for notes on how the theme works.
 
-For maintenance and release instructions, see [Maintenance & Release section](docs/CONTRIBUTING.md#Maintenance--Release) of the CONTRIBUTING file.
+For maintenance and release instructions, see [Maintenance & Release section](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html#Maintenance--Release) of the CONTRIBUTING file.
 
 ## Acknowledgements
 

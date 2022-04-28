@@ -1,10 +1,12 @@
 ---
 layout: spec
+title: '[DOCS] Advanced Usage'
 ---
 
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 # Advanced Usage
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 See the [Primer Spec README](../README.md) for the main usage instructions. This page contains further instructions for more advanced workflows.
@@ -12,6 +14,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 ## Contents
+{: .primer-spec-toc-ignore }
 <!-- prettier-ignore-end -->
 
 - [Advanced Markdown tips](#advanced-markdown-tips)
@@ -45,6 +48,8 @@ Check out [MARKODWN_TIPS](https://eecsc485staff.github.io/primer-spec/docs/MARKD
 
 If you'd like to preview your site on your computer (or if you aren't using GitHub Pages), do the following:
 
+<!-- prettier-ignore-start -->
+
 1. Follow steps 2 and 3 from the main [usage instructions](../README.md#usage).
 
 2. Create a file named `Gemfile` in your project root directory. Add this to the file:
@@ -68,6 +73,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    .sass-cache
    .jekyll-metadata
    ```
+   {: data-title=".gitignore" }
 
 4. Ensure that you are using a version of Ruby later than 2.1.0. If you're on a Mac, you may need to run `brew install ruby` first. You must also install `bundler`.
 
@@ -93,8 +99,10 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    $ bundle exec jekyll serve
    ```
 
+<!-- prettier-ignore-end -->
+
 <div class="primer-spec-callout info" markdown="1">
-If you run into issues with any of these steps, [create an issue](https://github.com/eecs485staff/primer-spec/issues/new) in this repository to report it. (It's possible that something has changed with GitHub Pages / Jekyll!)
+**NOTE:** If you run into issues with any of these steps, [create an issue](https://github.com/eecs485staff/primer-spec/issues/new) in this repository to report it. (It's possible that something has changed with GitHub Pages / Jekyll!)
 </div>
 
 At this point, the HTML files with Primer Spec styling are available in the `_site` directory. (You may move them to a remote webserver if you wish.)
@@ -259,9 +267,11 @@ $$
 
 For a full list of supported LaTeX commands, see the [MathJax docs](https://docs.mathjax.org/en/latest/input/tex/macros/index.html).
 
-_NOTE:_ LaTeX rendering only supports MarkDown that was parsed using the
+<div class="primer-spec-callout info" markdown="1">
+**NOTE:** LaTeX rendering only supports MarkDown that was parsed using the
 GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
 correct contents for `_config.yml`.
+</div>
 
 #### `mermaid`: Boolean
 
@@ -310,7 +320,9 @@ This setting can be overriden per-block.
 
 Prevent the page from being displayed as part of the [Sitemap](#sitemap-boolean--label-string) in the Sidebar. This option does not have any effect if the [`sitemap` site-wide configuration option](#sitemap-boolean--label-string) is not set.
 
-_NOTE:_ If the site-wide option `sitemap` is enabled, then a Sitemap will _not_ be rendered on the page.
+<div class="primer-spec-callout info" markdown="1">
+**NOTE:** If the site-wide option `sitemap` is enabled, then a Sitemap will _not_ be rendered on the page.
+</div>
 
 ## Site configuration options
 
@@ -381,7 +393,9 @@ primerSpec:
 
 To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludeFromSitemap-boolean) in the front-matter of your page.
 
-_NOTE:_ A sitemap will only be rendered if your site has multiple pages.
+<div class="primer-spec-callout info" markdown="1">
+**NOTE:** A sitemap will only be rendered if your site has multiple pages.
+</div>
 
 ## Pinning to a specific version
 

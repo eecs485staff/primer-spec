@@ -1,3 +1,9 @@
+---
+layout: spec
+disableSidebar: true
+excludeFromSitemap: true
+---
+
 ## Where to get help
 
 If you think you've found a bug in The Primer Spec Theme, please [check the existing issues](https://github.com/eecs485staff/primer-spec/issues), and if no one has reported the problem, [open a new issue](https://github.com/eecs485staff/primer-spec/issues/new).

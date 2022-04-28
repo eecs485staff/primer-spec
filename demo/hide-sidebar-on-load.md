@@ -2,6 +2,7 @@
 layout: spec
 
 hideSidebarOnLoad: true
+excludeFromSitemap: true
 ---
 
 # Hide Sidebar on Load
