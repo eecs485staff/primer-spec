@@ -36,7 +36,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
     - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string-1)
-    - [`sitemap`: Boolean | {label: String}](#sitemap-boolean--label-string)
+    - [`sitemap`: Boolean \| {label: String}](#sitemap-boolean--label-string)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
 
@@ -371,7 +371,7 @@ Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on t
 
 This setting can be overriden per-block.
 
-#### `sitemap`: Boolean | {label: String}
+#### `sitemap`: Boolean \| {label: String}
 
 _[EECS 280's Project 1](https://eecs280staff.github.io/p1-stats/) has a great example of a sitemap!_
 
