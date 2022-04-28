@@ -1,3 +1,7 @@
+---
+layout: spec
+---
+
 <!-- prettier-ignore-start -->
 <!-- omit in toc -->
 # Advanced Usage
@@ -88,6 +92,10 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    /seshrs/demo-project/docs
    $ bundle exec jekyll serve
    ```
+
+<div class="primer-spec-callout info" markdown="1">
+If you run into issues with any of these steps, [create an issue](https://github.com/eecs485staff/primer-spec/issues/new) in this repository to report it. (It's possible that something has changed with GitHub Pages / Jekyll!)
+</div>
 
 At this point, the HTML files with Primer Spec styling are available in the `_site` directory. (You may move them to a remote webserver if you wish.)
 

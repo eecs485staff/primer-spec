@@ -6,12 +6,15 @@ plugins:
   - jekyll-relative-links
   - jekyll-default-layout
   - jemoji
+  - jekyll-seo-tag
+  - jekyll-github-metadata
 kramdown:
   input: GFM
 readme_index:
   remove_originals: true
   with_frontmatter: true
 
+repository: eecs485staff/primer-spec
 title: Jekyll Theme Primer Spec
 description: Primer Spec is a Jekyll theme for GitHub Pages
 
