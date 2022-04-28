@@ -310,6 +310,7 @@ Check out the [demo](https://eecs485staff.github.io/primer-spec/demo/diagrams.ht
 Choose the default codeblock variant to use. Valid codeblock variants are:
 
 - `enhanced` (default)
+- `no-line-numbers`
 - `legacy`
 
 Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
@@ -365,6 +366,7 @@ Specify the default subtheme mode. This subtheme will be applied for first-time 
 Choose the default codeblock variant to use. Valid codeblock variants are:
 
 - `enhanced` (default)
+- `no-line-numbers`
 - `legacy`
 
 Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
