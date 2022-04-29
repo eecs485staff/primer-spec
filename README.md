@@ -55,10 +55,7 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
      - jekyll-optional-front-matter
      - jekyll-readme-index
      - jekyll-relative-links
-     - jekyll-default-layout
      - jemoji
-     - jekyll-seo-tag
-     - jekyll-github-metadata
    kramdown:
      input: GFM
    readme_index:
