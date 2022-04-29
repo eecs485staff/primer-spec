@@ -34,7 +34,7 @@ This document aims to help potential contributors (and curious developers) under
 
 [Jekyll](https://jekyllrb.com/) is a static site generator built in Ruby — it features reusable layouts, extensible page generation and easy content maintenance. Most importantly:
 
-- Content is typically stored as either HTML or [Markdown](https://guides.github.com/features/mastering-markdown/). Markdown files are automatically converted to HTML using [_kramdown_](https://kramdown.gettalong.org/index.html).
+- Content is typically stored as either HTML or [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax). Markdown files are automatically converted to HTML using [_kramdown_](https://kramdown.gettalong.org/index.html).
 - Content can specify [“front matter”](https://jekyllrb.com/docs/front-matter/) which can contain page configuration data. For instance, a page can specify that it should be generated using a specific [“layout”](https://jekyllrb.com/docs/layouts/).
 - Layouts are templates available in a site's `_layouts` directory. They can specify additional front matter and can use powerful [Liquid](https://shopify.github.io/liquid/) templating logic.
 - Static assets like CSS, JS and images are customarily stored in an `assets` directory. Any [SCSS](https://sass-lang.com/) files in the `assets` directory will be compiled to CSS at build time.

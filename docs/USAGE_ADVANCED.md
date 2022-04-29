@@ -29,7 +29,6 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`hideSidebarOnLoad`: Boolean](#hidesidebaronload-boolean)
     - [`latex`: Boolean](#latex-boolean)
     - [`mermaid`: Boolean](#mermaid-boolean)
-- [mermaid: true](#mermaid-true)
     - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string)
     - [`excludeFromSitemap`: Boolean](#excludefromsitemap-boolean)
 - [Site configuration options](#site-configuration-options)
@@ -42,7 +41,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
 
 ## Advanced Markdown tips
 
-Check out [MARKODWN_TIPS](https://eecsc485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html) for notes on using some of the more advanced features of Markdown with Primer Spec.
+Check out [MARKODWN_TIPS](https://eecs485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html) for notes on using some of the more advanced features of Markdown with Primer Spec.
 
 ## Previewing locally
 
@@ -50,7 +49,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
 
 <!-- prettier-ignore-start -->
 
-1. Follow steps 2 and 3 from the main [usage instructions](../README.md#usage).
+1. Follow steps 2 and 3 from the main [usage instructions](https://github.com/eecs485staff/primer-spec#usage).
 
 2. Create a file named `Gemfile` in your project root directory. Add this to the file:
 
@@ -269,7 +268,7 @@ For a full list of supported LaTeX commands, see the [MathJax docs](https://docs
 
 <div class="primer-spec-callout info" markdown="1">
 **NOTE:** LaTeX rendering only supports MarkDown that was parsed using the
-GFM Kramdown parser. See the [Usage](../README.md#usage) instructions for the
+GFM Kramdown parser. See the [Usage](https://github.com/eecs485staff/primer-spec#usage) instructions for the
 correct contents for `_config.yml`.
 </div>
 
@@ -285,6 +284,7 @@ Here is an example of a MarkDown file with Mermaid diagrams:
 ---
 layout: spec
 mermaid: true
+
 ---
 
 Use Mermaid to render flow charts, sequence diagrams and more!
@@ -297,7 +297,7 @@ graph TD;
   C-->D;
 ```
 {:
-  data-title="Basic example of a flowcchart"
+  data-title="Basic example of a flowchart"
   data-description="A links to B and C. B and C link to D."
 }
 ````
@@ -313,7 +313,7 @@ Choose the default codeblock variant to use. Valid codeblock variants are:
 - `no-line-numbers`
 - `legacy`
 
-Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html#legacy).
 
 This setting can be overriden per-block.
 
@@ -369,7 +369,7 @@ Choose the default codeblock variant to use. Valid codeblock variants are:
 - `no-line-numbers`
 - `legacy`
 
-Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](../demo/enhanced-code-blocks.md#legacy-style-opt-out).
+Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on the entire page. See an example of the "legacy" style code block in the [demo](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html#legacy).
 
 This setting can be overriden per-block.
 
@@ -393,7 +393,7 @@ primerSpec:
   # ... (other site configuration options)
 ```
 
-To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludeFromSitemap-boolean) in the front-matter of your page.
+To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludefromsitemap-boolean) in the front-matter of your page.
 
 <div class="primer-spec-callout info" markdown="1">
 **NOTE:** A sitemap will only be rendered if your site has multiple pages.
@@ -433,7 +433,7 @@ However, with some work, it is _possible_ to add Primer Spec styling to a plain 
    </div>
    ```
 
-3. Add the following lines at the top of your file, just after the opening `head` tag. Replace `<version>` with the appropriate version in the [`assets/`](../assets/) directory.
+3. Add the following lines at the top of your file, just after the opening `head` tag. Replace `<version>` with the appropriate version in the [`assets/`](https://github.com/eecs485staff/primer-spec/tree/b93df3bf257082983c00d09e246b8046463de1a7/assets) directory.
 
    ```html
    <meta charset="UTF-8" />

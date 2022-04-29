@@ -27,7 +27,7 @@ Primer Spec **_enhances_** plain old code blocks with the following features:
 - [ ] Instructors can [**_highlight_** specific lines](#highlighted-lines)
 - [ ] Instructors can name their code blocks by [adding a title](#title-code-block-header).
 
-If you want, you can opt out of enhancing code blocks too. See [Legacy Style (Opt Out)](#legacy-style-opt-out).
+If you want, you can use a different "variant" / appearance for your code blocks. See [Using variants](#using-variants).
 
 Ready to see some examples?
 

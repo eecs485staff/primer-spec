@@ -99,19 +99,19 @@ The theme contains a minimal test suite, to ensure a site with the theme would b
 
 ### Adding new subthemes
 
-Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The themes are implemented by changing [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) used in the [base stylesheet](../_sass/spec/base.scss). The themes are declared in JavaScript (see [bella.theme.ts](../src_js/subthemes/definitions/bella.theme.ts), for example).
+Primer spec allows website visitors to change the appearance of the website by selecting from built-in subthemes. The themes are implemented by changing [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) used in the [base stylesheet](https://github.com/eecs485staff/primer-spec/blob/b93df3bf257082983c00d09e246b8046463de1a7/_sass/spec/base.scss). The themes are declared in JavaScript (see [bella.theme.ts](https://github.com/eecs485staff/primer-spec/blob/b93df3bf257082983c00d09e246b8046463de1a7/src_js/subthemes/definitions/bella.theme.ts), for example).
 
 To create a new subtheme:
 
 - Create the file `src_js/subthemes/definitions/<name>.theme.ts`. Take inspiration from the structure of other subthemes in that directory.
-- Import and add your subtheme to the default export of [`src_js/subthemes/index.ts`](../src_js/subthemes/index.ts). Follow the structure of other imports in the module.
+- Import and add your subtheme to the default export of [`src_js/subthemes/index.ts`](https://github.com/eecs485staff/primer-spec/blob/b93df3bf257082983c00d09e246b8046463de1a7/src_js/subthemes/index.ts). Follow the structure of other imports in the module.
 - Ensure that your changes work well on mobile! Use browser developer tools to verify this before creating a Pull Request on GitHub.
 
 _Pro tip: Upload screenshots of the new subtheme to make it easier to review your Pull Request._
 
 ## Maintenance & Release
 
-This theme is used by [several courses at the University of Michigan](../README.md#user-showcase). If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
+This theme is used by [several courses at the University of Michigan](https://github.com/eecs485staff/primer-spec#user-showcase). If a PR proposes major design changes, it's usually a good idea to keep the courses' staff aware of the changes.
 
 Some notes about maintaining this project:
 
@@ -142,7 +142,7 @@ $ git checkout main
 $ git pull
 ```
 
-2. Merge `develop` into `main`. (If you like [signing your commits](https://help.github.com/en/articles/signing-commits), don't forget to add the `-S` flag.)
+1. Merge `develop` into `main`. (If you like [signing your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits), don't forget to add the `-S` flag.)
 
 ```console
 $ git checkout main
@@ -220,6 +220,6 @@ This project is governed by [the Contributor Covenant Code of Conduct](CODE_OF_C
 
 ## Additional Resources
 
-- [Contributing to Open Source on GitHub](https://guides.github.com/activities/contributing-to-open-source/)
-- [Using Pull Requests](https://help.github.com/articles/using-pull-requests/)
-- [GitHub Help](https://help.github.com)
+- [Contributing to Open Source](https://opensource.guide/how-to-contribute/)
+- [Using Pull Requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
+- [GitHub Help](https://docs.github.com/en)
