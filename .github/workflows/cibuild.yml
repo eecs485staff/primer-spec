@@ -39,6 +39,11 @@ jobs:
         run: |
           ./script/bootstrap
 
+      # Based on: https://github.com/gjtorikian/html-proofer/issues/376#issuecomment-332767999
+      - name: Fix HTMLProofer linkcheck
+        run: |
+          sudo apt-get install libcurl4-openssl-dev
+
       - name: 🛠 Run CI tests
         run: |
           ./script/cibuild
