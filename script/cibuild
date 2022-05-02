@@ -9,13 +9,13 @@ bundle exec script/validate-html
 # NOTE: The following will be removed after the master branch is removed.
 # On the master branch, check the HTML
 if [ "$(git rev-parse --abbrev-ref HEAD)" = 'master' ]; then
-  bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/"
+  bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/,/reactjs.org/,/docs.github.com/"
 fi
 # NOTE: End of section to delete after master is removed.
 
 # On the main branch, check the HTML
 if [ "$(git rev-parse --abbrev-ref HEAD)" = 'main' ]; then
-  bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/"
+  bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/,/reactjs.org/,/docs.github.com/"
 fi
 
 # Verify that all files are Prettified

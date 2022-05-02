@@ -39,14 +39,6 @@ jobs:
         run: |
           ./script/bootstrap
 
-      # Based on: https://github.com/gjtorikian/html-proofer/issues/376#issuecomment-332767999
-      # And: https://github.com/actions/virtual-environments/issues/675#issuecomment-610483420
-      - name: Fix HTMLProofer linkcheck
-        run: |
-          sudo sed -i 's/azure\.//' /etc/apt/sources.list
-          sudo apt-get update
-          sudo apt-get install -y -o Acquire::Retries=3 libcurl4-openssl-dev
-
       - name: 🛠 Run CI tests
         run: |
           ./script/cibuild
