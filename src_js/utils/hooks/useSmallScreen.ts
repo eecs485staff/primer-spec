@@ -1,6 +1,10 @@
 import { useLayoutEffect, useState } from 'preact/hooks';
 import isSmallScreen from '../isSmallScreen';
 
+/**
+ * Return a stateful boolean indicating whether the viewer's screen width is
+ * 'small' (as defined by `isSmallScreen()`).
+ */
 export default function useSmallScreen(): boolean {
   const [is_small_screen, setIsSmallScreen] = useState(isSmallScreen());
   useLayoutEffect(() => {

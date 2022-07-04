@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
 /**
- * Returns a stateful boolean representing if a print-event is in progress
+ * Return a stateful boolean representing if a print-event is in progress
  * (between beforeprint and afterprint).
  */
 export function usePrintInProgress(): boolean {
