@@ -9,6 +9,13 @@ version_string: v1.7
         <meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}
 
+        {%- comment -%}
+            The FontAwesome stylesheet is injected by Primer Spec to defer
+            loading. However, we can mitigate the icon-flashing by requesting
+            the browser to preload the stylesheet asynchronously asap.
+        {%- endcomment -%}
+        <link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+
         {%- if site.favicon %}
         <link rel="icon" href="{{ site.favicon | relative_url }}">
         {%- endif %}
