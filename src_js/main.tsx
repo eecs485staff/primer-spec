@@ -4,6 +4,9 @@ import PrimerSpec from './components/PrimerSpec';
 import Config from './Config';
 import { updateTheme } from './subthemes';
 
+/**
+ * The entry point to the Primer Spec JS.
+ */
 function main() {
   const anchors = new AnchorJS();
   anchors.add('h1');

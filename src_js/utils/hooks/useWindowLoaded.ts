@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 
 /**
- * Returns a stateful boolean that indicates whether all resources on the page
+ * Return a stateful boolean that indicates whether all resources on the page
  * have been downloaded (and the 'load' event will fire / has fired on the
  * window).
  */
