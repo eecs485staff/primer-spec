@@ -1,31 +1,33 @@
 /** @jsx JSXDom.h */
 import * as JSXDom from 'jsx-dom';
-import type { ConditionalPluginInput, PluginDefinition } from './types';
+import type { ConditionalPluginInput, PluginDefinition } from '../types';
+import { printEnablingURLToConsole } from '../utils/print_enabling_url_to_console';
+
+const PLUGIN_ID = 'halloween';
 
 export function initialize(): PluginDefinition {
   return {
-    id: 'halloween',
+    id: PLUGIN_ID,
     plugin: HalloweenPlugin,
     shouldRun: () => {
       const today = new Date();
       // Console message if we are *just* past the Halloween-mode end-date.
+      // After November 5 until November 15.
       if (
         today.getMonth() === 10 &&
         today.getDate() > 5 &&
         today.getDate() <= 15
       ) {
-        const enabled_url = new URL(window.location.href);
-        enabled_url.searchParams.set('enable_halloween', '1');
-        console.info(
-          "🤫 Psst... It's well past halloween, but you can re-enable halloween mode by clicking this url:\n",
-          enabled_url.toString(),
+        printEnablingURLToConsole(
+          PLUGIN_ID,
+          "🤫 Psst... It's well past halloween, but you can re-enable halloween mode by clicking this url:",
         );
       }
 
       // Remember that months are 0-indexed in JS!
       return (
-        (today.getMonth() === 9 && today.getDate() >= 25) ||
-        (today.getMonth() === 10 && today.getDate() <= 5)
+        (today.getMonth() === 9 && today.getDate() >= 25) || // October 25
+        (today.getMonth() === 10 && today.getDate() <= 5) // November 5
       );
     },
   };

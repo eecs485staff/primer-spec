@@ -1,4 +1,16 @@
-import { initialize as initializeHalloweenPlugin } from './halloween.plugin';
+/**
+ * Conditional plugins are loaded asynchronously and are intentionally
+ * isolated from the rest of Primer Spec. This is because this conditional
+ * plugin framework was designed to build temporary pranks and jokes! (We don't
+ * want these jokes to affect the page load time and the spec-reading
+ * experience.)
+ *
+ * Plugins run based on conditions defined in each of their `shouldRun()`
+ * methods. They can also be force-enabled by inserting
+ * `?enable_<plugin_id>=1` in the URL.
+ */
+
+import { initialize as initializeHalloweenPlugin } from './plugins/halloween.plugin';
 
 import type { ConditionalPluginInput } from './types.d';
 
