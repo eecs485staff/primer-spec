@@ -11,10 +11,14 @@
  */
 
 import { initialize as initializeHalloweenPlugin } from './plugins/halloween.plugin';
+import { initialize as initializeAprilFoolsLanguagesPlugin } from './plugins/april_fools_languages.plugin';
 
 import type { ConditionalPluginInput } from './types.d';
 
-const PLUGINS = [initializeHalloweenPlugin()]
+const PLUGINS = [
+  initializeHalloweenPlugin(),
+  initializeAprilFoolsLanguagesPlugin(),
+]
   .filter((pluginDefinition) => {
     const forceEnableOption = pluginForceEnableOption(pluginDefinition.id);
     if (forceEnableOption !== null) {
