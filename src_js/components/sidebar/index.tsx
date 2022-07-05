@@ -7,6 +7,7 @@ import {
   useRef,
 } from 'preact/hooks';
 import IconType from '../common/IconType';
+import InlineNavButton from '../common/InlineNavButton';
 import InlineButton from '../common/InlineButton';
 import TableOfContents from './TableOfContents';
 import { usePrintInProgress } from '../../utils/hooks/print';
@@ -109,7 +110,7 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
       <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
         {sitemapUrls == null ? undefined : (
           <Fragment>
-            <InlineButton
+            <InlineNavButton
               icon={IconType.HOME}
               href={sitemapUrls.rootPage.url}
               ariaLabel={sitemapUrls.rootPage.title || 'Home'}
