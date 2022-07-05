@@ -35,6 +35,7 @@ export function initialize(): PluginDefinition {
 
 async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertLanguageToggleIfNeeded();
+  insertDarkModeStylesIfNeeded();
 }
 
 function insertLanguageToggleIfNeeded() {
@@ -83,13 +84,71 @@ function toggleLanguagePopover() {
         style="right: 8em; pointer-events: auto;"
       >
         <div class="Popover-message Popover-message--right-top p-4 mr-2 Box color-shadow-large">
-          <h4 class="mb-2">Popover heading</h4>
-          <p>Message about this particular piece of UI.</p>
-          <button type="submit" class="btn btn-outline mt-2 text-bold">
-            Got it!
+          <button
+            class="btn-link position-absolute primer-spec-hoverable"
+            style="top: 0.25em; right: 0.5em; font-size: 20px;"
+            onClick={() => toggleLanguagePopover()}
+          >
+            <i class="fas fa-times" />
           </button>
+          <h4 class="mb-2">Change this page's "language"</h4>
+          <p>April Fools! Try reading this page in another "language".</p>
+          <div style="margin-bottom: 100px">
+            <details class="dropdown details-reset details-overlay d-inline-block">
+              <summary class="btn" aria-haspopup="true">
+                Choose language
+                <div class="dropdown-caret" />
+              </summary>
+
+              <ul class="dropdown-menu dropdown-menu-se">
+                <li>
+                  <a class="dropdown-item" href="#url">
+                    English
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#url">
+                    Pig Latin
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#url">
+                    Pirate
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </div>
         </div>
       </div>,
+    );
+  }
+}
+
+const DARK_MODE_STYLE_ID = 'primer-spec-april-fools-languages-dark-mode-styles';
+function insertDarkModeStylesIfNeeded() {
+  if (!document.querySelector(`#${DARK_MODE_STYLE_ID}`)) {
+    document.head.appendChild(
+      <style>
+        {':root[data-theme-mode="dark"] .Popover .dropdown {'}
+        {'  filter: invert(93%) hue-rotate(180deg);'}
+        {'}'}
+        {':root[data-theme-mode="dark"] .Popover .dropdown .dropdown-item {'}
+        {'  color: #24292e'}
+        {'}'}
+        {
+          ':root[data-theme-mode="dark"] .Popover .dropdown .dropdown-item:hover {'
+        }
+        {'  color: #000;'}
+        {'}'}
+        {'.Popover {'}
+        {'  color: var(--main-text-color)'}
+        {'}'}
+        {':root[data-theme-mode="dark"] .Popover-message {'}
+        {'  background-color: var(--code-block-header-bg-color);'}
+        {'  border: 1px solid #30363d;'}
+        {'}'}
+      </style>,
     );
   }
 }
