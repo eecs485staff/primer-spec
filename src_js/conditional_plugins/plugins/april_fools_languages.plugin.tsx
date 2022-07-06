@@ -113,6 +113,7 @@ function toggleLanguagePopover() {
                 <li>{getLanguageButton('english', 'English')}</li>
                 <li>{getLanguageButton('pig-latin', 'Pig Latin')}</li>
                 <li>{getLanguageButton('pirate', 'Pirate')}</li>
+                <li>{getLanguageButton('upside-down', 'Upside Down')}</li>
               </ul>
             </details>
           </div>
@@ -212,6 +213,7 @@ async function changePageLanguage(languageId: string) {
     english: getEnglishTranslator,
     'pig-latin': getPigLatinTranslator,
     pirate: getPirateTranslator,
+    'upside-down': getUpsideDownTranslator,
   };
 
   if (originalPageContents && languageId in TRANSLATOR_GETTERS) {
@@ -284,4 +286,10 @@ async function getPigLatinTranslator(): Promise<Translator> {
 async function getPirateTranslator(): Promise<Translator> {
   const PirateSpeak = await import('../utils/pirate_speak');
   return (text: string | null) => (text ? PirateSpeak.translate(text) : text);
+}
+
+async function getUpsideDownTranslator(): Promise<Translator> {
+  const UpsideDown = await import('../utils/upside_down');
+  return (text: string | null) =>
+    text ? UpsideDown.flipStringUpsideDown(text) : text;
 }
