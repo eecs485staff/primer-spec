@@ -211,6 +211,7 @@ async function changePageLanguage(languageId: string) {
   } = {
     english: getEnglishTranslator,
     'pig-latin': getPigLatinTranslator,
+    pirate: getPirateTranslator,
   };
 
   if (originalPageContents && languageId in TRANSLATOR_GETTERS) {
@@ -280,7 +281,7 @@ async function getPigLatinTranslator(): Promise<Translator> {
   return (text: string | null) => (text ? translator.translate(text) : text);
 }
 
-// TODO: DONOTCOMMIT!
-// eslint-disable-next-line
-// @ts-ignore
-window.changePageLanguage = changePageLanguage;
+async function getPirateTranslator(): Promise<Translator> {
+  const PirateSpeak = await import('../utils/pirate_speak');
+  return (text: string | null) => (text ? PirateSpeak.translate(text) : text);
+}
