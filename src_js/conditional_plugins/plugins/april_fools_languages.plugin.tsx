@@ -5,6 +5,8 @@ import { printEnablingURLToConsole } from '../utils/print_enabling_url_to_consol
 
 const PLUGIN_ID = 'april_fools_languages';
 
+let currentLanguage = 'english';
+
 export function initialize(): PluginDefinition {
   return {
     id: PLUGIN_ID,
@@ -36,7 +38,12 @@ export function initialize(): PluginDefinition {
 async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertLanguageToggleIfNeeded();
   insertDarkModeStylesIfNeeded();
+  storeOriginalPageContentsIfNeeded();
 }
+
+///////////
+//  UI  ///
+///////////
 
 function insertLanguageToggleIfNeeded() {
   const languageToggleId = 'primer-spec-april-fools-language-toggle';
@@ -70,8 +77,8 @@ function insertLanguageToggleIfNeeded() {
   languageToggleBtn?.addEventListener('click', () => toggleLanguagePopover());
 }
 
+const languagePopoverId = 'primer-spec-april-fools-language-popover';
 function toggleLanguagePopover() {
-  const languagePopoverId = 'primer-spec-april-fools-language-popover';
   const existingPopover = document.querySelector(`#${languagePopoverId}`);
   if (existingPopover) {
     existingPopover.remove();
@@ -96,33 +103,39 @@ function toggleLanguagePopover() {
           <div style="margin-bottom: 100px">
             <details class="dropdown details-reset details-overlay d-inline-block">
               <summary class="btn" aria-haspopup="true">
-                Choose language
+                <span id={`${languagePopoverId}-chosen-language`}>
+                  Choose language
+                </span>
                 <div class="dropdown-caret" />
               </summary>
 
               <ul class="dropdown-menu dropdown-menu-se">
-                <li>
-                  <a class="dropdown-item" href="#url">
-                    English
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#url">
-                    Pig Latin
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#url">
-                    Pirate
-                  </a>
-                </li>
+                <li>{getLanguageButton('english', 'English')}</li>
+                <li>{getLanguageButton('pig-latin', 'Pig Latin')}</li>
+                <li>{getLanguageButton('pirate', 'Pirate')}</li>
               </ul>
             </details>
           </div>
         </div>
       </div>,
     );
+
+    setCurrentLanguage('english');
   }
+}
+
+function getLanguageButton(id: string, label: string) {
+  return (
+    <button
+      id={`${languagePopoverId}-${id}`}
+      class="btn btn-link dropdown-item"
+      onClick={() => {
+        setCurrentLanguage(id);
+      }}
+    >
+      {label}
+    </button>
+  );
 }
 
 const DARK_MODE_STYLE_ID = 'primer-spec-april-fools-languages-dark-mode-styles';
@@ -150,5 +163,38 @@ function insertDarkModeStylesIfNeeded() {
         {'}'}
       </style>,
     );
+  }
+}
+
+function setCurrentLanguage(languageId: string) {
+  currentLanguage = languageId;
+  const chosenLanguageLabel = document.querySelector(
+    `#${languagePopoverId}-chosen-language`,
+  );
+  const chosenLanguageButton = document.querySelector(
+    `#${languagePopoverId}-${currentLanguage}`,
+  );
+  if (chosenLanguageLabel && chosenLanguageButton) {
+    chosenLanguageLabel.innerHTML = chosenLanguageButton.innerHTML;
+  }
+
+  // Close the dropdown
+  document
+    .querySelector('#primer-spec-april-fools-language-popover details.dropdown')
+    ?.removeAttribute('open');
+}
+
+/////////////////////////////
+//  LANGUAGE CHANGE INFRA  //
+/////////////////////////////
+
+let originalPageContents: string | null = null;
+
+function storeOriginalPageContentsIfNeeded() {
+  if (!originalPageContents) {
+    const mainContent = document.querySelector(
+      'main#primer-spec-preact-main-content',
+    );
+    originalPageContents = mainContent?.innerHTML ?? null;
   }
 }
