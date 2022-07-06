@@ -247,6 +247,9 @@ function translate(
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         if (
           (node as HTMLElement).classList.contains('primer-spec-code-block') ||
+          (node as HTMLElement).classList.contains(
+            'primer-spec-code-block-processed',
+          ) ||
           (node as HTMLElement).classList.contains('primer-spec-mermaid-output')
         ) {
           return node;
