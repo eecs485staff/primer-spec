@@ -203,18 +203,22 @@ function storeOriginalPageContentsIfNeeded() {
   }
 }
 
-function changePageLanguage(languageId: string) {
-  if (originalPageContents) {
-    switch (languageId) {
-      case 'english':
-        setMainContentHTML(originalPageContents);
-        break;
-      case 'pig-latin':
-        setMainContentHTML(translateToPigLatin(originalPageContents));
-        break;
-      case 'pirate':
-        break;
-    }
+type Translator = (text: string | null) => string | null;
+
+async function changePageLanguage(languageId: string) {
+  const TRANSLATOR_GETTERS: {
+    [languageId: string]: () => Promise<Translator>;
+  } = {
+    english: getEnglishTranslator,
+    'pig-latin': getPigLatinTranslator,
+  };
+
+  if (originalPageContents && languageId in TRANSLATOR_GETTERS) {
+    const translatedHtml = translate(
+      originalPageContents,
+      await TRANSLATOR_GETTERS[languageId](),
+    );
+    setMainContentHTML(translatedHtml);
   }
 }
 
@@ -228,15 +232,14 @@ function setMainContentHTML(html: string) {
   mainContent.innerHTML = html;
 }
 
-////////////////////////////////
-//  LANGUAGE IMPLEMENTATIONS  //
-////////////////////////////////
-
-function translateToPigLatin(originalHtmlStr: string) {
-  const translateChildNodesToPigLatin = (parentEl: Element) => {
+function translate(
+  originalHtmlStr: string,
+  translator: (text: string | null) => string | null,
+) {
+  const translateChildNodes = (parentEl: Element) => {
     const newChildNodes: Node[] = [...parentEl.childNodes].map((node: Node) => {
       if (node.nodeType == Node.TEXT_NODE) {
-        node.textContent = translateTextToPigLatin(node.textContent);
+        node.textContent = translator(node.textContent);
         return node;
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         if (
@@ -246,7 +249,7 @@ function translateToPigLatin(originalHtmlStr: string) {
           return node;
         }
         const newNode = node.cloneNode(true);
-        translateChildNodesToPigLatin(newNode as Element);
+        translateChildNodes(newNode as Element);
         return newNode;
       }
       return node;
@@ -259,34 +262,25 @@ function translateToPigLatin(originalHtmlStr: string) {
     originalHtmlStr,
     'text/html',
   ).body;
-  translateChildNodesToPigLatin(originalHtml);
+  translateChildNodes(originalHtml);
   return originalHtml.innerHTML;
 }
 
-function translateTextToPigLatin(text: string | null): string | null {
-  if (!text || !text.trim()) {
-    return text;
-  }
+////////////////////////////////
+//  LANGUAGE IMPLEMENTATIONS  //
+////////////////////////////////
 
-  return text
-    .split(/([A-Za-z0-9]+)/)
-    .map((word, i) => {
-      if (i % 2 === 0) {
-        // This is the captured-whitespace, ignore it.
-        return word;
-      }
-      if (!word || !word.trim()) {
-        return word;
-      }
-      const fragments = word.split(/([aeiou]+)(.*)/);
-      const firstConsonantSound = fragments.shift();
-      if (!firstConsonantSound) {
-        fragments.push('way');
-      } else {
-        fragments.push(firstConsonantSound);
-        fragments.push('ay');
-      }
-      return fragments.join('');
-    })
-    .join('');
+function getEnglishTranslator(): Promise<Translator> {
+  return Promise.resolve((text: string | null) => text);
 }
+
+async function getPigLatinTranslator(): Promise<Translator> {
+  const PigLatinizer = await import('pig-latinizer');
+  const translator = new PigLatinizer.default();
+  return (text: string | null) => (text ? translator.translate(text) : text);
+}
+
+// TODO: DONOTCOMMIT!
+// eslint-disable-next-line
+// @ts-ignore
+window.changePageLanguage = changePageLanguage;
