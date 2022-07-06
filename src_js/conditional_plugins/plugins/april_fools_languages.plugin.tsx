@@ -120,7 +120,7 @@ function toggleLanguagePopover() {
       </div>,
     );
 
-    setCurrentLanguage('english');
+    setCurrentLanguage(currentLanguage);
   }
 }
 
@@ -167,8 +167,10 @@ function insertDarkModeStylesIfNeeded() {
 }
 
 function setCurrentLanguage(languageId: string) {
-  currentLanguage = languageId;
-  changePageLanguage(languageId);
+  if (currentLanguage !== languageId) {
+    currentLanguage = languageId;
+    changePageLanguage(languageId);
+  }
 
   const chosenLanguageLabel = document.querySelector(
     `#${languagePopoverId}-chosen-language`,
@@ -208,7 +210,7 @@ function changePageLanguage(languageId: string) {
         setMainContentHTML(originalPageContents);
         break;
       case 'pig-latin':
-        translateToPigLatin(originalPageContents);
+        setMainContentHTML(translateToPigLatin(originalPageContents));
         break;
       case 'pirate':
         break;
@@ -230,6 +232,61 @@ function setMainContentHTML(html: string) {
 //  LANGUAGE IMPLEMENTATIONS  //
 ////////////////////////////////
 
-function translateToPigLatin(originalHtml: string) {
-  return originalHtml;
+function translateToPigLatin(originalHtmlStr: string) {
+  const translateChildNodesToPigLatin = (parentEl: Element) => {
+    const newChildNodes: Node[] = [...parentEl.childNodes].map((node: Node) => {
+      if (node.nodeType == Node.TEXT_NODE) {
+        node.textContent = translateTextToPigLatin(node.textContent);
+        return node;
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        if (
+          (node as HTMLElement).classList.contains('primer-spec-code-block') ||
+          (node as HTMLElement).classList.contains('primer-spec-mermaid-output')
+        ) {
+          return node;
+        }
+        const newNode = node.cloneNode(true);
+        translateChildNodesToPigLatin(newNode as Element);
+        return newNode;
+      }
+      return node;
+    });
+    parentEl.innerHTML = '';
+    parentEl.append(...newChildNodes);
+  };
+
+  const originalHtml = new DOMParser().parseFromString(
+    originalHtmlStr,
+    'text/html',
+  ).body;
+  translateChildNodesToPigLatin(originalHtml);
+  return originalHtml.innerHTML;
+}
+
+function translateTextToPigLatin(text: string | null): string | null {
+  if (!text || !text.trim()) {
+    return text;
+  }
+
+  return text
+    .split(/([A-Za-z0-9]+)/)
+    .map((word, i) => {
+      if (i % 2 === 0) {
+        // This is the captured-whitespace, ignore it.
+        return word;
+      }
+      if (!word || !word.trim()) {
+        return word;
+      }
+      const fragments = word.split(/([aeiou]+)(.*)/);
+      const firstConsonantSound = fragments.shift();
+      if (!firstConsonantSound) {
+        fragments.push('way');
+      } else {
+        fragments.push(firstConsonantSound);
+        fragments.push('ay');
+      }
+      return fragments.join('');
+    })
+    .join('');
 }
