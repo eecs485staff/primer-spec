@@ -168,6 +168,8 @@ function insertDarkModeStylesIfNeeded() {
 
 function setCurrentLanguage(languageId: string) {
   currentLanguage = languageId;
+  changePageLanguage(languageId);
+
   const chosenLanguageLabel = document.querySelector(
     `#${languagePopoverId}-chosen-language`,
   );
@@ -197,4 +199,37 @@ function storeOriginalPageContentsIfNeeded() {
     );
     originalPageContents = mainContent?.innerHTML ?? null;
   }
+}
+
+function changePageLanguage(languageId: string) {
+  if (originalPageContents) {
+    switch (languageId) {
+      case 'english':
+        setMainContentHTML(originalPageContents);
+        break;
+      case 'pig-latin':
+        translateToPigLatin(originalPageContents);
+        break;
+      case 'pirate':
+        break;
+    }
+  }
+}
+
+function setMainContentHTML(html: string) {
+  const mainContent = document.querySelector(
+    'main#primer-spec-preact-main-content',
+  );
+  if (!mainContent) {
+    return;
+  }
+  mainContent.innerHTML = html;
+}
+
+////////////////////////////////
+//  LANGUAGE IMPLEMENTATIONS  //
+////////////////////////////////
+
+function translateToPigLatin(originalHtml: string) {
+  return originalHtml;
 }
