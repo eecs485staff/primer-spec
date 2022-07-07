@@ -35,7 +35,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
     - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string-1)
-    - [`sitemap`: Boolean \| {label: String}](#sitemap-boolean--label-string)
+    - [`sitemap`: Boolean \| {label: String; externalLinks: Array; order: Array}](#sitemap-boolean--label-string-externallinks-array-order-array)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
 
@@ -319,7 +319,7 @@ This setting can be overriden per-block.
 
 #### `excludeFromSitemap`: Boolean
 
-Prevent the page from being displayed as part of the [Sitemap](#sitemap-boolean--label-string) in the Sidebar. This option does not have any effect if the [`sitemap` site-wide configuration option](#sitemap-boolean--label-string) is not set.
+Prevent the page from being displayed as part of the [Sitemap](#sitemap-boolean--label-string-externallinks-array-order-array) in the Sidebar. This option does not have any effect if the [`sitemap` site-wide configuration option](#sitemap-boolean--label-string-externallinks-array-order-array) is not set.
 
 <div class="primer-spec-callout info" markdown="1">
 **NOTE:** If the site-wide option `sitemap` is enabled, then a Sitemap will _not_ be rendered on the page.
@@ -373,13 +373,19 @@ Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on t
 
 This setting can be overriden per-block.
 
-#### `sitemap`: Boolean \| {label: String}
+#### `sitemap`: Boolean \| {label: String; externalLinks: Array; order: Array}
 
 _[EECS 280's Project 1](https://eecs280staff.github.io/p1-stats/) has a great example of a sitemap!_
 
 If set to `true`, a sitemap will be auto-generated and displayed in the Sidebar of every Primer Spec page with the label _"Supplemental Pages"_.
 
-To customize the label, specify it under a `label` field. Your `_config.yml` would look like this:
+To customize the label, specify it under a `label` field.
+
+To add external links, specify them under an `externalLinks` field. Each item in the `externalLinks` array must have a `title` and a `url` field.
+
+You can also customize the order in which links are displayed. Internal pages must have a `title` specified in the front-matter in order to control the location of their link in the sidebar. All pages *without* a specified order will appear above all pages *with* a specified order. To achieve this, include an `order` field that contains a list of titles for either internal or external pages. Links will be displayed in the same order that you use in the `order` field.
+
+Your `_config.yml` would look like this:
 
 ```yml
 # REQUIRED configuration options, as specified in the Primer Spec README
@@ -390,8 +396,18 @@ remote_theme: eecs485staff/primer-spec
 primerSpec:
   sitemap:
     label: My custom sitemap label
+    externalLinks:
+      - title: Title1
+        url: URL of External Page
+      - title: Title2
+        url: URL of Second External Page
+    order:
+      - Title2
+      - Title1
   # ... (other site configuration options)
 ```
+
+In this example, all internal pages will appear first in the sidebar in an arbitrary order. At the bottom will be Title2 and then Title1.
 
 To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludefromsitemap-boolean) in the front-matter of your page.
 
