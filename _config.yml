@@ -18,6 +18,16 @@ description: Primer Spec is a Jekyll theme for GitHub Pages
 primerSpec:
   sitemap:
     label: Docs & Demos
+    externalLinks:
+      - title: "Google" 
+        url: https://google.com/
+      - title: "EECS 485"
+        url: https://eecs485.org
+    order:
+      - "EECS 485"
+      - "[DOCS] Advanced Usage"
+      - "Google"
+
 # defaultCodeblockVariant: no-line-numbers
 
 sass:

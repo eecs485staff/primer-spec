@@ -31,6 +31,7 @@ export default {
   INIT_SUBTHEME_MODE,
   INIT_SITEMAP_ENABLED,
   SITEMAP_URLS: window.PrimerSpecConfig.sitemapUrls || [],
+  SITEMAP_URL_ORDER: window.PrimerSpecConfig.sitemapOrder || [],
   SITEMAP_LABEL: window.PrimerSpecConfig.sitemapLabel || 'Supplemental Pages',
   SITEMAP_SITE_TITLE: window.PrimerSpecConfig.sitemapSiteTitle || '',
   DEFAULT_CODEBLOCK_VARIANT: getDefaultCodeblockVariant(),

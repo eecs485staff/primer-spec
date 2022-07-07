@@ -75,6 +75,7 @@ version_string: v1.7
                     {
                         url: '{{ sitePage.url | relative_url }}',
                         path: '{{ sitePage.path }}',
+                        external: false,
                         {%- if sitePage.title -%}
                         title: '{{ sitePage.title }}',
                         {%- endif -%}
@@ -83,6 +84,23 @@ version_string: v1.7
                         {%- endif %}
                     },
                     {%- endif -%}
+                    {%- endfor -%}
+                    {%- if site.primerSpec.sitemap.externalLinks -%}
+                    {%- for sitePage in site.primerSpec.sitemap.externalLinks -%}
+                    {
+                        url: '{{ sitePage.url }}',
+                        path: '',
+                        external: true,
+                        title: '{{ sitePage.title }}',
+                    },
+                    {%- endfor -%}
+                    {%- endif -%}
+                    {%- endif -%}
+                ],
+                sitemapOrder: [
+                    {%- if site.primerSpec.sitemap.order -%}
+                    {%- for title in site.primerSpec.sitemap.order -%}
+                    '{{ title }}',
                     {%- endfor -%}
                     {%- endif -%}
                 ],

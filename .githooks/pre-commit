@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 # Set env variable STAGE_STATIC_ASSETS to commit files in frozen versions or
 # JS files in current version.
 
-set -Eueo pipefail
+set -Eueox pipefail
 
 # The following is necessary to resolve symbolic links
 pushd $(dirname $0)

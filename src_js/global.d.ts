@@ -6,6 +6,7 @@ declare var PrimerSpecConfig: {
   defaultSubthemeName?: string;
   defaultSubthemeMode?: string;
   sitemapUrls?: Array<SitemapPageInfoType>;
+  sitemapOrder?: Array<string>;
   sitemapLabel?: string;
   sitemapEnabled?: boolean;
   sitemapSiteTitle?: string;
@@ -24,6 +25,7 @@ declare type SubthemeSelectionType = {
 declare type SitemapPageInfoType = {
   url: string;
   path: string;
+  external: boolean;
   title?: string;
   current?: boolean;
 };

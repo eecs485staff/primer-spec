@@ -2,6 +2,8 @@ import { h, Fragment } from 'preact';
 import Config from '../../Config';
 import getSitemapName from './getSitemapName';
 
+import IconType from '../common/IconType';
+
 import type { SitemapType } from './getSitemapUrls';
 
 type PropsType = { sitemap?: null | SitemapType; children: h.JSX.Element };
@@ -62,13 +64,14 @@ function SitemapPage(props: {
     <a href={props.page.url} tabIndex={-1}>
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
         <summary
+          class={props.page.external ? 'primer-spec-toc-sitemap-external' : ''}
           role="link"
           onClick={(e) => {
             e.preventDefault();
             window.location.href = props.page.url;
           }}
         >
-          {title}
+          {props.page.external && <i class={IconType.EXTERNAL_LINK} />} {title}
         </summary>
       </details>
     </a>
