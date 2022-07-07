@@ -4,6 +4,7 @@ import { Hoverable } from './Hoverable';
 
 export type PropsType = {
   icon: IconType;
+  href?: string;
   floatRight?: boolean;
   onClick?: () => void;
   ariaLabel?: string;
@@ -12,8 +13,9 @@ export type PropsType = {
 export default function InlineButton(props: PropsType): h.JSX.Element {
   return (
     <Hoverable floatRight={props.floatRight}>
-      <button
-        class="btn-link primer-spec-hoverable no-print"
+      <a
+        href={props.href ?? '#primer-spec-top'}
+        class="primer-spec-hoverable no-print"
         onClick={
           props.onClick
             ? (event) => {
@@ -25,7 +27,7 @@ export default function InlineButton(props: PropsType): h.JSX.Element {
         aria-label={props.ariaLabel}
       >
         <i class={props.icon} />
-      </button>
+      </a>
     </Hoverable>
   );
 }
