@@ -2,7 +2,7 @@
 # Set env variable STAGE_STATIC_ASSETS to commit files in frozen versions or
 # JS files in current version.
 
-set -Eueox pipefail
+set -Eueo pipefail
 
 # The following is necessary to resolve symbolic links
 pushd $(dirname $0)
@@ -10,7 +10,7 @@ GITHOOKS_DIR=`pwd -P`
 popd
 PROJECT_ROOT=`dirname $GITHOOKS_DIR`
 
-MINOR_VERSION=$(cat $PROJECT_ROOT/VERSION | grep -o "\d\.\d")
+MINOR_VERSION=$(cat $PROJECT_ROOT/VERSION | grep -o "[[:digit:]]\.[[:digit:]]")
 
 if [[ -z "${STAGE_STATIC_ASSETS:-}" ]]; then
   echo "[pre-commit]: Unstaging assets directory"
