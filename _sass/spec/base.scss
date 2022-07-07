@@ -750,6 +750,11 @@ div.primer-spec-callout {
   &:hover .primer-spec-zeroclipboard-container {
     opacity: 1;
   }
+
+  // Prevent the console prompts from being selectable.
+  span.primer-spec-code-block-non-selectable {
+    user-select: none;
+  }
 }
 
 .tooltipped:hover,
