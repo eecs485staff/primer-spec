@@ -25,7 +25,7 @@ declare type SubthemeSelectionType = {
 declare type SitemapPageInfoType = {
   url: string;
   path: string;
-  external: boolean;
+  external?: boolean;
   title?: string;
   current?: boolean;
 };
