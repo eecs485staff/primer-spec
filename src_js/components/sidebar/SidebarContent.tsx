@@ -65,13 +65,20 @@ function SitemapPage(props: {
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
         <summary
           class={props.page.external ? 'primer-spec-toc-sitemap-external' : ''}
+          data-order={props.page.external ? '' : props.page.sitemapOrder || 0}
           role="link"
           onClick={(e) => {
             e.preventDefault();
             window.location.href = props.page.url;
           }}
         >
-          {props.page.external && <i class={IconType.EXTERNAL_LINK} />} {title}
+          {title}
+          {props.page.external && (
+            <Fragment>
+              <i class={IconType.EXTERNAL_LINK} />
+              <span class="sr-only">External Link</span>
+            </Fragment>
+          )}
         </summary>
       </details>
     </a>

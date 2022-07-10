@@ -78,6 +78,9 @@ version_string: v1.7
                         {%- if sitePage.title -%}
                         title: '{{ sitePage.title }}',
                         {%- endif -%}
+                        {%- if sitePage.sitemapOrder -%}
+                        sitemapOrder: {{ sitePage.sitemapOrder }}
+                        {%- endif -%}
                         {% if sitePage.path == page.path -%}
                         current: true,
                         {%- endif %}
@@ -94,13 +97,6 @@ version_string: v1.7
                     },
                     {%- endfor -%}
                     {%- endif -%}
-                    {%- endif -%}
-                ],
-                sitemapOrder: [
-                    {%- if site.primerSpec.sitemap.order -%}
-                    {%- for title in site.primerSpec.sitemap.order -%}
-                    '{{ title }}',
-                    {%- endfor -%}
                     {%- endif -%}
                 ],
                 sitemapLabel: '{{ site.primerSpec.sitemap.label | default: "" }}',

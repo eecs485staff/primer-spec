@@ -19,14 +19,12 @@ primerSpec:
   sitemap:
     label: Docs & Demos
     externalLinks:
+      - title: Wikipedia
+        url: https://www.wikipedia.org/
       - title: "Google" 
         url: https://google.com/
       - title: "EECS 485"
         url: https://eecs485.org
-    order:
-      - "EECS 485"
-      - "[DOCS] Advanced Usage"
-      - "Google"
 
 # defaultCodeblockVariant: no-line-numbers
 
