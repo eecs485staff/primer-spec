@@ -379,7 +379,7 @@ Use `legacy` to opt out of ["enhancing" code blocks](#enhanced-code-blocks) on t
 
 This setting can be overriden per-block.
 
-#### `sitemap`: Boolean \| {label: String; externalLinks: Array; order: Array}
+#### `sitemap`: Boolean \| {label: String; externalLinks: Array}
 
 _[EECS 280's Project 1](https://eecs280staff.github.io/p1-stats/) has a great example of a sitemap!_
 
