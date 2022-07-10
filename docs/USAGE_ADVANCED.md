@@ -408,7 +408,7 @@ primerSpec:
   # ... (other site configuration options)
 ```
 
-In this example, all internal pages will appear first in the sidebar in an arbitrary order. At the bottom will be Title2 and then Title1.
+In this example, all internal pages will appear first in an order based on the individual pages' [`sitemapOrder`](#sitemaporder-number) property. After them will be Title2 followed by Title1.
 
 To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludefromsitemap-boolean) in the front-matter of your page.
 
