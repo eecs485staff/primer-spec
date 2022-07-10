@@ -7,9 +7,3 @@ export type ConditionalPluginInput = {
 };
 
 export type Plugin = (input: ConditionalPluginInput) => Promise<void>;
-
-export type PluginDefinition = {
-  id: string;
-  plugin: Plugin;
-  shouldRun: () => boolean;
-};

@@ -5,45 +5,35 @@
  * want these jokes to affect the page load time and the spec-reading
  * experience.)
  *
- * Plugins run based on conditions defined in each of their `shouldRun()`
- * methods. They can also be force-enabled by inserting
+ * Plugins run based on conditions defined in the `shouldLoadPlugin()` method.
+ * They can also be force-enabled by inserting
  * `?enable_<plugin_id>=1` in the URL.
  */
 
-import { initialize as initializeHalloweenPlugin } from './plugins/halloween.plugin';
-import { initialize as initializeAprilFoolsLanguagesPlugin } from './plugins/april_fools_languages.plugin';
-
 import type { ConditionalPluginInput } from './types.d';
+import { shouldLoadPlugin } from './should_load_plugin';
+import { loadPlugin } from './load_plugin';
 
-const PLUGINS = [
-  initializeHalloweenPlugin(),
-  initializeAprilFoolsLanguagesPlugin(),
-]
-  .filter((pluginDefinition) => {
-    const forceEnableOption = pluginForceEnableOption(pluginDefinition.id);
-    if (forceEnableOption !== null) {
-      return forceEnableOption;
-    }
-    return pluginDefinition.shouldRun();
-  })
-  .map((pluginDefinition) => pluginDefinition.plugin);
+/**
+ * When adding a new Plugin:
+ * 1. Add the plugin definition to `./plugins/[your-plugin].plugin.ts`
+ * 2. Choose a plugin ID, then add it to this list
+ * 3. Add a condition to `shouldLoadPlugin()` for this plugin ID
+ * 4. Update `loadPlugin()` to load the plugin definition from (1)
+ */
+const PLUGIN_IDS = ['halloween', 'april_fools_languages'];
+
+const pluginsPromises = PLUGIN_IDS.filter((pluginId) =>
+  shouldLoadPlugin(pluginId),
+).map((pluginId) => loadPlugin(pluginId));
 
 export async function executePlugins(
   input: ConditionalPluginInput,
 ): Promise<void> {
+  const plugins = await Promise.all(pluginsPromises);
   await Promise.all(
-    PLUGINS.map(async (plugin) => {
-      await plugin(input);
+    plugins.map(async (plugin) => {
+      await plugin?.(input);
     }),
   );
-}
-
-function pluginForceEnableOption(pluginId: string): boolean | null {
-  const match = window.location.search.match(
-    new RegExp(`enable_${pluginId}=([0|1])`),
-  );
-  if (match) {
-    return match[1] === '1';
-  }
-  return null;
 }

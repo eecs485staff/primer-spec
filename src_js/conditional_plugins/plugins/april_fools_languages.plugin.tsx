@@ -1,41 +1,12 @@
 /** @jsx JSXDom.h */
 import * as JSXDom from 'jsx-dom';
-import type { PluginDefinition } from '../types';
-import { printEnablingURLToConsole } from '../utils/print_enabling_url_to_console';
-
-const PLUGIN_ID = 'april_fools_languages';
+import PigLatinizer from 'pig-latinizer';
+import { translate as pirateSpeakTranslate } from './utils/pirate_speak';
+import { flipStringUpsideDown } from './utils/upside_down';
 
 let currentLanguage = 'english';
 
-export function initialize(): PluginDefinition {
-  return {
-    id: PLUGIN_ID,
-    plugin: AprilFoolsLanguagesPlugin,
-    shouldRun: () => {
-      const today = new Date();
-      // Console message if we are *just* past the April Fools end-date.
-      // After April 3 until April 13.
-      if (
-        today.getMonth() === 3 &&
-        today.getDate() > 3 &&
-        today.getDate() <= 13
-      ) {
-        printEnablingURLToConsole(
-          PLUGIN_ID,
-          "🤫 Psst... It's well past halloween, but you can re-enable halloween mode by clicking this url:",
-        );
-      }
-
-      // Remember that months are 0-indexed in JS!
-      return (
-        (today.getMonth() === 2 && today.getDate() >= 29) || // March 29
-        (today.getMonth() === 3 && today.getDate() <= 3) // April 3
-      );
-    },
-  };
-}
-
-async function AprilFoolsLanguagesPlugin(): Promise<void> {
+export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertLanguageToggleIfNeeded();
   insertDarkModeStylesIfNeeded();
   storeOriginalPageContentsIfNeeded();
@@ -281,18 +252,14 @@ function getEnglishTranslator(): Promise<Translator> {
 }
 
 async function getPigLatinTranslator(): Promise<Translator> {
-  const PigLatinizer = await import('pig-latinizer');
-  const translator = new PigLatinizer.default();
+  const translator = new PigLatinizer();
   return (text: string | null) => (text ? translator.translate(text) : text);
 }
 
 async function getPirateTranslator(): Promise<Translator> {
-  const PirateSpeak = await import('../utils/pirate_speak');
-  return (text: string | null) => (text ? PirateSpeak.translate(text) : text);
+  return (text: string | null) => (text ? pirateSpeakTranslate(text) : text);
 }
 
 async function getUpsideDownTranslator(): Promise<Translator> {
-  const UpsideDown = await import('../utils/upside_down');
-  return (text: string | null) =>
-    text ? UpsideDown.flipStringUpsideDown(text) : text;
+  return (text: string | null) => (text ? flipStringUpsideDown(text) : text);
 }
