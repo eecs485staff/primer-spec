@@ -10,6 +10,7 @@ export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertLanguageToggleIfNeeded();
   insertDarkModeStylesIfNeeded();
   storeOriginalPageContentsIfNeeded();
+  registerWindowEventListenerOnce();
 }
 
 ///////////
@@ -49,11 +50,11 @@ function insertLanguageToggleIfNeeded() {
 }
 
 const languagePopoverId = 'primer-spec-april-fools-language-popover';
-function toggleLanguagePopover() {
+function toggleLanguagePopover(opts?: { doNotOpen: boolean }) {
   const existingPopover = document.querySelector(`#${languagePopoverId}`);
   if (existingPopover) {
     existingPopover.remove();
-  } else {
+  } else if (opts == null || !opts.doNotOpen) {
     const topbar = document.querySelector('header.primer-spec-topbar');
     topbar?.appendChild(
       <div
@@ -158,6 +159,27 @@ function setCurrentLanguage(languageId: string) {
   document
     .querySelector('#primer-spec-april-fools-language-popover details.dropdown')
     ?.removeAttribute('open');
+}
+
+let windowEventRegistered = false;
+function registerWindowEventListenerOnce() {
+  if (!windowEventRegistered) {
+    // If the user clicks outside the language popover, close the popover if it's
+    // open.
+    window.addEventListener('click', (event: Event) => {
+      const target = event?.target as HTMLElement | null;
+      if (
+        target &&
+        target.closest(
+          '#primer-spec-april-fools-language-popover, #primer-spec-april-fools-language-toggle',
+        ) == null &&
+        document.body.contains(target)
+      ) {
+        toggleLanguagePopover({ doNotOpen: true });
+      }
+    });
+    windowEventRegistered = true;
+  }
 }
 
 /////////////////////////////
