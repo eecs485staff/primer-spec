@@ -2,6 +2,10 @@ import { isTodayInRange, Month } from './utils/is_today_in_range';
 import { printEnablingURLToConsole } from './utils/print_enabling_url_to_console';
 
 export function shouldLoadPlugin(pluginId: string): boolean {
+  if (window.PrimerSpecConfig.disableJokes) {
+    return false;
+  }
+
   const forceEnableOption = pluginForceEnableOption(pluginId);
   if (forceEnableOption !== null) {
     return forceEnableOption;

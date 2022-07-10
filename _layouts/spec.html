@@ -108,7 +108,8 @@ version_string: v1.7
                 {%- if defaultCodeblockVariant == nil -%}
                 {%- assign defaultCodeblockVariant = site.primerSpec.defaultCodeblockVariant -%}
                 {%- endif -%}
-                defaultCodeblockVariant: "{{ defaultCodeblockVariant | default: 'enhanced' }}"
+                defaultCodeblockVariant: "{{ defaultCodeblockVariant | default: 'enhanced' }}",
+                disableJokes: {{ site.primerSpec.disableJokes | default: false }}
             };
         </script>
         <script src="{{ base_url }}/assets/{{ layout.version_string }}/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>

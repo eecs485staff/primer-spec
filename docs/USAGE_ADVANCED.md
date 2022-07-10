@@ -36,6 +36,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
     - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string-1)
     - [`sitemap`: Boolean \| {label: String}](#sitemap-boolean--label-string)
+    - [`disableJokes`: Boolean](#disablejokes-boolean)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
 
@@ -398,6 +399,14 @@ To exclude a page from the sitemap, set [`excludeFromSitemap: true`](#excludefro
 <div class="primer-spec-callout info" markdown="1">
 **NOTE:** A sitemap will only be rendered if your site has multiple pages.
 </div>
+
+#### `disableJokes`: Boolean
+
+Primer Spec displays Easter Eggs to students around Halloween and April Fools. The jokes do not interefere with the spec's content without students' explicit consent. (See the [Halloween joke](https://github.com/eecs485staff/primer-spec/pull/157) as an example.)
+
+If you'd prefer for Primer Spec to not render jokes on your website, add the config `disableJokes: false` to the Primer Spec config in `_config.yml`.
+
+We hope you'll keep the jokes enabled as a fun way to engage students around these holidays! If you _do_ end up disabling these jokes, we'd appreciate your feedback on why you chose to do so. Please feel free to open an [issue](https://github.com/eecs485staff/primer-spec/issues/new/) or [discussion](https://github.com/eecs485staff/primer-spec/discussions/new) on the Primer Spec repo, and we can follow up there :)
 
 ## Pinning to a specific version
 
