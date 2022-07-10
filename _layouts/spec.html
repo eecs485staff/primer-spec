@@ -79,7 +79,7 @@ version_string: v1.7
                         title: '{{ sitePage.title }}',
                         {%- endif -%}
                         {%- if sitePage.sitemapOrder -%}
-                        sitemapOrder: {{ sitePage.sitemapOrder }}
+                        sitemapOrder: {{ sitePage.sitemapOrder }},
                         {%- endif -%}
                         {% if sitePage.path == page.path -%}
                         current: true,
