@@ -22,7 +22,7 @@ export default function getSitemapUrls(
 
   // Remove assets pages
   const siteUrls = Config.SITEMAP_URLS.filter(
-    (pageInfo) => !pageInfo.path.startsWith('assets'),
+    (pageInfo) => !pageInfo.path?.startsWith('assets'),
   );
 
   if (siteUrls.length === 0) {
@@ -30,7 +30,7 @@ export default function getSitemapUrls(
   }
 
   const rootIndex = siteUrls.findIndex((page) =>
-    /^(index|readme)\.(md|htm|html)$/.test(page.path.toLowerCase()),
+    /^(index|readme)\.(md|htm|html)$/.test(page.path?.toLowerCase() || ''),
   );
   if (rootIndex === -1) {
     console.warn(

@@ -44,7 +44,7 @@ function SitemapPage(props: {
   dedent?: boolean;
   children: h.JSX.Element | undefined;
 }): h.JSX.Element {
-  const title = props.page.title || getSitemapName(props.page.path);
+  const title = props.page.title || getSitemapName(props.page.path!);
   if (props.page.current) {
     return (
       <details
