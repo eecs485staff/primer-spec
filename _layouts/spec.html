@@ -87,15 +87,13 @@ version_string: v1.7
                     },
                     {%- endif -%}
                     {%- endfor -%}
-                    {%- if site.primerSpec.sitemap.externalLinks -%}
                     {%- for sitePage in site.primerSpec.sitemap.externalLinks -%}
                     {
                         url: '{{ sitePage.url }}',
-                        external: true,
                         title: '{{ sitePage.title }}',
+                        external: true,
                     },
                     {%- endfor -%}
-                    {%- endif -%}
                     {%- endif -%}
                 ],
                 sitemapLabel: '{{ site.primerSpec.sitemap.label | default: "" }}',
