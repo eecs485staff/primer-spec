@@ -25,8 +25,8 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
         open={props.sitemap.rootPage.current ? undefined : true}
       >
         <summary>{Config.SITEMAP_LABEL}</summary>
-        {props.sitemap.siteUrls.map((sitePage) => (
-          <SitemapPage key={sitePage.path} page={sitePage}>
+        {props.sitemap.siteUrls.map((sitePage, i) => (
+          <SitemapPage key={sitePage.url} page={sitePage}>
             {sitePage.current ? props.children : undefined}
           </SitemapPage>
         ))}
