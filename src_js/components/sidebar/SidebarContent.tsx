@@ -45,7 +45,7 @@ function SitemapPage(props: {
   children: h.JSX.Element | undefined;
 }): h.JSX.Element {
   const title =
-    props.page.title || (props.page.path && getSitemapName(props.page.path!));
+    props.page.title || (props.page.path && getSitemapName(props.page.path));
   if (!title) {
     console.error(
       `Primer Spec: Page with URL ${props.page.url} has no title to display in sidebar`,
