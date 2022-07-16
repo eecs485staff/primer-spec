@@ -1,6 +1,7 @@
 ---
 layout: spec
 title: '[DOCS] Architecture'
+sitemapOrder: 3
 ---
 
 <!-- prettier-ignore-start -->

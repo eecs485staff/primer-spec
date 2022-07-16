@@ -199,6 +199,23 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
     }
   }
 
+  details > &-sitemap-external {
+    // Don't include a list item icon for external links.
+    // Based on: https://stackoverflow.com/a/66814239
+    & {
+      list-style: none;
+    }
+    &::marker, /* Chrome, Edge, Firefox */ 
+    &::-webkit-details-marker /* Safari */ {
+      display: none;
+    }
+
+    i {
+      padding-left: 0.3rem;
+      font-size: 0.8rem;
+    }
+  }
+
   &-h1 {
     margin-left: auto;
     margin-top: 0.7em;

@@ -10,3 +10,6 @@ report.html
 
 .DS_Store
 .jekyll-cache
+
+*~
+.*~
