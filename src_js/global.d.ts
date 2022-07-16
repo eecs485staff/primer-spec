@@ -11,6 +11,7 @@ declare var PrimerSpecConfig: {
   sitemapSiteTitle?: string;
   useLegacyCodeBlocks?: boolean /* DEPRECATED in v1.7.0 */;
   defaultCodeblockVariant?: string;
+  disableJokes?: boolean;
 };
 
 // Other global types

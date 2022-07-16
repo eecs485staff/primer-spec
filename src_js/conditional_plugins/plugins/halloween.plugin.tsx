@@ -1,37 +1,10 @@
 /** @jsx JSXDom.h */
 import * as JSXDom from 'jsx-dom';
-import type { ConditionalPluginInput, PluginDefinition } from './types';
+import type { ConditionalPluginInput } from '../types';
 
-export function initialize(): PluginDefinition {
-  return {
-    id: 'halloween',
-    plugin: HalloweenPlugin,
-    shouldRun: () => {
-      const today = new Date();
-      // Console message if we are *just* past the Halloween-mode end-date.
-      if (
-        today.getMonth() === 10 &&
-        today.getDate() > 5 &&
-        today.getDate() <= 15
-      ) {
-        const enabled_url = new URL(window.location.href);
-        enabled_url.searchParams.set('enable_halloween', '1');
-        console.info(
-          "🤫 Psst... It's well past halloween, but you can re-enable halloween mode by clicking this url:\n",
-          enabled_url.toString(),
-        );
-      }
-
-      // Remember that months are 0-indexed in JS!
-      return (
-        (today.getMonth() === 9 && today.getDate() >= 25) ||
-        (today.getMonth() === 10 && today.getDate() <= 5)
-      );
-    },
-  };
-}
-
-async function HalloweenPlugin(input: ConditionalPluginInput): Promise<void> {
+export default async function HalloweenPlugin(
+  input: ConditionalPluginInput,
+): Promise<void> {
   registerHalloweenSubthemeIfNeeded();
   if (!input.settings_shown) {
     replaceSettingsToggleWithHat();
