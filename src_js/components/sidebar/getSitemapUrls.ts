@@ -43,15 +43,20 @@ export default function getSitemapUrls(
   rootPage.title = Config.SITEMAP_SITE_TITLE;
 
   siteUrls.sort((lhs, rhs) => {
-    const lhsOrder = lhs.sitemapOrder || 0;
-    const rhsOrder = rhs.sitemapOrder || 0;
-    if (lhs.external) {
+    if (lhs.external && rhs.external) {
+      // If both links are external, preserve the order that they are declared
+      // in.
+      return 0;
+    } else if (lhs.external) {
       // If lhs is external, it should come after all internal links.
       return 1;
     } else if (rhs.external) {
       // If rhs is external but not lhs, then rhs should come after lhs.
       return -1;
     }
+
+    const lhsOrder = lhs.sitemapOrder || 0;
+    const rhsOrder = rhs.sitemapOrder || 0;
     // If both items are internal, sort them based on which one's sitemapOrder
     // property is lower.
     return lhsOrder - rhsOrder;
