@@ -207,6 +207,12 @@ insta485/static/
 └── images
     └── logo.png
 $ touch insta485/model.py
+$ mapreduce-manager \
+    --host localhost \
+    --port 6000 \
+    --hb-port 5999 \
+    --log-file mapreduce-manager.log &
+Error: Not implemented
 ```
 {: data-highlight="1,3,9" }
 <!-- prettier-ignore-end -->
@@ -227,8 +233,42 @@ insta485/static/
 └── images
     └── logo.png
 $ touch insta485/model.py
+$ mapreduce-manager \
+    --host localhost \
+    --port 6000 \
+    --hb-port 5999 \
+    --log-file mapreduce-manager.log &
+Error: Not implemented
 ```
 {: data-highlight="1,3,9" data-title="markdown" }
+  ````
+</details>
+
+## `pycon` console example
+
+Although `pycon` ("Python Console") isn't a supported "language" by the syntax-highlighter, you can emulate its behavior by specifying parameters to the `console` syntax highlighter:
+
+```console?lang=python&prompt=>>>,...
+>>> from task import MapTask
+>>> task = MapTask(
+...   input_files=["file01", "file02"],
+...   executable="map0.py", output_directory="output")
+>>> task
+MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=output)
+```
+
+<details markdown="1">
+  <summary>Source code for this <code>pycon</code> code block</summary>
+  
+  ````markdown
+```console?lang=python&prompt=>>>,...
+>>> from task import MapTask
+>>> task = MapTask(
+...   input_files=["file01", "file02"],
+...   executable="map0.py", output_directory="output")
+>>> task
+MapTask(input_files=['file01', 'file02'], executable=map.py, output_directory=output)
+```
   ````
 </details>
 
