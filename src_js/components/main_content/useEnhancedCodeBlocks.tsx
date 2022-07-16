@@ -451,6 +451,9 @@ const CONSOLE_COPY_LINES_MAP_FN = (
   }
   // (2) If there's a console prompt, skip it
   const LC_ID = `${codeblock.id}-LC${lineNumber}`;
+  if (line.id === LC_ID) {
+    return line.innerText;
+  }
   const lineText = line.querySelector(`#${LC_ID}`) as HTMLElement | null;
   return lineText?.innerText;
 };
