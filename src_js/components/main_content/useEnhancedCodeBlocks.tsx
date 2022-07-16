@@ -438,11 +438,7 @@ function genCopyButton(codeblockId: string, language: string | null) {
 }
 
 const DEFAULT_COPY_LINES_MAP_FN = (line: HTMLElement) => line.innerText;
-const CONSOLE_COPY_LINES_MAP_FN = (
-  line: HTMLElement,
-  lineNumber: number,
-  codeblock: HTMLElement,
-) => {
+const CONSOLE_COPY_LINES_MAP_FN = (line: HTMLElement) => {
   // (1) Skip console output lines
   // (Class name 'go' refers to the Rouge class `Generic::Output`.)
   const outputText = line.querySelector('.go');
@@ -450,12 +446,19 @@ const CONSOLE_COPY_LINES_MAP_FN = (
     return null;
   }
   // (2) If there's a console prompt, skip it
-  const LC_ID = `${codeblock.id}-LC${lineNumber}`;
-  if (line.id === LC_ID) {
-    return line.innerText;
+  const shadowLine = line.cloneNode(true) as HTMLElement;
+  let prompt: Element | null = null;
+  while ((prompt = shadowLine.querySelector('span.gp'))) {
+    // (2.1) If there is a space after the prompt, remove it
+    //       (to dedent the command)
+    if (prompt.nextElementSibling?.classList.contains('w')) {
+      const whitespaceEl = prompt.nextElementSibling;
+      whitespaceEl.textContent =
+        whitespaceEl.textContent?.replace(' ', '') ?? null;
+    }
+    prompt.remove();
   }
-  const lineText = line.querySelector(`#${LC_ID}`) as HTMLElement | null;
-  return lineText?.innerText;
+  return shadowLine.innerText;
 };
 /**
  * Copy the text of a codeblock into the clipboard. Optionally accepts a custom
@@ -468,16 +471,12 @@ async function copyLines(
   codeblock: HTMLElement,
   mapFn: (
     line: HTMLElement,
-    lineNumber: number,
-    codeblock: HTMLElement,
   ) => string | null | void = DEFAULT_COPY_LINES_MAP_FN,
 ) {
   const lines = codeblock.querySelectorAll(
     `.${CODEBLOCK_LINE_CLASS}`,
   ) as NodeListOf<HTMLElement>;
-  const linesOfText = [...lines]
-    .map((line, i) => mapFn(line, i + 1, codeblock))
-    .filter(Boolean);
+  const linesOfText = [...lines].map((line) => mapFn(line)).filter(Boolean);
   const text = linesOfText.join('\n');
   await navigator.clipboard.writeText(text);
 }
