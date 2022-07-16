@@ -2,6 +2,8 @@ import { h, Fragment } from 'preact';
 import Config from '../../Config';
 import getSitemapName from './getSitemapName';
 
+import IconType from '../common/IconType';
+
 import type { SitemapType } from './getSitemapUrls';
 
 type PropsType = { sitemap?: null | SitemapType; children: h.JSX.Element };
@@ -24,7 +26,7 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
       >
         <summary>{Config.SITEMAP_LABEL}</summary>
         {props.sitemap.siteUrls.map((sitePage) => (
-          <SitemapPage key={sitePage.path} page={sitePage}>
+          <SitemapPage key={sitePage.url} page={sitePage}>
             {sitePage.current ? props.children : undefined}
           </SitemapPage>
         ))}
@@ -42,7 +44,13 @@ function SitemapPage(props: {
   dedent?: boolean;
   children: h.JSX.Element | undefined;
 }): h.JSX.Element {
-  const title = props.page.title || getSitemapName(props.page.path);
+  const title =
+    props.page.title || (props.page.path && getSitemapName(props.page.path));
+  if (!title) {
+    console.error(
+      `Primer Spec: Page with URL ${props.page.url} has no title to display in sidebar`,
+    );
+  }
   if (props.page.current) {
     return (
       <details
@@ -62,6 +70,8 @@ function SitemapPage(props: {
     <a href={props.page.url} tabIndex={-1}>
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
         <summary
+          class={props.page.external ? 'primer-spec-toc-sitemap-external' : ''}
+          data-order={props.page.external ? '' : props.page.sitemapOrder || 0}
           role="link"
           onClick={(e) => {
             e.preventDefault();
@@ -69,6 +79,12 @@ function SitemapPage(props: {
           }}
         >
           {title}
+          {props.page.external && (
+            <Fragment>
+              <i class={IconType.EXTERNAL_LINK} />
+              <span class="sr-only">External Link</span>
+            </Fragment>
+          )}
         </summary>
       </details>
     </a>

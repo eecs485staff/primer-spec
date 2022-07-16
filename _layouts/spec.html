@@ -1,5 +1,5 @@
 ---
-version_string: v1.7
+version_string: v1.8
 ---
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
@@ -21,7 +21,7 @@ version_string: v1.7
         {%- endif %}
 
         {%- if jekyll.environment == "dev" %}
-            {% assign base_url = "http://localhost:4000" %}
+            {% assign base_url = "" %}
         {% elsif jekyll.environment == "site-preview" %}   
             {% assign base_url = site.url | append: site.baseurl %}
         {% else %}
@@ -78,11 +78,21 @@ version_string: v1.7
                         {%- if sitePage.title -%}
                         title: '{{ sitePage.title }}',
                         {%- endif -%}
+                        {%- if sitePage.sitemapOrder -%}
+                        sitemapOrder: {{ sitePage.sitemapOrder }},
+                        {%- endif -%}
                         {% if sitePage.path == page.path -%}
                         current: true,
                         {%- endif %}
                     },
                     {%- endif -%}
+                    {%- endfor -%}
+                    {%- for sitePage in site.primerSpec.sitemap.externalLinks -%}
+                    {
+                        url: '{{ sitePage.url }}',
+                        title: '{{ sitePage.title }}',
+                        external: true,
+                    },
                     {%- endfor -%}
                     {%- endif -%}
                 ],

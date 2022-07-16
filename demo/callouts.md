@@ -1,5 +1,6 @@
 ---
 layout: spec
+sitemapOrder: 1
 ---
 
 <!-- prettier-ignore-start -->
