@@ -71,16 +71,14 @@ Also see the [Advanced Usage](https://eecs485staff.github.io/primer-spec/docs/US
 
 - [Preview locally](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#previewing-locally) (especially if you aren't using GitHub Pages)
 - [Hide sections from the sidebar](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#hiding-sections-from-the-sidebar)
-- [Configure Primer Spec](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#page-configuration-options)
-  - [Render math expressions with LaTeX](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#latex-boolean)
-  - [Add Callouts for important information](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#callouts)
-  - [Highlight lines in code blocks](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#enhanced-code-blocks)
-  - [Disable the sidebar](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#dissablesidebar-boolean)
-  - [Render a sitemap](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#sitemap-boolean--label-string)
-  - [Render diagrams with Mermaid!](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#mermaid-diagrams)
-  - (And more!)
+- [Add Callouts for important information](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#callouts)
+- [Render math expressions with LaTeX](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#latex-boolean)
+- [Highlight lines in code blocks](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#enhanced-code-blocks)
+- [Render diagrams with Mermaid!](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#mermaid-diagrams)
+- [Render a sitemap](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#sitemap-boolean--label-string)
+- (And more!)
 
-You may also want to read the [`MARKDOWN_TIPS`](eecs485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html), which has notes on how you can edit your specs to take best advantage of Primer Spec markdown features.
+You may also want to read the [`MARKDOWN_TIPS`](https://eecs485staff.github.io/primer-spec/docs/MARKDOWN_TIPS.html), which has notes on how you can edit your specs to take best advantage of Primer Spec markdown features.
 
 ## User Showcase
 
@@ -96,11 +94,11 @@ The Primer Spec theme is currently used by the following courses at the Universi
 
 Students: Would you like to see your course use this theme for their project specifications? Let your course staff know about this theme!
 
-Course staff: If you have questions about how to integrate this theme with your project release workflow, [create an issue](https://github.com/eecs485staff/primer-spec/issues/), or email [seshrs@umich.edu](mailto:seshrs@umich.edu).
+Course staff: If you have questions about how to integrate this theme with your project release workflow, [create a discussion](https://github.com/eecs485staff/primer-spec/discussions/new), or email [seshrs@umich.edu](mailto:seshrs@umich.edu).
 
 ## Contributing
 
-Interested in contributing to Primer Spec? We'd love your help. Primer Spec is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html) for further instructions on how to contribute. Also see [the Dev Onboarding file](https://eecs485staff.github.io/primer-spec/docs/DEV_README.html) for notes on how the theme works.
+Interested in contributing to Primer Spec? We'd love your help. See [the CONTRIBUTING file](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html) for further instructions on how to contribute. Also see [the Dev Onboarding file](https://eecs485staff.github.io/primer-spec/docs/DEV_README.html) for notes on how the theme works.
 
 For maintenance and release instructions, see [Maintenance & Release section](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html#Maintenance--Release) of the CONTRIBUTING file.
 

@@ -1,5 +1,6 @@
 ---
 layout: spec
+title: "[DEMO] Images"
 ---
 
 # Images

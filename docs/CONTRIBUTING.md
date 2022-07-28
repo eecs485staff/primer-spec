@@ -1,6 +1,7 @@
 ---
 layout: spec
-title: '[DOCS] How to Contribute'
+title: How to Contribute
+sitemapOrder: 2
 ---
 
 <!-- prettier-ignore-start -->

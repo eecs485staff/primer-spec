@@ -1,6 +1,7 @@
 ---
 layout: spec
-title: '[DOCS] Markdown Tips'
+title: 'Markdown Tips'
+sitemapOrder: 4
 ---
 
 <!-- prettier-ignore-start -->

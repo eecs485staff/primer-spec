@@ -1,5 +1,6 @@
 ---
 layout: spec
+title: "[DEMO] Diagrams"
 mermaid: true
 ---
 

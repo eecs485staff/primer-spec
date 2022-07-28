@@ -1,6 +1,6 @@
 ---
 layout: spec
-sitemapOrder: 1
+title: '[DEMO] Callouts'
 ---
 
 <!-- prettier-ignore-start -->

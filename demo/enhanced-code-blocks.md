@@ -1,5 +1,6 @@
 ---
 layout: spec
+title: '[DEMO] Enhanced Code Blocks'
 ---
 
 <!-- prettier-ignore-start -->

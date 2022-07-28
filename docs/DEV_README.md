@@ -1,6 +1,6 @@
 ---
 layout: spec
-title: '[DOCS] Architecture'
+title: 'Architecture (Dev Onboarding)'
 sitemapOrder: 3
 ---
 
@@ -46,7 +46,7 @@ This document aims to help potential contributors (and curious developers) under
 
 Primer Spec is a _remote_ Jekyll theme. The [README](https://github.com/eecs485staff/primer-spec/#primer-spec) describes how users can integrate Primer Spec as a remote theme with their Jekyll website.
 
-Primer Spec makes the `spec` layout available to website pages. You can find the layout template at [`_layouts/spec.html`](https://github.com/eecs485staff/primer-spec/blob/develop/_layouts/spec.html) — it generates scaffolding around the content, including required stylesheets and scripts. The `spec` layout also accepts a number of [page-specific](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#page-configuration-options) or [site-wide configuration options](https://github.com/eecs485staff/primer-spec/blob/develop/docs/USAGE_ADVANCED.md#site-configuration-options), usually to make these available to the JavaScript that powers Primer Spec. To render a [Sitemap](./USAGE_ADVANCED.md#sitemap-boolean--label-string), the `spec` layout exposes a list of all available Jekyll pages to the JavaScript as well.
+Primer Spec makes the `spec` layout available to website pages. You can find the layout template at [`_layouts/spec.html`](https://github.com/eecs485staff/primer-spec/blob/develop/_layouts/spec.html) — it generates scaffolding around the content, including required stylesheets and scripts. The `spec` layout also accepts a number of [page-specific](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#page-configuration-options) or [site-wide configuration options](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#site-configuration-options), usually to make these available to the JavaScript that powers Primer Spec. To render a [Sitemap](https://eecs485staff.github.io/primer-spec/docs/USAGE_ADVANCED.html#sitemap-boolean--label-string), the `spec` layout exposes a list of all available Jekyll pages to the JavaScript as well.
 
 Fun fact: The content on the page is actually _always hidden_ when the page loads! The JavaScript uses this hidden content later while rendering the page.
 
@@ -102,13 +102,13 @@ The `script` directory contains various utility scripts for use during developme
 
 - `bootstrap` initializes your dev environment. It also installs the Git pre-commit hook from `.githooks/pre-commit`, which ensures that the assets directory is not accidentally modified.
 - `server` starts the Jekyll server at http://localhost:4000 and rebuilds whenever files change (with some exceptions).
-- `cibuild` is what’s run by the Travis CI for every Pull Request. It can also be run locally.
-- `version` bumps or freezes the Primer Spec version. (Link to contributing section)
-- `ci-site-preview-build` is used to generate previews of each Pull Request.
+- `cibuild` is what’s run by GitHub Actions for every Pull Request. It can also be run locally.
+- `version` bumps or freezes the Primer Spec version [(further reading)](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html#bumping-the-version-in-pull-requests)
+- `ci-site-preview-build` is used to generate previews of each Pull Request. You would normally never run this script locally.
 
 ## Stable and Nightly builds
 
-Since the `develop` branch is ahead of the `main` branch [for months at a time](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
+Since the `develop` branch is ahead of the `main` branch [for months at a time](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html#releasing-for-the-next-semester), Primer Spec deploys to two different websites to preview each branch.
 
 - The `main` branch hosts the latest stable version, and is deployed via GitHub Pages to https://eecs485staff.github.io/primer-spec/. This site also hosts the CSS and JS assets used by most external Primer Spec pages.
 - The `develop` branch has all the latest changes and is deployed to a private server at https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/. (This link is also available from the project README page.) It’s automatically updated on every push to the `develop` branch and is rebuilt at least once a month.
@@ -117,7 +117,7 @@ Every open PR is also deployed to the private server via [Primer Spec Preview](h
 
 ## Dev setup
 
-See the [CONTRIBUTING docs](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md#bootstrap-your-local-environment) for actual setup instructions.
+See the [CONTRIBUTING docs](https://eecs485staff.github.io/primer-spec/docs/CONTRIBUTING.html#bootstrap-your-local-environment) for actual setup instructions.
 
 Contributing to Primer Spec requires a Ruby environment _and_ a NodeJS environment setup. `script/bootstrap` installs the Ruby dependencies from `Gemfile` and the JS dependencies from `package.json`. The script also installs the pre-commit hook, which ensures that the assets directory is not accidentally modified by commits. (We update the pre-committed JavaScript bundles just before deploying the `main` branch for use by external websites.)
 

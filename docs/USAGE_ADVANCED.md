@@ -1,7 +1,7 @@
 ---
 layout: spec
-title: '[DOCS] Advanced Usage'
-sitemapOrder: 2
+title: 'Advanced Usage'
+sitemapOrder: 1
 ---
 
 <!-- prettier-ignore-start -->
