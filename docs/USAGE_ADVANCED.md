@@ -250,7 +250,9 @@ Example page: http://eecs485staff.github.io/primer-spec/demo/hide-sidebar-on-loa
 
 #### `sitemapOrder`: Number
 
-Specify where in the sidebar the link to the page will appear. If unspecified, a page's default `sitemapOrder` is 0. A page with a higher `sitemapOrder` will appear later in the sidebar than page with a lower `sitemapOrder`. You can see each page's `sitemapOrder` property in your browser's dev tools by right-clicking a link in the sidebar and inspecting its `data-order` attribute. External links are treated separately; see the [Sitemap](#sitemap-boolean--label-string-externallinks-array) section for more.
+Specify where in the sidebar the link to the page will appear. A page with a higher `sitemapOrder` will appear later in the sidebar than page with a lower `sitemapOrder`. Pages without a `sitemapOrder` will appear at the end.
+
+You can see each page's `sitemapOrder` property in your browser's dev tools by right-clicking a link in the sidebar and inspecting its `data-order` attribute. External links are treated separately; see the [Sitemap](#sitemap-boolean--label-string-externallinks-array) section for more.
 
 #### `latex`: Boolean
 

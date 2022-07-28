@@ -71,7 +71,7 @@ function SitemapPage(props: {
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
         <summary
           class={props.page.external ? 'primer-spec-toc-sitemap-external' : ''}
-          data-order={props.page.external ? '' : props.page.sitemapOrder || 0}
+          data-order={props.page.external ? '' : props.page.sitemapOrder ?? ''}
           role="link"
           onClick={(e) => {
             e.preventDefault();

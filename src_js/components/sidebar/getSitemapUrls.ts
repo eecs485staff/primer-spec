@@ -55,8 +55,8 @@ export default function getSitemapUrls(
       return -1;
     }
 
-    const lhsOrder = lhs.sitemapOrder || 0;
-    const rhsOrder = rhs.sitemapOrder || 0;
+    const lhsOrder = lhs.sitemapOrder ?? Number.MAX_VALUE;
+    const rhsOrder = rhs.sitemapOrder ?? Number.MAX_VALUE;
     // If both items are internal, sort them based on which one's sitemapOrder
     // property is lower.
     return lhsOrder - rhsOrder;
