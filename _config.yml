@@ -18,12 +18,14 @@ description: Primer Spec is a Jekyll theme for GitHub Pages
 primerSpec:
   sitemap:
     label: Docs & Demos
+    # Setting the label to an empty string removes the label from the sitemap.
+    # label: ''
     externalLinks:
       - title: Wikipedia
         url: https://www.wikipedia.org/
-      - title: "Google" 
+      - title: 'Google'
         url: https://google.com/
-      - title: "EECS 485"
+      - title: 'EECS 485'
         url: https://eecs485.org
 
 # defaultCodeblockVariant: no-line-numbers
