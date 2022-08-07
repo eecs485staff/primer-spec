@@ -96,7 +96,19 @@ version_string: v1.8
                     {%- endfor -%}
                     {%- endif -%}
                 ],
-                sitemapLabel: '{{ site.primerSpec.sitemap.label | default: "" }}',
+                {%- comment -%}
+                This is not intuitive, but
+                  - If the label is not defined in the config, show the default label (by unsetting it).
+                  - If the label is set to '' in the config, then DO NOT show a sitemap label.
+                  - Otherwise, use the given sitemap label.
+                {%- endcomment -%}
+                {% unless site.primerSpec.sitemap.label %}
+                sitemapLabel: undefined,
+                {% elsif site.primerSpec.sitemap.label == '' %}
+                sitemapLabel: null,
+                {% else %}
+                sitemapLabel: '{{ site.primerSpec.sitemap.label }}',
+                {% endunless -%}
                 sitemapSiteTitle: '{{ site.title | default: "" }}',
                 {%- comment -%}
                 The issue with the "default" filter is that it executes on ANY
@@ -112,7 +124,7 @@ version_string: v1.8
                 {% assign useLegacyCodeBlocks = page.useLegacyCodeBlocks %}
                 {%- if useLegacyCodeBlocks == nil -%}
                 {%- assign useLegacyCodeBlocks = site.primerSpec.useLegacyCodeBlocks -%}
-                {%- endif -%}
+                {%- endif %}
                 useLegacyCodeBlocks: {{ useLegacyCodeBlocks | default: false }},
                 {% assign defaultCodeblockVariant = page.defaultCodeblockVariant %}
                 {%- if defaultCodeblockVariant == nil -%}
