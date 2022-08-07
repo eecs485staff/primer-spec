@@ -17,25 +17,53 @@ export default function SidebarContent(props: PropsType): h.JSX.Element {
     );
   }
 
+  const isRootPageCurrent = props.sitemap.rootPage.current;
+
   return (
     <Fragment>
-      <details
-        role="navigation"
-        aria-label={Config.SITEMAP_LABEL}
-        open={props.sitemap.rootPage.current ? undefined : true}
-      >
-        <summary>{Config.SITEMAP_LABEL}</summary>
-        {props.sitemap.siteUrls.map((sitePage) => (
-          <SitemapPage key={sitePage.url} page={sitePage}>
-            {sitePage.current ? props.children : undefined}
-          </SitemapPage>
-        ))}
-      </details>
+      <Sitemap sitemap={props.sitemap}>
+        {isRootPageCurrent ? undefined : props.children}
+      </Sitemap>
       <hr />
       <SitemapPage page={props.sitemap.rootPage} dedent>
-        {props.sitemap.rootPage.current ? props.children : undefined}
+        {isRootPageCurrent ? props.children : undefined}
       </SitemapPage>
     </Fragment>
+  );
+}
+
+function Sitemap(props: {
+  sitemap: SitemapType;
+  children?: h.JSX.Element;
+}): h.JSX.Element {
+  const shouldDedentSitemap = Config.SITEMAP_LABEL == null;
+  const renderedSiteUrls = (
+    <Fragment>
+      {props.sitemap.siteUrls.map((sitePage) => (
+        <SitemapPage
+          key={sitePage.url}
+          page={sitePage}
+          dedent={shouldDedentSitemap}
+        >
+          {sitePage.current ? props.children : undefined}
+        </SitemapPage>
+      ))}
+    </Fragment>
+  );
+
+  if (shouldDedentSitemap) {
+    return renderedSiteUrls;
+  }
+
+  return (
+    <details
+      role="navigation"
+      aria-label={Config.SITEMAP_LABEL}
+      open={props.sitemap.rootPage.current ? undefined : true}
+    >
+      <summary>{Config.SITEMAP_LABEL}</summary>
+      {renderedSiteUrls}
+    </details>
   );
 }
 

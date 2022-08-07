@@ -388,7 +388,7 @@ _[EECS 280's Project 1](https://eecs280staff.github.io/p1-stats/) has a great ex
 
 If set to `true`, a sitemap will be auto-generated and displayed in the Sidebar of every Primer Spec page with the label _"Supplemental Pages"_.
 
-To customize the label, specify it under a `label` field.
+To customize the label, specify it under a `label` field. If you would prefer to remove the label from your sitemap, set the field to the empty string (`label: ''`).
 
 To add external links, specify them under an `externalLinks` field. Each item in the `externalLinks` array must have a `title` and a `url` field. External links will always appear at the bottom of the sidebar, below all internal links. They will appear in the same order that you include them in your `_config.yml`.
 

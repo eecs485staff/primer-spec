@@ -1,6 +1,6 @@
 ---
 layout: spec
-title: title: "[DEMO] Long Headings"
+title: '[DEMO] Long Headings'
 excludeFromSitemap: true
 ---
 
