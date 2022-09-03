@@ -2,6 +2,7 @@ import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import clsx from 'clsx';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
+import { elevateHeadingSectionsLevels } from './elevateHeadingSectionLevels';
 
 export type PropsType = {
   contentNodeSelector: string;
@@ -110,7 +111,9 @@ function generateTocNodesForContentNode(
  * @param activeHeadingIndex The index of the active heading item. Use -1 to deactivate.
  */
 function generateTocNodes(headings: HTMLElement[], activeHeadingIndex: number) {
-  const unflattened = unflattenHeadings(headings, activeHeadingIndex);
+  const unflattened = elevateHeadingSectionsLevels(
+    unflattenHeadings(headings, activeHeadingIndex),
+  );
   return (
     <ul class="primer-spec-toc-list">
       {unflattened.map((section) => generateTocNodesHelper(section))}
