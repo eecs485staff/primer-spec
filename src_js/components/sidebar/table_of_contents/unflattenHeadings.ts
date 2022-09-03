@@ -1,7 +1,6 @@
-type HTMLElementLikeType = { tagName: string };
-
 export type HeadingsSectionType = {
-  heading: HTMLElementLikeType;
+  heading: HTMLElement;
+  headingLevel: number;
   active: boolean;
   section: HeadingsSectionType[];
 };
@@ -39,7 +38,7 @@ export type HeadingsSectionType = {
  * @param activeHeadingIndex (optional) Index of the active heading item.
  */
 export default function unflattenHeadings(
-  headings: HTMLElementLikeType[],
+  headings: HTMLElement[],
   activeHeadingIndex = -1,
 ): HeadingsSectionType[] {
   if (!headings.length) {
@@ -56,6 +55,7 @@ export default function unflattenHeadings(
   // This is the section of the previous heading (headings[headingsIndex - 1]).
   let previousHeadingSection: HeadingsSectionType = {
     heading: headings[0],
+    headingLevel: getHeadingLevel(headings[0]),
     active: activeHeadingIndex === 0,
     section: [],
   };
@@ -71,6 +71,7 @@ export default function unflattenHeadings(
     const currentHeading = headings[headingsIndex];
     const currentHeadingSection = {
       heading: currentHeading,
+      headingLevel: getHeadingLevel(currentHeading),
       active: activeHeadingIndex === headingsIndex,
       section: [],
     };
@@ -118,4 +119,15 @@ export default function unflattenHeadings(
     unflattened.push(previousHeadingSection);
   }
   return unflattened;
+}
+
+function getHeadingLevel(heading: HTMLElement): number {
+  const headingLevelMatch = heading.tagName.match(/^H(\d+)$/i);
+  if (headingLevelMatch == null) {
+    throw new Error(
+      `Primer Spec: Unexpected heading tagname while attempting to extract heading level: ${heading.tagName}`,
+    );
+  }
+
+  return parseInt(headingLevelMatch[1], 10);
 }

@@ -79,7 +79,9 @@ function generateTocNodesForContentNode(
 
   const headings = [
     ...contentNode.querySelectorAll('h1, h2, h3, h4, h5, h6'),
-  ].filter((heading) => !heading.classList.contains('primer-spec-toc-ignore'));
+  ].filter(
+    (heading) => !heading.classList.contains('primer-spec-toc-ignore'),
+  ) as HTMLElement[];
 
   // Initialize activeHeadingIndex to the last index. If there are no active
   // headings below the threshold, we should be highlighting this section.
@@ -107,7 +109,7 @@ function generateTocNodesForContentNode(
  * @param headings List of HTML nodes representing header elements in the page
  * @param activeHeadingIndex The index of the active heading item. Use -1 to deactivate.
  */
-function generateTocNodes(headings: Element[], activeHeadingIndex: number) {
+function generateTocNodes(headings: HTMLElement[], activeHeadingIndex: number) {
   const unflattened = unflattenHeadings(headings, activeHeadingIndex);
   return (
     <ul class="primer-spec-toc-list">
@@ -123,7 +125,7 @@ function generateTocNodesHelper(section: HeadingsSectionType) {
     <li>
       <div
         class={clsx(
-          `primer-spec-toc-item primer-spec-toc-${heading.tagName.toLowerCase()}`,
+          `primer-spec-toc-item primer-spec-toc-h${section.headingLevel}`,
           {
             'primer-spec-toc-active': section.active,
           },

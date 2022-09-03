@@ -1,7 +1,8 @@
 import unflattenHeadings from '../unflattenHeadings';
 
 function createElement(tagName: string) {
-  return { tagName };
+  // Naughty typecasting to fix Typescript errors in this test!
+  return { tagName } as HTMLElement;
 }
 
 describe('unflattenHeadings', () => {
@@ -14,7 +15,12 @@ describe('unflattenHeadings', () => {
     const headings = [createElement('H1')];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H1'), active: false, section: [] },
+      {
+        heading: createElement('H1'),
+        headingLevel: 1,
+        active: false,
+        section: [],
+      },
     ]);
   });
 
@@ -22,8 +28,18 @@ describe('unflattenHeadings', () => {
     const headings = [createElement('H1'), createElement('H1')];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H1'), active: false, section: [] },
-      { heading: createElement('H1'), active: false, section: [] },
+      {
+        heading: createElement('H1'),
+        headingLevel: 1,
+        active: false,
+        section: [],
+      },
+      {
+        heading: createElement('H1'),
+        headingLevel: 1,
+        active: false,
+        section: [],
+      },
     ]);
   });
 
@@ -33,8 +49,16 @@ describe('unflattenHeadings', () => {
     expect(unflattened).toStrictEqual([
       {
         heading: createElement('H1'),
+        headingLevel: 1,
         active: false,
-        section: [{ heading: createElement('H2'), active: false, section: [] }],
+        section: [
+          {
+            heading: createElement('H2'),
+            headingLevel: 2,
+            active: false,
+            section: [],
+          },
+        ],
       },
     ]);
   });
@@ -43,8 +67,18 @@ describe('unflattenHeadings', () => {
     const headings = [createElement('H2'), createElement('H1')];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H2'), active: false, section: [] },
-      { heading: createElement('H1'), active: false, section: [] },
+      {
+        heading: createElement('H2'),
+        headingLevel: 2,
+        active: false,
+        section: [],
+      },
+      {
+        heading: createElement('H1'),
+        headingLevel: 1,
+        active: false,
+        section: [],
+      },
     ]);
   });
 
@@ -56,11 +90,24 @@ describe('unflattenHeadings', () => {
     ];
     const unflattened = unflattenHeadings(headings);
     expect(unflattened).toStrictEqual([
-      { heading: createElement('H2'), active: false, section: [] },
+      {
+        heading: createElement('H2'),
+        headingLevel: 2,
+        active: false,
+        section: [],
+      },
       {
         heading: createElement('H1'),
+        headingLevel: 1,
         active: false,
-        section: [{ heading: createElement('H3'), active: false, section: [] }],
+        section: [
+          {
+            heading: createElement('H3'),
+            headingLevel: 3,
+            active: false,
+            section: [],
+          },
+        ],
       },
     ]);
   });
@@ -82,36 +129,68 @@ describe('unflattenHeadings', () => {
     expect(unflattened).toStrictEqual([
       {
         heading: createElement('H1'),
+        headingLevel: 1,
         active: false,
         section: [
-          { heading: createElement('H2'), active: false, section: [] },
           {
             heading: createElement('H2'),
+            headingLevel: 2,
+            active: false,
+            section: [],
+          },
+          {
+            heading: createElement('H2'),
+            headingLevel: 2,
             active: false,
             section: [
               {
                 heading: createElement('H3'),
+                headingLevel: 3,
                 active: false,
                 section: [
-                  { heading: createElement('H5'), active: false, section: [] },
+                  {
+                    heading: createElement('H5'),
+                    headingLevel: 5,
+                    active: false,
+                    section: [],
+                  },
                 ],
               },
-              { heading: createElement('H3'), active: false, section: [] },
+              {
+                heading: createElement('H3'),
+                headingLevel: 3,
+                active: false,
+                section: [],
+              },
             ],
           },
           {
             heading: createElement('H2'),
+            headingLevel: 2,
             active: false,
             section: [
-              { heading: createElement('H6'), active: false, section: [] },
+              {
+                heading: createElement('H6'),
+                headingLevel: 6,
+                active: false,
+                section: [],
+              },
             ],
           },
         ],
       },
       {
         heading: createElement('H1'),
+        headingLevel: 1,
         active: false,
-        section: [{ heading: createElement('H4'), active: false, section: [] }],
+        section: [
+          {
+            heading: createElement('H4'),
+            headingLevel: 4,
+            active: false,
+            section: [],
+          },
+        ],
       },
     ]);
   });
@@ -123,6 +202,7 @@ describe('unflattenHeadings', () => {
       expect(unflattened).toStrictEqual([
         {
           heading: createElement('H1'),
+          headingLevel: 1,
           active: false,
           section: [],
         },
@@ -139,12 +219,23 @@ describe('unflattenHeadings', () => {
       expect(unflattened).toStrictEqual([
         {
           heading: createElement('H1'),
+          headingLevel: 1,
           active: false,
           section: [
-            { heading: createElement('H2'), active: true, section: [] },
+            {
+              heading: createElement('H2'),
+              headingLevel: 2,
+              active: true,
+              section: [],
+            },
           ],
         },
-        { heading: createElement('H1'), active: false, section: [] },
+        {
+          heading: createElement('H1'),
+          headingLevel: 1,
+          active: false,
+          section: [],
+        },
       ]);
     });
   });
