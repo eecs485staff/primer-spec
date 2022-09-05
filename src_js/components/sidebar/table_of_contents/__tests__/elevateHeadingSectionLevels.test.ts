@@ -104,4 +104,60 @@ describe('elevateHeadingSectionsLevels', () => {
       },
     ]);
   });
+
+  test('remove title, then elevate headings by two steps', () => {
+    const headings = [
+      createElement('H1'), // this is a title
+      createElement('H4'),
+      createElement('H3'),
+      createElement('H4'),
+      createElement('H5'),
+      createElement('H3'),
+      createElement('H5'),
+    ];
+    const unflattened = elevateHeadingSectionsLevels(
+      unflattenHeadings(headings),
+    );
+    expect(unflattened).toStrictEqual([
+      {
+        heading: createElement('H4'),
+        headingLevel: 2,
+        active: false,
+        section: [],
+      },
+      {
+        heading: createElement('H3'),
+        headingLevel: 1,
+        active: false,
+        section: [
+          {
+            heading: createElement('H4'),
+            headingLevel: 2,
+            active: false,
+            section: [
+              {
+                heading: createElement('H5'),
+                headingLevel: 3,
+                active: false,
+                section: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: createElement('H3'),
+        headingLevel: 1,
+        active: false,
+        section: [
+          {
+            heading: createElement('H5'),
+            headingLevel: 3,
+            active: false,
+            section: [],
+          },
+        ],
+      },
+    ]);
+  });
 });
