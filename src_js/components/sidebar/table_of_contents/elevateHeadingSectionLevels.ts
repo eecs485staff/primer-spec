@@ -5,7 +5,9 @@ const HIGHEST_EXPECTED_HEADING_LEVEL = 1;
 export function elevateHeadingSectionsLevels(
   unflattenedHeadings: HeadingsSectionType[],
 ): HeadingsSectionType[] {
-  const highestHeadingLevel = getHighestHeadingLevel(unflattenedHeadings);
+  const headingsWithoutTitle = removeTitleIfNecessary(unflattenedHeadings);
+
+  const highestHeadingLevel = getHighestHeadingLevel(headingsWithoutTitle);
   if (highestHeadingLevel == null) {
     // This should never happen, we should silently abort this process.
     console.warn(
@@ -15,7 +17,21 @@ export function elevateHeadingSectionsLevels(
   }
 
   const diff = highestHeadingLevel - HIGHEST_EXPECTED_HEADING_LEVEL;
-  return updateAllHeaderLevels(unflattenedHeadings, diff);
+  return updateAllHeaderLevels(headingsWithoutTitle, diff);
+}
+
+/**
+ * If there is only a single H1 in the entire document, then that's a title
+ * that doesn't need to be displayed in the sidebar.
+ */
+function removeTitleIfNecessary(unflattenedHeadings: HeadingsSectionType[]) {
+  if (
+    unflattenedHeadings.length === 1 &&
+    unflattenedHeadings[0].headingLevel === 1
+  ) {
+    return unflattenedHeadings[0].section;
+  }
+  return unflattenedHeadings;
 }
 
 function getHighestHeadingLevel(
