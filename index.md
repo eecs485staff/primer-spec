@@ -6,11 +6,10 @@ mermaid: true
 
 Project 0: Primer Spec
 ======================
-{: .primer-spec-toc-ignore }
 
 Due: ~~8pm, Apr 1, 2019~~ **Anytime!**  _This is an individual project._
 
-# Introduction
+## Introduction
 In Computer Science courses, project specifications tend to get [really](https://web.archive.org/web/20180425010014/https://eecs485staff.github.io/p3-insta485-clientside/) [long](https://web.archive.org/web/20190424183409/https://eecs280staff.github.io/p3-euchre/). The intention for such a long document is good — they usually provide all the information that a student would need to successfully complete the project. However, this can also make it difficult for students to find information quickly — they often get lost in the document, and cannot easily find the information they need on the fly.
 
 | <img src="https://media.giphy.com/media/vvWhQsVAFkyisScAsM/200w_d.gif" alt="Infinite scroll..." height="150"/> |
@@ -34,14 +33,14 @@ This makes sense! Let's solve the problem of long specs by adding a sidebar. We'
 -->
 *[HTML]: Hyper Text Markup Language
 
-## Learning Goals
+### Learning Goals
 This project is meant to be open-ended — it's not autograded! At the end of this project, you should feel comfortable doing the following:
 - [ ] Use HTML and CSS to modify the design of a web page
 - [ ] Use JQuery and JavaScript to dynamically add content to the page
 
 If you wish, you can implement the other features of the official Primer Spec, as described in the optional [Other Features](#optional-other-features) section.
 
-## Contents
+### Contents
 
 This spec will walk you through these parts:
 
@@ -59,10 +58,10 @@ graph TB
 ```
 {: data-title="Project 0 Contents" data-description="1. Setup your computer. 2. Add a hard-coded HTML sidebar. 3. Write JavaScript to generate the sidebar contents. 4. (Optional) Add other features." }
 
-# Setup
+## Setup
 Follow these steps to get your development environment set up.
 
-### **_Install_** the dependencies
+#### **_Install_** the dependencies
 First make sure that you have Python 3 installed. If you're on MacOS, you may have to `brew install python3` first.
 
 ```console
@@ -70,7 +69,7 @@ $ python3 --version  # NOTE: Your Python version may be different.
 Python 3.7.4
 ```
 
-### Download the starter files
+#### Download the starter files
 Download the starter files and untar them.
 
 ```console
@@ -80,7 +79,7 @@ $ wget https://eecs485staff.github.io/primer-spec/demo/starter_files.tar.gz
 $ tar -xvzf starter_files.tar.gz
 ```
 
-### Preview the site on your browser
+#### Preview the site on your browser
 Have a look at `index.html` by opening the file in your favorite text editor. This file holds all the HTML that represents this project spec. Notice how we've already included some CSS to make the spec look like GitHub's Primer theme.
 
 Use Python's built-in static fileserver to view this HTML file on your browser. Open a console at the directory of the starter files, and then run the Python server.
@@ -97,7 +96,7 @@ Visit [http://localhost:8000](http://localhost:8000) on your web browser. The pa
 
 The spec already looks pretty good, but it could certainly be improved with a sidebar.
 
-# HTML Sidebar
+## HTML Sidebar
 In this section, you will add a sidebar to the HTML page and hard-code its contents. Although we'll be writing some JavaScript code later in the project to generate the contents of the sidebar, it's still a good idea to decide how it's going to look.
 
 When you're done with this section, your webpage will have a sidebar on the left, something like this screenshot:
@@ -115,7 +114,7 @@ Our sidebar is `fixed` to the page with a constant width (we used `18em`), heigh
 
 We recommend placing any CSS style definitions you need in `spec.css`.
 
-#### Do I have to hard-code _all_ the headings in the page?
+##### Do I have to hard-code _all_ the headings in the page?
 No, but it's a good idea to hard-code at least some of them, and randomly hard-code some other items in the sidebar. In particular, make sure to have a mix of heading indentations in your sidebar — consider styling each header level differently.
 
 When you style the various header levels, remember that you'll be writing JavaScript code soon that will generate all of this HTML inside the sidebar. (Hint: Use CSS classes to style the header levels differently. Consider using the _name_ of the HTML header tag in the class name.)
@@ -129,7 +128,7 @@ _**Pro tip:** Use `div` (unstylyed containers) and classes liberally. They make 
 
 _**Pro tip:** Use your browser's "developer tools" to modify CSS styles on your page to dynamically see the effects of your changes._
 
-# `JavaScript` Content Generator
+## `JavaScript` Content Generator
 The spec page looks great! But if you hard-coded all the headings on the page, you _know_ how much time it takes to hard-code the sidebar contents. Imagine having to do that for several different project specs in a course website! It would be nice to _automatically_ generate the sidebar contents for any web page. Let's use JavaScript to write this content generator.
 
 (If you didn't hard-code all the headings on the page, then your sidebar is still incomplete, so you need to write this JavaScript generator anyway.)
@@ -157,7 +156,7 @@ The end goal is to generate a list of headings on the page, and place that in th
 #### How do I add internal links?
 While you're traversing the list of "heading elements" on the page, notice how they all have an `id` attribute. If you were to create an HTML anchor (`a`) with `href` set to `#{insert-id-here}`, the anchor would become an internal link. (Clicking the internal link will scroll the page to that section.)
 
-# (Optional) Other Features
+## (Optional) Other Features
 If you've completed the rest of this spec, congratulations! You've just built the core foundation of the official Primer Spec.
 
 Primer Spec has several other features that you could consider implementing in your own project. These reach goals are of varying difficulty, but could still be fun to work on. Choose your own challenge!
@@ -171,17 +170,17 @@ Here are some of the optional features you could implement, in somewhat increasi
 - [Mobile-Friendliness](#mobile-friendliness)
 - [LaTeX Support](#latex-support)
 
-## Collapsible Sidebar
+### Collapsible Sidebar
 For some viewers, the sidebar can be visually distracting. It would be nice to allow viewers to hide the sidebar. This can be achieved using something as simple as a toggle button. However, consider emulating a better user experience similar to that of the [official Primer Spec theme](https://eecs485staff.github.io/primer-spec) — using a hamburger icon on the top-left corner.
 
 One other thing to consider: Is simply hiding the sidebar enough? While [styling the sidebar](#html-sidebar), if you added CSS styles to push the main content to make room for the sidebar, then the content will look off-centered if the sidebar is simply hidden.
 
-## Printer-Friendliness
+### Printer-Friendliness
 Many students like to print project specifications for easy offline reference. Try printing your project web page — how do you like its look?
 
 The solution is to simply add a JavaScript event handler when the page is printed. This handler should collapse the sidebar and recenter the main content, as described in the [Collapsible Sidebar](#collapsible-sidebar) section. For a better user experience, restore the sidebar to its original state after the page has been printed.
 
-## Excludable Headers
+### Excludable Headers
 Sometimes, it is useful to exclude certain headers from the sidebar for aesthetic reasons. For example, on an [official Primer Spec page](https://eecs485staff.github.io/primer-spec):
 
 ##### This header will show in the sidebar
@@ -191,7 +190,7 @@ Sometimes, it is useful to exclude certain headers from the sidebar for aestheti
 
 The above header element is excluded from the sidebar because it has the class `primer-spec-toc-ignore`. Modify your JavaScript Content Generator to skip adding a section to the sidebar if the corresponding header element has this class attribute.
 
-## Currently-Viewing Section
+### Currently-Viewing Section
 On an [official Primer Spec page](https://eecs485staff.github.io/primer-spec), viewers can see the section to which they have currently scrolled — the header in the sidebar is highlighted.
 
 To implement this feature, you will need to add a CSS class to indicate a "highlighted" section in the sidebar, and will then have to write JavaScript to apply the "highlighted" class to the correct section in the sidebar. Here's a high level description of what the JavaScript code should do:
@@ -207,7 +206,7 @@ It might be easier to implement this using JQuery APIs than plain JavaScript.
 
 _**Pro tip:** If you implemented the "[Exclude Section](#excludable-headers)" feature above, you'll have to take that into accound when highlighting the sidebar sections._
 
-## Mobile-Friendliness
+### Mobile-Friendliness
 Sometimes, students and staff access project specifications from their mobile devices for quick reference. Try accessing your site from a mobile device. (One way to do this is to use your browser's "developer tools" to simulate visiting your project webpage from a mobile device.)
 
 Their are two primary problems with the current mobile user experience:
@@ -221,7 +220,7 @@ There are multiple ways to solve these problems. The official Primer Spec theme 
 
 As you go along, you may find that other changes are needed to improve the mobile experience. For instance, since the sidebar collapses whenever a link is clicked, users no longer expect these internal links to accumulate browser history. (Clicking the "back button" should not just take them to a different section.) Continue exploring your project page from a mobile device to discover other user experience issues.
 
-## LaTeX Support
+### LaTeX Support
 Some project specs need to show Math formulae and equations. It's possible to include these as inline images, but it's hard to maintain. Consider adding support for LaTeX in specs using [MathJax](https://www.mathjax.org/).
 
 LaTeX can be inserted in the middle of paragraphs ($$ \forall x \in R $$), or as separate Math blocks:
@@ -243,10 +242,10 @@ $$
 \end{align*}
 $$
 
-# Feedback
+## Feedback
 If you have suggestions for improving this spec/demo, please create an issue on the [Primer Spec GitHub repository](https://github.com/eecs485staff/primer-spec/issues/). Alternatively, if you know exactly what you'd like to change, [fork the repository and create a Pull Request](https://github.com/eecs485staff/primer-spec/blob/develop/docs/CONTRIBUTING.md)!
 
-# Acknowledgmenets
+## Acknowledgmenets
 This project spec was originally written to demonstrate the Primer Spec theme by [Sesh Sadasivam](https://github.com/seshrs) in 2019.
 
 The structure and style of the project was strongly influenced by EECS 485 project specifications written by [Andrew DeOrio](https://github.com/awdeorio).
