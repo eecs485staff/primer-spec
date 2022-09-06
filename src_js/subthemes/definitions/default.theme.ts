@@ -24,6 +24,8 @@ const default_theme_vars: SubthemeDefinitionType = {
     '--sidebar-toc-section-link-color': DEFAULT_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-tt-active-text-color': DEFAULT_DARK_BG_COLOR,
 
+    '--sidebar-resize-handle': '#333',
+
     '--main-heading-text-color': DEFAULT_DARK_MAIN_HEADING_COLOR,
     '--main-heading-link-color': DEFAULT_DARK_LINK_COLOR,
     '--main-link-color': DEFAULT_DARK_LINK_COLOR,

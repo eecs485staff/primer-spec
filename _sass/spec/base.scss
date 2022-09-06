@@ -122,7 +122,7 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
 
     &:hover,
     &:active {
-      border-left: 1px double lightblue;
+      border-left: 1px double var(--sidebar-resize-handle);
     }
   }
 }
