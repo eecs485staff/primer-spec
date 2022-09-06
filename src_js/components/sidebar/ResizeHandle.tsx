@@ -2,7 +2,7 @@
  * This component was largely inspired by: https://codepen.io/mcolo/pen/OJMjWda
  */
 import { h } from 'preact';
-import { useEffect, useRef, Ref } from 'preact/hooks';
+import { useEffect, useState, useRef, Ref } from 'preact/hooks';
 
 type PropsType = {
   sidebarRef: Ref<HTMLElement>;
@@ -21,6 +21,10 @@ const MAX_WIDTH = 650;
 export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
   const resize_handle_ref = useRef<HTMLDivElement>(null);
   const resize_data_ref = useRef<ResizeDataType>(getInitialResizeData());
+
+  const [mainContentMarginLeft, setMainContentMarginLeft] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
@@ -64,6 +68,10 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
     };
 
     const onMouseUp = () => {
+      const mainContentMargin = getMainContentMarginPx();
+      if (mainContentMargin != null) {
+        setMainContentMarginLeft(mainContentMargin);
+      }
       resize_data_ref.current = getInitialResizeData();
     };
 
@@ -73,7 +81,7 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
-  }, [resize_handle_ref, sidebarRef]);
+  }, [resize_handle_ref, sidebarRef, setMainContentMarginLeft]);
 
   return (
     <div
@@ -92,7 +100,15 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
           startMainContentMargin: getMainContentMarginPx(),
         };
       }}
-    />
+    >
+      {mainContentMarginLeft ? (
+        <style>
+          {'.primer-spec-content-margin-extra {'}
+          {`  margin-left: ${mainContentMarginLeft}px`}
+          {'}'}
+        </style>
+      ) : null}
+    </div>
   );
 }
 
