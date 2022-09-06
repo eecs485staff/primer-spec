@@ -2,7 +2,15 @@
  * This component was largely inspired by: https://codepen.io/mcolo/pen/OJMjWda
  */
 import { h } from 'preact';
-import { useEffect, useState, useRef, Ref } from 'preact/hooks';
+import {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useRef,
+  Ref,
+  useCallback,
+} from 'preact/hooks';
+import Storage from '../../utils/Storage';
 
 type PropsType = {
   sidebarRef: Ref<HTMLElement>;
@@ -17,6 +25,9 @@ type ResizeDataType = {
 
 const MIN_WIDTH = 250;
 const MAX_WIDTH = 650;
+const SIDEBAR_WIDTH_DELTA_STORAGE_KEY = 'primer_spec_sidebar_width_delta';
+
+let defaultSidebarWidth: number | null;
 
 export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
   const resize_handle_ref = useRef<HTMLDivElement>(null);
@@ -26,25 +37,15 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
     number | null
   >(null);
 
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      const {
-        startCursorScreenX,
-        startSidebarWidth,
-        startMainContentMargin,
-      } = resize_data_ref.current;
-
-      if (
-        startCursorScreenX != null &&
-        startSidebarWidth != null &&
-        startMainContentMargin != null
-      ) {
+  const resizeSidebar = useCallback(
+    (
+      delta: number,
+      startSidebarWidth: number | null,
+      startMainContentMargin: number | null,
+    ) => {
+      if (startSidebarWidth != null && startMainContentMargin != null) {
         // (1) Calculate the new sidebar width
-        const cursorScreenXDelta = e.screenX - startCursorScreenX;
-        let newSidebarWidth = Math.max(
-          MIN_WIDTH,
-          startSidebarWidth + cursorScreenXDelta,
-        );
+        let newSidebarWidth = Math.max(MIN_WIDTH, startSidebarWidth + delta);
         newSidebarWidth = Math.min(newSidebarWidth, MAX_WIDTH);
 
         // (2) Use the width change to calculate the main content margin change
@@ -65,6 +66,38 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
           }
         }
       }
+    },
+    [sidebarRef, resize_handle_ref],
+  );
+
+  useLayoutEffect(() => {
+    defaultSidebarWidth = getCurrentSidebarWidth(sidebarRef);
+    const storedWidthDelta = getStoredSidebarWidthDelta();
+    if (storedWidthDelta != null) {
+      resizeSidebar(
+        storedWidthDelta,
+        defaultSidebarWidth,
+        getMainContentMarginPx(),
+      );
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      const {
+        startCursorScreenX,
+        startSidebarWidth,
+        startMainContentMargin,
+      } = resize_data_ref.current;
+
+      if (startCursorScreenX) {
+        const cursorScreenXDelta = e.screenX - startCursorScreenX;
+        resizeSidebar(
+          cursorScreenXDelta,
+          startSidebarWidth,
+          startMainContentMargin,
+        );
+      }
     };
 
     const onMouseUp = () => {
@@ -72,6 +105,13 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
       if (mainContentMargin != null) {
         setMainContentMarginLeft(mainContentMargin);
       }
+
+      const currentWidth = parseInt(sidebarRef.current?.style.width ?? '', 10);
+      const widthDelta = Number.isNaN(currentWidth)
+        ? null
+        : currentWidth - (defaultSidebarWidth ?? 0);
+      storeSidebarWidthDelta(widthDelta);
+
       resize_data_ref.current = getInitialResizeData();
     };
 
@@ -81,7 +121,7 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
-  }, [resize_handle_ref, sidebarRef, setMainContentMarginLeft]);
+  }, [sidebarRef, resize_handle_ref, resizeSidebar, setMainContentMarginLeft]);
 
   return (
     <div
@@ -96,7 +136,7 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
         resize_data_ref.current = {
           tracking: true,
           startCursorScreenX: e.screenX,
-          startSidebarWidth: sidebarRef.current?.offsetWidth ?? null,
+          startSidebarWidth: getCurrentSidebarWidth(sidebarRef),
           startMainContentMargin: getMainContentMarginPx(),
         };
       }}
@@ -121,6 +161,10 @@ function getInitialResizeData(): ResizeDataType {
   };
 }
 
+function getCurrentSidebarWidth(sidebarRef: Ref<HTMLElement>) {
+  return sidebarRef.current?.offsetWidth ?? null;
+}
+
 /**
  * Assumes that the screen is not small.
  */
@@ -138,4 +182,16 @@ function getMainContentMarginPx() {
   return startMainContentMarginRaw?.match(/^\d+px$/)
     ? parseInt(startMainContentMarginRaw, 10)
     : null;
+}
+
+function storeSidebarWidthDelta(widthDelta: number | null): void {
+  Storage.setForPage(SIDEBAR_WIDTH_DELTA_STORAGE_KEY, widthDelta ?? '');
+}
+
+function getStoredSidebarWidthDelta(): number | null {
+  const widthDelta = parseInt(
+    Storage.getForPage(SIDEBAR_WIDTH_DELTA_STORAGE_KEY) ?? '',
+    10,
+  );
+  return Number.isNaN(widthDelta) ? null : widthDelta;
 }

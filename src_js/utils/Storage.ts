@@ -52,8 +52,8 @@ export default {
    *
    * Retrieve items set using this method using `Storage.getForPage()`.
    */
-  setForPage(key: string, value: string): void {
-    return this.set(mangleKeyWithPagePath(key), value);
+  setForPage(key: string, value: string | number): void {
+    return this.set(mangleKeyWithPagePath(key), value.toString());
   },
 
   /**
