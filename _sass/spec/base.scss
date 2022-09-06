@@ -17,6 +17,7 @@ $TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
 $Z_INDEX_SETTINGS: 2;
 $Z_INDEX_TOPBAR: 3;
 $Z_INDEX_SIDEBAR: 4;
+$Z_INDEX_SIDEBAR_RESIZE_HANDLE: 5;
 
 $INFO_BG_COLOR: #dbedff;
 $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
@@ -33,6 +34,7 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
 
 .primer-spec-sidebar {
   width: $SIDEBAR_WIDTH;
+  box-sizing: border-box;
   padding-left: 1em;
   height: 100%;
   overflow: auto;
@@ -104,6 +106,23 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
 
     .external-icon {
       font-size: 80%;
+    }
+  }
+
+  // RESIZABLE SIDEBAR
+
+  &-resize-handle {
+    height: 100%;
+    left: $SIDEBAR_WIDTH;
+    width: 10px;
+    cursor: col-resize;
+    -webkit-touch-callout: none;
+    user-select: none;
+    z-index: $Z_INDEX_SIDEBAR_RESIZE_HANDLE;
+
+    &:hover,
+    &:active {
+      border-left: 1px double lightblue;
     }
   }
 }
