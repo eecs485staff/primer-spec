@@ -60,10 +60,9 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
           resize_handle_ref.current.style.left = `${newSidebarWidth}px`;
           // (3.3) Update the margin of the main content so that it doesn't
           //       hide underneath the Sidebar
-          const mainContentEl = getMainContentNode();
-          if (mainContentEl) {
-            mainContentEl.style.marginLeft = `${newMainContentMargin}px`;
-          }
+          getMainContentEls().forEach((el) => {
+            el.style.marginLeft = `${newMainContentMargin}px`;
+          });
         }
       }
     },
@@ -168,16 +167,22 @@ function getCurrentSidebarWidth(sidebarRef: Ref<HTMLElement>) {
 /**
  * Assumes that the screen is not small.
  */
-function getMainContentNode() {
-  return document.querySelector(
+function getMainContentEls() {
+  const els = document.querySelectorAll(
     '.primer-spec-content-margin-extra',
-  ) as HTMLElement | null;
+  ) as NodeListOf<HTMLElement>;
+  if (els.length <= 0) {
+    throw new Error(
+      'Primer Spec: While resizing sidebar, expected at least one main content node.',
+    );
+  }
+  return els;
 }
 
 function getMainContentMarginPx() {
-  const mainContentNode = getMainContentNode();
-  const startMainContentMarginRaw = mainContentNode
-    ? window.getComputedStyle(mainContentNode).getPropertyValue('margin-left')
+  const mainContentEls = getMainContentEls();
+  const startMainContentMarginRaw = mainContentEls
+    ? window.getComputedStyle(mainContentEls[0]).getPropertyValue('margin-left')
     : null;
   return startMainContentMarginRaw?.match(/^\d+px$/)
     ? parseInt(startMainContentMarginRaw, 10)
