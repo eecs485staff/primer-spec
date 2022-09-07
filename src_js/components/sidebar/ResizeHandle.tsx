@@ -17,7 +17,6 @@ type PropsType = {
 };
 
 type ResizeDataType = {
-  tracking: boolean;
   startCursorScreenX: number | null;
   startSidebarWidth: number | null;
   startMainContentMargin: number | null;
@@ -44,7 +43,7 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
       startMainContentMargin: number | null,
     ) => {
       if (startSidebarWidth != null && startMainContentMargin != null) {
-        // (1) Calculate the new sidebar width
+        // (1) Calculate the new sidebar width (with constraints)
         let newSidebarWidth = Math.max(MIN_WIDTH, startSidebarWidth + delta);
         newSidebarWidth = Math.min(newSidebarWidth, MAX_WIDTH);
 
@@ -69,6 +68,7 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
     [sidebarRef, resize_handle_ref],
   );
 
+  // On page load, restore the sidebar to the width stored in local storage
   useLayoutEffect(() => {
     defaultSidebarWidth = getCurrentSidebarWidth(sidebarRef);
     const storedWidthDelta = getStoredSidebarWidthDelta();
@@ -102,6 +102,8 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
     const onMouseUp = () => {
       const mainContentMargin = getMainContentMarginPx();
       if (mainContentMargin != null) {
+        // Freeze the main content margin. This value is rendered in a
+        // stylesheet so that it is also applied to the Settings pane.
         setMainContentMarginLeft(mainContentMargin);
       }
 
@@ -114,8 +116,8 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
       resize_data_ref.current = getInitialResizeData();
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mouseup', onMouseUp, { passive: true });
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -133,14 +135,16 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
         e.stopPropagation();
 
         resize_data_ref.current = {
-          tracking: true,
           startCursorScreenX: e.screenX,
           startSidebarWidth: getCurrentSidebarWidth(sidebarRef),
           startMainContentMargin: getMainContentMarginPx(),
         };
       }}
     >
-      {mainContentMarginLeft ? (
+      {// We render a stylesheet for the content margin because when the
+      // Settings container renders, its margin is not auto-adjusted to match
+      // the custom sidebar width.
+      mainContentMarginLeft ? (
         <style>
           {'.primer-spec-content-margin-extra {'}
           {`  margin-left: ${mainContentMarginLeft}px`}
@@ -153,7 +157,6 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
 
 function getInitialResizeData(): ResizeDataType {
   return {
-    tracking: false,
     startCursorScreenX: null,
     startSidebarWidth: null,
     startMainContentMargin: null,
