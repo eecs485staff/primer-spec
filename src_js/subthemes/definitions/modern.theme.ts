@@ -20,6 +20,8 @@ const modern_theme_vars: SubthemeDefinitionType = {
     '--sidebar-toc-h1-border-color': MODERN_SPECIAL_COLOR,
     '--sidebar-toc-h2-link-color': 'white',
 
+    '--sidebar-resize-handle': '#246161',
+
     '--sidebar-active-toc-section-bg-color': 'rgb(248, 255, 248)',
     '--sidebar-active-toc-section-link-color': MODERN_PRIMARY_COLOR,
     '--sidebar-active-toc-h1-section-link-color': MODERN_PRIMARY_COLOR,
@@ -49,6 +51,8 @@ const modern_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h2-section-link-color': MODERN_DARK_SIDEBAR_BG_COLOR,
     '--sidebar-toc-section-link-color': 'white',
     '--sidebar-tt-active-text-color': MODERN_DARK_SIDEBAR_BG_COLOR,
+
+    '--sidebar-resize-handle': '#246161',
 
     '--main-heading-text-color': MODERN_DARK_HEADING_COLOR,
     '--main-heading-link-color': MODERN_DARK_HEADING_COLOR,

@@ -14,6 +14,7 @@ import { usePrintInProgress } from '../../utils/hooks/print';
 import Storage from '../../utils/Storage';
 import SidebarContent from './SidebarContent';
 import getSitemapUrls from './getSitemapUrls';
+import { ResizeHandle } from './ResizeHandle';
 
 type SidebarProps = {
   contentNodeSelector: string;
@@ -101,43 +102,46 @@ export default function Sidebar(props: SidebarProps): h.JSX.Element {
   // We also need to unset the Sidebar's `tabIndex` to make its border
   // unfocusable.
   return (
-    <aside
-      ref={sidebar_ref}
-      class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
-      aria-label="Contents Sidebar"
-      tabIndex={-1}
-    >
-      <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
-        {sitemapUrls == null ? undefined : (
-          <Fragment>
-            <InlineNavButton
-              icon={IconType.HOME}
-              href={sitemapUrls.rootPage.url}
-              ariaLabel={sitemapUrls.rootPage.title || 'Home'}
-            />{' '}
-          </Fragment>
-        )}
-        Contents
-        <InlineButton
-          icon={IconType.SIDEBAR}
-          floatRight
-          onClick={saveScrollPositionThenToggleSidebar}
-          ariaLabel="Close navigation pane"
-        />
-      </h2>
-      <br />
-      <SidebarContent sitemap={sitemapUrls}>
-        <TableOfContents
-          contentNodeSelector={props.contentNodeSelector}
-          isSmallScreen={props.isSmallScreen}
-          sidebarShown={props.sidebarShown}
-          settingsShown={props.settingsShown}
-          activeSectionOffsetY={props.activeSectionOffsetY}
-          onToggleSidebar={saveScrollPositionThenToggleSidebar}
-          onToggleSettings={props.onToggleSettings}
-        />
-      </SidebarContent>
-    </aside>
+    <Fragment>
+      <aside
+        ref={sidebar_ref}
+        class="primer-spec-sidebar position-fixed top-0 py-5 no-print"
+        aria-label="Contents Sidebar"
+        tabIndex={-1}
+      >
+        <h2 class="primer-spec-toc-ignore" id="primer-spec-toc-contents">
+          {sitemapUrls == null ? undefined : (
+            <Fragment>
+              <InlineNavButton
+                icon={IconType.HOME}
+                href={sitemapUrls.rootPage.url}
+                ariaLabel={sitemapUrls.rootPage.title || 'Home'}
+              />{' '}
+            </Fragment>
+          )}
+          Contents
+          <InlineButton
+            icon={IconType.SIDEBAR}
+            floatRight
+            onClick={saveScrollPositionThenToggleSidebar}
+            ariaLabel="Close navigation pane"
+          />
+        </h2>
+        <br />
+        <SidebarContent sitemap={sitemapUrls}>
+          <TableOfContents
+            contentNodeSelector={props.contentNodeSelector}
+            isSmallScreen={props.isSmallScreen}
+            sidebarShown={props.sidebarShown}
+            settingsShown={props.settingsShown}
+            activeSectionOffsetY={props.activeSectionOffsetY}
+            onToggleSidebar={saveScrollPositionThenToggleSidebar}
+            onToggleSettings={props.onToggleSettings}
+          />
+        </SidebarContent>
+      </aside>
+      {isSmallScreen ? null : <ResizeHandle sidebarRef={sidebar_ref} />}
+    </Fragment>
   );
 }
 

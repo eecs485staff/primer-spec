@@ -26,6 +26,8 @@ export const SUBTHEME_VARS = [
   '--sidebar-tt-active-border',
   '--sidebar-tt-active-border-radius',
 
+  '--sidebar-resize-handle',
+
   '--main-heading-text-color',
   '--main-heading-link-color',
   '--main-link-color',

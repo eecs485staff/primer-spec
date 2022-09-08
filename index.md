@@ -114,7 +114,7 @@ Our sidebar is `fixed` to the page with a constant width (we used `18em`), heigh
 
 We recommend placing any CSS style definitions you need in `spec.css`.
 
-##### Do I have to hard-code _all_ the headings in the page?
+#### Do I have to hard-code _all_ the headings in the page?
 No, but it's a good idea to hard-code at least some of them, and randomly hard-code some other items in the sidebar. In particular, make sure to have a mix of heading indentations in your sidebar — consider styling each header level differently.
 
 When you style the various header levels, remember that you'll be writing JavaScript code soon that will generate all of this HTML inside the sidebar. (Hint: Use CSS classes to style the header levels differently. Consider using the _name_ of the HTML header tag in the class name.)

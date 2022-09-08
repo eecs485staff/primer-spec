@@ -25,6 +25,8 @@ const bella_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h2-section-link-color': 'white',
     '--sidebar-toc-section-link-color': 'rgb(58, 58, 58)',
 
+    '--sidebar-resize-handle': '#ccc',
+
     '--main-heading-text-color': BELLA_PRIMARY_TEXT_COLOR,
     '--main-heading-link-color': BELLA_MAIN_LINK_COLOR,
     '--main-link-color': BELLA_MAIN_LINK_COLOR,
@@ -48,6 +50,8 @@ const bella_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h2-section-link-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-toc-section-link-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-tt-active-text-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
+
+    '--sidebar-resize-handle': '#555',
 
     '--main-heading-text-color': BELLA_DARK_PRIMARY_HEADING_COLOR,
     '--main-heading-link-color': BELLA_DARK_MAIN_LINK_COLOR,

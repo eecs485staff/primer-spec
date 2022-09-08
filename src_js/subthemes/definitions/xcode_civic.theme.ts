@@ -26,6 +26,8 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h2-section-link-color': 'white',
     '--sidebar-toc-section-link-color': XCODE_DARK_SIDEBAR_HEADING_COLOR,
 
+    '--sidebar-resize-handle': XCODE_DARK_MAIN_LINK_COLOR,
+
     '--main-heading-text-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-heading-link-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-link-color': XCODE_DARK_MAIN_LINK_COLOR,
@@ -66,6 +68,8 @@ const xcode_dark_theme_vars: SubthemeDefinitionType = {
     '--sidebar-active-toc-h1-section-link-color': 'white',
     '--sidebar-active-toc-h2-section-link-color': 'white',
     '--sidebar-toc-section-link-color': 'white',
+
+    '--sidebar-resize-handle': XCODE_DARK_MAIN_HEADING_COLOR,
 
     '--main-heading-text-color': XCODE_DARK_MAIN_HEADING_COLOR,
     '--main-heading-link-color': XCODE_DARK_MAIN_HEADING_COLOR,
