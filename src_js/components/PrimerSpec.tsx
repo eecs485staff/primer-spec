@@ -63,18 +63,16 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
   };
 
   // Listen for print events
-  const beforePrint = useCallback(useBeforePrint, []);
-  const afterPrint = useCallback(useAfterPrint, []);
-  useEffect(() => {
-    return beforePrint(() => {
+  useBeforePrint(
+    useCallback(() => {
       toggleItalicsInChrome(false);
-    });
-  }, [beforePrint]);
-  useEffect(() => {
-    return afterPrint(() => {
+    }, []),
+  );
+  useAfterPrint(
+    useCallback(() => {
       toggleItalicsInChrome(true);
-    });
-  }, [afterPrint]);
+    }, []),
+  );
 
   // Expose Debug methods
   useEffect(() => {
