@@ -20,7 +20,7 @@ export function usePrintInProgress(): boolean {
  * useBeforePrint(
  *   useCallback(() => {
  *     // Your logic here
- *   }),
+ *   }, []),
  * );
  * ```
  * @param handler Imperative function to be invoked onbeforeprint
@@ -60,7 +60,7 @@ export function useBeforePrint(handler: () => void): void {
  * useBeforePrint(
  *   useCallback(() => {
  *     // Your logic here
- *   }),
+ *   }, []),
  * );
  * ```
  * @param handler Imperative function to execute onafterprint
