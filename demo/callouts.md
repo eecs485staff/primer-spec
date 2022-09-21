@@ -48,7 +48,7 @@ See below for examples of each of these callouts.
 ### `neutral`
 
 <div class="primer-spec-callout" markdown="1">
-_**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but offers stronger emphasis than main body text._
+**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but offers stronger emphasis than main body text.
 </div>
 
 <details markdown="1">
@@ -56,7 +56,7 @@ _**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but
   
   ```markdown
 <div class="primer-spec-callout" markdown="1">
-  _**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but offers stronger emphasis than main body text._
+  **Pro tip:** Use this to create a simple note box. It's weaker than `info`, but offers stronger emphasis than main body text.
 </div>
   ```
 </details>
@@ -64,7 +64,7 @@ _**Pro tip:** Use this to create a simple note box. It's weaker than `info`, but
 ### `info`
 
 <div class="primer-spec-callout info" markdown="1">
-_**Pro tip:** Use this for additional information, context or hints._
+**Pro tip:** Use this for additional information, context or hints.
 </div>
 
 <details markdown="1">
@@ -72,7 +72,7 @@ _**Pro tip:** Use this for additional information, context or hints._
   
   ```markdown
 <div class="primer-spec-callout info" markdown="1">
-  _**Pro tip:** Use this for additional information, context or hints._
+  **Pro tip:** Use this for additional information, context or hints.
 </div>
   ```
 </details>
@@ -80,7 +80,7 @@ _**Pro tip:** Use this for additional information, context or hints._
 ### `warning`
 
 <div class="primer-spec-callout warning" markdown="1">
-_**Pro tip:** Use this to alert readers or when extra care/attention is needed._
+**Pro tip:** Use this to alert readers or when extra care/attention is needed.
 </div>
 
 <details markdown="1">
@@ -88,7 +88,7 @@ _**Pro tip:** Use this to alert readers or when extra care/attention is needed._
   
   ```markdown
 <div class="primer-spec-callout warning" markdown="1">
-  _**Pro tip:** Use this to alert readers or when extra care/attention is needed._
+  **Pro tip:** Use this to alert readers or when extra care/attention is needed.
 </div>
   ```
 </details>
@@ -96,7 +96,7 @@ _**Pro tip:** Use this to alert readers or when extra care/attention is needed._
 ### `danger`
 
 <div class="primer-spec-callout danger" markdown="1">
-_**Pro tip:** Use this to caution readers about dangerous outcomes (or when something won't work as expected)._
+**Pro tip:** Use this to caution readers about dangerous outcomes (or when something won't work as expected).
 </div>
 
 <details markdown="1">
@@ -104,7 +104,7 @@ _**Pro tip:** Use this to caution readers about dangerous outcomes (or when some
   
   ```markdown
 <div class="primer-spec-callout danger" markdown="1">
-  _**Pro tip:** Use this to caution readers about dangerous outcomes (or when something won't work as expected)._
+  **Pro tip:** Use this to caution readers about dangerous outcomes (or when something won't work as expected).
 </div>
   ```
 </details>
@@ -112,7 +112,7 @@ _**Pro tip:** Use this to caution readers about dangerous outcomes (or when some
 ### `success`
 
 <div class="primer-spec-callout success" markdown="1">
-_**Pro tip:** Use this to celebrate an achievement!_
+**Pro tip:** Use this to celebrate an achievement!
 </div>
 
 <details markdown="1">
@@ -120,7 +120,7 @@ _**Pro tip:** Use this to celebrate an achievement!_
   
   ```markdown
 <div class="primer-spec-callout success" markdown="1">
-  _**Pro tip:** Use this to celebrate an achievement!_
+  **Pro tip:** Use this to celebrate an achievement!
 </div>
   ```
 </details>

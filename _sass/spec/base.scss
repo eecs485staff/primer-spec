@@ -589,12 +589,14 @@ $CALLOUT_VARIANTS: (
     'bg': #f6f8fa,
     'border': #e1e4e8,
     'color': inherit,
+    'icon-color': inherit,
     'icon': '',
   ),
   'info': (
-    'bg': #dbedff,
+    'bg': #ddf4ff,
     'border': rgba(4, 66, 137, 0.2),
     'color': inherit,
+    'icon-color': #0969da,
     'icon': '\f05a',
     // info-circle
   ),
@@ -602,6 +604,7 @@ $CALLOUT_VARIANTS: (
     'bg': #fffbdd,
     'border': rgba(176, 136, 0, 0.2),
     'color': inherit,
+    'icon-color': #9a6700,
     'icon': '\f071',
     // exclamation-triangle
   ),
@@ -609,6 +612,7 @@ $CALLOUT_VARIANTS: (
     'bg': #ffe3e6,
     'border': rgba(158, 28, 35, 0.2),
     'color': inherit,
+    'icon-color': #cf222e,
     'icon': '\f06a',
     // exclamation-circle
   ),
@@ -616,6 +620,7 @@ $CALLOUT_VARIANTS: (
     'bg': #dcffe4,
     'border': rgba(23, 111, 44, 0.2),
     'color': inherit,
+    'icon-color': #1a7f37,
     'icon': '\f00c',
     // check
   ),
@@ -671,6 +676,10 @@ div.primer-spec-callout {
       padding-right: 8px;
       font-family: 'Font Awesome 5 Free';
       font-weight: 900;
+      color: var(
+        --primer-spec-callout-#{$variant}-icon-color,
+        map-get($props, 'icon-color')
+      );
       content: map-get($props, 'icon');
     }
   }
