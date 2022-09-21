@@ -1,5 +1,4 @@
 import { h } from 'preact';
-import { useCallback, useEffect } from 'preact/hooks';
 import clsx from 'clsx';
 import Config from '../../Config';
 import { Subthemes, updateTheme, normalizeSubthemeMode } from '../../subthemes';
@@ -37,21 +36,13 @@ export default function Settings(props: PropsType): h.JSX.Element | null {
   usePrefersDarkMode();
 
   // If a print is in progress, temporarily reset the theme to default light.
-  const beforePrint = useCallback(useBeforePrint, []);
-  const afterPrint = useCallback(useAfterPrint, []);
-  useEffect(() => {
-    return beforePrint(() =>
-      updateTheme({ name: 'default', mode: 'light' }, false),
-    );
-  }, [beforePrint]);
-  useEffect(() => {
-    return afterPrint(() =>
-      updateTheme(
-        { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
-        false,
-      ),
-    );
-  }, [afterPrint, props.currentSubthemeName, props.currentSubthemeMode]);
+  useBeforePrint(() => updateTheme({ name: 'default', mode: 'light' }, false));
+  useAfterPrint(() =>
+    updateTheme(
+      { name: props.currentSubthemeName, mode: props.currentSubthemeMode },
+      false,
+    ),
+  );
 
   if (!props.settingsShown || is_print_in_progress) {
     return null;
