@@ -33,15 +33,19 @@ export function isTodayInRange(
   if (today.getMonth() < lowerBound.month) {
     return false;
   }
-  let beyondLowerBound = true;
-  if (today.getMonth() === lowerBound.month) {
-    beyondLowerBound = today.getDate() >= lowerBound.date;
+  if (
+    today.getMonth() === lowerBound.month &&
+    today.getDate() < lowerBound.date
+  ) {
+    return false;
   }
 
-  if (today.getMonth() !== upperBound.month) {
-    return today.getMonth() < upperBound.month;
+  // At this point, we're beyond the lower bound.
+  if (today.getMonth() > upperBound.month) {
+    return false;
   }
-  const withinUpperBound = today.getDate() < upperBound.date;
-
-  return beyondLowerBound && withinUpperBound;
+  if (today.getMonth() < upperBound.month) {
+    return true;
+  }
+  return today.getDate() < upperBound.date;
 }
