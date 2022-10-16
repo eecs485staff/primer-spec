@@ -47,9 +47,16 @@ export function createEnhancedCodeBlock(options: {
     lines.pop();
   }
 
+  const {
+    linesWithoutMagicComments,
+    removedLineNumbers,
+    additionalHighlightRanges,
+  } = parseMagicComments(lines);
+
   const highlightRanges = parseCodeHighlightRanges(
-    rawHighlightRanges,
+    `${rawHighlightRanges},${additionalHighlightRanges}`,
     lines.length,
+    removedLineNumbers,
   );
 
   const codeblockId = `primer-spec-code-block-${codeblockNumericId}`;
@@ -92,7 +99,7 @@ export function createEnhancedCodeBlock(options: {
               mouseDownStartLine = null;
             }}
           >
-            {lines.map((line, lineNumber) =>
+            {linesWithoutMagicComments.map((line, lineNumber) =>
               createCodeBlockLine({
                 codeblockId,
                 language,
@@ -104,7 +111,7 @@ export function createEnhancedCodeBlock(options: {
             )}
           </tbody>
         </table>
-        {lines.length > 1
+        {linesWithoutMagicComments.length > 1
           ? genCopyButton(codeblockId, language === LANGUAGE_CONSOLE)
           : null}
       </div>
@@ -250,4 +257,48 @@ function selectLines(
   range.setEnd(endNode, endNode.childNodes.length);
   document.getSelection()?.removeAllRanges();
   document.getSelection()?.addRange(range);
+}
+
+const MAGIC_COMMENT_REGEX = /^\s*<span class="c[mp1sd]?">.*primer-spec-highlight-(start|end)/i;
+function parseMagicComments(
+  lines: Array<string>,
+): {
+  linesWithoutMagicComments: Array<string>;
+  removedLineNumbers: Array<number>;
+  additionalHighlightRanges: string;
+} {
+  let highlightStart = null;
+  const linesWithoutMagicComments: Array<string> = [];
+  const removedLineNumbers: Array<number> = [];
+  const additionalHighglightRangesList: Array<string> = [];
+
+  for (let i = 0; i < lines.length; ++i) {
+    const humanReadableLineNumber = i + 1;
+    const match = lines[i].match(MAGIC_COMMENT_REGEX);
+    if (match != null) {
+      if (highlightStart == null && match[1] === 'start') {
+        highlightStart = humanReadableLineNumber;
+        removedLineNumbers.push(humanReadableLineNumber);
+      } else if (highlightStart != null && match[1] === 'end') {
+        additionalHighglightRangesList.push(
+          `${highlightStart}-${humanReadableLineNumber}`,
+        );
+        highlightStart = null;
+        removedLineNumbers.push(humanReadableLineNumber);
+      } else {
+        // Bad usage of a magic comment, so include it in the final code block
+        // anyway (so users aren't confused why the code block isn't
+        // highlighted).
+        linesWithoutMagicComments.push(lines[i]);
+      }
+    } else {
+      linesWithoutMagicComments.push(lines[i]);
+    }
+  }
+
+  return {
+    linesWithoutMagicComments,
+    removedLineNumbers,
+    additionalHighlightRanges: additionalHighglightRangesList.join(','),
+  };
 }
