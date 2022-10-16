@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Config from '../../Config';
 import { usePrintInProgress } from '../../utils/hooks/print';
 import useTaskListCheckboxes from './useTaskListCheckboxes';
-import useEnhancedCodeBlocks from './useEnhancedCodeBlocks';
+import useEnhancedCodeBlocks from './enhanced_code_blocks/useEnhancedCodeBlocks';
 import useMermaidDiagrams from './useMermaidDiagrams';
 import useTooltippedAbbreviations from './useTooltippedAbbreviations';
 import usePrefersDarkMode from '../../utils/hooks/usePrefersDarkMode';
