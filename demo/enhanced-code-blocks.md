@@ -81,6 +81,10 @@ So long lives this and this gives life to thee.
 
 ## Highlighted lines
 
+### Using `data-highlight` attribute
+
+Specify which line-number ranges of a code block need to be highlighted. For instance:
+
 <!-- prettier-ignore-start -->
 ```
 Shall I compare thee to a summer’s day?
@@ -137,6 +141,52 @@ So long lives this and this gives life to thee.
 
 </details>
 
+### Using "magic comments"
+
+<div class="primer-spec-callout warning" markdown="1">
+WARNING: "Magic comments" only work when syntax-highlighting is enabled! This means that you _must_ specify the code block's language first.
+</div>
+
+Surround the lines that you'd like to highlight with the magic comments `primer-spec-highlight-start` and `primer-spec-highlight-end` to indicate the highlighted lines. For instance, the following Markdown:
+
+<!-- prettier-ignore-start -->
+
+````
+```python
+x = {
+  # primer-spec-highlight-start
+  # This dict refers John, whose age is 30
+  "name": "John",
+  "age": 30,
+  # primer-spec-highlight-end
+  "cars": [
+    {"model": "BMW 230", "mpg": 27.5},
+    {"model": "Ford Edge", "mpg": 24.1}
+  ]
+}
+```
+````
+{: data-title="Markdown source for magic comments" data-highlight="3,7" }
+
+Results in the following code block:
+
+```python
+x = {
+  # primer-spec-highlight-start
+  # This dict refers John, whose age is 30
+  "name": "John",
+  "age": 30,
+  # primer-spec-highlight-end
+  "cars": [
+    {"model": "BMW 230", "mpg": 27.5},
+    {"model": "Ford Edge", "mpg": 24.1}
+  ]
+}
+```
+<!-- prettier-ignore-end -->
+
+You can use the comment syntax relevant for your code block's language. For instance, you can use `// ...` or `/* ... */` in JavaScript, or `<!-- ... -->` in HTML. However, the magic comment **_must_** be the only content on its entire line.
+
 ## Code example
 
 <!-- prettier-ignore-start -->
@@ -172,16 +222,16 @@ print(json.dumps(x, indent=4, separators=(". ", " = ")))
 import json
 
 x = {
-"name": "John",
-"age": 30,
-"married": True,
-"divorced": False,
-"children": ("Ann","Billy"),
-"pets": None,
-"cars": [
-{"model": "BMW 230", "mpg": 27.5},
-{"model": "Ford Edge", "mpg": 24.1}
-]
+  "name": "John",
+  "age": 30,
+  "married": True,
+  "divorced": False,
+  "children": ("Ann","Billy"),
+  "pets": None,
+  "cars": [
+    {"model": "BMW 230", "mpg": 27.5},
+    {"model": "Ford Edge", "mpg": 24.1}
+  ]
 }
 
 # use . and a space to separate objects, and a space, a = and a space to separate keys from their values:
