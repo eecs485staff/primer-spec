@@ -32,14 +32,16 @@ export function parseCodeHighlightRanges(
 
   const ranges = rawHighlightRanges.split(',');
   ranges.forEach((range) => {
+    if (range === '') {
+      return;
+    }
     // First check if it's a single number
     const potentialLineNum = +range;
-    if (
-      isNumWithinInclusiveRange(potentialLineNum, 1, normalizedMaxLineNumber)
-    ) {
+    if (isNumWithinInclusiveRange(potentialLineNum, 1, maxLineNumber)) {
       addLineNumberToHighlightRanges(
         potentialLineNum,
         highlightedLines,
+        normalizedMaxLineNumber,
         validRemovedLines,
       );
     } else {
@@ -48,14 +50,15 @@ export function parseCodeHighlightRanges(
         const lower = +rangeParts[0];
         const upper = +rangeParts[1];
         if (
-          isNumWithinInclusiveRange(lower, 1, normalizedMaxLineNumber) &&
-          isNumWithinInclusiveRange(upper, 1, normalizedMaxLineNumber) &&
+          isNumWithinInclusiveRange(lower, 1, maxLineNumber) &&
+          isNumWithinInclusiveRange(upper, 1, maxLineNumber) &&
           lower <= upper
         ) {
           for (let i = lower; i <= upper; ++i) {
             addLineNumberToHighlightRanges(
               i,
               highlightedLines,
+              normalizedMaxLineNumber,
               validRemovedLines,
             );
           }
@@ -81,13 +84,14 @@ function isNumWithinInclusiveRange(
 function addLineNumberToHighlightRanges(
   lineNumberToAdd: number,
   highlightedLineRanges: Set<number>,
+  normalizedMaxLineNumber: number,
   removedLineNumbers?: Array<number> | null,
 ): void {
   const normalizedNum = normalizeAfterRemovingLines(
     lineNumberToAdd,
     removedLineNumbers,
   );
-  if (normalizedNum != null) {
+  if (normalizedNum != null && normalizedNum <= normalizedMaxLineNumber) {
     highlightedLineRanges.add(normalizedNum);
   }
 }

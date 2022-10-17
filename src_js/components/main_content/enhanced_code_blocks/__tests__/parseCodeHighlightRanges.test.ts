@@ -59,7 +59,7 @@ describe('parseCodeHighlightRanges', () => {
     });
 
     test('multiple ranges and lines', () => {
-      expect(parseCodeHighlightRanges('4, 24-27, 3-5', 30)).toEqual(
+      expect(parseCodeHighlightRanges(', 4, 24-27, 3-5', 30)).toEqual(
         new Set([3, 4, 5, 24, 25, 26, 27]),
       );
     });
@@ -84,14 +84,20 @@ describe('parseCodeHighlightRanges', () => {
       );
     });
 
-    test('single line number out of bounds after removing lines', () => {
-      expect(parseCodeHighlightRanges('30', 30, [20])).toEqual(new Set());
+    test('single line number almost out of bounds after removing lines', () => {
+      expect(parseCodeHighlightRanges('30', 30, [20])).toEqual(new Set([29]));
     });
 
     test('multiple line numbers with multiple removed lines', () => {
       expect(
         parseCodeHighlightRanges('20-24,6,12-14', 30, [22, 8, 12]),
       ).toEqual(new Set([6, 11, 12, 18, 19, 20, 21]));
+    });
+
+    test('range contains last line, but some lines removed', () => {
+      expect(parseCodeHighlightRanges('22-24', 24, [8, 9])).toEqual(
+        new Set([20, 21, 22]),
+      );
     });
 
     test('invalid removed lines', () => {

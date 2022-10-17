@@ -54,7 +54,7 @@ export function createEnhancedCodeBlock(options: {
   } = parseMagicComments(lines);
 
   const highlightRanges = parseCodeHighlightRanges(
-    `${rawHighlightRanges},${additionalHighlightRanges}`,
+    [rawHighlightRanges, additionalHighlightRanges].filter(Boolean).join(','),
     lines.length,
     removedLineNumbers,
   );
