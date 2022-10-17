@@ -1,6 +1,6 @@
 import useEnhancedCodeBlocks from '../useEnhancedCodeBlocks';
 
-jest.mock('../../../Config', () => ({
+jest.mock('../../../../Config', () => ({
   USE_LEGACY_CODE_BLOCKS: false,
 }));
 
