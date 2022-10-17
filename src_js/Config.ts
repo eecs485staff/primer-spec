@@ -1,5 +1,5 @@
 import Storage from './utils/Storage';
-import { CodeblockVariant } from './components/main_content/types';
+import { CodeblockVariant } from './components/main_content/enhanced_code_blocks/codeblockConsts';
 
 const SUBTHEME_NAME_STORAGE_KEY = 'spec_subtheme_name';
 const SUBTHEME_MODE_STORAGE_KEY = 'spec_subtheme_mode';
