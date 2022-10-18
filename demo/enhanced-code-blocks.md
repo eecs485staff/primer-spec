@@ -155,7 +155,7 @@ Surround the lines that you'd like to highlight with the magic comments `primer-
 ```python
 x = {
   # primer-spec-highlight-start
-  # This dict refers John, whose age is 30
+  # This dict refers to John, whose age is 30
   "name": "John",
   "age": 30,
   # primer-spec-highlight-end
@@ -173,7 +173,7 @@ Results in the following code block:
 ```python
 x = {
   # primer-spec-highlight-start
-  # This dict refers John, whose age is 30
+  # This dict refers to John, whose age is 30
   "name": "John",
   "age": 30,
   # primer-spec-highlight-end
