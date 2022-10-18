@@ -7,12 +7,24 @@
  * `Set([13, 24, 25, 26, 27])`
  *
  * @param rawHighlightRanges A comma-separated string representing ranges
- * @param maxLineNumber The maximum valid line number
+ * @param maxLineNumber The maximum valid line number (BEFORE removing lines)
+ * @param removedLineNumbers A list of line numbers that were removed from the
+ *                           final code block (hence the raw highlight ranges
+ *                           need to be updated based on the removed line
+ *                           numbers)
  */
 export function parseCodeHighlightRanges(
   rawHighlightRanges: string | null,
   maxLineNumber: number,
+  removedLineNumbers?: Array<number>,
 ): Set<number> {
+  const validRemovedLines = (
+    removedLineNumbers ?? []
+  ).filter((removedLineNumber) =>
+    isNumWithinInclusiveRange(removedLineNumber, 1, maxLineNumber),
+  );
+  const normalizedMaxLineNumber = maxLineNumber - validRemovedLines.length;
+
   const highlightedLines = new Set<number>();
   if (!rawHighlightRanges) {
     return highlightedLines;
@@ -20,10 +32,18 @@ export function parseCodeHighlightRanges(
 
   const ranges = rawHighlightRanges.split(',');
   ranges.forEach((range) => {
+    if (range === '') {
+      return;
+    }
     // First check if it's a single number
     const potentialLineNum = +range;
     if (isNumWithinInclusiveRange(potentialLineNum, 1, maxLineNumber)) {
-      highlightedLines.add(potentialLineNum);
+      addLineNumberToHighlightRanges(
+        potentialLineNum,
+        highlightedLines,
+        normalizedMaxLineNumber,
+        validRemovedLines,
+      );
     } else {
       const rangeParts = range.trim().split('-');
       if (rangeParts.length === 2) {
@@ -35,7 +55,12 @@ export function parseCodeHighlightRanges(
           lower <= upper
         ) {
           for (let i = lower; i <= upper; ++i) {
-            highlightedLines.add(i);
+            addLineNumberToHighlightRanges(
+              i,
+              highlightedLines,
+              normalizedMaxLineNumber,
+              validRemovedLines,
+            );
           }
         }
       }
@@ -54,4 +79,35 @@ function isNumWithinInclusiveRange(
   upper: number,
 ): boolean {
   return num != null && !Number.isNaN(num) && num >= lower && num <= upper;
+}
+
+function addLineNumberToHighlightRanges(
+  lineNumberToAdd: number,
+  highlightedLineRanges: Set<number>,
+  normalizedMaxLineNumber: number,
+  removedLineNumbers?: Array<number> | null,
+): void {
+  const normalizedNum = normalizeAfterRemovingLines(
+    lineNumberToAdd,
+    removedLineNumbers,
+  );
+  if (normalizedNum != null && normalizedNum <= normalizedMaxLineNumber) {
+    highlightedLineRanges.add(normalizedNum);
+  }
+}
+
+function normalizeAfterRemovingLines(
+  num: number,
+  removedLineNumbers?: Array<number> | null,
+): number | null {
+  if (removedLineNumbers == null) {
+    return num;
+  } else if (removedLineNumbers.includes(num)) {
+    return null;
+  }
+  return (
+    num -
+    removedLineNumbers.filter((removedLineNumber) => num >= removedLineNumber)
+      .length
+  );
 }

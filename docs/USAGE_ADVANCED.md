@@ -191,7 +191,7 @@ See the [Callouts demo](https://eecs485staff.github.io/primer-spec/demo/callouts
 
 Primer Spec automatically upgrades your code blocks! These enhanced code blocks let viewers copy code easily, while also letting you highlight important lines in the code.
 
-To highlight lines in a codeblock, specify them in a `data-highlight` attribute like this::
+To highlight lines in a codeblock, specify them in a [`data-highlight` attribute](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html#using-data-highlight-attribute), or surround them in ["magic comments"](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html#using-magic-comments). For instance:
 
 <!-- prettier-ignore-start -->
 ````markdown
@@ -200,12 +200,16 @@ import os
 print("Hello world")
 print("spam and eggs")
 print("Ni! Ni! Ni!")
+# Or surround them in "magic comments"
+# primer-spec-highlight-start
+print("This line gets highlighted too!")
+# primer-spec-highlight-end
 ```
 {: data-highlight="1,3" }
 ````
 <!-- prettier-ignore-end -->
 
-If you'd like to revert back to the original "legacy" style of code blocks, simply add the attribute `data-variant="legacy"`:
+If you'd like to revert back to the original "legacy" style of code blocks, simply add the attribute [`data-variant="legacy"`](https://eecs485staff.github.io/primer-spec/demo/enhanced-code-blocks.html#using-variants):
 
 <!-- prettier-ignore-start -->
 ````markdown
