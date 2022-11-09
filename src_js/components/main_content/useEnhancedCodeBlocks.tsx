@@ -465,7 +465,9 @@ const CONSOLE_COPY_LINES_MAP_FN = (line: HTMLElement) => {
  * map/filter method to extract text from each line.
  *
  * @param codeblock The codeblock whose lines need to be copied
- * @param mapFn (OPTIONAL) A method that extracts text from a given line HTMLElement
+ * @param mapFn (OPTIONAL) A method that extracts text from a given line
+ *              HTMLElement. If the method returns `null`, the line is
+ *              *omitted* (and a newline will not be copied).
  */
 async function copyLines(
   codeblock: HTMLElement,
@@ -476,7 +478,9 @@ async function copyLines(
   const lines = codeblock.querySelectorAll(
     `.${CODEBLOCK_LINE_CLASS}`,
   ) as NodeListOf<HTMLElement>;
-  const linesOfText = [...lines].map((line) => mapFn(line)).filter(Boolean);
+  const linesOfText = [...lines]
+    .map((line) => mapFn(line))
+    .filter((lineText) => lineText != null);
   const text = linesOfText.join('\n');
   await navigator.clipboard.writeText(text);
 }
