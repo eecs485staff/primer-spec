@@ -50,6 +50,13 @@ version_string: v1.9
         -->
         <script>
             window.PrimerSpecConfig = {
+                {%- comment -%}
+                    !! STOP !!
+                    The `pdfPath` flag is set by seshrs/build-primer-spec-action
+                    after the PDF for this page has been built.
+                    Do not change this code without also updating build-primer-spec-action.
+                {%- endcomment %}
+                pdfPath: null, // @managed by build-primer-spec-action
                 hideSidebarOnLoad: {{ page.hideSidebarOnLoad | default: false }},
                 disableSidebar: {{ page.disableSidebar | default: false }},
                 defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
