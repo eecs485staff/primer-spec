@@ -30,11 +30,13 @@ jobs:
         with:
           ruby-version: '3.0'
           bundler-cache: true
+          cache-version: 0 # Increment this number if you need to re-download cached gems
 
       - name: ⬢ Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '16'
+          cache: 'npm'
 
       - name: ⚙️ Install dependencies
         run: |
