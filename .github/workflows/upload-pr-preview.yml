@@ -42,6 +42,14 @@ jobs:
           sed -i "\$ s/\$/ (PR preview build: $(date '+%Y-%m-%d'))/" VERSION
           ./script/ci-site-preview-build "https://preview.sesh.rs" "/previews/$REPO/$PR_NUMBER"
 
+      # Use `build-primer-spec-action` to generate PDFs of each page.
+      # Docs: https://github.com/seshrs/build-primer-spec-action
+      - name: 👷‍♀️ Build the rest of the Primer Spec site
+        uses: seshrs/build-primer-spec-action@main # TODO: Change this to v1 after releasing the new version of build-primer-spec-action
+        with:
+          build_jekyll_site: false
+          configure_github_pages: false
+
       # Upload the site to Primer Spec Preview and comment on the PR.
       # The Primer Spec Preview secret is stored as an encrypted repo or
       # organization secret named `PRIMER_SPEC_PREVIEW_SECRET`.
