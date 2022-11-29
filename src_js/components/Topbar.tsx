@@ -55,9 +55,7 @@ export default function Topbar(props: PropsType): h.JSX.Element {
           icon={IconType.DOWNLOAD}
           href={href}
           download
-          ariaLabel={
-            props.settingsShown ? 'Close settings pane' : 'Open settings pane'
-          }
+          ariaLabel="Download PDF version of this page"
         />
       </div>
     );
