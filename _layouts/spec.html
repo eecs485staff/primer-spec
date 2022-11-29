@@ -57,6 +57,7 @@ version_string: v1.9
                     Do not change this code without also updating build-primer-spec-action.
                 {%- endcomment %}
                 pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: '{{ site.url }}{{ site.baseurl }}/',
                 hideSidebarOnLoad: {{ page.hideSidebarOnLoad | default: false }},
                 disableSidebar: {{ page.disableSidebar | default: false }},
                 defaultSubthemeName: '{{ site.primerSpec.defaultSubthemeName | default: "default" }}',
