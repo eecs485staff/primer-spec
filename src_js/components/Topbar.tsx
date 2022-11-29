@@ -55,7 +55,7 @@ export default function Topbar(props: PropsType): h.JSX.Element {
           icon={IconType.DOWNLOAD}
           href={href}
           download
-          ariaLabel="Download PDF version of this page"
+          ariaLabel="Download this page as a PDF file"
         />
       </div>
     );

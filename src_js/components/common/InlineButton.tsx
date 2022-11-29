@@ -47,7 +47,7 @@ export function InlineLinkButton(
   return (
     <Hoverable floatRight={props.floatRight}>
       <a
-        class="btn-link primer-spec-hoverable no-print"
+        class="btn-link primer-spec-hoverable no-print tooltipped tooltipped-no-delay tooltipped-w"
         role="button"
         href={props.href}
         onClick={(event) => {
