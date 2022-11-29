@@ -25,7 +25,7 @@ export default {
   BUILD_MODE: process.env.BUILD_MODE,
 
   // From window.PrimerSpecConfig
-  PDF_PATH: window.PrimerSpecConfig.pdfPath || null,
+  PDF_PATH: window.PrimerSpecConfig.pdfPath || 'blah.pdf',
   SITE_QUALIFIED_BASE_URL: window.PrimerSpecConfig.siteQualifiedBaseUrl || '/',
   HIDE_SIDEBAR_ON_LOAD: getHideSidebarOnLoad(),
   DISABLE_SIDEBAR: window.PrimerSpecConfig.disableSidebar || false,

@@ -154,10 +154,18 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
   &-left {
     position: absolute;
     left: 1em;
+    .primer-spec-topbar-button {
+      display: inline;
+      padding-right: 2em;
+    }
   }
   &-right {
     position: absolute;
     right: 1em;
+    .primer-spec-topbar-button {
+      display: inline;
+      padding-left: 2em;
+    }
   }
 }
 

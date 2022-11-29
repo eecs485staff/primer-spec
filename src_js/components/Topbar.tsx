@@ -2,7 +2,8 @@ import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 import clsx from 'clsx';
 import IconType from './common/IconType';
-import InlineButton from './common/InlineButton';
+import InlineButton, { InlineLinkButton } from './common/InlineButton';
+import Config from '../Config';
 
 type PropsType = {
   isSmallScreen: boolean;
@@ -35,7 +36,7 @@ export default function Topbar(props: PropsType): h.JSX.Element {
   let sidebar_toggle = null;
   if (props.showSidebarToggle) {
     sidebar_toggle = props.sidebarShown ? null : (
-      <div class={`primer-spec-sidebar-toggle-fixed primer-spec-float-left`}>
+      <div class={`primer-spec-topbar-button primer-spec-float-left`}>
         <InlineButton
           icon={IconType.SIDEBAR}
           onClick={props.onToggleSidebar}
@@ -45,10 +46,27 @@ export default function Topbar(props: PropsType): h.JSX.Element {
     );
   }
 
+  let downloadPdfButton = null;
+  if (!props.isSmallScreen && !props.settingsShown && Config.PDF_PATH != null) {
+    const href = Config.SITE_QUALIFIED_BASE_URL + Config.PDF_PATH;
+    downloadPdfButton = (
+      <div class="primer-spec-topbar-button">
+        <InlineLinkButton
+          icon={IconType.DOWNLOAD}
+          href={href}
+          download
+          ariaLabel={
+            props.settingsShown ? 'Close settings pane' : 'Open settings pane'
+          }
+        />
+      </div>
+    );
+  }
+
   let settings_toggle = null;
   if (props.showSettingsToggle) {
     settings_toggle = (
-      <div class="primer-spec-settings-toggle primer-spec-float-right">
+      <div class="primer-spec-topbar-button">
         <InlineButton
           icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
           onClick={props.onToggleSettings}
@@ -78,7 +96,10 @@ export default function Topbar(props: PropsType): h.JSX.Element {
       )}
     >
       {sidebar_toggle}
-      {settings_toggle}
+      <div class="primer-spec-float-right">
+        {downloadPdfButton}
+        {settings_toggle}
+      </div>
     </header>
   );
 }
