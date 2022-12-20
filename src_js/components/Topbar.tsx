@@ -47,7 +47,10 @@ export default function Topbar(props: PropsType): h.JSX.Element {
   }
 
   let downloadPdfButton = null;
-  if (!props.isSmallScreen && !props.settingsShown && Config.PDF_PATH != null) {
+  if (
+    Config.PDF_PATH != null &&
+    (!props.isSmallScreen || (props.isSmallScreen && props.settingsShown))
+  ) {
     const href = Config.SITE_QUALIFIED_BASE_URL + Config.PDF_PATH;
     downloadPdfButton = (
       <div class="primer-spec-topbar-button">
