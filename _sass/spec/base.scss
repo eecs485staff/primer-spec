@@ -28,6 +28,21 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
   .no-print * {
     display: none !important;
   }
+
+  // Enable line-wrapping for code blocks (instead of clipping and showing
+  // scrollbars.
+  pre,
+  pre > code {
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-all !important;
+  }
+
+  .primer-spec-code-block table.highlight td.primer-spec-code-block-line-code {
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-all !important;
+  }
 }
 
 /* Sidebar */
