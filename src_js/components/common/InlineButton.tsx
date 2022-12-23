@@ -1,15 +1,18 @@
 import { h } from 'preact';
 import IconType from './IconType';
 import { Hoverable } from './Hoverable';
+import { openExternalLink } from './openExternalLink';
 
-export type PropsType = {
+export type InlineButtonPropsType = {
   icon: IconType;
   floatRight?: boolean;
   onClick?: () => void;
   ariaLabel?: string;
 };
 
-export default function InlineButton(props: PropsType): h.JSX.Element {
+export default function InlineButton(
+  props: InlineButtonPropsType,
+): h.JSX.Element {
   return (
     <Hoverable floatRight={props.floatRight}>
       <button
@@ -26,6 +29,35 @@ export default function InlineButton(props: PropsType): h.JSX.Element {
       >
         <i class={props.icon} />
       </button>
+    </Hoverable>
+  );
+}
+
+export type InlineLinkButtonPropsType = {
+  icon: IconType;
+  floatRight?: boolean;
+  href: string;
+  download?: string | boolean;
+  ariaLabel?: string;
+};
+
+export function InlineLinkButton(
+  props: InlineLinkButtonPropsType,
+): h.JSX.Element {
+  return (
+    <Hoverable floatRight={props.floatRight}>
+      <a
+        class="btn-link primer-spec-hoverable no-print tooltipped tooltipped-no-delay tooltipped-w"
+        role="button"
+        href={props.href}
+        onClick={(event) => {
+          event.preventDefault();
+          openExternalLink({ url: props.href, download: props.download });
+        }}
+        aria-label={props.ariaLabel}
+      >
+        <i class={props.icon} />
+      </a>
     </Hoverable>
   );
 }

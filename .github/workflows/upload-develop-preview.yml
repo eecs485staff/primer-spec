@@ -30,11 +30,13 @@ jobs:
         with:
           ruby-version: '3.0'
           bundler-cache: true
+          cache-version: 0 # Increment this number if you need to re-download cached gems
 
       - name: ⬢ Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '16'
+          cache: 'npm'
 
       - name: ⚙️ Install dependencies
         run: |
@@ -46,6 +48,14 @@ jobs:
         run: |
           sed -i "\$ s/\$/ (develop preview build: $(date '+%Y-%m-%d') ($(git rev-parse HEAD)))/" VERSION
           ./script/ci-site-preview-build "https://preview.sesh.rs" "/previews/$REPO/develop-preview"
+
+      # Use `build-primer-spec-action` to generate PDFs of each page.
+      # Docs: https://github.com/seshrs/build-primer-spec-action
+      - name: 👷‍♀️ Build the rest of the Primer Spec site
+        uses: seshrs/build-primer-spec-action@main # TODO: Change this to v1 after releasing the new version of build-primer-spec-action
+        with:
+          build_jekyll_site: 'false'
+          configure_github_pages: 'false'
 
       # Upload the site to Primer Spec Preview and comment on the PR.
       # The Primer Spec Preview secret is stored as an encrypted repo or
