@@ -102,6 +102,6 @@ async function copyLines(
   const linesOfText = [...lines]
     .map((line) => mapFn(line))
     .filter((lineText) => lineText != null);
-  const text = linesOfText.join('\n');
+  const text = `${linesOfText.join('\n')}\n`;
   await navigator.clipboard.writeText(text);
 }
