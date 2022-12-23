@@ -805,11 +805,23 @@ div.primer-spec-callout {
   }
 }
 
-.tooltipped:hover,
-.tooltipped:focus {
+.tooltipped-n:hover,
+.tooltipped-n:focus {
   &::before {
     color: var(--tooltip-background-color);
     border-top-color: var(--tooltip-background-color);
+  }
+  &::after {
+    color: var(--tooltip-color);
+    background-color: var(--tooltip-background-color);
+    border-color: var(--tooltip-background-color);
+  }
+}
+.tooltipped-w:hover,
+.tooltipped-w:focus {
+  &::before {
+    color: var(--tooltip-background-color);
+    border-left-color: var(--tooltip-background-color);
   }
   &::after {
     color: var(--tooltip-color);
