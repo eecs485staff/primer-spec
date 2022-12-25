@@ -131,11 +131,14 @@ function createCodeBlockLine(options: {
   const {
     codeblockId,
     language,
-    line,
+    line: line_,
     lineNumber,
     shouldHighlight,
     showLineNumbers,
   } = options;
+
+  // Insert a '\n' character in empty lines to make them selectable.
+  const line = line_ === '' ? '\n' : line_;
 
   const L_ID = `${codeblockId}-L${lineNumber}`;
   const LC_ID = `${codeblockId}-LC${lineNumber}`;
