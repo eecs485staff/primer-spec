@@ -767,6 +767,7 @@ div.primer-spec-callout {
     }
 
     td.primer-spec-code-block-line-number {
+      width: 1%;
       cursor: pointer;
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -774,7 +775,6 @@ div.primer-spec-callout {
       user-select: none;
 
       &.primer-spec-code-block-line-numbers-shown {
-        width: 1%;
         min-width: 50px;
         color: var(--code-block-line-number-color);
         text-align: right;

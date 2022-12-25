@@ -511,7 +511,7 @@ The water was warm. There was plenty to eat.
 The turtles had everything turtles might need.
 And they were all happy. Quite happy indeed.
 ```
-{: data-variant="no-line-numbers" }
+{: data-variant="no-line-numbers" data-highlight="2" }
 <!-- prettier-ignore-end -->
 
 <!-- prettier-ignore-start -->
@@ -527,7 +527,7 @@ The water was warm. There was plenty to eat.
 The turtles had everything turtles might need.
 And they were all happy. Quite happy indeed.
 ```
-{: data-variant="no-line-numbers" }
+{: data-variant="no-line-numbers" data-highlight="2" }
 ````
   {: data-highlight="9" data-title="markdown" }
 </details>
