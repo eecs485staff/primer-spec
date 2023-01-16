@@ -85,8 +85,10 @@ You may also want to read the [`MARKDOWN_TIPS`](https://eecs485staff.github.io/p
 The Primer Spec theme is currently used by the following courses at the University of Michigan:
 
 - [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 4: Web](https://eecs280staff.github.io/p4-web/).
+- [EECS 281](https://eecs281staff.github.io/eecs281.org/) (Data Structures and Algorithms). Example [EECS 281 Project 1: Back to the Ship!](https://eecs281staff.github.io/p1-back-to-the-ship/).
 - [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java). Example [EECS 285 Project 3: Wheel of Fortune](https://eecs285.github.io/p3-wheel/).
 - [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
+- [ENGR 101](https://engr101staff.github.io/engr101.org/) (Using Computing to Solve Engineering Problems).
 - [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts).
 - [EECS 370](https://www.eecs.umich.edu/courses/eecs370/) (Introduction to Computer Organization).
 - [EECS 441](https://eecs441.eecs.umich.edu/) (Mobile App Development for Entrepreneurs).
