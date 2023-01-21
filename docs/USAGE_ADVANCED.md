@@ -37,7 +37,7 @@ See the [Primer Spec README](../README.md) for the main usage instructions. This
     - [`defaultSubthemeName`: String](#defaultsubthemename-string)
     - [`defaultSubthemeMode`: String](#defaultsubthememode-string)
     - [`defaultCodeblockVariant`: CodeblockVariant (String)](#defaultcodeblockvariant-codeblockvariant-string-1)
-    - [`sitemap`: Boolean \| {label: String; externalLinks: Array}](#sitemap-boolean--label-string-externallinks-array)
+    - [`sitemap`: Boolean | {label: String; externalLinks: Array}](#sitemap-boolean--label-string-externallinks-array)
     - [`disableJokes`: Boolean](#disablejokes-boolean)
 - [Pinning to a specific version](#pinning-to-a-specific-version)
 - [Using without Jekyll](#using-without-jekyll)
@@ -84,6 +84,9 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
    $ gem install bundler
    ```
+    <div class="primer-spec-callout warning" markdown="1">
+    WARNING: Primer Spec is not yet compatible with Ruby 3.2. Use Ruby 3.1 instead. (See [GitHub issue #242](https://github.com/eecs485staff/primer-spec/issues/242) for discussion.)
+    </div>
 
 5. Install the dependencies.
 
@@ -93,7 +96,7 @@ If you'd like to preview your site on your computer (or if you aren't using GitH
    $ bundle install
    ```
 
-6. Run the Jekyll server to build the site and watch for changes. By default, the site is served at http://127.0.0.1:4000.
+6. Run the Jekyll server to build the site and watch for changes. By default, the site is served at [http://127.0.0.1:4000](http://127.0.0.1:4000).
 
    ```console
    $ pwd
