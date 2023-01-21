@@ -533,6 +533,51 @@ And they were all happy. Quite happy indeed.
 </details>
 <!-- prettier-ignore-end -->
 
+<div class="primer-spec-callout info" markdown="1">
+If an `enhanced` codeblock has just one line, we will automatically hide line numbers. For example:
+
+<!-- prettier-ignore-start -->
+```plaintext
+This codeblock has just one line, so we won't show line numbers.
+```
+{: .debug }
+<!-- prettier-ignore-end -->
+
+<!-- prettier-ignore-start -->
+<details markdown="1">
+  <summary>Source code for this single-line code block</summary>
+  
+  ````markdown
+```plaintext
+This codeblock has just one line, so we won't show line numbers.
+```
+  ````
+</details>
+<!-- prettier-ignore-end -->
+
+If you <em>really</em> want to show line numbers, then specify the variant explicitly on the code block:
+
+<!-- prettier-ignore-start -->
+```plaintext
+Even though this codeblock has just one line, we show line numbers because we specified the 'enhanced' variant.
+```
+{: data-variant="enhanced" }
+<!-- prettier-ignore-end -->
+
+<!-- prettier-ignore-start -->
+<details markdown="1">
+  <summary>Source code for this single-line code block <em>with line numbers</em></summary>
+  
+  ````markdown
+```plaintext
+Even though this codeblock has just one line, we show line numbers because we specified the 'enhanced' variant.
+```
+{: data-variant="enhanced" }
+  ````
+</details>
+<!-- prettier-ignore-end -->
+</div>
+
 ### `legacy`
 
 This is the original style of code blocks from the original [GitHub Primer theme](https://github.com/pages-themes/primer).
