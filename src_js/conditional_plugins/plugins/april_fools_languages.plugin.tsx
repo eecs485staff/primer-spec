@@ -24,13 +24,13 @@ function insertLanguageToggleIfNeeded() {
     return;
   }
 
-  const leftmostToggleButtonContainer = document.querySelector(
-    '.primer-spec-topbar-button',
+  const settingsToggleButtonContainer = document.querySelector(
+    '#primer-spec-settings-toggle',
   );
-  const settingsToggleButton = document.querySelector(
+  const settingsToggleButton = settingsToggleButtonContainer?.querySelector(
     '#primer-spec-settings-toggle .primer-spec-hoverable',
   );
-  if (!settingsToggleButton || !leftmostToggleButtonContainer) {
+  if (!settingsToggleButton || !settingsToggleButtonContainer) {
     console.warn(
       'Primer Spec: April Fools Languages joke: Could not find left-most topbar toggle button or settings toggle button',
     );
@@ -43,7 +43,7 @@ function insertLanguageToggleIfNeeded() {
   const languageIcon = languageToggle.querySelector('i.fa-cog');
   languageIcon?.classList.remove('fa-cog');
   languageIcon?.classList.add('fa-language');
-  leftmostToggleButtonContainer.prepend(languageToggle);
+  settingsToggleButtonContainer.prepend(languageToggle);
 
   const languageToggleBtn = languageToggle.querySelector('button');
   languageToggleBtn?.addEventListener('click', () => toggleLanguagePopover());
