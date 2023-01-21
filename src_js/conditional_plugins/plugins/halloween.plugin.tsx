@@ -19,7 +19,7 @@ export default async function HalloweenPlugin(
 
 function replaceSettingsToggleWithHat() {
   const settingsIconClassList = document.querySelector(
-    '.primer-spec-settings-toggle i.fa-cog',
+    '#primer-spec-settings-toggle i.fa-cog',
   )?.classList;
   if (settingsIconClassList) {
     settingsIconClassList.remove('fa-cog');

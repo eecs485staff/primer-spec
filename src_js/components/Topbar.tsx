@@ -5,6 +5,11 @@ import IconType from './common/IconType';
 import InlineButton, { InlineLinkButton } from './common/InlineButton';
 import Config from '../Config';
 
+// NOTE: If you change the class names or IDs in this file, don't forget to
+// also fix the Conditional Plugin jokes like Halloween and April Fools!
+const SETTINGS_TOGGLE_ID = 'primer-spec-settings-toggle';
+const TOPBAR_BUTTON_CLASSNAME = 'primer-spec-topbar-button';
+
 type PropsType = {
   isSmallScreen: boolean;
   showSidebarToggle: boolean;
@@ -53,7 +58,7 @@ export default function Topbar(props: PropsType): h.JSX.Element {
   ) {
     const href = Config.SITE_QUALIFIED_BASE_URL + Config.PDF_PATH;
     downloadPdfButton = (
-      <div class="primer-spec-topbar-button">
+      <div class={TOPBAR_BUTTON_CLASSNAME}>
         <InlineLinkButton
           icon={IconType.DOWNLOAD}
           href={href}
@@ -67,7 +72,7 @@ export default function Topbar(props: PropsType): h.JSX.Element {
   let settings_toggle = null;
   if (props.showSettingsToggle) {
     settings_toggle = (
-      <div class="primer-spec-topbar-button">
+      <div id={SETTINGS_TOGGLE_ID} class={TOPBAR_BUTTON_CLASSNAME}>
         <InlineButton
           icon={props.settingsShown ? IconType.CLOSE : IconType.SETTINGS}
           onClick={props.onToggleSettings}
