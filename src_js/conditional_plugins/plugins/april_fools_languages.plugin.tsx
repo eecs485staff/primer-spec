@@ -24,26 +24,26 @@ function insertLanguageToggleIfNeeded() {
     return;
   }
 
-  const settingsToggleContainer = document.querySelector(
-    '.primer-spec-settings-toggle',
+  const settingsToggleButtonContainer = document.querySelector(
+    '#primer-spec-settings-toggle',
   );
-  const settingsToggle = settingsToggleContainer?.querySelector(
-    '.primer-spec-hoverable',
+  const settingsToggleButton = settingsToggleButtonContainer?.querySelector(
+    '#primer-spec-settings-toggle .primer-spec-hoverable',
   );
-  if (!settingsToggle || !settingsToggleContainer) {
+  if (!settingsToggleButton || !settingsToggleButtonContainer) {
     console.warn(
-      'Primer Spec: April Fools Languages joke: Could not find settings toggle',
+      'Primer Spec: April Fools Languages joke: Could not find left-most topbar toggle button or settings toggle button',
     );
     return;
   }
 
-  const languageToggle = settingsToggle.cloneNode(true) as HTMLElement;
+  const languageToggle = settingsToggleButton.cloneNode(true) as HTMLElement;
   languageToggle.id = languageToggleId;
   languageToggle.style.paddingRight = '1em';
   const languageIcon = languageToggle.querySelector('i.fa-cog');
   languageIcon?.classList.remove('fa-cog');
   languageIcon?.classList.add('fa-language');
-  settingsToggleContainer.prepend(languageToggle);
+  settingsToggleButtonContainer.prepend(languageToggle);
 
   const languageToggleBtn = languageToggle.querySelector('button');
   languageToggleBtn?.addEventListener('click', () => toggleLanguagePopover());
@@ -133,6 +133,9 @@ function insertDarkModeStylesIfNeeded() {
         {':root[data-theme-mode="dark"] .Popover-message {'}
         {'  background-color: var(--code-block-header-bg-color);'}
         {'  border: 1px solid #30363d;'}
+        {'}'}
+        {':root[data-theme-mode="dark"] .Popover-message--right-top::after {'}
+        {'  border-left-color: #30363d;'}
         {'}'}
       </style>,
     );
