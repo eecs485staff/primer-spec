@@ -151,7 +151,8 @@ function enhanceBlocks(
         title,
         anchorId,
         showLineNumbers:
-          getCodeblockVariant(codeblock) !== CodeblockVariant.NO_LINE_NUMBERS,
+          getCodeblockVariant(codeblock, codeblockContents) !==
+          CodeblockVariant.NO_LINE_NUMBERS,
       });
       if (!enhancedCodeBlock) {
         return;
@@ -180,13 +181,33 @@ function shouldRetainLegacyCodeBlock(codeblock: HTMLElement): boolean {
   return getCodeblockVariant(codeblock) === CodeblockVariant.LEGACY;
 }
 
-function getCodeblockVariant(codeblock: HTMLElement): CodeblockVariant {
+function getCodeblockVariant(
+  codeblock: HTMLElement,
+  rawContent?: string,
+): CodeblockVariant {
   const rawVariant = codeblock.dataset[
     'variant'
   ]?.toLowerCase() as CodeblockVariant | null;
   if (rawVariant && Object.values(CodeblockVariant).includes(rawVariant)) {
     return rawVariant as CodeblockVariant;
   }
+
+  // Special handling if:
+  // - A codeblock does not specify a variant
+  // - The default code block variant is "enhanced" (aka show line numbers)
+  // - The codeblock has only one line
+  // Then DO NOT show line numbers. I've come to believe that line numbers
+  // look confusing in single-line codeblocks.
+  const codeblockHasOnlyOneLine = rawContent
+    ? !rawContent.trim().includes('\n')
+    : false;
+  if (
+    Config.DEFAULT_CODEBLOCK_VARIANT === CodeblockVariant.ENHANCED &&
+    codeblockHasOnlyOneLine
+  ) {
+    return CodeblockVariant.NO_LINE_NUMBERS;
+  }
+
   return Config.DEFAULT_CODEBLOCK_VARIANT;
 }
 
