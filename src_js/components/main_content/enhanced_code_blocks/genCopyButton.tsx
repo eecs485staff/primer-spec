@@ -57,7 +57,11 @@ export function genCopyButton(codeblockId: string, isConsoleBlock?: boolean) {
   );
 }
 
-const DEFAULT_COPY_LINES_MAP_FN = (line: HTMLElement) => line.innerText;
+// If a line's only text is \n, set it to the empty string to prevent newlines from being
+// duplicated. Use textContent instead of innerText because jsdom, used by jest, doesn't implement
+// innerText.
+const DEFAULT_COPY_LINES_MAP_FN = (line: HTMLElement) =>
+  line.textContent !== '\n' ? line.textContent : '';
 const CONSOLE_COPY_LINES_MAP_FN = (line: HTMLElement) => {
   // (1) Skip console output lines
   // (Class name 'go' refers to the Rouge class `Generic::Output`.)
