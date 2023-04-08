@@ -17,7 +17,26 @@ $ tar -xvzf starter_files.tar.gz
 </code></pre></div></div>`;
 const PLAINTEX_BLOCK_NUM_LINES = 4;
 
+const PYTHON_BLOCK = `<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""This is a docstring."""</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="s">"""Print the square root of x."""</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">81</span><span class="p">))</span>
+</code></pre></div></div>`;
+
 describe('useEnhancedCodeBlocks', () => {
+  function triggerMouseEvent(node: HTMLElement | null, eventType: string) {
+    if (!node) {
+      throw new Error('node cannot be null');
+    }
+    const mouseEvent = new CustomEvent(eventType);
+    node.dispatchEvent(mouseEvent);
+  }
+
   test('code blocks should be transformed into tables', () => {
     document.body.innerHTML = `${CONSOLE_BLOCK}${PLAINTEXT_BLOCK}`;
 
@@ -84,15 +103,6 @@ describe('useEnhancedCodeBlocks', () => {
   });
 
   describe('code selection by clicking line numbers', () => {
-    function triggerMouseEvent(node: HTMLElement | null, eventType: string) {
-      if (!node) {
-        throw new Error('node cannot be null');
-      }
-      const mouseEvent = document.createEvent('MouseEvents');
-      mouseEvent.initEvent(eventType, true, true);
-      node.dispatchEvent(mouseEvent);
-    }
-
     test('clicking a line number selects the line', () => {
       document.body.innerHTML = `${PLAINTEXT_BLOCK}${CONSOLE_BLOCK}`;
 
@@ -129,6 +139,41 @@ describe('useEnhancedCodeBlocks', () => {
       expect(document.getSelection()?.toString()).toBe(
         'python3 --version  # NOTE: Your Python version may be different.',
       );
+    });
+  });
+
+  describe('copy an enhanced codeblock', () => {
+    test('clicking the copy button on a codeblock with empty lines copies all the lines using correct whitespace', () => {
+      // jsdom doesn't implement window.navigator, so we need to mock it.
+      Object.defineProperty(window, 'navigator', {
+        value: {
+          clipboard: {
+            writeText: jest.fn().mockImplementation(() => Promise.resolve()),
+          },
+        },
+      });
+
+      document.body.innerHTML = PYTHON_BLOCK;
+
+      useEnhancedCodeBlocks({ current: document.body });
+
+      const buttons = document.querySelectorAll('button');
+      expect(buttons.length).toBe(1);
+
+      const copyButton = buttons[0];
+      triggerMouseEvent(copyButton, 'click');
+
+      expect(window.navigator.clipboard.writeText)
+        .toHaveBeenCalledWith(`"""This is a docstring."""
+import math
+
+def sqrt(x):
+  """Print the square root of x."""
+  print(math.sqrt(x))
+
+if __name__ == "__main__":
+  print(sqrt(81))
+`);
     });
   });
 });
