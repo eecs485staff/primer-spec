@@ -57,9 +57,8 @@ export function genCopyButton(codeblockId: string, isConsoleBlock?: boolean) {
   );
 }
 
-// If a line's only text is \n, set it to the empty string to prevent newlines from being
-// duplicated. Use textContent instead of innerText because jsdom, used by jest, doesn't implement
-// innerText.
+// If a line's only text is \n, set it to the empty string to prevent newlines
+// from being duplicated. textContent returns text from all descendant nodes.
 const DEFAULT_COPY_LINES_MAP_FN = (line: HTMLElement) =>
   line.textContent !== '\n' ? line.textContent : '';
 const CONSOLE_COPY_LINES_MAP_FN = (line: HTMLElement) => {
