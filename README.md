@@ -5,10 +5,13 @@
 	<p>
 		<b>A website theme for long informative web pages.</b>
 	</p>
+	<a href="https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml">
+	  <img src="https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml/badge.svg?branch=develop" alt="cibuild" />
+        </a>
+	<a href="https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/">
+	  <img src="https://img.shields.io/badge/develop-preview-blue.svg" alt="Nightly Preview" />
+        </a>
 </div>
-
-[![cibuild](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml/badge.svg?branch=develop)](https://github.com/eecs485staff/primer-spec/actions/workflows/cibuild.yml)
-[![Nightly Preview](https://img.shields.io/badge/develop-preview-blue.svg)](https://preview.sesh.rs/previews/eecs485staff/primer-spec/develop-preview/)
 
 <br>
 
@@ -90,8 +93,10 @@ The Primer Spec theme is currently used by the following courses at the Universi
 - [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
 - [ENGR 101](https://engr101staff.github.io/engr101.org/) (Using Computing to Solve Engineering Problems).
 - [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts).
+- [EECS 298 (Social Consequences of Computing)](https://eecs298.github.io/).
 - [EECS 370](https://www.eecs.umich.edu/courses/eecs370/) (Introduction to Computer Organization).
 - [EECS 441](https://eecs441.eecs.umich.edu/) (Mobile App Development for Entrepreneurs).
+- [EECS 484](https://eecs484db.github.io/) (Database Management Systems).
 - EECS 482 (Introduction to Operating Systems).
 
 Students: Would you like to see your course use this theme for their project specifications? Let your course staff know about this theme!
