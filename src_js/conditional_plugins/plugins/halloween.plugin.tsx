@@ -229,9 +229,8 @@ function insertShyEmojiImpl(subtheme_name: string) {
       onClick={() => {
         // If the emoji is still in the middle of peaking in, we want the
         // animation to begin from wherever it currently is.
-        shyEmoji.style[peakFromMargin] = window.getComputedStyle(shyEmoji)[
-          peakFromMargin
-        ];
+        shyEmoji.style[peakFromMargin] =
+          window.getComputedStyle(shyEmoji)[peakFromMargin];
         shyEmoji.style.animationDelay = '0s';
         shyEmoji.style.animationDuration = '3s';
         shyEmoji.style.animationName = 'fly';

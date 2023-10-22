@@ -83,11 +83,8 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
-      const {
-        startCursorScreenX,
-        startSidebarWidth,
-        startMainContentMargin,
-      } = resize_data_ref.current;
+      const { startCursorScreenX, startSidebarWidth, startMainContentMargin } =
+        resize_data_ref.current;
 
       if (startCursorScreenX) {
         const cursorScreenXDelta = e.screenX - startCursorScreenX;
@@ -141,16 +138,18 @@ export function ResizeHandle({ sidebarRef }: PropsType): h.JSX.Element {
         };
       }}
     >
-      {// We render a stylesheet for the content margin because when the
-      // Settings container renders, its margin is not auto-adjusted to match
-      // the custom sidebar width.
-      mainContentMarginLeft ? (
-        <style>
-          {'.primer-spec-content-margin-extra {'}
-          {`  margin-left: ${mainContentMarginLeft}px`}
-          {'}'}
-        </style>
-      ) : null}
+      {
+        // We render a stylesheet for the content margin because when the
+        // Settings container renders, its margin is not auto-adjusted to match
+        // the custom sidebar width.
+        mainContentMarginLeft ? (
+          <style>
+            {'.primer-spec-content-margin-extra {'}
+            {`  margin-left: ${mainContentMarginLeft}px`}
+            {'}'}
+          </style>
+        ) : null
+      }
     </div>
   );
 }

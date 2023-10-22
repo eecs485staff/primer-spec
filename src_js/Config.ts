@@ -51,9 +51,8 @@ export default {
 };
 
 function getHideSidebarOnLoad() {
-  const sidebar_hidden_stored_value: string | null = Storage.getForPage(
-    'sidebar_hidden',
-  );
+  const sidebar_hidden_stored_value: string | null =
+    Storage.getForPage('sidebar_hidden');
   let hideSidebar = false;
   if (sidebar_hidden_stored_value !== null) {
     hideSidebar = sidebar_hidden_stored_value === 'true';
@@ -86,7 +85,8 @@ function getDefaultCodeblockVariant(): CodeblockVariant {
     // just ensures backwards-compatibility.
     return CodeblockVariant.LEGACY;
   }
-  const maybeVariant = window.PrimerSpecConfig.defaultCodeblockVariant?.toLowerCase() as CodeblockVariant | null;
+  const maybeVariant =
+    window.PrimerSpecConfig.defaultCodeblockVariant?.toLowerCase() as CodeblockVariant | null;
   if (maybeVariant && Object.values(CodeblockVariant).includes(maybeVariant)) {
     return maybeVariant;
   }

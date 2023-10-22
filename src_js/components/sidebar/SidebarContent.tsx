@@ -58,7 +58,7 @@ function Sitemap(props: {
   return (
     <details
       role="navigation"
-      aria-label={Config.SITEMAP_LABEL}
+      aria-label={Config.SITEMAP_LABEL ?? 'Sitemap'}
       open={props.sitemap.rootPage.current ? undefined : true}
     >
       <summary>{Config.SITEMAP_LABEL}</summary>
@@ -97,10 +97,12 @@ function SitemapPage(props: {
   return (
     <a href={props.page.url} tabIndex={-1}>
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
         <summary
           class={props.page.external ? 'primer-spec-toc-sitemap-external' : ''}
           data-order={props.page.external ? '' : props.page.sitemapOrder ?? ''}
           role="link"
+          tabIndex={0}
           onClick={(e) => {
             e.preventDefault();
             window.location.href = props.page.url;

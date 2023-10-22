@@ -48,7 +48,7 @@ export default function createRougeTheme(
     name,
     // TODO: Figure out why TypeScript is not able to unify RougeVarsType and
     //       RougeVarsTypeInternal.
-    apply: () => apply((theme_vars as unknown) as RougeVarsTypeInternal),
+    apply: () => apply(theme_vars as unknown as RougeVarsTypeInternal),
     reset,
   };
 }
