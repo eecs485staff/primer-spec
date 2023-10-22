@@ -46,8 +46,10 @@ const bella_theme_vars: SubthemeDefinitionType = {
 
     '--sidebar-active-toc-section-bg-color': BELLA_DARK_PRIMARY_COLOR,
     '--sidebar-active-toc-section-link-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
-    '--sidebar-active-toc-h1-section-link-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
-    '--sidebar-active-toc-h2-section-link-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
+    '--sidebar-active-toc-h1-section-link-color':
+      BELLA_DARK_SIDEBAR_HEADING_COLOR,
+    '--sidebar-active-toc-h2-section-link-color':
+      BELLA_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-toc-section-link-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
     '--sidebar-tt-active-text-color': BELLA_DARK_SIDEBAR_HEADING_COLOR,
 

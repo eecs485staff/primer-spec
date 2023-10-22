@@ -24,10 +24,8 @@ export function updateTheme(
   { name, mode }: Partial<SubthemeSelectionType> = {},
   persistUpdate = true,
 ): void {
-  const {
-    name: stored_subtheme_name,
-    mode: stored_subtheme_mode,
-  } = getStoredSubtheme();
+  const { name: stored_subtheme_name, mode: stored_subtheme_mode } =
+    getStoredSubtheme();
 
   const normalized_name = verifySubthemeName(name ?? stored_subtheme_name);
 

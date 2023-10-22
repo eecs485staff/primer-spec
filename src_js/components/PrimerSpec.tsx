@@ -170,9 +170,8 @@ function toggleItalicsInChrome(enableItalics: boolean) {
     '.highlight .cs, .highlight .cd, .highlight .ge, .primer-spec-toc-h4';
   const font_style = enableItalics ? 'italic' : 'inherit';
 
-  const nodes: NodeListOf<HTMLElement> = document.querySelectorAll(
-    all_italic_els,
-  );
+  const nodes: NodeListOf<HTMLElement> =
+    document.querySelectorAll(all_italic_els);
   Array.from(nodes).map((el) => {
     el.style.fontStyle = font_style;
   });
