@@ -18,10 +18,9 @@ export function parseCodeHighlightRanges(
   maxLineNumber: number,
   removedLineNumbers?: Array<number>,
 ): Set<number> {
-  const validRemovedLines = (
-    removedLineNumbers ?? []
-  ).filter((removedLineNumber) =>
-    isNumWithinInclusiveRange(removedLineNumber, 1, maxLineNumber),
+  const validRemovedLines = (removedLineNumbers ?? []).filter(
+    (removedLineNumber) =>
+      isNumWithinInclusiveRange(removedLineNumber, 1, maxLineNumber),
   );
   const normalizedMaxLineNumber = maxLineNumber - validRemovedLines.length;
 

@@ -92,7 +92,7 @@ export const SUBTHEME_VARS = [
 ] as const;
 
 // As described in: https://stackoverflow.com/a/45257357/5868796
-export type SubthemeDefinitionVariableType = typeof SUBTHEME_VARS[number];
+export type SubthemeDefinitionVariableType = (typeof SUBTHEME_VARS)[number];
 
 // Mapped type: https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types
 export type SubthemeModeDefinitionType = {
@@ -193,9 +193,9 @@ export const ROUGE_CLASS_NAMES = [
 ] as const;
 
 export type RougeStyle = {
-  [T in typeof ROUGE_STYLE_PROPS[number]]?: string;
+  [T in (typeof ROUGE_STYLE_PROPS)[number]]?: string;
 };
 
 export type RougeVarsType = {
-  [T in typeof ROUGE_CLASS_NAMES[number]]: RougeStyle;
+  [T in (typeof ROUGE_CLASS_NAMES)[number]]: RougeStyle;
 };

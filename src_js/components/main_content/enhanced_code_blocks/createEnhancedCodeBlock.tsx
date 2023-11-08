@@ -262,10 +262,9 @@ function selectLines(
   document.getSelection()?.addRange(range);
 }
 
-const MAGIC_COMMENT_REGEX = /^\s*<span class="c[mp1sd]?">.*primer-spec-highlight-(start|end)/i;
-function parseMagicComments(
-  lines: Array<string>,
-): {
+const MAGIC_COMMENT_REGEX =
+  /^\s*<span class="c[mp1sd]?">.*primer-spec-highlight-(start|end)/i;
+function parseMagicComments(lines: Array<string>): {
   linesWithoutMagicComments: Array<string>;
   removedLineNumbers: Array<number>;
   additionalHighlightRanges: string;

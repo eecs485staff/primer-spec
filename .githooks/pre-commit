@@ -10,7 +10,7 @@ GITHOOKS_DIR=`pwd -P`
 popd
 PROJECT_ROOT=`dirname $GITHOOKS_DIR`
 
-MINOR_VERSION=$(cat $PROJECT_ROOT/VERSION | grep -o "[[:digit:]]\.[[:digit:]]")
+MINOR_VERSION=$(cat $PROJECT_ROOT/VERSION | grep -oE "\\d+\\.\\d+")
 
 if [[ -z "${STAGE_STATIC_ASSETS:-}" ]]; then
   echo "[pre-commit]: Unstaging assets directory"
