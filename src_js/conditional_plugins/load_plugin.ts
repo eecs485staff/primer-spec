@@ -18,6 +18,9 @@ export async function loadPlugin(pluginId: string): Promise<Plugin | null> {
     case 'april_fools_languages':
       plugin = (await import('./plugins/april_fools_languages.plugin')).default;
       break;
+    case 'april_fools_star_wars':
+      plugin = (await import('./plugins/april_fools_star_wars.plugin')).default;
+      break;
   }
   return plugin;
 }

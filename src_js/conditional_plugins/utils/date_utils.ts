@@ -49,3 +49,7 @@ export function isTodayInRange(
   }
   return today.getDate() < upperBound.date;
 }
+
+export function getCurrentMonth(): Month {
+  return new Date().getMonth();
+}
