@@ -90,8 +90,14 @@ function renderStarWarsCrawl() {
 
   insertStyles();
   document.body = (
-    <body>{convertSpecHtmlToStarWarsDom(specHtmlBodyElement)}</body>
+    <body>
+      <div class="wrapper">
+        {convertSpecHtmlToStarWarsDom(specHtmlBodyElement)}
+      </div>
+    </body>
   ) as HTMLElement;
+  setScrollAnimationDuration();
+  listenForScrollChanges();
 }
 
 function convertSpecHtmlToStarWarsDom(specNode: HTMLElement): HTMLElement {
@@ -108,6 +114,7 @@ function convertSpecHtmlToStarWarsDom(specNode: HTMLElement): HTMLElement {
   }
   return (
     <div class="star-wars-intro">
+      <p class="intro-text">A long time ago, in a class far, far away...</p>
       {logo}
       {convertSpecHtmlToStarWarsDomMainContent(mainContent as HTMLElement)}
     </div>
@@ -131,12 +138,58 @@ function convertSpecHtmlToStarWarsDomMainContent(
   return (<div class="main-content">{titleContent}</div>) as HTMLElement;
 }
 
+function setScrollAnimationDuration() {
+  const PIXELS_PER_SECOND = 40;
+  const duration = Math.round(
+    getStarWarsMainContentEl().offsetHeight / PIXELS_PER_SECOND,
+  );
+  document.body.style.setProperty(
+    '--primer-spec-april-fools-star-wars-content-scroll-duration',
+    `${duration}s`,
+  );
+}
+
+function listenForScrollChanges() {
+  const handleScroll = () => {
+    const animationDuration = parseInt(
+      document.body.style.getPropertyValue(
+        '--primer-spec-april-fools-star-wars-content-scroll-duration',
+      ),
+      10,
+    );
+    const scrollPercentage =
+      window.scrollY / (document.body.offsetHeight - window.innerHeight);
+    document.body.style.setProperty(
+      '--primer-spec-april-fools-star-wars-scroll',
+      `${scrollPercentage * animationDuration}`,
+    );
+  };
+  window.addEventListener('scroll', handleScroll, false);
+
+  // Also make the body scrollable
+  document.body.style.setProperty(
+    'min-height',
+    `${getStarWarsMainContentEl().offsetHeight + 200}px`,
+  );
+}
+
+function getStarWarsMainContentEl(): HTMLElement {
+  const mainContentEl = document.querySelector(
+    '.title-content',
+  ) as null | HTMLElement;
+  if (!mainContentEl) {
+    throw new Error('Primer Spec: Expected to find Star Wars title element');
+  }
+  return mainContentEl;
+}
+
 ///////////////////
 // 3rd party CSS //
 ///////////////////
 
 function insertStyles() {
   // Downloaded from: https://polarnotion.github.io/starwarsintro/
+  // With some modifications for the Primer Spec joke
   document.head.appendChild(
     <style>
       {`/*`}
@@ -147,13 +200,18 @@ function insertStyles() {
       {`Description: A simple CSS library for creating a Star Wars Intro Crawl. May the Force be with you.`}
       {`Version: 1.0`}
       {`*/`}
-      {`body, html{`}
+      {`.wrapper {`}
+      {`  position: fixed;`}
+      {`}`}
+      {`body, html, .wrapper {`}
       {`  height: 100%;`}
+      {`  width: 100%;`}
       {`  min-height: 100vh;`}
       {`  margin: 0px;`}
       {`}`}
       {`.star-wars-intro {`}
-      {`  background: url("https://polarnotion.github.io/starwarsintro/img/stars-bg.jpg") center center;`}
+      {/* {`  background: url("https://polarnotion.github.io/starwarsintro/img/stars-bg.jpg") center center;`} */}
+      {`  background: url("https://eecs485staff.github.io/primer-spec/demo/stars-bg.jpg") center center;`}
       {`  width: 100%;`}
       {`  height: 100%;`}
       {`  font-family: "Droid Sans", arial, verdana, sans-serif;`}
@@ -173,11 +231,12 @@ function insertStyles() {
       {`  opacity: 0;`}
       {`  z-index: 1;`}
       {`  text-align: center;`}
-      {`  -webkit-animation: intro 2s ease-out;`}
-      {`  -moz-animation: intro 2s ease-out;`}
-      {`  -ms-animation: intro 2s ease-out;`}
-      {`  -o-animation: intro 2s ease-out;`}
       {`  animation: intro 2s ease-out;`}
+      {`  /* Support animate-via-scrolling */`}
+      {`  animation-delay: calc(var(--primer-spec-april-fools-star-wars-scroll) * -1s);`}
+      {`  animation-iteration-count: 1;`}
+      {`  animation-fill-mode: both;`}
+      {`  animation-play-state: paused;`}
       {`}`}
       {`.star-wars-intro .main-content{`}
       {`  margin-left: auto;`}
@@ -226,7 +285,12 @@ function insertStyles() {
       {`.star-wars-intro .title-content {`}
       {`  position: absolute;`}
       {`  top: 100%;`}
-      {`  animation: scroll 120s linear 4s forwards;`}
+      {`  animation: scroll var(--primer-spec-april-fools-star-wars-content-scroll-duration) linear 4s forwards;`}
+      {`  /* Support animate-via-scrolling */`}
+      {`  animation-delay: calc(var(--primer-spec-april-fools-star-wars-scroll) * -1s + 4s);`}
+      {`  animation-iteration-count: 1;`}
+      {`  animation-fill-mode: both;`}
+      {`  animation-play-state: paused;`}
       {`}`}
       {`.star-wars-intro .title-content > .content-header {`}
       {`  text-align: center;`}
@@ -246,68 +310,32 @@ function insertStyles() {
       {`  text-shadow: -2px -2px 0 #EBD71C, 2px -2px 0 #EBD71C, -2px 2px 0 #EBD71C, 2px 2px 0 #EBD71C;`}
       {`  opacity: 0;`}
       {`  z-index: 1;`}
-      {`  -webkit-animation: logo 5s ease-out 2.5s;`}
-      {`  -moz-animation: logo 5s ease-out 2.5s;`}
-      {`  -ms-animation: logo 5s ease-out 2.5s;`}
-      {`  -o-animation: logo 5s ease-out 2.5s;`}
       {`  animation: logo 5s ease-out 2.5s;`}
+      {`  /* Support animate-via-scrolling */`}
+      {`  animation-delay: calc(var(--primer-spec-april-fools-star-wars-scroll) * -1s + 2.5s);`}
+      {`  animation-iteration-count: 1;`}
+      {`  animation-fill-mode: both;`}
+      {`  animation-play-state: paused;`}
       {`}`}
       {`.star-wars-intro .main-logo > img {`}
       {`  max-width: 100%;`}
       {`}`}
-      {`@-webkit-keyframes intro {`}
+      {`@keyframes intro {`}
       {`  0% { opacity: 1; }`}
       {`  90% { opacity: 1; }`}
       {`  100% { opacity: 0; }`}
-      {`}`}
-      {`@-moz-keyframes intro {`}
-      {`  0% { opacity: 1; }`}
-      {`  90% { opacity: 1; }`}
-      {`  100% { opacity: 0; }`}
-      {`}`}
-      {`@-ms-keyframes intro {`}
-      {`  0% { opacity: 1; }`}
-      {`  90% { opacity: 1; }`}
-      {`  100% { opacity: 0; }`}
-      {`}`}
-      {`@-o-keyframes intro {`}
-      {`  0% { opacity: 1; }`}
-      {`  90% { opacity: 1; }`}
-      {`  100% { opacity: 0; }`}
-      {`}`} {`@keyframes intro {`}
-      {`  0% { opacity: 1; }`}
-      {`  90% { opacity: 1; }`}
-      {`  100% { opacity: 0; }`}
-      {`}`} {`@-webkit-keyframes logo {`}
-      {`  0% { -webkit-transform: scale(1); opacity: 1; }`}
-      {`  50% { opacity: 1; }`}
-      {`  100% { -webkit-transform: scale(0.1); opacity: 0; }`}
-      {`}`}
-      {`@-moz-keyframes logo {`}
-      {`  0% { -moz-transform: scale(1); opacity: 1; }`}
-      {`  50% { opacity: 1; }`}
-      {`  100% { -moz-transform: scale(0.1); opacity: 0; }`}
-      {`}`}
-      {`@-ms-keyframes logo {`}
-      {`  0% { -ms-transform: scale(1); opacity: 1; }`}
-      {`  50% { opacity: 1; }`}
-      {`  100% { -ms-transform: scale(0.1); opacity: 0; }`}
-      {`}`}
-      {`@-o-keyframes logo {`}
-      {`  0% { -o-transform: scale(1); opacity: 1; }`}
-      {`  50% { opacity: 1; }`}
-      {`  100% { -o-transform: scale(0.1); opacity: 0; }`}
       {`}`}
       {`@keyframes logo {`}
-      {`  0% { transform: scale(1); opacity: 1; }`}
+      {`  0% { opacity: 0; }`}
+      {`  1% { transform: scale(1); opacity: 1; }`}
       {`  50% { opacity: 1; }`}
       {`  100% { transform: scale(0.1); opacity: 0; }`}
       {`}`}
       {`@keyframes scroll {`}
-      {`  0% { top: 100%; }`}
-      {`  100% { top: -170%; }`}
+      {`  0% { transform: translate(0, 0); }`}
+      {`  100% { transform: translate(0, -170%); }`}
       {`}`}
-      {`@media screen and (max-width: 720px) {`}
+      {/* {`@media screen and (max-width: 720px) {`}
       {`  .star-wars-intro .main-content {`}
       {`    font-size: 35px;`}
       {`  }`}
@@ -316,7 +344,7 @@ function insertStyles() {
       {`    top: 100%;`}
       {`    animation: scroll 100s linear 4s forwards;`}
       {`  }`}
-      {`}`}
+      {`}`} */}
     </style>,
   );
 }
