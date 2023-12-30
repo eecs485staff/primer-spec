@@ -229,6 +229,16 @@ function Topbar() {
         faClass="pause"
         onClick={toggleAutoScroll}
       />
+      <Button
+        id={AUTO_SCROLL_BTN_ID}
+        faClass="music"
+        onClick={() => {
+          window.open(
+            'https://youtu.be/MNMSAIG0dfQ?si=XY4mCjSpwFRswqaA',
+            '_blank',
+          );
+        }}
+      />
     </div>
   );
 }
@@ -236,7 +246,7 @@ function Topbar() {
 function Button(props: { id?: string; faClass: string; onClick: () => void }) {
   const { id, faClass, onClick } = props;
   return (
-    <span id={id} class="primer-spec-hoverable ">
+    <span id={id} class="primer-spec-hoverable" style="margin-left: 30px;">
       <button
         class="btn-link primer-spec-hoverable no-print"
         aria-label="Pause auto-scroll"
