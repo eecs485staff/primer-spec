@@ -2,13 +2,16 @@
 import * as JSXDom from 'jsx-dom';
 import { Month, getCurrentMonth } from '../utils/date_utils';
 
+const PIXELS_PER_SECOND = 40;
+const AUTO_SCROLL_BTN_ID = 'primer-spec-star-wars-auto-scroll-ctrl';
+
 let specHtmlBodyElement = null;
 
 export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertToggleIfNeeded();
 }
 
-const state = { enabled: false };
+const state = { enabled: false, autoScroll: true };
 
 function insertToggleIfNeeded() {
   if (state.enabled) {
@@ -91,13 +94,19 @@ function renderStarWarsCrawl() {
   insertStyles();
   document.body = (
     <body>
+      <Topbar />
       <div class="wrapper">
         {convertSpecHtmlToStarWarsDom(specHtmlBodyElement)}
       </div>
     </body>
   ) as HTMLElement;
+
   setScrollAnimationDuration();
   listenForScrollChanges();
+  startAutoScroll();
+
+  // Set dark theme CSS variables
+  window.PrimerSpec?.updateTheme?.({ mode: 'dark' }, false);
 }
 
 function convertSpecHtmlToStarWarsDom(specNode: HTMLElement): HTMLElement {
@@ -139,7 +148,6 @@ function convertSpecHtmlToStarWarsDomMainContent(
 }
 
 function setScrollAnimationDuration() {
-  const PIXELS_PER_SECOND = 40;
   const duration = Math.round(
     getStarWarsMainContentEl().offsetHeight / PIXELS_PER_SECOND,
   );
@@ -149,6 +157,7 @@ function setScrollAnimationDuration() {
   );
 }
 
+// Based on: https://css-tricks.com/books/greatest-css-tricks/scroll-animation/
 function listenForScrollChanges() {
   const handleScroll = () => {
     const animationDuration = parseInt(
@@ -173,6 +182,31 @@ function listenForScrollChanges() {
   );
 }
 
+function startAutoScroll() {
+  if (!state.autoScroll) {
+    state.autoScroll = true;
+  }
+  listenForUserScroll(toggleAutoScroll);
+
+  let lastTick: null | DOMHighResTimeStamp = null;
+  function autoScrollStep(timestamp: DOMHighResTimeStamp) {
+    if (!lastTick) {
+      lastTick = timestamp;
+    }
+
+    const elapsed = timestamp - lastTick;
+    if (elapsed > 20) {
+      window.scrollBy(0, (PIXELS_PER_SECOND * elapsed) / 1000);
+      lastTick = timestamp;
+    }
+
+    if (state.autoScroll) {
+      window.requestAnimationFrame(autoScrollStep);
+    }
+  }
+  window.requestAnimationFrame(autoScrollStep);
+}
+
 function getStarWarsMainContentEl(): HTMLElement {
   const mainContentEl = document.querySelector(
     '.title-content',
@@ -181,6 +215,58 @@ function getStarWarsMainContentEl(): HTMLElement {
     throw new Error('Primer Spec: Expected to find Star Wars title element');
   }
   return mainContentEl;
+}
+
+////////////
+// Topbar //
+////////////
+
+function Topbar() {
+  return (
+    <div class="topbar">
+      <Button
+        id={AUTO_SCROLL_BTN_ID}
+        faClass="pause"
+        onClick={toggleAutoScroll}
+      />
+    </div>
+  );
+}
+
+function Button(props: { id?: string; faClass: string; onClick: () => void }) {
+  const { id, faClass, onClick } = props;
+  return (
+    <span id={id} class="primer-spec-hoverable ">
+      <button
+        class="btn-link primer-spec-hoverable no-print"
+        aria-label="Pause auto-scroll"
+        title="Pause auto-scroll"
+        onClick={onClick}
+      >
+        <i class={`fas fa-${faClass}`} />
+      </button>
+    </span>
+  );
+}
+
+function toggleAutoScroll() {
+  state.autoScroll = !state.autoScroll;
+  const btnIcon = document
+    .getElementById(AUTO_SCROLL_BTN_ID)
+    ?.querySelector('i.fas') as HTMLElement | null;
+  if (btnIcon && state.autoScroll) {
+    btnIcon.classList.remove('fa-play');
+    btnIcon.classList.add('fa-pause');
+  } else if (btnIcon && !state.autoScroll) {
+    btnIcon.classList.remove('fa-pause');
+    btnIcon.classList.add('fa-play');
+  }
+
+  if (state.autoScroll) {
+    startAutoScroll();
+  } else {
+    stopListeningForUserScroll(toggleAutoScroll);
+  }
 }
 
 ///////////////////
@@ -200,6 +286,14 @@ function insertStyles() {
       {`Description: A simple CSS library for creating a Star Wars Intro Crawl. May the Force be with you.`}
       {`Version: 1.0`}
       {`*/`}
+      {`.topbar {`}
+      {`  position: fixed;`}
+      {`  top: 0;`}
+      {`  width: 100%;`}
+      {`  z-index: 2;`}
+      {`  display: flex;`}
+      {`  justify-content: center;`}
+      {`}`}
       {`.wrapper {`}
       {`  position: fixed;`}
       {`}`}
@@ -344,7 +438,47 @@ function insertStyles() {
       {`    top: 100%;`}
       {`    animation: scroll 100s linear 4s forwards;`}
       {`  }`}
-      {`}`} */}
+    {`}`} */}
     </style>,
   );
+}
+
+///////////////////
+// 3rd party JS //
+///////////////////
+
+// The following code was modified from: https://stackoverflow.com/a/4770179
+
+// modern Chrome requires { passive: false } when adding event
+let supportsPassive = false;
+try {
+  window.addEventListener(
+    'test',
+    () => {},
+    Object.defineProperty({}, 'passive', {
+      get() {
+        supportsPassive = true;
+        return null;
+      },
+    }),
+  );
+} catch (e) {}
+
+const wheelOpt = supportsPassive ? { passive: false } : false;
+const wheelEvent =
+  'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+// call this to Disable
+function listenForUserScroll(callback: () => void) {
+  window.addEventListener('DOMMouseScroll', callback, false); // older FF
+  window.addEventListener(wheelEvent, callback, wheelOpt); // modern desktop
+  window.addEventListener('touchmove', callback, wheelOpt); // mobile
+  window.addEventListener('keydown', callback, false);
+}
+
+function stopListeningForUserScroll(callback: () => void) {
+  window.removeEventListener('DOMMouseScroll', callback); // older FF
+  window.removeEventListener(wheelEvent, callback); // modern desktop
+  window.removeEventListener('touchmove', callback); // mobile
+  window.removeEventListener('keydown', callback);
 }
