@@ -5,7 +5,7 @@ import { Month, getCurrentMonth } from '../utils/date_utils';
 const PIXELS_PER_SECOND = 40;
 const AUTO_SCROLL_BTN_ID = 'primer-spec-star-wars-auto-scroll-ctrl';
 
-let specHtmlBodyElement = null;
+let specHtmlBodyElement: null | HTMLElement = null;
 
 export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertToggleIfNeeded();
@@ -227,11 +227,12 @@ function Topbar() {
       <Button
         id={AUTO_SCROLL_BTN_ID}
         faClass="pause"
+        title="Pause auto-scroll"
         onClick={toggleAutoScroll}
       />
       <Button
-        id={AUTO_SCROLL_BTN_ID}
         faClass="music"
+        title="Open background music in new tab"
         onClick={() => {
           window.open(
             'https://youtu.be/MNMSAIG0dfQ?si=XY4mCjSpwFRswqaA',
@@ -239,18 +240,36 @@ function Topbar() {
           );
         }}
       />
+      <Button
+        faClass="sign-out-alt"
+        title="Exit Star Wars crawl"
+        onClick={() => {
+          if (specHtmlBodyElement != null) {
+            state.autoScroll = false;
+            state.enabled = false;
+            // Reset the theme
+            window.PrimerSpec?.updateTheme?.({}, false);
+            // Then reset the body el
+            document.body = specHtmlBodyElement;
+          }
+        }}
+      />
     </div>
   );
 }
 
-function Button(props: { id?: string; faClass: string; onClick: () => void }) {
-  const { id, faClass, onClick } = props;
+function Button(props: {
+  id?: string;
+  faClass: string;
+  title: string;
+  onClick: () => void;
+}) {
+  const { id, faClass, title, onClick } = props;
   return (
     <span id={id} class="primer-spec-hoverable" style="margin-left: 30px;">
       <button
         class="btn-link primer-spec-hoverable no-print"
-        aria-label="Pause auto-scroll"
-        title="Pause auto-scroll"
+        title={title}
         onClick={onClick}
       >
         <i class={`fas fa-${faClass}`} />
@@ -264,12 +283,17 @@ function toggleAutoScroll() {
   const btnIcon = document
     .getElementById(AUTO_SCROLL_BTN_ID)
     ?.querySelector('i.fas') as HTMLElement | null;
-  if (btnIcon && state.autoScroll) {
+  const btn = document
+    .getElementById(AUTO_SCROLL_BTN_ID)
+    ?.querySelector('button') as HTMLElement | null;
+  if (btn && btnIcon && state.autoScroll) {
     btnIcon.classList.remove('fa-play');
     btnIcon.classList.add('fa-pause');
-  } else if (btnIcon && !state.autoScroll) {
+    btn.title = 'Pause auto-scroll';
+  } else if (btn && btnIcon && !state.autoScroll) {
     btnIcon.classList.remove('fa-pause');
     btnIcon.classList.add('fa-play');
+    btn.title = 'Start auto-scroll';
   }
 
   if (state.autoScroll) {
