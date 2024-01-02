@@ -2,7 +2,10 @@
 import * as JSXDom from 'jsx-dom';
 import { Month, getCurrentMonth } from '../utils/date_utils';
 
-const PIXELS_PER_SECOND = 40;
+const TOGGLE_ID = 'primer-spec-star-wars-toggle';
+
+const DEFAULT_PIXELS_PER_SECOND = 40;
+const MOBILE_PIXELS_PER_SECOND = 80;
 const AUTO_SCROLL_BTN_ID = 'primer-spec-star-wars-auto-scroll-ctrl';
 
 let specHtmlBodyElement: null | HTMLElement = null;
@@ -14,7 +17,7 @@ export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
 const state = { enabled: false, autoScroll: true };
 
 function insertToggleIfNeeded() {
-  if (state.enabled) {
+  if (state.enabled || document.getElementById(TOGGLE_ID) != null) {
     return;
   }
   const settingsToggleButtonContainer = document.querySelector(
@@ -35,6 +38,9 @@ function insertToggleIfNeeded() {
   const icon = toggle.querySelector('i.fa-cog');
   icon?.classList.remove('fa-cog');
   icon?.classList.add('fa-jedi');
+  if (icon) {
+    icon.id = TOGGLE_ID;
+  }
   settingsToggleButtonContainer.prepend(toggle);
 
   const toggleBtn = toggle.querySelector('button');
@@ -149,7 +155,7 @@ function convertSpecHtmlToStarWarsDomMainContent(
 
 function setScrollAnimationDuration() {
   const duration = Math.round(
-    getStarWarsMainContentEl().offsetHeight / PIXELS_PER_SECOND,
+    getStarWarsMainContentEl().offsetHeight / getAnimationPixelsPerSecond(),
   );
   document.body.style.setProperty(
     '--primer-spec-april-fools-star-wars-content-scroll-duration',
@@ -187,6 +193,7 @@ function startAutoScroll() {
     state.autoScroll = true;
   }
   listenForUserScroll(toggleAutoScroll);
+  listenForViewportChanges();
 
   let lastTick: null | DOMHighResTimeStamp = null;
   function autoScrollStep(timestamp: DOMHighResTimeStamp) {
@@ -196,7 +203,7 @@ function startAutoScroll() {
 
     const elapsed = timestamp - lastTick;
     if (elapsed > 20) {
-      window.scrollBy(0, (PIXELS_PER_SECOND * elapsed) / 1000);
+      window.scrollBy(0, (getAnimationPixelsPerSecond() * elapsed) / 1000);
       lastTick = timestamp;
     }
 
@@ -215,6 +222,18 @@ function getStarWarsMainContentEl(): HTMLElement {
     throw new Error('Primer Spec: Expected to find Star Wars title element');
   }
   return mainContentEl;
+}
+
+function listenForViewportChanges() {
+  window.matchMedia('(max-width: 720px)').addEventListener('change', () => {
+    setScrollAnimationDuration();
+  });
+}
+
+function getAnimationPixelsPerSecond() {
+  return window.matchMedia('(max-width: 720px)').matches
+    ? MOBILE_PIXELS_PER_SECOND
+    : DEFAULT_PIXELS_PER_SECOND;
 }
 
 ////////////
@@ -372,7 +391,7 @@ function insertStyles() {
       {`  position: absolute;`}
       {`  z-index: 3;`}
       {`  width: 98%;`}
-      {`  height: 50em;`}
+      {`  height: 500vh;`}
       {`  bottom: 0;`}
       {`  font-size: 80px;`}
       {`  font-weight: bold;`}
@@ -380,6 +399,9 @@ function insertStyles() {
       {`  overflow: hidden;`}
       {`  transform-origin: 50% 100%;`}
       {`  transform: perspective(350px) rotateX(25deg);`}
+      {`  /* Hyphenation and text-wrap on small screens */`}
+      {`  overflow-wrap: anywhere;`}
+      {`  hyphens: auto;`}
       {`}`}
       {`.star-wars-intro .main-content:after {`}
       {`  position: absolute;`}
@@ -463,16 +485,16 @@ function insertStyles() {
       {`  0% { transform: translate(0, 0); }`}
       {`  100% { transform: translate(0, -170%); }`}
       {`}`}
-      {/* {`@media screen and (max-width: 720px) {`}
+      {`@media screen and (max-width: 720px) {`}
       {`  .star-wars-intro .main-content {`}
       {`    font-size: 35px;`}
       {`  }`}
       {`  .star-wars-intro .title-content {`}
       {`    position: absolute;`}
       {`    top: 100%;`}
-      {`    animation: scroll 100s linear 4s forwards;`}
+      {`    /* Animation duration controlled in JS */`}
       {`  }`}
-    {`}`} */}
+      {`}`}
     </style>,
   );
 }
