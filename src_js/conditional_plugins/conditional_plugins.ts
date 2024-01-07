@@ -21,7 +21,11 @@ import { loadPlugin } from './load_plugin';
  * 3. Add a condition to `shouldLoadPlugin()` for this plugin ID
  * 4. Update `loadPlugin()` to load the plugin definition from (1)
  */
-const PLUGIN_IDS = ['halloween', 'april_fools_languages'];
+const PLUGIN_IDS = [
+  'halloween',
+  'april_fools_languages',
+  'april_fools_star_wars',
+];
 
 const pluginsPromises = PLUGIN_IDS.filter((pluginId) =>
   shouldLoadPlugin(pluginId),

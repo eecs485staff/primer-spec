@@ -1,4 +1,4 @@
-import { Month, isTodayInRange } from '../is_today_in_range';
+import { Month, isTodayInRange } from '../date_utils';
 
 describe('isTodayInRange', () => {
   beforeEach(() => {
