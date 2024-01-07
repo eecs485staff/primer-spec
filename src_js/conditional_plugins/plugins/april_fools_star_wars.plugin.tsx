@@ -1,6 +1,7 @@
 /** @jsx JSXDom.h */
 import * as JSXDom from 'jsx-dom';
 import { Month, getCurrentMonth } from '../utils/date_utils';
+import { insertPopoverDarkModeStylesOnce } from './utils/popover_dark_mode_styles';
 
 const TOGGLE_ID = 'primer-spec-star-wars-toggle';
 
@@ -11,6 +12,7 @@ const AUTO_SCROLL_BTN_ID = 'primer-spec-star-wars-auto-scroll-ctrl';
 let specHtmlBodyElement: null | HTMLElement = null;
 
 export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
+  insertPopoverDarkModeStylesOnce();
   insertToggleIfNeeded();
 }
 

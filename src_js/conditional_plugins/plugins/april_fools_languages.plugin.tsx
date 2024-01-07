@@ -3,12 +3,13 @@ import * as JSXDom from 'jsx-dom';
 import PigLatinizer from 'pig-latinizer';
 import { translate as pirateSpeakTranslate } from './utils/pirate_speak';
 import { flipStringUpsideDown } from './utils/upside_down';
+import { insertPopoverDarkModeStylesOnce } from './utils/popover_dark_mode_styles';
 
 let currentLanguage = 'english';
 
 export default async function AprilFoolsLanguagesPlugin(): Promise<void> {
   insertLanguageToggleIfNeeded();
-  insertDarkModeStylesIfNeeded();
+  insertPopoverDarkModeStylesOnce();
   storeOriginalPageContentsIfNeeded();
   registerWindowEventListenerOnce();
 }
@@ -109,37 +110,6 @@ function getLanguageButton(id: string, label: string) {
       {label}
     </button>
   );
-}
-
-const DARK_MODE_STYLE_ID = 'primer-spec-april-fools-languages-dark-mode-styles';
-function insertDarkModeStylesIfNeeded() {
-  if (!document.querySelector(`#${DARK_MODE_STYLE_ID}`)) {
-    document.head.appendChild(
-      <style>
-        {':root[data-theme-mode="dark"] .Popover .dropdown {'}
-        {'  filter: invert(93%) hue-rotate(180deg);'}
-        {'}'}
-        {':root[data-theme-mode="dark"] .Popover .dropdown .dropdown-item {'}
-        {'  color: #24292e'}
-        {'}'}
-        {
-          ':root[data-theme-mode="dark"] .Popover .dropdown .dropdown-item:hover {'
-        }
-        {'  color: #000;'}
-        {'}'}
-        {'.Popover {'}
-        {'  color: var(--main-text-color)'}
-        {'}'}
-        {':root[data-theme-mode="dark"] .Popover-message {'}
-        {'  background-color: var(--code-block-header-bg-color);'}
-        {'  border: 1px solid #30363d;'}
-        {'}'}
-        {':root[data-theme-mode="dark"] .Popover-message--right-top::after {'}
-        {'  border-left-color: #30363d;'}
-        {'}'}
-      </style>,
-    );
-  }
 }
 
 function setCurrentLanguage(languageId: string) {
