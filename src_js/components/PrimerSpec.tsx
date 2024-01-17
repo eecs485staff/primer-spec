@@ -11,6 +11,7 @@ import { useAfterPrint, useBeforePrint } from '../utils/hooks/print';
 import useSmallScreen from '../utils/hooks/useSmallScreen';
 import Config from '../Config';
 import MainContent from './main_content';
+import { PreviewDiffButton } from './PreviewDiffButton';
 import Settings from './settings';
 import Sidebar from './sidebar';
 import Topbar from './Topbar';
@@ -150,6 +151,7 @@ export default function PrimerSpec(props: PropsType): h.JSX.Element {
         onSubthemeNameChange={(name) => setTheme({ name })}
         onSubthemeModeChange={(mode) => setTheme({ mode })}
       />
+      <PreviewDiffButton />
     </Fragment>
   );
 }
