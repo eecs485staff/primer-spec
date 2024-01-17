@@ -56,13 +56,9 @@ export function PreviewDiffButton() {
 }
 
 function getProductionUrl() {
-  // const matches = window.location.href.match(
-  //   GITHUB_REPO_REGEX_FROM_PREVIEW_URL,
-  // );
-  const matches =
-    'https://preview.sesh.rs/previews/eecs485staff/p1-insta485-static/492/setup_macos.html'.match(
-      GITHUB_REPO_REGEX_FROM_PREVIEW_URL,
-    );
+  const matches = window.location.href.match(
+    GITHUB_REPO_REGEX_FROM_PREVIEW_URL,
+  );
   if (matches && matches.length >= 4) {
     const org = matches[1];
     const repo = matches[2];
