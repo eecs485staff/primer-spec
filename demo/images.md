@@ -12,7 +12,7 @@ Primer Spec automatically adds a subtle `1px` border to images. In my opinion, t
 
 For instance, try viewing this image in the "default" theme in "light" mode:
 
-![This image shows a screenshot of Primer Spec in the 'Bella' theme.](https://drive.google.com/uc?export=view&id=1_QPsSGlXKjfqY-3TUbsXej5isOZypK7U)
+![This image shows a screenshot of Primer Spec in the 'Bella' theme.](./screenshot.png)
 
 You can use either Markdown syntax or HTML syntax to define images.
 
@@ -38,7 +38,7 @@ Don't forget the 'alt' text! It's the only way fot visually-impaired users to un
 
 Simply add the `no-border` class to the image. For instance:
 
-![This image shows a screenshot of Primer Spec in the 'Bella' theme.](https://drive.google.com/uc?export=view&id=1_QPsSGlXKjfqY-3TUbsXej5isOZypK7U){: .no-border }
+![This image shows a screenshot of Primer Spec in the 'Bella' theme.](./screenshot.png){: .no-border }
 
 <details mardown="1">
 <summary>Source code for borderless images</summary>
@@ -70,7 +70,7 @@ If you add the `invert-colors-in-dark-mode` class to an image, Primer Spec will 
 
 For instance, the following image changes colors in light mode and dark mode:
 
-![This image shows a screenshot of Primer Spec in the 'Bella' theme.](https://drive.google.com/uc?export=view&id=1_QPsSGlXKjfqY-3TUbsXej5isOZypK7U){: .invert-colors-in-dark-mode }
+![This image shows a screenshot of Primer Spec in the 'Bella' theme.](./screenshot.png){: .invert-colors-in-dark-mode }
 
 <details mardown="1">
 <summary>Source code for auto-inverted images</summary>

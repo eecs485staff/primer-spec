@@ -46,7 +46,6 @@ Primer Spec is a Jekyll theme, which means you can start using this theme with [
    ---
    layout: spec
    ---
-
    ```
 
 3. If it doesn't already exist, create a file `_config.yml` in your site's root directory. Add this content to the file:
@@ -88,17 +87,21 @@ You may also want to read the [`MARKDOWN_TIPS`](https://eecs485staff.github.io/p
 The Primer Spec theme is currently used by the following courses at the University of Michigan:
 
 - [ENGR 100](https://980.engr100.org) (Introduction to Engineering). Example [ENGR 100-980 Lab 1: Arduino 101](https://980.engr100.org/labs/lab-1).
-- [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 4: Web](https://eecs280staff.github.io/p4-web/).
+- [EECS 280](https://eecs280staff.github.io/eecs280.org/) (Programming and Intro Data Structures). Example [EECS 280 Project 2: Computer Vision](https://eecs280staff.github.io/p2-cv/).
 - [EECS 281](https://eecs281staff.github.io/eecs281.org/) (Data Structures and Algorithms). Example [EECS 281 Project 1: Back to the Ship!](https://eecs281staff.github.io/p1-back-to-the-ship/).
 - [EECS 285](https://eecs285.github.io/eecs285.org/) (Practical Programming in Java). Example [EECS 285 Project 3: Wheel of Fortune](https://eecs285.github.io/p3-wheel/).
+- [EECS 370](https://www.eecs.umich.edu/courses/eecs370/) (Introduction to Computer Organization). Example [Project 1: Assembler, Simulator, and Assembly-Language Multiplication](https://eecs370.github.io/project_1_spec/)
 - [EECS 485](https://eecs485staff.github.io/eecs485.org/) (Web Systems). Example [EECS 485 Project 4: Map Reduce](https://eecs485staff.github.io/p4-mapreduce/).
 - [ENGR 101](https://engr101staff.github.io/engr101.org/) (Using Computing to Solve Engineering Problems).
 - [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts).
-- [EECS 298 (Social Consequences of Computing)](https://eecs298.github.io/).
-- [EECS 370](https://www.eecs.umich.edu/courses/eecs370/) (Introduction to Computer Organization).
+- [EECS 298](https://eecs298.github.io/) (Social Consequences of Computing).
 - [EECS 441](https://eecs441.eecs.umich.edu/) (Mobile App Development for Entrepreneurs).
 - [EECS 484](https://eecs484db.github.io/) (Database Management Systems).
 - EECS 482 (Introduction to Operating Systems).
+
+And at Tufts University:
+
+- [CS 105](https://www.cs.tufts.edu/comp/105/) (Programming Languages).
 
 Students: Would you like to see your course use this theme for their project specifications? Let your course staff know about this theme!
 
