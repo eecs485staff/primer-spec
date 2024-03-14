@@ -855,6 +855,7 @@ div.primer-spec-callout {
 
 .markdown-body img {
   border: 1px solid var(--main-image-border-color);
+  background-color: transparent; // Override default white bg from primer
 }
 .markdown-body img.no-border {
   border: 0px !important;
