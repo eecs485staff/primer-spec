@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
 
   s.add_dependency 'jekyll', '> 3.5', '< 4.0'
-  s.add_runtime_dependency 'jekyll-github-metadata', '~> 2.9'
+  s.add_runtime_dependency 'jekyll-github-metadata', '2.13'
   s.add_runtime_dependency 'jekyll-seo-tag', '~> 2.0'
   s.add_runtime_dependency 'jekyll-default-layout'
   s.add_development_dependency 'html-proofer', '~> 3.0'
