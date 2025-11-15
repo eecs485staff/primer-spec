@@ -187,8 +187,7 @@ version_string: v1.10
 
             <!-- SAB added -->
             <hr>
-            {% capture policy_content %}{% include course_policy.md %}{% endcapture %}
-            {{ policy_content | markdownify }}
+            {% include render_markdown.html file="course_policy.md" %}
 
         </div> <!-- .container-lg -->
 
