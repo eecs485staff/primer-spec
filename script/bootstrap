@@ -2,7 +2,8 @@
 
 set -e
 
-gem install bundler
+cd "$(dirname "$0")/.."
+
 bundle install
 npm install --no-save
 
