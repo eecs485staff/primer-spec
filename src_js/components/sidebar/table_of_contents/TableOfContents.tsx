@@ -1,6 +1,6 @@
 import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import unflattenHeadings, { HeadingsSectionType } from './unflattenHeadings';
 import { elevateHeadingSectionsLevels } from './elevateHeadingSectionLevels';
 
@@ -211,7 +211,7 @@ function getHeadingLabel(headingNode: HTMLElement): h.JSX.Element {
       }
     });
     headingLabel = <Fragment>{labelComponents}</Fragment>;
-  } catch (e) {
+  } catch {
     console.error(
       'Primer Spec ToC: Errored while building heading label for heading',
       headingNode,

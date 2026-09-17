@@ -97,10 +97,11 @@ function SitemapPage(props: {
   return (
     <a href={props.page.url} tabIndex={-1}>
       <details class={props.dedent ? '' : 'primer-spec-toc-sitemap-item'}>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
         <summary
           class={props.page.external ? 'primer-spec-toc-sitemap-external' : ''}
-          data-order={props.page.external ? '' : props.page.sitemapOrder ?? ''}
+          data-order={
+            props.page.external ? '' : (props.page.sitemapOrder ?? '')
+          }
           role="link"
           tabIndex={0}
           onClick={(e) => {
