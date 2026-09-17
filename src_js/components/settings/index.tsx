@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import Config from '../../Config';
 import { Subthemes, updateTheme, normalizeSubthemeMode } from '../../subthemes';
 import {

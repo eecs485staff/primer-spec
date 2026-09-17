@@ -2,7 +2,13 @@
 
 set -e
 
-npx webpack --env production
+cd "$(dirname "$0")/.."
+
+npm run format:check
+npm run lint
+npm run typecheck
+npm run test:js
+npm run build:js
 bundle exec jekyll build
 bundle exec script/validate-html
 
@@ -17,13 +23,3 @@ fi
 if [ "$(git rev-parse --abbrev-ref HEAD)" = 'main' ]; then
   bundle exec htmlproofer ./_site --check-html --url-ignore "/web.archive.org/,/localhost/,/reactjs.org/,/docs.github.com/"
 fi
-
-# Verify that all files are Prettified
-echo "Veryifying that all files are Prettified..."
-npx prettier@3.0.3 -l "src_js/**/*.ts"
-npx prettier@3.0.3 -l "_sass/spec/**/*.scss"
-echo "Prettier check passed."
-
-# Run JS tests
-npm run lint
-npx jest
