@@ -3,6 +3,10 @@ name: verify-pr-base-branch
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   verify-pr-base-branch:
     name: verify-pr-base-branch
@@ -10,10 +14,10 @@ jobs:
     steps:
       - name: Get base branch
         id: get-pr-base-branch
-        uses: actions/github-script@v3
+        uses: actions/github-script@v9
         with:
           script: |
-            const pr = await github.pulls.get({
+            const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number,
@@ -23,17 +27,17 @@ jobs:
 
       - name: Update PR if wrong base branch
         if: ${{ steps.get-pr-base-branch.outputs.result != 'develop' }}
-        uses: actions/github-script@v3
+        uses: actions/github-script@v9
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            await github.pulls.update({
+            await github.rest.pulls.update({
               pull_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               base: 'develop',
             });
-            await github.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
