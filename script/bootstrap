@@ -2,9 +2,10 @@
 
 set -e
 
-gem install bundler
+cd "$(dirname "$0")/.."
+
 bundle install
-npm install --no-save
+npm ci
 
 # Point to this repositories Git hooks
 # Requires Git version > 2.9.0

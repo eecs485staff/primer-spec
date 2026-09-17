@@ -1,7 +1,7 @@
 /** @jsx JSXDom.h */
 import * as JSXDom from 'jsx-dom';
 import { parseCodeHighlightRanges } from './parseCodeHighlightRanges';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import {
   CODEBLOCK_TITLE_CLASS,
   LANGUAGE_CONSOLE,
@@ -74,8 +74,9 @@ export function createEnhancedCodeBlock(options: {
         )}
       >
         <table class="highlight">
-          {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
           <tbody
+            // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
             onMouseOver={(e) => {
               if (mouseDownStartLine != null && e.target != null) {
                 let el = e.target as HTMLElement | null;
@@ -145,7 +146,6 @@ function createCodeBlockLine(options: {
   const LR_ID = `${codeblockId}-LR${lineNumber}`;
   const codeblockLine = (
     <tr id={LR_ID}>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <td
         id={L_ID}
         class={clsx(
@@ -204,9 +204,10 @@ function createCodeBlockLine(options: {
       // (3) Wrap remaining children in a new <span> with id=LC_ID.
       codeLine.innerHTML = '';
       codeLine.appendChild(<span>{childrenToExcludeFromSelection}</span>);
-      codeLine.appendChild(
-        <span id={LC_ID}>{childrenToIncludeInSelection}</span>,
-      );
+      const selectableSpan = document.createElement('span');
+      selectableSpan.id = LC_ID;
+      selectableSpan.append(...childrenToIncludeInSelection);
+      codeLine.appendChild(selectableSpan);
     }
   }
 

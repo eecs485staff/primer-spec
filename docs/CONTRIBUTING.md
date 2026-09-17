@@ -78,25 +78,40 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
 
 ### Bootstrap your local environment
 
-1. Ensure that you have a version of Ruby later than 2.4.0. If you're on a Mac, you may need to run `brew install ruby` first.
+1. Install Ruby 3.3 (see `.ruby-version`) and Bundler. On a Mac, run `brew install ruby@3.3`, then add `$(brew --prefix ruby@3.3)/bin` to your `PATH`. Use this Ruby instead of macOS's system Ruby.
 
-2. Ensure that you have [NodeJS](https://nodejs.org/en/download/package-manager/) installed.
+2. Install [Node.js](https://nodejs.org/en/download/package-manager/) 24 LTS (see `.nvmrc`). If you use nvm, run `nvm install` and `nvm use` in the repository. Node.js 22.14 or newer is required.
 
 3. Run `script/bootstrap`.
 
    ```console
    $ ruby --version
-   ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
+   ruby 3.3.x
    $ pwd
    /seshrs/primer-spec
    $ ./script/bootstrap
    ```
 
+   `script/bootstrap` installs the dependencies recorded in `Gemfile.lock` and `package-lock.json`. Commit changes to both lockfiles when updating dependencies. It also enables the repository's Git hooks.
+
 4. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
 ### Run tests
 
-The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
+Run `npm test` (or `script/cibuild`) after `script/bootstrap`. This checks formatting, ESLint, TypeScript types, Jest tests, the production JavaScript bundle, and the Jekyll build and HTML validation. HTML validation uses the W3C service and requires network access.
+
+For individual checks:
+
+- `npm run format` formats TypeScript, TSX, and theme SCSS using the locally installed Prettier version.
+- `npm run format:check` checks the same files without changing them.
+- `npm run lint` checks source code with ESLint's flat configuration in `eslint.config.cjs`.
+- `npm run typecheck` checks TypeScript without emitting files.
+- `npm run test:js -- --runInBand` runs the JavaScript tests.
+- `npm run build:js` builds the production bundle.
+
+ESLint stays on version 9 while `eslint-config-preact` requires it, and TypeScript stays on version 5.9 for compatibility with the test/build tools. Check peer dependencies before upgrading either to a new major version.
+
+The `github-pages` version in `Gemfile` is intentionally pinned because of [the metadata plugin compatibility issue](https://github.com/eecs485staff/primer-spec/issues/261). Upgrade it separately from the development tools and verify remote-theme rendering before changing that pin.
 
 ### Adding new subthemes
 

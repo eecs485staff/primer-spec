@@ -1,19 +1,18 @@
 /**
  * This component was largely inspired by: https://codepen.io/mcolo/pen/OJMjWda
  */
-import { h } from 'preact';
+import { h, RefObject } from 'preact';
 import {
   useEffect,
   useLayoutEffect,
   useState,
   useRef,
-  Ref,
   useCallback,
 } from 'preact/hooks';
 import Storage from '../../utils/Storage';
 
 type PropsType = {
-  sidebarRef: Ref<HTMLElement>;
+  sidebarRef: RefObject<HTMLElement>;
 };
 
 type ResizeDataType = {
@@ -162,7 +161,7 @@ function getInitialResizeData(): ResizeDataType {
   };
 }
 
-function getCurrentSidebarWidth(sidebarRef: Ref<HTMLElement>) {
+function getCurrentSidebarWidth(sidebarRef: RefObject<HTMLElement>) {
   return sidebarRef.current?.offsetWidth ?? null;
 }
 

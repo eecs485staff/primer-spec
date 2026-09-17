@@ -3,13 +3,16 @@ name: release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   release:
     name: release
     runs-on: ubuntu-latest
     steps:
       - name: 📁 Checkout develop branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           ref: 'develop'
           fetch-depth: 0
@@ -18,13 +21,13 @@ jobs:
         uses: fregante/setup-git-user@v1
 
       - name: ⬢ Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v7
         with:
-          node-version: '16'
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: ⚙️ Install dependencies
-        run: npm install --no-save
+        run: npm ci
 
       - name: ❄️ Freeze version
         run: script/version freeze

@@ -34,7 +34,7 @@ jobs:
       # Check out latest code using a pre-existing GH action
       # Docs: https://github.com/actions/checkout
       - name: 📁 Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
 
       # Build the Primer Spec website. The action places the fully-built
       # website in an `_site/` directory.
@@ -46,7 +46,7 @@ jobs:
       # GitHub Pages.
       # Docs: https://github.com/actions/upload-pages-artifact
       - name: 🏺 Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
 
   # (2) Deploy job
   deploy:
@@ -58,4 +58,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
