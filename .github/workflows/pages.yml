@@ -36,11 +36,32 @@ jobs:
       - name: 📁 Checkout code
         uses: actions/checkout@v7
 
-      # Build the Primer Spec website. The action places the fully-built
-      # website in an `_site/` directory.
+      - name: 💎 Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Ruby version is read from .ruby-version.
+          bundler-cache: true
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: 🛠 Build Jekyll website
+        env:
+          JEKYLL_ENV: production
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          bundle exec ruby -ryaml -e 'puts({"url" => ENV.fetch("PAGES_ORIGIN"), "baseurl" => ENV.fetch("PAGES_BASE_PATH")}.to_yaml)' > "$RUNNER_TEMP/primer-spec-pages.yml"
+          bundle exec jekyll build --config "_config.yml,$RUNNER_TEMP/primer-spec-pages.yml"
+
+      # Keep the existing PDF generation without its hard-coded Ruby 3.0 build.
       # Docs: https://github.com/seshrs/build-primer-spec-action
-      - name: 🛠 Build Primer Spec website
+      - name: 📑 Generate Primer Spec PDFs
         uses: seshrs/build-primer-spec-action@v1
+        with:
+          build_jekyll_site: 'false'
+          configure_github_pages: 'false'
 
       # Upload the _site directory created in the above step for use by
       # GitHub Pages.
