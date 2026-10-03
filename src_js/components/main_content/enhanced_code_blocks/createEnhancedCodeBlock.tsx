@@ -200,14 +200,17 @@ function createCodeBlockLine(options: {
           break;
         }
       }
-      const childrenToIncludeInSelection = children.slice(i);
+      // jsx-dom accepts DOM nodes as children, but its types only list
+      // ReactNode, so cast to satisfy the typechecker.
+      const childrenToIncludeInSelection = children.slice(
+        i,
+      ) as unknown as JSXDom.JSX.Element[];
       // (3) Wrap remaining children in a new <span> with id=LC_ID.
       codeLine.innerHTML = '';
       codeLine.appendChild(<span>{childrenToExcludeFromSelection}</span>);
-      const selectableSpan = document.createElement('span');
-      selectableSpan.id = LC_ID;
-      selectableSpan.append(...childrenToIncludeInSelection);
-      codeLine.appendChild(selectableSpan);
+      codeLine.appendChild(
+        <span id={LC_ID}>{childrenToIncludeInSelection}</span>,
+      );
     }
   }
 
