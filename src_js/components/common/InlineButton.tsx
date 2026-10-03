@@ -21,7 +21,7 @@ export default function InlineButton(
           props.onClick
             ? (event) => {
                 event.preventDefault();
-                props.onClick && props.onClick();
+                props.onClick?.();
               }
             : undefined
         }

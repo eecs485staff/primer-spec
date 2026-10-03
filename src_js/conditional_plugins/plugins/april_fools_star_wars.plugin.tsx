@@ -520,7 +520,7 @@ try {
       },
     }),
   );
-} catch (e) {}
+} catch {}
 
 const wheelOpt = supportsPassive ? { passive: false } : false;
 const wheelEvent =

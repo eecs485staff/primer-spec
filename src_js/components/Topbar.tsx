@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import IconType from './common/IconType';
 import InlineButton, { InlineLinkButton } from './common/InlineButton';
 import Config from '../Config';

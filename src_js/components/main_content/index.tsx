@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import Config from '../../Config';
 import { usePrintInProgress } from '../../utils/hooks/print';
 import useTaskListCheckboxes from './useTaskListCheckboxes';

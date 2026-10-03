@@ -2,7 +2,7 @@ import { Month, isTodayInRange } from '../date_utils';
 
 describe('isTodayInRange', () => {
   beforeEach(() => {
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
   });
 
   afterEach(() => {

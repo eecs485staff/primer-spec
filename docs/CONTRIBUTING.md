@@ -80,7 +80,7 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
 
 1. Ensure that you have a version of Ruby later than 2.4.0. If you're on a Mac, you may need to run `brew install ruby` first.
 
-2. Ensure that you have [NodeJS](https://nodejs.org/en/download/package-manager/) installed.
+2. Install [Node.js](https://nodejs.org/en/download/package-manager/) 24 LTS (see `.nvmrc`). If you use nvm, run `nvm install` and `nvm use` in the repository. Node.js 22.14 or newer is required.
 
 3. Run `script/bootstrap`.
 
@@ -92,11 +92,24 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
    $ ./script/bootstrap
    ```
 
+   `script/bootstrap` uses `npm ci` to install the JavaScript dependencies recorded in `package-lock.json`. Commit updates to `package.json` and its lockfile together. The script also enables the repository's Git hooks.
+
 4. Run `script/server` to begin the Jekyll server. By default, the site is served at http://localhost:4000/. (It monitors changes you make to most theme files and automatically rebuilds the website.)
 
 ### Run tests
 
-The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
+Run `npm test` (or `script/cibuild`) after `script/bootstrap`. This checks formatting, ESLint, TypeScript types, Jest tests, the production JavaScript bundle, and the Jekyll build and HTML validation. HTML validation uses the W3C service and requires network access.
+
+For individual checks:
+
+- `npm run format` formats TypeScript, TSX, and theme SCSS using the locally installed Prettier version.
+- `npm run format:check` checks the same files without changing them.
+- `npm run lint` checks source code with ESLint's flat configuration in `eslint.config.cjs`.
+- `npm run typecheck` checks TypeScript without emitting files.
+- `npm run test:js -- --runInBand` runs the JavaScript tests.
+- `npm run build:js` builds the production bundle.
+
+ESLint stays on version 9 while `eslint-config-preact` requires it, and TypeScript stays on version 5.9 for compatibility with the test/build tools. Check peer dependencies before upgrading either to a new major version.
 
 ### Adding new subthemes
 

@@ -1,8 +1,10 @@
 module.exports = {
-  preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  transformIgnorePatterns: ['node_modules/?!(jsx-dom)/'],
+  // These dependencies publish ESM; transform them for the CommonJS tests.
+  transformIgnorePatterns: [
+    '/node_modules/(?!jsx-dom/|@sindresorhus/|escape-string-regexp/)',
+  ],
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: { module: 'CommonJS' } }],
   },
 };

@@ -1,5 +1,5 @@
 /**
- * webpack.config.ts
+ * webpack.config.cjs
  *
  * To build in 'production' mode, run `npx webpack --env production`.
  * Alternatively, use 'script/build` for development, and 'script/cibuild' for
@@ -8,16 +8,11 @@
  * The config's output target is assets/js/primer_spec_plugin.min.js.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as semver from 'semver';
-import * as webpack from 'webpack';
-import * as webpackDevServer from 'webpack-dev-server';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-
-interface Configuration extends webpack.Configuration {
-  devServer?: webpackDevServer.Configuration;
-}
+const fs = require('node:fs');
+const path = require('node:path');
+const semver = require('semver');
+const webpack = require('webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const VERSION_RAW = fs.readFileSync(
   path.resolve(__dirname, 'VERSION'),
@@ -33,11 +28,16 @@ if (semver_version == null) {
 }
 const VERSION_MINOR_STR = `v${semver_version.major}.${semver_version.minor}`;
 
-function getBuildMode(env: NodeJS.ProcessEnv) {
+/** @param {Record<string, unknown>} env */
+function getBuildMode(env) {
   return env && env.production ? 'production' : 'development';
 }
 
-export default function (env: NodeJS.ProcessEnv): Configuration {
+/**
+ * @param {Record<string, unknown>} env
+ * @returns {import('webpack').Configuration}
+ */
+module.exports = function (env) {
   return {
     mode: getBuildMode(env),
     context: path.resolve(__dirname, 'src_js/'),
@@ -48,16 +48,6 @@ export default function (env: NodeJS.ProcessEnv): Configuration {
     },
     module: {
       rules: [
-        // JavaScript loader
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: /(node_modules|bower_components)/,
-          options: {
-            babelrc: false,
-            presets: [['@babel/preset-env', { modules: false }]],
-          },
-        },
         // TypeScript loader
         {
           test: /\.tsx?$/,
@@ -90,14 +80,5 @@ export default function (env: NodeJS.ProcessEnv): Configuration {
     devtool: 'source-map',
     // Minimize output
     stats: { preset: 'minimal' },
-    devServer: {
-      stats: {
-        hash: false,
-        version: false,
-        timings: false,
-        assets: false,
-        chunks: false,
-      },
-    },
   };
-}
+};

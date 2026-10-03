@@ -41,12 +41,13 @@ exclude:
   - node_modules
   - script
   - src_js
-  - .eslintrc
+  - eslint.config.cjs
   - .prettierignore
   - .prettierrc
   - '*.yml'
   - '*.lock'
   - '*.config.js'
+  - '*.config.cjs'
   - '*.code-workspace'
   - '*.ts'
   - '*.gem'
