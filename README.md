@@ -96,6 +96,7 @@ The Primer Spec theme is currently used by the following courses at the Universi
 - [EECS 183](https://eecs183.github.io/eecs183.org/) (Elementary Programming Concepts).
 - [EECS 298](https://eecs298.github.io/) (Social Consequences of Computing).
 - [EECS 441](https://eecs441.eecs.umich.edu/) (Mobile App Development for Entrepreneurs).
+- [EECS 442](https://eecs442.github.io) (Computer Vision).
 - [EECS 484](https://eecs484db.github.io/) (Database Management Systems).
 - EECS 482 (Introduction to Operating Systems).
 
