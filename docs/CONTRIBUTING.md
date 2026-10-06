@@ -78,7 +78,9 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
 
 ### Bootstrap your local environment
 
-1. Ensure that you have a version of Ruby later than 2.4.0. If you're on a Mac, you may need to run `brew install ruby` first.
+1. Install Ruby 3.3 (see `.ruby-version`) and Bundler. On a Mac, run `brew install ruby@3.3`, then add `$(brew --prefix ruby@3.3)/bin` to your `PATH`. Use this Ruby instead of macOS's system Ruby.
+
+   `script/bootstrap` installs the Ruby dependencies recorded in `Gemfile.lock`. Commit updates to this lockfile when changing Ruby dependencies.
 
 2. Install [Node.js](https://nodejs.org/en/download/package-manager/) 24 LTS (see `.nvmrc`). If you use nvm, run `nvm install` and `nvm use` in the repository. Node.js 22.14 or newer is required.
 
@@ -86,7 +88,7 @@ Read the [Dev Onboarding](DEV_README.md) doc to familiarize yourself with the or
 
    ```console
    $ ruby --version
-   ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
+   ruby 3.3.x
    $ pwd
    /seshrs/primer-spec
    $ ./script/bootstrap
@@ -110,6 +112,8 @@ For individual checks:
 - `npm run build:js` builds the production bundle.
 
 ESLint stays on version 9 while `eslint-config-preact` requires it, and TypeScript stays on version 5.9 for compatibility with the test/build tools. Check peer dependencies before upgrading either to a new major version.
+
+The `github-pages` version in `Gemfile` is intentionally pinned because of [the metadata plugin compatibility issue](https://github.com/eecs485staff/primer-spec/issues/261). Upgrade it separately from the development tools and verify remote-theme rendering before changing that pin.
 
 ### Adding new subthemes
 
