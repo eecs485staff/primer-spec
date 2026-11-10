@@ -753,6 +753,11 @@ div.primer-spec-callout {
     border-color: var(--code-block-border-color);
     background-color: var(--code-block-bg-color);
 
+    @media screen {
+      // Leave room below the last line for overlay horizontal scrollbars.
+      padding-bottom: 16px;
+    }
+
     tr {
       color: var(--code-block-default-color);
       background-color: var(--code-block-bg-color);
