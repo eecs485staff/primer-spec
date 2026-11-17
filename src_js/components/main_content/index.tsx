@@ -68,9 +68,6 @@ export default function MainContent({
   ) {
     should_use_dark_mode = true;
   }
-  if (is_print_in_progress) {
-    should_use_dark_mode = false;
-  }
   const mermaidDiagramsEffect = useCallback(useMermaidDiagrams, [innerHTML]);
   useEffect(() => {
     // Mermaid Diagrams should only be rendered after the document has

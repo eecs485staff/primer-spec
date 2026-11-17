@@ -24,6 +24,22 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
 
 // For students printing out the spec, don't print the sidebar and icons.
 @media print {
+  #primer-spec-preact-main-content {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-top: 0 !important;
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  .primer-spec-settings-container {
+    display: none !important;
+  }
+
+  .primer-spec-mermaid-screen {
+    display: none !important;
+  }
+
   .no-print,
   .no-print * {
     display: none !important;
@@ -42,6 +58,12 @@ $INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
     overflow: visible !important;
     white-space: pre-wrap !important;
     word-wrap: break-all !important;
+  }
+}
+
+@media screen {
+  .primer-spec-mermaid-print {
+    display: none !important;
   }
 }
 
