@@ -2,11 +2,7 @@ import { h } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 import { clsx } from 'clsx';
 import Config from '../../Config';
-import {
-  useAfterPrint,
-  useBeforePrint,
-  usePrintInProgress,
-} from '../../utils/hooks/print';
+import { usePrintInProgress } from '../../utils/hooks/print';
 import useTaskListCheckboxes from './useTaskListCheckboxes';
 import useEnhancedCodeBlocks from './enhanced_code_blocks/useEnhancedCodeBlocks';
 import useMermaidDiagrams from './useMermaidDiagrams';
@@ -72,14 +68,8 @@ export default function MainContent({
   ) {
     should_use_dark_mode = true;
   }
-  const screenDarkMode = should_use_dark_mode;
-  if (is_print_in_progress) {
-    should_use_dark_mode = false;
-  }
   const mermaidDiagramsEffect = useCallback(useMermaidDiagrams, [innerHTML]);
-  const printDiagramsActive = useRef(false);
   useEffect(() => {
-    if (printDiagramsActive.current) return;
     // Mermaid Diagrams should only be rendered after the document has
     // completed loading (including CSS and font resources). Otherwise, labels
     // may be displayed out of bounds.
@@ -92,26 +82,6 @@ export default function MainContent({
     // might also reflow.
     return mermaidDiagramsEffect(main_el_ref, should_use_dark_mode);
   }, [window_loaded, mermaidDiagramsEffect, should_use_dark_mode]);
-
-  // Print events must update diagrams before Firefox snapshots the document.
-  // Keep normal screen rendering in the deferred effect above.
-  useBeforePrint(
-    useCallback(() => {
-      // Chromium mismeasures SVG labels during a synchronous print redraw.
-      // Preserve its existing rendering path; Firefox needs an immediate redraw.
-      if (!screenDarkMode || !/Firefox\//.test(navigator.userAgent)) return;
-      if (printDiagramsActive.current) return;
-      printDiagramsActive.current = true;
-      mermaidDiagramsEffect(main_el_ref, false);
-    }, [mermaidDiagramsEffect, screenDarkMode]),
-  );
-  useAfterPrint(
-    useCallback(() => {
-      if (!printDiagramsActive.current) return;
-      printDiagramsActive.current = false;
-      mermaidDiagramsEffect(main_el_ref, screenDarkMode);
-    }, [mermaidDiagramsEffect, screenDarkMode]),
-  );
 
   // TOOLTIPPED ABBREVIATIONS
   const tooltippedAbbreviationsEffect = useCallback(
