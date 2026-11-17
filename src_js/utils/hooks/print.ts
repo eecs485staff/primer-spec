@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'preact/hooks';
+import { flushSync } from 'preact/compat';
 
 /**
  * Return a stateful boolean representing if a print-event is in progress
@@ -27,26 +28,28 @@ export function usePrintInProgress(): boolean {
  */
 export function useBeforePrint(handler: () => void): void {
   useEffect(() => {
+    // Firefox captures the print document before queued component updates run.
+    const synchronousHandler = () => flushSync(handler);
     // Safari < 13 requires this polyfill:
     let mql_listener: (mql: MediaQueryListEvent) => void;
     if (window.matchMedia) {
       mql_listener = (mql) => {
         if (mql.matches) {
           // webkit equivalent of onbeforeprint
-          handler();
+          synchronousHandler();
         }
       };
       window.matchMedia('print').addListener(mql_listener);
     }
 
     // Non-Safari browsers support this:
-    window.addEventListener('beforeprint', handler);
+    window.addEventListener('beforeprint', synchronousHandler);
 
     return () => {
       if (window.matchMedia) {
         window.matchMedia('print').removeListener(mql_listener);
       }
-      window.removeEventListener('beforeprint', handler);
+      window.removeEventListener('beforeprint', synchronousHandler);
     };
   }, [handler]);
 }

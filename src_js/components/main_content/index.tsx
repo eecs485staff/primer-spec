@@ -72,7 +72,8 @@ export default function MainContent({
     should_use_dark_mode = false;
   }
   const mermaidDiagramsEffect = useCallback(useMermaidDiagrams, [innerHTML]);
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // Finish the print-theme redraw before the browser captures the document.
     // Mermaid Diagrams should only be rendered after the document has
     // completed loading (including CSS and font resources). Otherwise, labels
     // may be displayed out of bounds.
